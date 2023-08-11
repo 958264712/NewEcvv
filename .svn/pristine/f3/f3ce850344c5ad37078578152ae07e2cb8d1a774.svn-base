@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import {defineAsyncComponent} from 'vue'
+const content = defineAsyncComponent(() => import('./components/content.vue'))
+const otp = defineAsyncComponent(() => import('./components/otp.vue'))
+const all = defineAsyncComponent(() => import('./components/all.vue'))
+</script>
+<template>
+    <main>
+        <section class="details-content-banner">
+            <a href="//purchasing.ecvv.com" target="_blank">
+            </a>
+        </section>
+        <content />
+        <otp />
+        <all />
+    </main>
+</template>
+<style scoped lang="scss">
+.details-content-banner a {
+    display: block;
+    height: 156px;
+    width: 100%;
+    background: url('//eresource.ecvv.com/PC_Ecvv/images/company-img/banner1440.jpg') center no-repeat;
+}
+main{
+    background-color: #fff;
+}
+</style>

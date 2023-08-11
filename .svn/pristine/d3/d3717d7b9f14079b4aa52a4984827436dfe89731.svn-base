@@ -1,0 +1,197 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { getRelatedCategory } from '@/api/modular/search'
+
+const router = useRouter()
+const params = ref<any>({
+    keyword: router.options.history.location.split('=')[1],
+})
+const props = defineProps(['leftAside'])
+// 定义子组件向父组件传值/事件
+const emit = defineEmits(['onMore', 'onifMore','onCid','onurlPVMsg']);
+const onMore = (item: Boolean, index: number) => {
+    emit('onMore', !item, index);
+}
+const onifMore = (item: Boolean, index: number) => {
+    emit('onifMore', !item, index);
+}
+const onCid = (item:number) => {
+    emit('onCid', item);
+}
+const onurlPVMsg = (item:string) => {
+    emit('onurlPVMsg', item);
+}
+// 是否存在Category
+const ifCategory = ref(false)
+const CategoryList = ref<any>([])
+
+const handleCategory = async (item?:any) => {
+    if(item){
+       params.value.cid = item
+    }
+    await getRelatedCategory(Object.assign(params.value)).then(res => {
+        if (res.data.result.length) {
+            ifCategory.value = true
+            CategoryList.value = res.data.result
+        }
+    })
+}
+handleCategory()
+</script>
+
+<template>
+    <aside class="col-left ">
+        <template v-if="ifCategory">
+            <div class="box attri" id="AttrisContent">
+                <div class="title">
+                    Category
+                </div>
+                <div class="items" v-for="(item, index ) in CategoryList" :key="index">
+                    <!-- 默认前三展开,判断是否展开 -->
+                    <div class="items-name" @click="handleCategory(item.cid);onCid(item.cid)">
+                        {{ item.title }}
+                    </div>
+                </div>
+            </div>
+        </template>
+        <div class="box attri" id="AttrisContent">
+            <div class="title">
+                {{ props.leftAside.title }}
+            </div>
+
+            <div class="items" v-for="(item, index ) in props.leftAside.list" :key="index">
+                <!-- 默认前三展开,判断是否展开 -->
+                <div class="items-name" @click="onMore(item.more, index)">
+                    <template v-if="item.more">
+                        <span class="you-ico"><span></span></span>
+                    </template>
+                    <template v-else>
+                        <span class="xia-ico"><span></span></span>
+                    </template>
+                    <span>{{ item.title }}</span>
+                </div>
+                <template v-if="item.More">
+                    <ul class="items-content">
+                        <li v-for="(ite, ind ) in item.list" :key="ind"><a :href="ite.href" @click="onurlPVMsg(ite.urlPVMsg)" rel="nofollow">{{ ite.text }}</a>
+                        </li>
+                        <template v-if="item.ifMore">
+                            <li class="hidden-part" v-for="(ite, ind ) in item.morelist" :key="ind" >
+                                <a :href="ite.href" @click="onurlPVMsg(ite.urlPVMsg)"  rel="nofollow">{{ ite.text }}</a></li>
+                        </template>
+                    </ul>
+                    <!-- more展开更多，less关闭展开  -->
+                    <template v-if="item.ifMore">
+                        <div class="m" @click="onifMore(item.ifMore, index)"> <span class="view-more" id="view_more"
+                                title="Click to view less">Less..</span>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="m" @click="onifMore(item.ifMore, index)"><span class="view-more" id="view_more"
+                                title="Click to view more">More..</span>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </aside>
+</template>
+<style scoped lang="scss">
+a {
+    color: #555;
+    cursor: pointer;
+}
+
+.col-left {
+    width: 200px;
+    height: auto;
+
+}
+
+.col-left .box {
+    line-height: 22px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px 10px;
+    background: #fff;
+}
+
+.col-left .box .title {
+    cursor: default;
+    padding: 5px 0;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.col-left .attri .items {
+    padding-bottom: 5px;
+}
+
+.col-left .attri .items-name {
+    cursor: pointer;
+}
+.col-left .attri .items-name:hover {
+    background: #fff;
+    color: #ee6600;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.col-left .xia-ico span,
+.col-left .xia-ico:hover span {
+    border-top-color: #999;
+}
+
+.xia-ico span {
+    width: 0;
+    height: 0;
+    line-height: 0;
+    display: inline-block;
+    border-width: 4px;
+    border-color: #999 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid dashed dashed dashed;
+    margin-left: 5px;
+    margin-right: 3px;
+    position: relative;
+}
+
+.you-ico span {
+    width: 0;
+    height: 0;
+    line-height: 0;
+    display: inline-block;
+    border-width: 4px;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #999;
+    border-style: dashed dashed dashed solid;
+    margin-left: 5px;
+    margin-right: 3px;
+    position: relative;
+}
+
+.items-content {
+    max-height: 170px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    margin-left: 20px;
+}
+
+.m {
+    margin-left: 20px;
+}
+
+.col-left .attri div ul li a:hover {
+    background: #fff;
+    color: #ee6600;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.col-left .attri .items .m {
+    list-style: none;
+    padding: 6px 0 0;
+}
+
+
+.col-left .box .view-more {
+    color: #999;
+    padding-left: 0;
+}</style>

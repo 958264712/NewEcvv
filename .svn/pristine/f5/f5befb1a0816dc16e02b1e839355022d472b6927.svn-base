@@ -1,0 +1,79 @@
+<script setup lang="ts">
+import {ref,defineAsyncComponent} from 'vue'
+import {useRouter} from 'vue-router'
+import {getProductInfo} from '@/api/modular/search'
+
+const content = defineAsyncComponent(() => import('./components/content.vue'))
+const otp = defineAsyncComponent(() => import('./components/otp.vue'))
+const all = defineAsyncComponent(() => import('./components/all.vue'))
+const StartOrderModel = defineAsyncComponent(() => import('./components/StartOrderModel.vue'))
+const router = useRouter()
+const params = ref({
+    pid:router.options.history.location.split('=')[1]
+})
+const StartOrderDialog = ref()
+const ProductInfo = ref<any>({})
+const handleQuery = async () => {
+    const res = await getProductInfo(Object.assign(params.value))
+    if(res.data.type === 'success'){
+        ProductInfo.value = res.data.result
+        ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0]
+        ProductInfo.value.productDescription = res.data.result.productDetail.productDescription
+        ProductInfo.value.productPropertyList = res.data.result.productDetail.productPropertyList
+        ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll
+        ProductInfo.value.productName = res.data.result.productDetail.productName
+        ProductInfo.value.supplyAbility = res.data.result.productDetail.supplyAbility
+        ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit
+        ProductInfo.value.minOrder = res.data.result.productDetail.minOrder
+        ProductInfo.value.productPrice = res.data.result.productOtherInfo.productPrice
+        ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit
+        ProductInfo.value.productUnit = res.data.result.productOtherInfo.productUnit
+        // 面包屑
+        ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg
+        // 产品列表
+        const list = res.data.result.recommProductList
+        ProductInfo.value.recommProductList = []
+        const list1 = ref([])
+        list.map((item)=>{
+            list1.value.push(item)
+            if(list1.value.length % 7 === 0){
+                ProductInfo.value.recommProductList.push(list1.value)
+                list1.value = []
+            }
+        }) 
+        // 推荐产品列表
+        ProductInfo.value.productRecommendList = res.data.result.productRecommendList
+
+    }
+}
+handleQuery()
+const handleQuery1 = async () => {
+}
+const handleStartOrder = () =>{
+    StartOrderDialog.value.openDialog()
+}
+</script>
+<template>
+    <main>
+        <section class="details-content-banner">
+            <a href="//purchasing.ecvv.com" target="_blank">
+            </a>
+        </section>
+        <content :handleStartOrder="handleStartOrder" :ProductInfo = "ProductInfo"/>
+        <otp :ProductInfo = "ProductInfo"/>
+        <all :handleStartOrder="handleStartOrder" :ProductInfo = "ProductInfo"/>
+        <StartOrderModel ref="StartOrderDialog" :ProductInfo = "ProductInfo" @reloadTable="handleQuery1"/>
+
+    </main>
+</template>
+<style scoped lang="scss">
+.details-content-banner a {
+    display: block;
+    height: 156px;
+    width: 100%;
+    background: url('//eresource.ecvv.com/PC_Ecvv/images/company-img/banner1440.jpg') center no-repeat;
+}
+main{
+    background-color: #fff;
+}
+</style>

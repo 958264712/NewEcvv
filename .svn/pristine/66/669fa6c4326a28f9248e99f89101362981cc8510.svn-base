@@ -1,0 +1,106 @@
+<script setup lang="ts">
+</script>
+<template>
+    <section class="details-content-otp auto-w">
+        <h3 class="details-content-otp-h3">
+            Products related to this item
+        </h3>
+        <div class="wc1200 row rowE">
+            <div class="bd mt20" style="margin: 10px;">
+                <div id="sca1" class="warp-pic-list">
+                    <div id="wrapBox1" class="wrapBox" style="width: 1230px; height: 220px; overflow: hidden;">
+                        <el-carousel :interval="3000" id="count1" class="count clearfix" arrow="always"
+                            indicator-position="none">
+                            <el-carousel-item v-for="ite in list">
+                                <a :href="ite.href" class="img_wrap">
+                                    <img :alt="ite.title" :src="ite.src">
+                                </a>
+                                <p class="qh_name">
+                                    <a :title="ite.title" :href="ite.href">{{ ite.text }}</a>
+                                </p>
+                                <span class="qh_price">{{ ite.price }}<i> /Pieces</i></span>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+<style scoped lang="scss">
+.details-content-otp {
+    margin-top: 30px;
+    clear: both;
+    flex-direction: column;
+}
+
+.details-content-otp-h3 {
+    background: #f8f8f8;
+    height: 45px;
+    line-height: 45px;
+    text-indent: 15px;
+    font-size: 16px;
+    font-weight: normal;
+    width: 1440px;
+    margin: 0 auto;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.wrapBox {
+    position: relative;
+    margin: 0 auto;
+}
+
+.rowE .count li {
+    margin-right: 30px;
+    width: 150px;
+    height: 220px;
+}
+
+.rowE .count .img_wrap {
+    width: 150px;
+}
+
+.warp-pic-list .img_wrap {
+    display: block;
+    font-size: 0;
+    overflow: hidden;
+}
+
+.rowE .count .img_wrap img {
+    width: 150px;
+    height: 150px;
+}
+
+.qh_price {
+    color: #1da1f2;
+    font-size: 18px;
+}
+</style>
+<style lang="scss">
+// 轮播图
+
+.el-carousel__arrow--left,
+.el-carousel__arrow--right {
+    position: absolute;
+    height: 55px;
+    width: 35px;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    top: calc(50% - 23px);
+    svg {
+        width: 32px;
+        height: 32px;
+        padding-right: 10px;
+    }
+}
+.el-carousel__arrow--right{
+    right:10px;
+}
+</style>
