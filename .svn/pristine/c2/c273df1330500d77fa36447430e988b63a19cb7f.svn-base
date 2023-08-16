@@ -1,0 +1,604 @@
+
+layui.use(['jquery', 'form', 'upload', 'layer'], function () {
+    var $ = layui.jquery;
+    var form = layui.form;
+    var upload = layui.upload;
+    var layer = layui.layer;
+
+    var itemTop = 0;
+
+    //验证 Product Name
+    $('.content').on('blur', '#prodName', function () {
+        productName();
+    });
+    $('.content').on('focus', '#prodName', function () {
+        $('#prodName_Tip').css('display', 'none');
+    });
+    function productName() {
+        if ($('#prodName').val() != "") {
+            $('#prodName_Tip').css('display', 'none');
+            return $('#prodName').val();
+        } else {
+            $('#prodName_Tip').css('display', 'block');
+            itemTop = $('#prodName').offset().top;
+            return false;
+        }
+    }
+
+    //验证 Quantity
+    $('.content').on('blur', '#prodQuantity', function () {
+        prodQuantity();
+    });
+    $('.content').on('focus', '#prodQuantity', function () {
+        $('#prodQuantity_Tip').css('display', 'none');
+    });
+    function prodQuantity() {
+        if ($('#prodQuantity').val() != "") {
+            if ($('#prodQuantity').val().match(/^[1-9]\d*$/)) {
+                $('#prodQuantity_Tip').css('display', 'none');
+                return $('#prodQuantity').val();
+            } else {
+                $('#prodQuantity_Tip').css('display', 'block');
+                $('#prodQuantity_Tip').text('Please enter a number above 0.');
+            }
+        } else {
+            $('#prodQuantity_Tip').css('display', 'block');
+            $('#prodQuantity_Tip').text('Please fill in the required fields before submitting.');
+        }
+        itemTop = itemTop > 0 ? itemTop : $('#prodQuantity').offset().top;
+        return false;
+    }
+
+    //验证 Max Budget
+    form.on('select(onMaxBudget_select)', data => {
+        onMaxBudget_select();
+    });
+    function onMaxBudget_select() {
+        if ($('#MaxBudget_select').val() != "-1") {
+            $('#maxBudget_Tip').css('display', 'none');
+            return $('#MaxBudget_select').val();
+        } else {
+            $('#maxBudget_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#MaxBudget_select').offset().top;
+            return false;
+        }
+    }
+
+    //验证 Sourcing Type
+    form.on('select(onSourcingType_select)', data => {
+        onSourcingType_select();
+    });
+    function onSourcingType_select() {
+        if ($('#SourcingType_select').val() != "-1") {
+            $('#SourcingType_Tip').css('display', 'none');
+            return $('#SourcingType_select').val();
+        } else {
+            $('#SourcingType_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#SourcingType_select').offset().top;
+            return false;
+        }
+    }
+
+    //验证 Details
+    $('.content').on('blur', '#Details', function () {
+        Details();
+    });
+    $('.content').on('focus', '#Details', function () {
+        $('#Details_Tip').css('display', 'none');
+    });
+    function Details() {
+        if ($('#Details').val() != "") {
+            $('#Details_Tip').css('display', 'none');
+            return $('#Details').val();
+        } else {
+            $('#Details_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#Details').offset().top;
+            return false;
+        }
+    }
+
+    //验证 Business Email
+    $('.content').on('blur', '#BusinessEmail', function () {
+        BusinessEmail();
+    });
+    $('.content').on('focus', '#BusinessEmail', function () {
+        $('#BusinessEmail_Tip').css('display', 'none');
+    });
+    function BusinessEmail() {
+        if ($('#BusinessEmail').val() != "") {
+            if ($('#BusinessEmail').val().match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+                $('#BusinessEmail_Tip').css('display', 'none');
+                return $('#BusinessEmail').val();
+            } else {
+                $('#BusinessEmail_Tip').css('display', 'block');
+                $('#BusinessEmail_Tip').text('Please enter the correct email address.');
+            }
+        } else {
+            $('#BusinessEmail_Tip').css('display', 'block');
+            $('#BusinessEmail_Tip').text('Please fill in the required fields before submitting.');
+        }
+        itemTop = itemTop > 0 ? itemTop : $('#BusinessEmail').offset().top;
+        return false;
+    }
+
+    //验证 CompanyName
+    $('.content').on('blur', '#CompanyName', function () {
+        CompanyName();
+    });
+    $('.content').on('focus', '#CompanyName', function () {
+        $('#CompanyName_Tip').css('display', 'none');
+    });
+    function CompanyName() {
+        if ($('#CompanyName').val() != "") {
+            $('#CompanyName_Tip').css('display', 'none');
+            return $('#CompanyName').val();
+        } else {
+            $('#CompanyName_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#CompanyName').offset().top;
+            return false;
+        }
+    }
+
+    //验证 Phone Number
+    $('.content').on('blur', '#PhoneNumber', function () {
+        PhoneNumber();
+    });
+    $('.content').on('focus', '#PhoneNumber', function () {
+        $('#PhoneNumber_Tip').css('display', 'none');
+    });
+    function PhoneNumber() {
+        if ($('#PhoneNumber').val() != "") {
+            if ($('#PhoneNumber').val().match(/^[1-9]\d*$/)) {
+                $('#PhoneNumber_Tip').css('display', 'none');
+                return $('#PhoneNumber').val();
+            } else {
+                $('#PhoneNumber_Tip').css('display', 'block');
+                $('#PhoneNumber_Tip').text('Please enter the correct phone number.');
+            }
+        } else {
+            $('#PhoneNumber_Tip').css('display', 'block');
+            $('#PhoneNumber_Tip').text('Please fill in the required fields before submitting.');
+        }
+        itemTop = itemTop > 0 ? itemTop : $('#PhoneNumber').offset().top;
+        return false;
+    }
+
+    //验证 Verification Code
+    $('.content').on('blur', '#VerificationCode', function () {
+        VerificationCode();
+    });
+    $('.content').on('focus', '#VerificationCode', function () {
+        $('#VerificationCode_Tip').css('display', 'none');
+    });
+    function VerificationCode() {
+        if ($('#VerificationCode').val() != "") {
+            if ($('#VerificationCode').val().toLowerCase() == GetCookie('CheckCode').toLowerCase()) {
+                $('#VerificationCode_Tip').css('display', 'none');
+                return true;
+            } else {
+                $('#VerificationCode_Tip').css('display', 'block');
+                $('#VerificationCode_Tip').text('Enter the correct verification code.');
+            }
+        } else {
+            $('#VerificationCode_Tip').css('display', 'block');
+            $('#VerificationCode_Tip').text('Please fill in the required fields before submitting.');
+        }
+        itemTop = itemTop > 0 ? itemTop : $('#VerificationCode').offset().top;
+        return false;
+    }
+
+    function GetCookie(name) {
+        var arg = name + "=";
+        var alen = arg.length;
+        var clen = document.cookie.length;
+        var i = 0;
+        while (i < clen) {
+            var j = i + alen;
+            if (document.cookie.substring(i, j) == arg)
+                return GetCookieVal(j);
+            i = document.cookie.indexOf(" ", i) + 1;
+            if (i == 0) break;
+        }
+        return null;
+    }
+
+    function GetCookieVal(offset) {
+        var endstr = document.cookie.indexOf(";", offset);
+        if (endstr == -1)
+            endstr = document.cookie.length;
+        return unescape(document.cookie.substring(offset, endstr));
+    }
+
+    //验证 Lead Time
+    $('.content').on('blur', '#LeadTime', function () {
+        LeadTime();
+    });
+    $('.content').on('focus', '#LeadTime', function () {
+        $('#LeadTime_Tip').css('display', 'none');
+    });
+    function LeadTime() {
+        if ($('#LeadTime').val().match(/^[1-9]\d*$/) != null) {
+            $('#LeadTime_Tip').css('display', 'none');
+            return $('#LeadTime').val();
+        } else {
+            $('#LeadTime_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#LeadTime').offset().top;
+            return false;
+        }
+    }
+
+    //验证 SelectCategory
+    function SelectCategory() {
+        if ($('#SelectCategory').text() != 'Select Category') {
+            $('#SelectCategory_Tip').css('display', 'none');
+            return $("#SelectCategory").attr('ecategoryid');
+        } else {
+            $('#SelectCategory_Tip').css('display', 'block');
+            itemTop = itemTop > 0 ? itemTop : $('#SelectCategory').offset().top;
+            return false;
+        }
+    }
+
+    //上传附件
+    fileUrl_list = [];
+    //创建一个上传组件
+    upload.render({
+        elem: '#queuefile'
+        , url: '?op=fileUpload'
+        , auto: false //是否自动上传
+        , accept: 'file' //普通文件
+        , bindAction: '#Submit' //指向一个按钮触发上传
+        , done: function (res, index, upload) { //接口请求成功的回调 
+            fileUrl_list.push(res.data.src);
+            if ($('ul.file-bd li p.file-name').length == fileUrl_list.length) {
+                SaveCommInquiryPost()
+                layer.closeAll('loading'); //关闭loading
+            }
+        }
+        , choose: function (obj) { //选择文件后的回调
+            //将每次选择的文件追加到文件队列
+            FILES = obj.pushFile();
+            //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+            obj.preview(function (index, file, result) {
+
+                if (Object.keys(FILES).length > 3) {
+                    $("#ppTip").text("Sorry, you can only upload 3 files max.");
+                    $("#ppTip").show().delay(2000).fadeOut();
+                    delete FILES[index];
+                    return;
+                }
+
+                //console.log("choose"+index); //得到文件索引
+                //console.log(file); //得到文件对象
+                //console.log(result); //得到文件base64编码，比如图片
+
+                //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                //这里还可以做一些 append 文件列表 DOM 的操作
+                var extindex = file.name.lastIndexOf('.');
+                var ext = file.name.substr(extindex + 1);
+                if (['pdf', 'txt', 'docx', 'doc', 'xlsx', 'xls', 'jpg', 'jpeg', 'png', 'pptx', 'ppt', 'xml', 'mp3', 'mp4', 'tif', 'tiff', 'gif', 'bmp', 'svg', 'mpg', 'mpeg'].indexOf(ext.toLowerCase()) == -1) {
+                    $("#ppTip").text("Sorry, format is not supported.");
+                    $("#ppTip").show().delay(2000).fadeOut();
+                    delete FILES[index];
+                    return;
+                }
+
+                if (['png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'].indexOf(ext.toLowerCase()) !== -1) {
+                    var url = window.URL.createObjectURL(file);
+                    $('#filelist').append(`<li class="file-item cf" id="${index}" style="z-index: 1;">
+                                <div class="upload-file">
+                                    <p class="file-name" picid='${index}'>
+                                        <span class="ico ico-jpg ico_${index}"></span>${file.name}
+                                    </p>
+                                    <span>
+                                        <i class="micon icon-yes2">✔</i>
+                                    </span>
+                                    <a class="action delete" href="javascript:;" style="margin-left: 20px; color: #246bb3" index="${index}">Delete</a>
+                                </div>
+                                <div class="picBox" style="display: none;" id="picBox_${index}">
+                                    <a class="imgb100" href="javascript:void(0)">
+                                        <img class="fat100" src="${url}" style="width: 80px; height: 50px" alt="">
+                                    </a>
+                                </div>
+                            </li>`);
+                } else {
+                    $('#filelist').append(`<li class="file-item cf" id="${index}" style="z-index: 1;">
+                                <div class="upload-file">
+                                    <p class="file-name">
+                                        <span class="ico ico-jpg ico_${index}"></span>${file.name}
+                                    </p>
+                                    <span>
+                                        <i class="micon icon-yes2">✔</i>
+                                    </span>
+                                    <a class="action delete" href="javascript:;" style="margin-left: 20px; color: #246bb3" index="${index}">Delete</a>
+                                </div>
+                            </li>`);
+                }
+
+                switch (ext.toLowerCase()) {
+                    case 'pdf': $(`.ico_${index}`).css("background-position-y", "0px");
+                        break;
+                    case 'txt': $(`.ico_${index}`).css("background-position-y", "-18px");
+                        console.log($(`.ico_${index}`));
+                        break;
+                    case 'docx':
+                    case 'doc': $(`.ico_${index}`).css("background-position-y", "-36px");
+                        break;
+                    case 'xlsx':
+                    case 'xls': $(`.ico_${index}`).css("background-position-y", "-54px");
+                        break;
+                    case 'jpge':
+                    case 'jpg': $(`.ico_${index}`).css("background-position-y", "-72px");
+                        break;
+                    case 'png': $(`.ico_${index}`).css("background-position-y", "-90px");
+                        break;
+                    case 'pptx':
+                    case 'ppt': $(`.ico_${index}`).css("background-position-y", "-108px");
+                        break;
+                    case 'xml': $(`.ico_${index}`).css("background-position-y", "-126px");
+                        break;
+                    case 'mp3': $(`.ico_${index}`).css("background-position-y", "-144px");
+                        break;
+                    case 'mp4': $(`.ico_${index}`).css("background-position-y", "-162px");
+                        break;
+                    case 'tif': $(`.ico_${index}`).css("background-position-y", "-180px");
+                        break;
+                    case 'tiff': $(`.ico_${index}`).css("background-position-y", "-198px");
+                        break;
+                    case 'zip': $(`.ico_${index}`).css("background-position-y", "-216px");
+                        break;
+                    case 'rar': $(`.ico_${index}`).css("background-position-y", "-234px");
+                        break;
+                    case 'gif': $(`.ico_${index}`).css("background-position-y", "-252px");
+                        break;
+                    default:
+                }
+
+                $('#J-upload-progress').text(`(${Object.keys(FILES).length}/3)`);
+
+                //console.log($("#LAY_layedit_2").contents().find(`#${index}`));
+                //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                //layer.load(); //上传loading
+            });
+        },
+        before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+            if (VerifyCommInquiryPost()) {
+                layer.load(); //上传loading
+            } else {
+                return false; //阻止上传
+            }
+
+        },
+        error: function (index, upload) {
+            //当上传失败时，你可以生成一个“重新上传”的按钮，点击该按钮时，执行 upload() 方法即可实现重新上传
+        }
+    });
+
+    //鼠标悬停预览图片
+    $('#filelist').on({
+        mouseenter: function () {
+            var picid = $(this).attr('picid');
+            $(`#picBox_${picid}`).show();
+            $(this).parents(".file-item").css('z-index', 2);
+        },
+        mouseleave: function () {
+            var picid = $(this).attr('picid');
+            $(`#picBox_${picid}`).hide();
+            $(this).parents(".file-item").css('z-index', 1);
+        }
+    }, '.file-name');
+
+    //$('ul').hover(function () {
+    //    $('.picBox').show();
+    //}, function () {
+    //    $('.picBox').hide();
+    //});
+
+    //删除文件
+    $('.content').on('click', '.delete', function () {
+        var index = $(this).attr("index");
+        $(`#${index}`).remove();
+        delete FILES[index];
+        $('#J-upload-progress').text(`(${Object.keys(FILES).length}/3)`);
+    });
+
+    //选择目录 Select Category
+    $('.content').on('click', '#SelectCategory', function () {
+        $.ajax({
+            url: "?op=GetCategoryListStr",
+            type: "post",
+            async: false,
+            dataType: "json",
+            data: { ECategoryParentID: 0 },
+            contentType: "application/json; charset=utf-8",
+            success: function (resutle) {
+                areaCont = '<ul id="sort1">';
+                for (var key in resutle) {
+                    areaCont += `<li ECategoryID="${resutle[key].ECategoryID}" IsLeaf="${resutle[key].IsLeaf}" ${resutle[key].disabled}><a href="javascript:void(0)">${resutle[key].ECategoryName}</a></li>`
+                }
+                areaCont += '</ul>';
+            },
+        });
+
+        //页面层
+        layer.open({
+            type: 1,
+            title: 'Select Category',
+            skin: 'demo-class', //加上边框
+            area: ['640px', '448px'], //宽高
+            btn: ['Select', 'Cancel'],
+            content: `<div class="wareSort clearfix">
+                     </div>`,
+            yes: function (index,lay) {
+                var select = "";
+                var ecategoryid = "";
+                $('ul li[class$="active"]').each(function (index, element) {
+                    if (index != $('ul li[class$="active"]').length - 1) {
+                        select += $(this).text() + " >> ";
+                    } else {
+                        select += $(this).text();
+                        ecategoryid = $(this).attr('ecategoryid');
+                    }
+
+                });
+                $('#SelectCategory').text(select);
+                $('#SelectCategory').attr('ecategoryid', ecategoryid);
+                layer.close(index);
+            }
+        });
+        $(".clearfix").append(areaCont);
+        $('#SelectCategory_Tip').css('display', 'none');
+    });
+
+    /*选择目录*/
+    $(document).on('click', '.clearfix li', function () {
+        $(this).closest('ul').nextAll().remove();
+        $(this).addClass("active").siblings("li").removeClass("active");
+        ECategoryID = $(this).attr('ECategoryID');
+        $.ajax({
+            url: "?op=GetCategoryListStr",
+            type: "post",
+            async: false,
+            dataType: "json",
+            data: { ECategoryParentID: ECategoryID },
+            contentType: "application/json; charset=utf-8",
+            success: function (resutle) {
+                if (resutle.length == 0) {
+                    areaCont = "";
+                    $('.layui-layer-btn0').css({ "border-color": "E6E3E6", "background-color": "#1E9FFF", "color": "#fff", "pointer-events": "all" });
+                    return;
+                }
+                areaCont = `<ul id="sort1">`;
+                for (var key in resutle) {
+                    areaCont += `<li ECategoryID="${resutle[key].ECategoryID}" IsLeaf="${resutle[key].IsLeaf}" ${resutle[key].disabled}><a href="javascript:void(0)">${resutle[key].ECategoryName}</a></li>`
+                }
+                areaCont += '</ul>';
+            },
+        });
+        $(".clearfix").append(areaCont);
+
+        $('.layui-layer-content').scrollLeft($(".clearfix")[0].scrollWidth);
+        //$('.layui-layer-content').animate({
+        //    scrollLeft: $(".clearfix")[0].scrollWidth
+        //}, 1000)
+    });
+
+
+
+    //Select
+    //$(document).on('click', '.layui-layer-btn0', function () {
+    //    var select = "";
+    //    var ecategoryid = "";
+    //    $('ul li[class$="active"]').each(function (index, element) {
+    //        if (index != $('ul li[class$="active"]').length - 1) {
+    //            select += $(this).text() + " >> ";
+    //        } else {
+    //            select += $(this).text();
+    //            ecategoryid = $(this).attr('ecategoryid');
+    //        }
+
+    //    });
+    //    $('#SelectCategory').text(select);
+    //    $('#SelectCategory').attr('ecategoryid', ecategoryid);
+    //});
+
+    //Submit
+    $('.content').on('click', '#Submit', function () {
+        if ($('ul.file-bd li p.file-name').length == 0) {
+            SaveCommInquiryPost()
+        }
+    });
+
+    let cip = "";
+    let country = "";
+    //$.getScript('http://pv.sohu.com/cityjson?ie=utf-8')
+    //    .done(function (script, textSatus, jqxhr) {
+    //        cip = returnCitySN.cip;//xx.xx.xx.xx
+    //    });
+
+    $.getJSON("https://ipapi.co/json/", function (data) { cip = data.ip, country = data.country_name })
+
+    //验证
+    function VerifyCommInquiryPost() {
+        var prodName = productName();
+        var prodQuantityVal = prodQuantity();
+        var onMaxBudget_selectVal = onMaxBudget_select();
+        var onSourcingType_selectVal = onSourcingType_select();
+        var DetailsVal = Details();
+        var BusinessEmailVal = BusinessEmail();
+        var CompanyNameVal = CompanyName();
+        var PhoneNumberVal = PhoneNumber();
+        var LeadTimeVal = LeadTime();
+        var Verification = VerificationCode();
+        var SelectCategoryVal = SelectCategory();
+        if (prodName != false && prodQuantityVal != false && onMaxBudget_selectVal != false && onSourcingType_selectVal != false && DetailsVal != false && BusinessEmailVal != false && CompanyNameVal != false && PhoneNumberVal != false && LeadTimeVal != false && Verification != false && SelectCategoryVal != false) {
+            return true;
+        }
+        return false;
+    }
+    function SaveCommInquiryPost() {
+        var prodName = productName();
+        var prodQuantityVal = prodQuantity();
+        var onMaxBudget_selectVal = onMaxBudget_select();
+        var onSourcingType_selectVal = onSourcingType_select();
+        var DetailsVal = Details();
+        var BusinessEmailVal = BusinessEmail();
+        var CompanyNameVal = CompanyName();
+        var PhoneNumberVal = PhoneNumber();
+        var LeadTimeVal = LeadTime();
+        if (VerifyCommInquiryPost()) {
+            //var Category = $('#SelectCategory').text();
+            var QuantityType = $('#QuantityType_select').val();
+            var PriceUnit_select = $('#PriceUnit_select').val();
+            var FullName = $("#FullName").val();
+            var ShippingMaxBudget_select = $("#ShippingMaxBudget_select").val();
+            var Destination_select = $("#Destination_select").val();
+            var PaymentMethod_select = $("#PaymentMethod_select").val();
+            var TradeTerms_selectVal = $("#TradeTerms_select").val();
+            var VerificationCode = $("#VerificationCode").val();
+            var InquiryLocalTime = new Date().toLocaleString() + "+" + Math.floor(0 - new Date().getTimezoneOffset() / 60) + ":" + (0 - new Date().getTimezoneOffset() / 60 - Math.floor(0 - new Date().getTimezoneOffset() / 60)) * 60;
+            var CategoryID = $("#SelectCategory").attr('ecategoryid'); //目录ID
+
+            $.ajax({
+                url: "?op=SaveCommInquiryPost",
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: { VerificationCode: VerificationCode, prodName: prodName, prodQuantityVal: prodQuantityVal, onMaxBudget_selectVal: onMaxBudget_selectVal, onSourcingType_selectVal: onSourcingType_selectVal, DetailsVal: DetailsVal, BusinessEmailVal: BusinessEmailVal, CompanyNameVal: CompanyNameVal, PhoneNumberVal: PhoneNumberVal, LeadTimeVal: LeadTimeVal, QuantityType: QuantityType, PriceUnit_select: PriceUnit_select, FullName: FullName, ShippingMaxBudget_select: ShippingMaxBudget_select, Destination_select: Destination_select, PaymentMethod_select: PaymentMethod_select, InquiryLocalTime: InquiryLocalTime, cip: cip, country: country, CategoryID: CategoryID, TradeTerms_selectVal: TradeTerms_selectVal, fileUrl_list: fileUrl_list.join(',') },
+                contentType: "application/json; charset=utf-8",
+                success: function (resutle) {
+                    console.log(resutle);
+                    switch (resutle) {
+                        case 200:
+                            layer.alert('Post success！', {
+                                title: "Message",
+                                icon: 1,
+                                skin: 'layer-ext-demo', //见：扩展说明
+                                btn: ["Confirm"]
+                            })
+                            break;
+                        case 204:
+                            layer.alert('Verification code error!', {
+                                title: "Message",
+                                icon: 2,
+                                skin: 'layer-ext-demo', //见：扩展说明
+                                btn: ["Confirm"]
+                            })
+                            break;
+                        default:
+                    }
+
+
+                },
+            });
+        } else {
+            $('html,body').animate({
+                scrollTop: itemTop
+            }, 1000)
+        }
+    }
+
+});
+

@@ -78,9 +78,10 @@ const queryRFQ = () => {
                     </div>
                 </div>
             </el-col>
-            <el-col :span="3" class="payRequest hidden-md-and-down" @click="queryRFQ">
+            <el-col :span="3" class="payRequest hidden-md-and-down" >
                 <i title="One request, multiple quotes" />
-                <a  title="Easy Sourcing More Convenient, More Efficient" target="_blank">Post Sourcing Request</a>
+                <a @click="queryRFQ"
+                    title="Easy Sourcing More Convenient, More Efficient" target="_blank">Post Sourcing Request</a>
             </el-col>
             <el-col :span="5" class="hidden-lg-and-down">
                 <el-row id="UNavMenu" class=" nav-list2 fr">
