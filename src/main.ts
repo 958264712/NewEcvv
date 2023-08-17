@@ -6,7 +6,8 @@ import router from './router/index'
 import "./utils/rem.js"
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+import PicZoom from 'vue3-piczoom'
 
 const app = createApp(App)
 
-app.use(createPinia()).use(ElementPlus).use(router).mount('#app')
+app.use(createPinia()).use(ElementPlus).use(router).use(PicZoom).mount('#app')

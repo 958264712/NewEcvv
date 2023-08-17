@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import PicZoom from '@/components/picZoom/index.vue'
+// import PicZoom from '@/components/picZoom/index.vue'
+// 自己开发一套npm 用导入方式替换了子文件，源码保留
+import PicZoom from 'vue3-piczoom'
 
 const props = defineProps(['handleStartOrder', 'ProductInfo'])
 const emit = defineEmits(['select'])

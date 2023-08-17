@@ -1,0 +1,11 @@
+# 忽略目录
+node_modules/
+.yarn/
+public/
+
+# 忽略指定文件
+vue.config.js
+babel.config.js
+src/components/picZoom
+*.map
+.gitignore

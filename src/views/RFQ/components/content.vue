@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { ref, defineAsyncComponent, watch } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 import type { UploadInstance } from 'element-plus'
 import { fileDelete, saveCommInquiry } from '@/api/modular/sourcingRequest'
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
 import type { UploadProps } from 'element-plus'
 
 const transferModel = defineAsyncComponent(() => import('./transferModel.vue'))
+const router = useRouter()
 const transferModels = ref()
 const CateList = ref('')
 const checkbox = ref(false)
 const fileUrl_list = ref<any>([])
+const location = router.options.history.location.split('?')[1]?.replaceAll('&', ' ').split(' ') ?? []
+
 const queryParams = ref<any>({
     prodName: '',
     quantityType: 'Piece(s)',
@@ -48,7 +52,21 @@ service({
     if (res.status === 200) {
         queryParams.value.cip = res.data.ip
         queryParams.value.country = res.data.country_name
-        
+        location.map((item: any) => {
+            const key = item.split('=')
+            if (key[0] === 'prodName') {
+                queryParams.value.prodName = key[1]
+            }
+            if (key[0] === 'prodDesc') {
+                queryParams.value.detailsVal = key[1]
+            }
+            if (key[0] === 'prodQuantity') {
+                queryParams.value.prodQuantityVal = key[1]
+            }
+            if (key[0] === 'prodQuantityUnit') {
+                queryParams.value.quantityType = key[1]
+            }
+        })
     }
 })
 // 提交
@@ -115,14 +133,14 @@ const removeFile: UploadProps['onRemove'] = async (uploadFile: any) => {
     const key = url[2].split(':')
     const src = url[3].split(':')
     await fileDelete(key[2]).then(res => {
-        if(res.data.type==='success'){
-            fileUrl_list.value.map((item:any,index:number)=>{
-                if(item===src[1] + ':' + src[2]){
-                    fileUrl_list.value.splice(index,1)
+        if (res.data.type === 'success') {
+            fileUrl_list.value.map((item: any, index: number) => {
+                if (item === src[1] + ':' + src[2]) {
+                    fileUrl_list.value.splice(index, 1)
                 }
             })
             ElMessage.success('You success delete it is files')
-        }else{
+        } else {
             ElMessage.error('You did not delete the files')
         }
     })
@@ -695,4 +713,5 @@ You may include: Color, Material, Size, Weight, Packaging and certificate requir
     .layui-row {
         display: flex;
     }
-}</style>
+}
+</style>

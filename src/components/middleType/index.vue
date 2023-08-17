@@ -4,6 +4,7 @@ const typeOne = defineAsyncComponent(() => import('./components/typeOne.vue'))
 const typeTwo = defineAsyncComponent(() => import('./components/typeTwo.vue'))
 const typeThree = defineAsyncComponent(() => import('./components/typeThree.vue'))
 const typeFour = defineAsyncComponent(() => import('./components/typeFour.vue'))
+const RFQForm = defineAsyncComponent(() => import('./components/RFQForm.vue'))
 // 组件化 定义name，style，dom元素,接收props值
 const typeList = ref<object[]>([])
 const props = defineProps(['typeProps'])
@@ -92,8 +93,8 @@ watch(
                     }
                     break;
                 case 3:
-                    const list = ref([])
-                    const content = ref([])
+                    const list = ref<any>([])
+                    const content = ref<any>([])
                     item.content.map((i: any) => {
                         list.value.push(i)
                         if (list.value.length % 5 === 0) {
@@ -184,6 +185,7 @@ const contents =
             <typeThree :item="item" />
         </template>
     </section>
+    <RFQForm />
     <typeFour :item="contents" />
 </template>
 <style scoped lang="scss">
