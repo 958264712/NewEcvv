@@ -18,9 +18,6 @@ const SearchSubmit = () =>{
 const queryRFQ = () => {
     router.push({path:`/RFQInquiry`})
 }
-const queryReg = () => {
-    router.push({ path: `/register` })
-}
 </script>
 
 <template>
@@ -95,8 +92,9 @@ const queryReg = () => {
                     </el-col>
                     <el-col :span="9"  class="active2">
                         <i>For Supplier</i>
-                        <div id="LoginUserName2" class="join"><a id="Slogin" href="javaScript:void(0)">Sign
-                                in</a><a class="sign-ok" @click="queryReg">Join free</a></div>
+                        <div id="LoginUserName2" class="join"><a class="sign-ok"
+                                href="//www.ecvv.com/myecvv/">freeuser</a><a id="SloginOut" href="javaScript:void(0)">Sign
+                                Out</a></div>
                     </el-col>
                     <el-col id="li_cart" style="display:none">
                         <div> <a href="//www.ecvv.com/Order/ShoppingCartLog?a=104.11.11"><img
