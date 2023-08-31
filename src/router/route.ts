@@ -86,6 +86,11 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				name: 'register',
 				component: () => import('@/views/Login/components/reg/index.vue')
 			},
+			{
+				path: '/account',
+				name: 'account',
+				component: () => import('@/views/Login/components/account/index.vue')
+			},
 		]
 	}
 ]

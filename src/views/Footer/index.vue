@@ -8,7 +8,7 @@ const CopyRight = defineAsyncComponent(() => import('./components/CopyRight.vue'
 
 // 判断是否为reg页面
 const ifReg = ref(false)
-if (router.options.history.location === '/register') {
+if (router.options.history.location === '/register' || router.options.history.location === '/account') {
   ifReg.value = true
 } else {
   ifReg.value = false
