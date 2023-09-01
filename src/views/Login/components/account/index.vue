@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent } from 'vue'
-
+import { getCookie } from '@/utils/cookie.ts'
+import { getAccountInfo } from '@/api/modular/account.ts'
 const updatePWModel = defineAsyncComponent(() => import('./components/updatePW.vue'));
 const updateTPModel = defineAsyncComponent(() => import('./components/updateTP.vue'));
 const updateEmModel = defineAsyncComponent(() => import('./components/updateEm.vue'));
@@ -12,9 +13,26 @@ const updateEm = ref()
 const updateBind = ref()
 const ifCode = ref(true)
 const ifEmail = ref(false)
-const phoneNumber = ref('15179265779')
-const password = ref('123456')
-const phoneEmail = ref('lw958264712@163.com')
+const userInfo = ref<any>({
+    strMemberID: 'bGAyObFDels*'
+})
+
+
+
+const handleQuery = async () => {
+    await getAccountInfo({ strMemberID: userInfo.value.strMemberID }).then((res:any) => {
+        if (res.data.type === 'success') {
+            userInfo.value = res.data.result
+            userInfo.value.strMemberID = 'bGAyObFDels*'
+            if (userInfo.value.email.length > 0) {
+                ifEmail.value = false;
+            } else {
+                ifEmail.value = true;
+            }
+            // userInfo.value.strMemberID = getCookie('EUserID')
+        }
+    })
+}
 
 const handleUpdatePw = () => {
     updatePW.value.openDialog()
@@ -28,6 +46,7 @@ const handleUpdateEm = () => {
 const handleBind = () => {
     updateBind.value.openDialog()
 }
+handleQuery()
 </script >
 <template>
     <div class="content">
@@ -38,7 +57,7 @@ const handleBind = () => {
                 <a @click="handleUpdatePw">修改密码</a>
             </el-form-item>
             <el-form-item label="手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：" prop="telphone">
-                <p>{{ phoneNumber }}</p>
+                <p>{{ userInfo.phoneNumber }}</p>
                 <a @click="handleUpdateTP">修改手机</a>
             </el-form-item>
             <el-form-item label="邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：" prop="email">
@@ -48,7 +67,7 @@ const handleBind = () => {
                     <a @click="() => { handleUpdateEm(); ifCode = true }">绑定邮箱</a>
                 </template>
                 <template v-else>
-                    <p>{{ phoneEmail }}</p>
+                    <p>{{ userInfo.email }}</p>
                     <a @click="handleUpdateEm">修改邮箱</a>
                 </template>
             </el-form-item>
@@ -58,10 +77,10 @@ const handleBind = () => {
             </el-form-item>
         </el-form>
     </div>
-    <updatePWModel ref="updatePW" :password="password" />
-    <updateTPModel ref="updateTP" :phoneNumber="phoneNumber" />
-    <updateEmModel ref="updateEm" :phoneEmail="phoneEmail" :ifCode="ifCode" />
-    <updateBindModel ref="updateBind" :phoneNumber="phoneNumber" />
+    <updatePWModel ref="updatePW" />
+    <updateTPModel ref="updateTP" :userInfo="userInfo" />
+    <updateEmModel ref="updateEm" :userInfo="userInfo" :ifCode="ifCode" />
+    <updateBindModel ref="updateBind" :userInfo="userInfo" />
 </template>
 <style scoped lang="less">
 .content {

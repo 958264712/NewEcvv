@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { registerEmember, sendCode } from '@/api/modular/register.ts'
+import { updateEmail, sendCode } from '@/api/modular/account.ts'
 import { ElMessage } from 'element-plus'
 
-const props = defineProps(['phoneEmail', 'ifCode'])
+const props = defineProps(['userInfo', 'ifCode'])
 const emit = defineEmits(['ifCode'])
 
 const outerVisible = ref(false)
@@ -27,34 +27,34 @@ const timers = () => {
         }
     }
 }
-const handleCode = async () => {
-    if (props.ifCode) {
-        if (paramsForm.email) {
-            await sendCode(paramsForm.email).then((res) => {
-                if (res.data.type === "success") {
-                    ifhandleCode.value = true
-                    const object = JSON.parse(res.data.result)
-                    ifqueryCode.value = object.obj
-                    timers()
-                }
-            })
-        }
-    } else {
-        if (props.phoneEmail) {
-            await sendCode(props.phoneEmail).then((res) => {
-                if (res.data.type === "success") {
-                    ifhandleCode.value = true
-                    const object = JSON.parse(res.data.result)
-                    ifqueryCode.value = object.obj
-                    timers()
-                }
-            })
-        }
-    }
+const handleCode = async (num:number) => {
+    // if (props.ifCode) {
+    //     if (paramsForm.value.email && num = 2) {
+    //         await sendCode(paramsForm.email).then((res) => {
+    //             if (res.data.type === "success") {
+    //                 ifhandleCode.value = true
+    //                 const object = JSON.parse(res.data.result)
+    //                 ifqueryCode.value = object.obj
+    //                 timers()
+    //             }
+    //         })
+    //     }
+    // } else {
+    //     if (props.phoneEmail && num = 1) {
+    //         await sendCode(props.phoneEmail).then((res) => {
+    //             if (res.data.type === "success") {
+    //                 ifhandleCode.value = true
+    //                 const object = JSON.parse(res.data.result)
+    //                 ifqueryCode.value = object.obj
+    //                 timers()
+    //             }
+    //         })
+    //     }
+    // }
 }
 
 // 打开弹窗
-const openDialog = async () => {
+const openDialog = () => {
     outerVisible.value = true;
 };
 // 关闭弹窗
@@ -63,10 +63,10 @@ const closeDialog = () => {
     paramsForm.value = {}
 };
 const submit = () => {
-    if (paramsForm.code === ifqueryCode.value) {
+    if (paramsForm.value.code === ifqueryCode.value) {
         const regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-        if (regEmail.test(paramsForm.email)) {
-            registerEmember(Object.assign(paramsForm)).then(res => {
+        if (regEmail.test(paramsForm.value.newEmail)) {
+            updateEmail(Object.assign(paramsForm.value)).then(res => {
                 if (res.data.type === "success") {
                     ElMessage.success('修改成功！')
                     paramsForm.value = {}
@@ -88,6 +88,9 @@ const handleNext = () => {
     // 如果填正确了验证码
     if (paramsForm.value.code === ifqueryCode.value) {
         emit('ifCode', true)
+        num.value = 60
+        paramsForm.value.code = ''
+        ifhandleCode.value = false
     } else {
         ElMessage.error('验证码输入错误，请重新输入')
     }
@@ -103,7 +106,7 @@ defineExpose({ openDialog });
         <el-dialog v-model="outerVisible" title="修改邮箱" width="30%" @close="closeDialog">
             <template #default>
                 <template v-if="props.ifCode">
-                    <p>验证码将发送到手机{{ props.phoneEmail }}</p>
+                    <p>验证码将发送到手机{{ props.userInfo.email }}</p>
                     <i>如果长时间未收到验证码，请检查垃圾箱</i>
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="填写验证码：" prop="code">
@@ -115,7 +118,7 @@ defineExpose({ openDialog });
                                             num }} s</span>
                                 </template>
                                 <template v-else>
-                                    <el-button @click="handleCode">获取验证码</el-button>
+                                    <el-button @click="handleCode(1)">获取验证码</el-button>
                                 </template>
                             </div>
                         </el-form-item>
@@ -136,14 +139,14 @@ defineExpose({ openDialog });
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="输入新手机" prop="phoneNumber">
                             <div style="display:flex">
-                                <el-input v-model="paramsForm.email" placeholder="请输入邮箱：" style="margin:0 10px" clearable />
+                                <el-input v-model="paramsForm.newEmail" placeholder="请输入邮箱：" style="margin:0 10px" clearable />
                                 <template v-if="ifhandleCode">
                                     <span
                                         style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
                                             num }} s</span>
                                 </template>
                                 <template v-else>
-                                    <el-button @click="handleCode">获取验证码</el-button>
+                                    <el-button @click="handleCode(2)">获取验证码</el-button>
                                 </template>
                             </div>
                         </el-form-item>

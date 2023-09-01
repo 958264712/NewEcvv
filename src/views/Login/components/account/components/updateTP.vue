@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { registerEmember, sendCode } from '@/api/modular/register.ts'
+import { updatePhoneNumber, sendCode } from '@/api/modular/account.ts'
 import { ElMessage } from 'element-plus'
 
-const props = defineProps(['phoneNumber'])
+const props = defineProps(['userInfo'])
 const outerVisible = ref(false)
-const paramsForm = ref<any>({ phoneHead: '+86' })
+const paramsForm = ref<any>({
+    phoneHead: '+86',
+    strMemberID: props.userInfo.strMemberID,
+    newPhoneNumber: '',
+    code: ''
+})
 const ifhandleCode = ref(false)
 const ifqueryCode = ref('')
 const timer = ref<any>()
@@ -26,30 +31,29 @@ const timers = () => {
         }
     }
 }
-const handleCode = async () => {
-    if (!ifCode) {
-        if (paramsForm.phoneNumber) {
-            await sendCode(paramsForm.phoneNumber).then((res) => {
-                if (res.data.type === "success") {
-                    ifhandleCode.value = true
-                    const object = JSON.parse(res.data.result)
-                    ifqueryCode.value = object.obj
-                    timers()
-                }
-            })
-        }
-    } else {
-        if (props.phoneNumber) {
-            await sendCode(props.phoneNumber).then((res) => {
-                if (res.data.type === "success") {
-                    ifhandleCode.value = true
-                    const object = JSON.parse(res.data.result)
-                    ifqueryCode.value = object.obj
-                    timers()
-                }
-            })
-        }
+
+const handleCode = async (num: number) => {
+    if (props.userInfo.phoneNumber && num === 1) {
+        await sendCode(Object.assign({ strMemberID: props.userInfo.strMemberID })).then((res) => {
+            if (res.data.type === "success") {
+                ifhandleCode.value = true
+                const object = JSON.parse(res.data.result)
+                ifqueryCode.value = object.obj
+                timers()
+            }
+        })
     }
+    if (paramsForm.value.newPhoneNumber && num === 2) {
+        await sendCode(Object.assign({ strMemberID: props.userInfo.strMemberID, PhoneNumber: paramsForm.value.newPhoneNumber })).then((res) => {
+            if (res.data.type === "success") {
+                ifhandleCode.value = true
+                const object = JSON.parse(res.data.result)
+                ifqueryCode.value = object.obj
+                timers()
+            }
+        })
+    }
+        
 }
 
 // 打开弹窗
@@ -63,10 +67,11 @@ const closeDialog = () => {
 
 };
 const submit = () => {
-    if (paramsForm.code === ifqueryCode.value) {
+    if (paramsForm.value.code === ifqueryCode.value) {
         const regPhone = /^[1][3,4,5,7,8][0-9]{9}$/
-        if (regPhone.test(paramsForm.phoneNumber)) {
-            registerEmember(Object.assign(paramsForm)).then(res => {
+        if (regPhone.test(paramsForm.value.newPhoneNumber)) {
+            console.log(paramsForm.value);
+            updatePhoneNumber(Object.assign(paramsForm.value)).then(res => {
                 if (res.data.type === "success") {
                     ElMessage.success('修改成功！')
                     paramsForm.value = {}
@@ -88,6 +93,9 @@ const handleNext = () => {
     // 如果填正确了验证码
     if (paramsForm.value.code === ifqueryCode.value) {
         ifCode.value = false
+        num.value = 60
+        paramsForm.value.code = ''
+        ifhandleCode.value = false
     } else {
         ElMessage.error('验证码输入错误，请重新输入')
     }
@@ -103,7 +111,7 @@ defineExpose({ openDialog });
         <el-dialog v-model="outerVisible" title="修改手机" width="30%" @close="closeDialog">
             <template #default>
                 <template v-if="ifCode">
-                    <p>验证码将发送到手机{{ props.phoneNumber }}</p>
+                    <p>验证码将发送到手机{{ props.userInfo.phoneNumber }}</p>
                     <i>如果长时间未收到验证码，请检查是否将运营商拉黑</i>
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="填写验证码：" prop="code">
@@ -115,7 +123,7 @@ defineExpose({ openDialog });
                                             num }} s</span>
                                 </template>
                                 <template v-else>
-                                    <el-button @click="handleCode">获取验证码</el-button>
+                                    <el-button @click="handleCode(1)">获取验证码</el-button>
                                 </template>
                             </div>
                         </el-form-item>
@@ -134,7 +142,7 @@ defineExpose({ openDialog });
                 </template>
                 <template v-else>
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
-                        <el-form-item label="输入新手机：" prop="phoneNumber">
+                        <el-form-item label="输入新手机：" prop="newPhoneNumber">
                             <div style="display:flex">
                                 <el-select v-model="paramsForm.phoneHead" style="width:220px" placeholder="请选择电话头">
                                     <el-option value="+86" label="+86" />
@@ -142,7 +150,7 @@ defineExpose({ openDialog });
                                     <el-option value="+853" label="+853" />
                                     <el-option value="+886" label="+886" />
                                 </el-select>
-                                <el-input v-model="paramsForm.phoneNumber" placeholder="请您确认您的手机号" style="margin:0 10px"
+                                <el-input v-model="paramsForm.newPhoneNumber" placeholder="请您确认您的手机号" style="margin:0 10px"
                                     clearable />
                                 <template v-if="ifhandleCode">
                                     <span
@@ -150,7 +158,7 @@ defineExpose({ openDialog });
                                             num }} s</span>
                                 </template>
                                 <template v-else>
-                                    <el-button @click="handleCode">获取验证码</el-button>
+                                    <el-button @click="handleCode(2)">获取验证码</el-button>
                                 </template>
                             </div>
                         </el-form-item>

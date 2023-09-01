@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { h, ref, watch } from 'vue'
+import { h, ref } from 'vue'
 import { ElMessage, ElMessageBox, ElForm, ElFormItem, ElButton } from 'element-plus'
 import { sendCode } from '@/api/modular/register.ts'
 
-const props = defineProps(['phoneNumber'])
+const props = defineProps(['userInfo'])
 const ifTrue = ref(false)
 const outerVisible = ref(false)
 const ifBind = ref(false)
@@ -75,8 +75,8 @@ const timers = () => {
 }
 
 const handleCode = async () => {
-    if (props.phoneNumber) {
-        await sendCode(props.phoneNumber).then((res) => {
+    if (props.userInfo.phoneNumber) {
+        await sendCode(props.userInfo.phoneNumber).then((res) => {
             if (res.data.type === "success") {
                 ifhandleCode.value = true
                 const object = JSON.parse(res.data.result)
@@ -97,7 +97,7 @@ const bind = () => {
         showCancelButton: true,
         dangerouslyUseHTMLString: true,
         message: h('div', null, [
-            h('div', null, `验证码将发送到手机 ${props.phoneNumber}`),
+            h('div', null, `验证码将发送到手机 ${props.userInfo.phoneNumber}`),
             h('div', { style: 'color:#ccc;margin-bottom:20px;' }, `如果长时间未收到验证码，请检查是否将运营商拉黑`),
             h(ElForm, { modelValue: paramsForm.value }, [
                 h(ElFormItem, { label: '填写验证码：', prop: 'code' }, [
