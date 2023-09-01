@@ -5,6 +5,7 @@ enum Api {
     updateMemberPasswordAction = '/api/accountSettings/updateMemberPasswordAction',
     updatePhoneNumber = '/api/accountSettings/updatePhoneNumber',
     updateEmail = '/api/accountSettings/updateEmail',
+    sendVerificationEmail = '/api/accountSettings/sendVerificationEmail',
 }
 // 获取账号信息
 export const getAccountInfo = (params?: any) => request({
@@ -33,6 +34,12 @@ export const updatePhoneNumber = (params?: any) => request({
 // 修改邮箱
 export const updateEmail = (params?: any) => request({
     url: Api.updateEmail,
+    method: 'post',
+    data: params,
+});
+// 发送邮箱验证码
+export const sendVerificationEmail = (params?: any) => request({
+    url: Api.sendVerificationEmail,
     method: 'post',
     data: params,
 });

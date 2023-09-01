@@ -3,7 +3,8 @@ import { ref } from 'vue'
 import { updatePhoneNumber, sendCode } from '@/api/modular/account.ts'
 import { ElMessage } from 'element-plus'
 
-const props = defineProps(['userInfo'])
+const props = defineProps(['userInfo', 'setUserInfo'])
+const emit = defineEmits([ 'setUserInfo'])
 const outerVisible = ref(false)
 const paramsForm = ref<any>({
     phoneHead: '+86',
@@ -16,7 +17,7 @@ const ifqueryCode = ref('')
 const timer = ref<any>()
 const num = ref(60)
 const ifCode = ref(true)
-
+const phoneNumber = props.userInfo.phoneNumber
 const timers = () => {
     if (num.value <= 0) {
         clearTimeout(timer.value)
@@ -70,13 +71,15 @@ const submit = () => {
     if (paramsForm.value.code === ifqueryCode.value) {
         const regPhone = /^[1][3,4,5,7,8][0-9]{9}$/
         if (regPhone.test(paramsForm.value.newPhoneNumber)) {
-            console.log(paramsForm.value);
+            emit('setUserInfo', 'phoneNumber', paramsForm.value.newPhoneNumber)
             updatePhoneNumber(Object.assign(paramsForm.value)).then(res => {
                 if (res.data.type === "success") {
                     ElMessage.success('修改成功！')
                     paramsForm.value = {}
                     ifhandleCode.value = false
                 }
+            }).catch(res => {
+                emit('setUserInfo', 'phoneNumber', phoneNumber)
             })
         } else {
             ElMessage.error('请输入正确的手机号')
@@ -111,7 +114,7 @@ defineExpose({ openDialog });
         <el-dialog v-model="outerVisible" title="修改手机" width="30%" @close="closeDialog">
             <template #default>
                 <template v-if="ifCode">
-                    <p>验证码将发送到手机{{ props.userInfo.phoneNumber }}</p>
+                    <p>验证码将发送到手机：{{ props.userInfo.phoneNumber }}</p>
                     <i>如果长时间未收到验证码，请检查是否将运营商拉黑</i>
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="填写验证码：" prop="code">
@@ -119,7 +122,7 @@ defineExpose({ openDialog });
                                 <el-input v-model="paramsForm.code" placeholder=" " clearable />
                                 <template v-if="ifhandleCode">
                                     <span
-                                        style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
+                                        style="display:inline-block;width:62px; padding:0 4px ;text-align: center; border:1px solid #ccc; borderRadius:5px">{{
                                             num }} s</span>
                                 </template>
                                 <template v-else>
@@ -154,7 +157,7 @@ defineExpose({ openDialog });
                                     clearable />
                                 <template v-if="ifhandleCode">
                                     <span
-                                        style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
+                                        style="display:inline-block;width:62px; padding:0 4px ;text-align: center; border:1px solid #ccc; borderRadius:5px">{{
                                             num }} s</span>
                                 </template>
                                 <template v-else>

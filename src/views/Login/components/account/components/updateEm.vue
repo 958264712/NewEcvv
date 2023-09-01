@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { updateEmail, sendCode } from '@/api/modular/account.ts'
+import { updateEmail, sendVerificationEmail } from '@/api/modular/account.ts'
 import { ElMessage } from 'element-plus'
 
-const props = defineProps(['userInfo', 'ifCode'])
-const emit = defineEmits(['ifCode'])
+const props = defineProps(['userInfo', 'ifCode', 'setifCode','setUserInfo'])
+const emit = defineEmits(['setifCode','setUserInfo'])
 
 const outerVisible = ref(false)
 const paramsForm = ref<any>({ phoneHead: '+86' })
@@ -12,7 +12,7 @@ const ifhandleCode = ref(false)
 const ifqueryCode = ref('')
 const timer = ref<any>()
 const num = ref(60)
-
+const email = props.userInfo.email
 const timers = () => {
     if (num.value <= 0) {
         clearTimeout(timer.value)
@@ -27,38 +27,37 @@ const timers = () => {
         }
     }
 }
-const handleCode = async (num:number) => {
-    // if (props.ifCode) {
-    //     if (paramsForm.value.email && num = 2) {
-    //         await sendCode(paramsForm.email).then((res) => {
-    //             if (res.data.type === "success") {
-    //                 ifhandleCode.value = true
-    //                 const object = JSON.parse(res.data.result)
-    //                 ifqueryCode.value = object.obj
-    //                 timers()
-    //             }
-    //         })
-    //     }
-    // } else {
-    //     if (props.phoneEmail && num = 1) {
-    //         await sendCode(props.phoneEmail).then((res) => {
-    //             if (res.data.type === "success") {
-    //                 ifhandleCode.value = true
-    //                 const object = JSON.parse(res.data.result)
-    //                 ifqueryCode.value = object.obj
-    //                 timers()
-    //             }
-    //         })
-    //     }
-    // }
+const handleCode = async (num: number) => {
+    if (paramsForm.value.newEmail && num === 2) {
+        await sendVerificationEmail(paramsForm.value.newEmail).then((res) => {
+            if (res.data.type === "success") {
+                ifhandleCode.value = true
+                ifqueryCode.value = res.data.result.code
+                timers()
+            }
+        })
+    }
+    if (props.userInfo.email && num === 1) {
+        await sendVerificationEmail(props.userInfo.email).then((res) => {
+            if (res.data.type === "success") {
+                ifhandleCode.value = true
+                ifqueryCode.value = res.data.result.code
+                timers()
+            }
+        })
+    }
 }
 
 // 打开弹窗
 const openDialog = () => {
     outerVisible.value = true;
+    paramsForm.value = {}
 };
 // 关闭弹窗
 const closeDialog = () => {
+    if (props.ifCode) {
+        emit('setifCode', true)
+    }
     outerVisible.value = false;
     paramsForm.value = {}
 };
@@ -66,12 +65,16 @@ const submit = () => {
     if (paramsForm.value.code === ifqueryCode.value) {
         const regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         if (regEmail.test(paramsForm.value.newEmail)) {
+            paramsForm.value.strMemberID = props.userInfo.strMemberID
+            emit('setUserInfo', 'email', paramsForm.value.newEmail)
             updateEmail(Object.assign(paramsForm.value)).then(res => {
                 if (res.data.type === "success") {
                     ElMessage.success('修改成功！')
                     paramsForm.value = {}
                     ifhandleCode.value = false
                 }
+            }).catch(res => {
+                 emit('setUserInfo', 'email', email)
             })
         } else {
             ElMessage.error('请输入正确的邮箱')
@@ -87,7 +90,7 @@ const submit = () => {
 const handleNext = () => {
     // 如果填正确了验证码
     if (paramsForm.value.code === ifqueryCode.value) {
-        emit('ifCode', true)
+        emit('setifCode', false)
         num.value = 60
         paramsForm.value.code = ''
         ifhandleCode.value = false
@@ -106,7 +109,7 @@ defineExpose({ openDialog });
         <el-dialog v-model="outerVisible" title="修改邮箱" width="30%" @close="closeDialog">
             <template #default>
                 <template v-if="props.ifCode">
-                    <p>验证码将发送到手机{{ props.userInfo.email }}</p>
+                    <p>验证码将发送到邮箱：{{ props.userInfo.email }}</p>
                     <i>如果长时间未收到验证码，请检查垃圾箱</i>
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="填写验证码：" prop="code">
@@ -114,7 +117,7 @@ defineExpose({ openDialog });
                                 <el-input v-model="paramsForm.code" placeholder=" " clearable />
                                 <template v-if="ifhandleCode">
                                     <span
-                                        style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
+                                        style="display:inline-block;width:62px; padding:0 4px ; text-align: center;border:1px solid #ccc; borderRadius:5px">{{
                                             num }} s</span>
                                 </template>
                                 <template v-else>
@@ -139,10 +142,11 @@ defineExpose({ openDialog });
                     <el-form ref="ruleFormRef" :model="paramsForm" class="demo-ruleForm" status-icon>
                         <el-form-item label="输入新手机" prop="phoneNumber">
                             <div style="display:flex">
-                                <el-input v-model="paramsForm.newEmail" placeholder="请输入邮箱：" style="margin:0 10px" clearable />
+                                <el-input v-model="paramsForm.newEmail" placeholder="请输入邮箱：" style="margin:0 10px"
+                                    clearable />
                                 <template v-if="ifhandleCode">
                                     <span
-                                        style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
+                                        style="display:inline-block;width:62px; padding:0 4px ;text-align: center; border:1px solid #ccc; borderRadius:5px">{{
                                             num }} s</span>
                                 </template>
                                 <template v-else>

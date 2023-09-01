@@ -46,6 +46,12 @@ const handleUpdateEm = () => {
 const handleBind = () => {
     updateBind.value.openDialog()
 }
+const setifCode = (bol) => {
+    ifCode.value = bol
+}
+const setUserInfo = (val, item) => {
+    userInfo.value[val] = item
+}
 handleQuery()
 </script >
 <template>
@@ -78,8 +84,8 @@ handleQuery()
         </el-form>
     </div>
     <updatePWModel ref="updatePW" />
-    <updateTPModel ref="updateTP" :userInfo="userInfo" />
-    <updateEmModel ref="updateEm" :userInfo="userInfo" :ifCode="ifCode" />
+    <updateTPModel ref="updateTP" :userInfo="userInfo" @setUserInfo="setUserInfo"/>
+    <updateEmModel ref="updateEm" :userInfo="userInfo" @setifCode="setifCode" :ifCode="ifCode" @setUserInfo="setUserInfo" />
     <updateBindModel ref="updateBind" :userInfo="userInfo" />
 </template>
 <style scoped lang="less">
