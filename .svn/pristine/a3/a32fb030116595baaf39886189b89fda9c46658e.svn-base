@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { h, ref } from 'vue'
 import { ElMessage, ElMessageBox, ElForm, ElFormItem, ElButton } from 'element-plus'
-import { sendCode } from '@/api/modular/account.ts'
+import { sendCode } from '@/api/modular/register.ts'
 
 const props = defineProps(['userInfo'])
 const ifTrue = ref(false)

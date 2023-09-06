@@ -46,10 +46,10 @@ const handleUpdateEm = () => {
 const handleBind = () => {
     updateBind.value.openDialog()
 }
-const setifCode = (bol:boolean) => {
+const setifCode = (bol) => {
     ifCode.value = bol
 }
-const setUserInfo = (val:string, item:string) => {
+const setUserInfo = (val, item) => {
     userInfo.value[val] = item
 }
 handleQuery()
@@ -78,7 +78,7 @@ handleQuery()
                 </template>
             </el-form-item>
             <el-form-item label="三方账号：" prop="bind">
-                <p>{{ userInfo.binding }}</p>
+                <p>已绑定账号名称</p>
                 <a @click="handleBind">绑定/解绑</a>
             </el-form-item>
         </el-form>
@@ -126,6 +126,7 @@ handleQuery()
         }
     }
 }
+
 a {
     color: blue;
 }

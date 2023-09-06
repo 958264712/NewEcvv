@@ -10,11 +10,14 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowImportingTsExtensions":true,
+    "noEmit": true,
     "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
       "@": ["src"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@theme":["src/theme"]
     },
     "types": ["vite/client"]
   },
