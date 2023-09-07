@@ -41,7 +41,7 @@ export const Local = {
  */
 export const Session = {
 	// 设置临时缓存
-	set<T>(key: string, val: T) {
+	set<T>(key: string, val: string) {
 		if (key === 'token') return Cookies.set(key, val);
 		window.sessionStorage.setItem(Local.setKey(key), JSON.stringify(val));
 	},

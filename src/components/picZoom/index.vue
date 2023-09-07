@@ -1,4 +1,4 @@
-<script setup >
+<script setup lang="ts">
 import { reactive, ref, onMounted, watch, nextTick } from 'vue'
 const props = defineProps({
     scale: {
@@ -22,8 +22,8 @@ const props = defineProps({
         default: false
     }
 })
-const id = ref(null)
-const state = reactive({
+const id = ref<any>(null)
+const state = reactive<any>({
     cover: null,
     imgbox: null,
     imgwrap: null,
@@ -133,7 +133,7 @@ const initBox = () => {
     state.img.onload = () => {
         state.vertical = state.img.width < state.img.height
         state.showImg = true
-        let thumb = box[0].children[0]
+        let thumb = box[0].children[0] as any
         setTimeout(() => {
             state.rectTimesX = (state.imgbox.offsetWidth / props.scale) / thumb.offsetWidth,
                 state.rectTimesY = (state.imgbox.offsetHeight / props.scale) / thumb.offsetHeight
@@ -141,7 +141,7 @@ const initBox = () => {
     }
 
 }
-const mousemove = (e) => {
+const mousemove = (e:any) => {
     if (!state.init) {
         return false
     }
@@ -149,7 +149,7 @@ const mousemove = (e) => {
         initTime()
     }
     //获取实际的offset
-    function offset(curEle) {
+    function offset(curEle:any) {
         var totalLeft = null, totalTop = null, par = curEle.offsetParent;
         //首先加自己本身的左偏移和上偏移
         totalLeft += curEle.offsetLeft;
@@ -174,7 +174,7 @@ const mousemove = (e) => {
         }
     }
 
-    function getXY(eve) {
+    function getXY(eve:any) {
         return {
             x: eve.clientX - (state.cover.offsetWidth / 2),
             y: eve.clientY - (state.cover.offsetHeight / 2)
@@ -182,7 +182,7 @@ const mousemove = (e) => {
     }
     let oEvent = e || event;
     let pos = getXY(oEvent);
-    let imgwrap = offset(state.imgwrap)
+    let imgwrap = offset(state.imgwrap) as any
     let range = {
         minX: imgwrap.left,
         maxX: imgwrap.left + state.imgwrap.offsetWidth - state.cover.offsetWidth,
@@ -209,17 +209,17 @@ const mousemove = (e) => {
     state.ctx.drawImage(state.img, startX * state.imgTimesX, startY * state.imgTimesY, state.img.width * state.rectTimesX, state.img.height * state.rectTimesY, 0, 0, state.imgbox.offsetWidth, state.imgbox.offsetHeight);
 
 }
-const mouseover = (e) => {
+const mouseover = (e: any) => {
     if (!state.init) {
         return false
     }
     e = e || event
     if (!props.scroll) {
-        e.currentTarget.addEventListener("mousewheel", function (ev) {
+        e.currentTarget.addEventListener("mousewheel", function (ev: any) {
             ev.preventDefault();
         }, false);
 
-        e.currentTarget.addEventListener("DOMMouseScroll", function (ev) {
+        e.currentTarget.addEventListener("DOMMouseScroll", function (ev: any) {
             ev.preventDefault();
         }, false);
     }
@@ -234,7 +234,7 @@ const mouseleave = () => {
     state.cover.style.display = 'none'
     state.canvas.style.display = 'none'
 }
-const rotate = (direction) => {
+const rotate = (direction: any) => {
     var orginImg = new Image()
     orginImg.crossOrigin = "Anonymous";
     orginImg.src = state.orginUrl
@@ -251,7 +251,7 @@ const rotate = (direction) => {
     }
 
 }
-const rotateImg = (img, direction, step, isBig = false) => {
+const rotateImg = (img: any, direction: any, step: any, isBig = false) => {
     var min_step = 0;
     var max_step = 3;
     if (img == null) return;
@@ -274,7 +274,7 @@ const rotateImg = (img, direction, step, isBig = false) => {
 
     //旋转角度以弧度值为参数    
     var degree = step * 90 * Math.PI / 180;
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d') as any;
     canvas.width = height;
     canvas.height = width;
     ctx.rotate(degree);
