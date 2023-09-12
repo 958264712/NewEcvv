@@ -13,14 +13,15 @@ const updateEm = ref()
 const updateBind = ref()
 const ifCode = ref(true)
 const ifEmail = ref(false)
+const ifBind = ref(false)
 const userInfo = ref<any>({
-    strMemberID: 'bGAyObFDels*'
+    strMemberID: 'bGAyObFDels*',
 })
 
 
 
 const handleQuery = async () => {
-    await getAccountInfo({ strMemberID: userInfo.value.strMemberID }).then((res:any) => {
+    await getAccountInfo({ strMemberID: userInfo.value.strMemberID }).then((res: any) => {
         if (res.data.type === 'success') {
             userInfo.value = res.data.result
             userInfo.value.strMemberID = 'bGAyObFDels*'
@@ -29,10 +30,18 @@ const handleQuery = async () => {
             } else {
                 ifEmail.value = true;
             }
+            if (userInfo.value.binding.length > 0) {
+                ifBind.value = true;
+            } else {
+                ifBind.value = false;
+            }
             // userInfo.value.strMemberID = getCookie('EUserID')
         }
     })
 }
+
+
+
 
 const handleUpdatePw = () => {
     updatePW.value.openDialog()
@@ -51,6 +60,9 @@ const setifCode = (bol:boolean) => {
 }
 const setUserInfo = (val:string, item:string) => {
     userInfo.value[val] = item
+}
+const setifBind = (val: boolean) => {
+    ifBind.value =val
 }
 handleQuery()
 </script >
@@ -86,7 +98,7 @@ handleQuery()
     <updatePWModel ref="updatePW" />
     <updateTPModel ref="updateTP" :userInfo="userInfo" @setUserInfo="setUserInfo"/>
     <updateEmModel ref="updateEm" :userInfo="userInfo" @setifCode="setifCode" :ifCode="ifCode" @setUserInfo="setUserInfo" />
-    <updateBindModel ref="updateBind" :userInfo="userInfo" />
+    <updateBindModel ref="updateBind" :userInfo="userInfo" @setUserInfo="setUserInfo" :ifBind="ifBind" @setifBind="setifBind"/>
 </template>
 <style scoped lang="less">
 .content {

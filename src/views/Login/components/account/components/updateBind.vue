@@ -1,28 +1,64 @@
 <script setup lang="ts">
 import { h, ref } from 'vue'
 import { ElMessage, ElMessageBox, ElForm, ElFormItem, ElButton } from 'element-plus'
-import { sendCode } from '@/api/modular/account.ts'
+import { sendCode, getAccountInfo, getWeChatCode, unbindWeChat } from '@/api/modular/account.ts'
 
-const props = defineProps(['userInfo'])
+const props = defineProps(['userInfo','setUserInfo','ifBind','setifBind'])
+const emit = defineEmits(['setUserInfo','setifBind'])
 const ifTrue = ref(false)
 const outerVisible = ref(false)
-const ifBind = ref(false)
-const paramsForm = ref<any>({ code :''})
+const paramsForm = ref<any>({ code: '' })
 const ifhandleCode = ref(false)
 const ifqueryCode = ref('')
+const url = ref('')
 const timer = ref<any>()
 const num = ref(60)
 const handleQuery = () => {
-    if (ifqueryCode.value === paramsForm.value.code) {
+    const code = document.getElementById('hinput') as any
+    if (ifqueryCode.value === code.value) {
         // ok
-        console.log('ok');
-        
+        window.open(url.value, '', 'width=500,height=500')
         ifTrue.value = true
+        emit('setifBind', true)
     } else {
+        paramsForm.value = {}
         ElMessage.error('验证码输入错误')
     }
 }
 
+// 获取用户二维码链接
+const handleWechatCode = async () => {
+    await getWeChatCode({ strMemberID: props.userInfo.strMemberID }).then((res: any) => {
+        if (res.data.type === 'success') {
+            url.value = res.data.result
+        }
+    })
+}
+
+// 重新获取userinfo信息
+const handleUserInfo = async () => {
+    await getAccountInfo({ strMemberID: props.userInfo.strMemberID }).then((res: any) => {
+        if (res.data.type === 'success') {
+            emit('setUserInfo', 'binding', res.data.result.binding )
+            handleWechatCode()
+        }
+    })
+}
+
+// 进行微信解绑
+const handleunBind = async () => {
+    await unbindWeChat(props.userInfo.strMemberID).then((res: any) => {
+        if (res.data.type === 'success') {
+            ElMessage({
+                type: 'success',
+                message: '解绑成功！',
+            })
+            emit('setifBind',false)
+        }
+    }).then(() => {
+        handleUserInfo()
+    })
+}
 
 // 打开弹窗
 const openDialog = async () => {
@@ -36,10 +72,11 @@ const closeDialog = () => {
 };
 const submit = () => {
     if (ifTrue) {
-         ElMessage({
-            type: 'success',
-            message: '绑定成功！',
-        })
+        // ElMessage({
+        //     type: 'success',
+        //     message: '绑定成功！',
+        // })
+        handleUserInfo()
         outerVisible.value = false;
     }
 }
@@ -49,10 +86,7 @@ const open = () => {
         cancelButtonText: '取消',
         confirmButtonText: '确定',
     }).then(() => {
-        ElMessage({
-            type: 'success',
-            message: '解绑成功！',
-        })
+        handleunBind()
     })
 }
 
@@ -74,14 +108,19 @@ const timers = () => {
     }
 }
 
+// 获取验证码
 const handleCode = async () => {
     if (props.userInfo.phoneNumber) {
-        await sendCode(props.userInfo.phoneNumber).then((res) => {
-            if (res.data.type === "success") {
+        await sendCode({ strMemberID: props.userInfo.strMemberID }).then((res) => {
+            const object = JSON.parse(res.data.result)
+            if (object.code === 200) {
                 ifhandleCode.value = true
-                const object = JSON.parse(res.data.result)
                 ifqueryCode.value = object.obj
                 timers()
+            }
+            if (object.code === 416) {
+                ifqueryCode.value = '1111'
+                ElMessage.error('多次获取验证码，号码受限')
             }
         })
     }
@@ -90,6 +129,7 @@ const handleCode = async () => {
 
 
 const bind = () => {
+    handleWechatCode()
     ElMessageBox({
         title: '验证安全手机',
         confirmButtonText: '确定',
@@ -99,14 +139,13 @@ const bind = () => {
         message: h('div', null, [
             h('div', null, `验证码将发送到手机 ${props.userInfo.phoneNumber}`),
             h('div', { style: 'color:#ccc;margin-bottom:20px;' }, `如果长时间未收到验证码，请检查是否将运营商拉黑`),
-            h(ElForm, { modelValue: paramsForm.value }, [
+            h(ElForm, { modelValue: paramsForm }, [
                 h(ElFormItem, { label: '填写验证码：', prop: 'code' }, [
                     h('div', { style: "display:flex" }, [
                         h("input", {
-                            attrs: { value: paramsForm.value.code, id: "hinput" },
-                            on: {
-                                input: paramsForm.value.code
-                            },
+                            value: paramsForm.value.code,
+                            id: "hinput",
+                            oninput: paramsForm.value.code,
                             placeholder: "验证码六位",
                         }),
                         h(ElButton, { onClick: handleCode, id: 'codeId' }, '获取验证码')
@@ -115,7 +154,7 @@ const bind = () => {
             ])
         ])
     }).then(() => {
-       handleQuery()
+        handleQuery()
     }).catch(() => {
         paramsForm.value = {}
     })
@@ -138,8 +177,8 @@ defineExpose({ openDialog });
                                 class="icon_img" />
                             <span data-v-7f7d303e="" class="method_name">微信</span>
                         </div>
-                        <span data-v-7f7d303e="" class="user_name">晨</span>
-                        <template v-if="!ifBind">
+                        <span data-v-7f7d303e="" class="user_name"></span>
+                        <template v-if="!props.ifBind">
                             <el-button type="primary" @click="bind" class="handle_text remove_text">绑定</el-button>
                         </template>
                         <template v-else>
@@ -175,9 +214,11 @@ i {
         margin: 0 calc(50% - 170px);
     }
 }
-.bind_list{
+
+.bind_list {
     padding: 0;
 }
+
 .bind_list .item_cont {
     height: 68px;
     line-height: 68px;
@@ -187,6 +228,7 @@ i {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .icon_img {
         width: 40px;
         height: 40px;
@@ -209,5 +251,4 @@ i {
         font-size: 14px;
         cursor: pointer;
     }
-}
-</style>
+}</style>
