@@ -9,7 +9,6 @@ const ifFixed = ref<boolean>(false)
 const style = ref<object>({})
 const width = ref(document.body.clientWidth)
 if (width.value < 1400) {
-
   style.value = {
     padding: '0',
     position: 'fixed',
@@ -33,10 +32,10 @@ if (width.value < 1400) {
 
 // 滚动条高度改变时
 window.addEventListener('scroll', () => {
+  width.value = document.body.clientWidth
   if (document.documentElement.scrollTop > 80) {
     ifFixed.value = true
     if (width.value < 1400) {
-
       style.value = {
         padding: '0',
         position: 'fixed',
@@ -99,12 +98,7 @@ window.addEventListener('resize', () => {
 
 <template>
   <main>
-    <template v-if="ifFixed === true">
-      <headerDown :style="style" />
-    </template>
-    <template v-else>
-      <headerDown />
-    </template>
+      <headerDown :style="ifFixed === true ? style : ''"/>
     <headerUp />
 
   </main>

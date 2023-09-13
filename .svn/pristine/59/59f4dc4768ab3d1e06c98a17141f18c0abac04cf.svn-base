@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./public/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <title>ECVV.com: Global Industrial products agent procurement service platform. multiple category, best price, safe
+    payment, guaranteed delivery</title>
+  <link rel="canonical" href="//www.ecvv.com/">
+  <link rel="alternate" hreflang="x-default" href="https://www.ecvv.com">
+  <meta name="keywords"
+    content="Global industrial goods, china purchasing agent,  multiple category, safe payment, ecvv.com">
+  <meta name="description"
+    content="ECVV.com is the first end-to-end procurement service platform for industrial goods, Provide multiple category and best price Chinese industrial goods, while ensuring safe payment, guaranteed delivery for buyers .">
+ <!-- Google Tag Manager -->
+ <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-4NM5JSR6CH&amp;cx=c&amp;_slc=1"></script>
+ <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+ <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-868613-1&amp;l=dataLayer&amp;cx=c"></script>
+ <!-- <script src="https://connect.facebook.net/signals/config/1790590984311431?v=2.9.111&amp;r=stable" async=""></script> -->
+ <!-- <script src="https://connect.facebook.net/signals/config/283477665825239?v=2.9.111&amp;r=stable" async=""></script> -->
+ <!-- <script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script> -->
+ <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+ <script async="" src="https://snap.licdn.com/li.lms-analytics/insight.old.min.js"></script>
+ <script type="text/javascript" async="" src="https://snap.licdn.com/li.lms-analytics/insight.min.js"></script>
+ <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-TNX452G"></script>
+ <script>        (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TNX452G');</script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
