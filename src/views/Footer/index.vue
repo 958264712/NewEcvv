@@ -18,7 +18,7 @@ if (router.options.history.location === '/register' || router.options.history.lo
 
 <template>
   <main>
-    <template v-if="ifReg === false">
+    <template v-if="!ifReg">
       <FootNav />
       <Endtable />
     </template>

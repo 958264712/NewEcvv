@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 const router = useRouter()
 const ifBack = ref<boolean>(false)
 window.addEventListener('scroll', () => {
@@ -16,34 +16,35 @@ const backTop = () => {
 }
 // 跳转到pfr上
 const goHref = () => {
-    router.push({path:`/RFQInquiry`})
+    router.push({ path: `/RFQInquiry` })
 }
 </script>
 
 <template>
     <ul id="sideBar">
         <li title="Tell us what you need and try the easy way to get quotes!">
-            <i class="goHref" @click="goHref()" >
+            <i class="goHref" @click="goHref()">
             </i>
         </li>
-        <template v-if="ifBack === true">
-            <li>
-                <i class="backTop" @click="backTop()" />
-            </li>
-        </template>
+        <li v-show="ifBack">
+            <i class="backTop" @click="backTop()" />
+        </li>
     </ul>
 </template>
 
 <style scoped lang="scss">
-i{
-    font-style:normal;
+i {
+    font-style: normal;
 }
-.sideBar{
+
+.sideBar {
     width: auto;
     z-index: 10;
     inset: auto 20px 150px auto;
 }
-.backTop , .goHref {
+
+.backTop,
+.goHref {
     display: block;
     color: #fff;
     background-color: #73ace6;
@@ -55,16 +56,17 @@ i{
     height: 48px;
     line-height: 48px;
     cursor: pointer;
-    margin-bottom:5px ;
+    margin-bottom: 5px;
 }
+
 .backTop:before {
     content: "\f139";
     font-size: 32px;
 }
+
 .goHref:before {
     content: "";
     display: block;
     height: 100%;
-    background:url('@/assets/images/Icon/targetWhite.png') no-repeat  center center ;
-}
-</style>
+    background: url('@/assets/images/Icon/targetWhite.png') no-repeat center center;
+}</style>

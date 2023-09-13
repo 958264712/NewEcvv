@@ -9,7 +9,7 @@ const dialogTableVisible = ref(false);
 const ifFiles = ref(false);
 const ifImages = ref(false);
 const ruleForm = ref<any>({
-    productNumber:1000
+    productNumber: 1000
 });
 const ruleFormRef = ref();
 
@@ -20,7 +20,7 @@ const openDialog = async () => {
 // 关闭弹窗
 const closeDialog = () => {
     dialogTableVisible.value = false;
-    ruleForm.value = {productNumber:1000}
+    ruleForm.value = { productNumber: 1000 }
 };
 
 // 取消
@@ -48,7 +48,7 @@ const submit = async () => {
             console.log(res);
 
             // if (res && res == "1") {
-                submitFrom()
+            submitFrom()
             // }
             // else {
             //     ElMessage.error('Verification code error!');
@@ -209,7 +209,7 @@ const submitFrom = () => {
     }).then((res) => {
         if (res.data.success === 'true') {
             window.location.href = "//safebuy.ecvv.com/successfully.html?NewReg=true";
-        }else {
+        } else {
             window.location.href = "//safebuy.ecvv.com/successfully.html";
         }
     }).catch((res) => {
@@ -225,7 +225,7 @@ const handleFiles = () => {
     ifFiles.value = !ifFiles.value
 }
 // 响应头 headerObj
-const headerObj = {Authorization:props.ProductDataInfo.token }
+const headerObj = { Authorization: props.ProductDataInfo.token }
 //将属性或者函数暴露给父组件
 defineExpose({ openDialog });
 
@@ -248,10 +248,12 @@ function getUrlParam(name: any) {
                             FOB Reference Price
                             <span><br>
                                 <span style="font-size: 24px;color: #ff6d18;">$ <span id="totalPriceStr">{{
-                                    props.ProductDataInfo.price * ruleForm.productNumber}}</span></span>
+                                    props.ProductDataInfo.price * ruleForm.productNumber }}</span></span>
                                 <input type="hidden" id="productUnitPrice" :value="props.ProductDataInfo.price">
-                                <input type="hidden" id="totalPrice" :value="props.ProductDataInfo.price * ruleForm.productNumber">
-                                <span id="iPriToUn">&nbsp;MOQ: {{ ruleForm.productNumber}} / {{ props.ProductDataInfo.unitStr }}</span>
+                                <input type="hidden" id="totalPrice"
+                                    :value="props.ProductDataInfo.price * ruleForm.productNumber">
+                                <span id="iPriToUn">&nbsp;MOQ: {{ ruleForm.productNumber }} / {{
+                                    props.ProductDataInfo.unitStr }}</span>
                             </span>
                         </p>
                     </div>
@@ -686,8 +688,7 @@ function getUrlParam(name: any) {
                                                     <strong>Image:</strong>
                                                     <el-upload class="upload-demo" drag
                                                         action="https://safebuy.ecvv.com/api/services/app/EDocument/UpFiles"
-                                                        :headers= 'headerObj'
-                                                        multiple>
+                                                        :headers='headerObj' multiple>
                                                         <div class="el-upload__text">
                                                             Drag & drop files here ...
                                                         </div>
@@ -715,33 +716,30 @@ function getUrlParam(name: any) {
                             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="form-control FilesModel">
                                 <el-form-item prop="treaProcurementDescribes">
                                     <el-button @click="handleFiles">Add Files</el-button>
-                                    <template v-if="ifFiles">
-                                        <div id="collapseThree" class="accordion-body collapse">
-                                            <div class="accordion-inner">
-                                                <div class="popups-list">
-                                                    <strong>Files:</strong>
-                                                    <el-upload class="upload-demo" drag
-                                                        action="https://safebuy.ecvv.com/api/services/app/EDocument/UpFiles"
-                                                        :headers= 'headerObj'
-                                                        multiple>
-                                                        <div class="el-upload__text">
-                                                            Drag & drop files here ...
-                                                        </div>
-                                                        <template #tip>
-                                                            <el-upload ref="uploadRef" class="upload-demo"
-                                                                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                                                :auto-upload="false">
-                                                                <template #trigger>
-                                                                    <el-button class="el-upload__text" type="primary">Browse
-                                                                        ...</el-button>
-                                                                </template>
-                                                            </el-upload>
-                                                        </template>
-                                                    </el-upload>
-                                                </div>
+                                    <div id="collapseThree" class="accordion-body collapse" v-show="ifFiles">
+                                        <div class="accordion-inner">
+                                            <div class="popups-list">
+                                                <strong>Files:</strong>
+                                                <el-upload class="upload-demo" drag
+                                                    action="https://safebuy.ecvv.com/api/services/app/EDocument/UpFiles"
+                                                    :headers='headerObj' multiple>
+                                                    <div class="el-upload__text">
+                                                        Drag & drop files here ...
+                                                    </div>
+                                                    <template #tip>
+                                                        <el-upload ref="uploadRef" class="upload-demo"
+                                                            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                                                            :auto-upload="false">
+                                                            <template #trigger>
+                                                                <el-button class="el-upload__text" type="primary">Browse
+                                                                    ...</el-button>
+                                                            </template>
+                                                        </el-upload>
+                                                    </template>
+                                                </el-upload>
                                             </div>
                                         </div>
-                                    </template>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="form-control submit">

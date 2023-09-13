@@ -49,7 +49,7 @@ const handleQuery = async () => {
         // 产品列表
         const list = res.data.result.recommProductList
         ProductInfo.value.recommProductList = []
-        const list1 = ref([])
+        const list1 = ref<any>([])
         list.map((item:any)=>{
             list1.value.push(item)
             if(list1.value.length % 7 === 0){

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { registerEmember, sendCode } from '@/api/modular/register.ts'
+import { registerEmember, sendCode, isExistUserName, isExistPhoneNumber, isExistEmail } from '@/api/modular/register.ts'
 import { ElMessage } from 'element-plus'
 interface RuleForm {
     userName: string
@@ -128,8 +128,45 @@ const resetForm = (formEl: FormInstance | undefined) => {
     formEl.resetFields()
 }
 
-
-
+// 验证用户名是否存在
+const blurUserName = async () => {
+    if (ruleForm.userName.trim().length) {
+    await isExistUserName(ruleForm.userName.trim()).then((res: any) => {
+        if (res.data.type === 'success') {
+            if (res.data.result === true) {
+                ElMessage.error('该名称已存在')
+                ruleForm.userName = ''
+            }
+        }
+    })
+    }
+}
+// 验证手机号是否存在
+const blurPhoneNumber = async () => {
+    if (ruleForm.phoneNumber.trim().length) {
+        await isExistPhoneNumber(ruleForm.phoneNumber.trim()).then((res: any) => {
+            if (res.data.type === 'success') {
+                if (res.data.result === true) {
+                    ElMessage.error('该手机号已存在')
+                    ruleForm.phoneNumber = ''
+                }
+            }
+        })
+    }
+}
+// 验证邮箱是否存在
+const blurEmail = async () => {
+    if (ruleForm.email.trim().length) {
+        await isExistEmail(ruleForm.email.trim()).then((res: any) => {
+            if (res.data.type === 'success') {
+                if (res.data.result === true) {
+                    ruleForm.email = ''
+                    ElMessage.error('该邮箱已存在')
+                }
+            }
+        })
+    }
+}
 </script >
 <template>
     <div class="content">
@@ -137,7 +174,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm"
             :size="formSize" status-icon>
             <el-form-item label="用户名" prop="userName">
-                <el-input v-model="ruleForm.userName" placeholder="请输入您的用户名" clearable />
+                <el-input v-model="ruleForm.userName" @blur="blurUserName" placeholder="请输入您的用户名" clearable />
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="ruleForm.password" type="password" placeholder="请输入您的密码" clearable />
@@ -146,7 +183,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
                 <el-input v-model="ruleForm.password2" type="password" placeholder="请您确认您的密码" clearable />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-                <el-input v-model="ruleForm.email" type="email" placeholder="请输入您的邮箱" clearable />
+                <el-input v-model="ruleForm.email" type="email" @blur="blurEmail"  placeholder="请输入您的邮箱" clearable />
             </el-form-item>
             <el-form-item label="手机号" prop="phoneNumber">
                 <template #default="scope">
@@ -157,7 +194,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
                             <el-option value="+853" label="+853" />
                             <el-option value="+886" label="+886" />
                         </el-select>
-                        <el-input v-model="ruleForm.phoneNumber" placeholder="请您确认您的手机号" style="margin:0 10px" clearable />
+                        <el-input v-model="ruleForm.phoneNumber" @blur="blurPhoneNumber" placeholder="请您确认您的手机号" style="margin:0 10px" clearable />
                         <template v-if="ifhandleCode">
                             <span
                                 style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{

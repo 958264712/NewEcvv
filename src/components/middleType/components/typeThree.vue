@@ -19,28 +19,26 @@ const props = defineProps(['item'])
                 </div>
             </template>
             <div class="sP-srcollMain" id="fpsrcollMain">
-                <div class="sP-srcollPos" id="fpsrcollpos" >
-                    <el-carousel :interval="3000" arrow="always" :autoplay="props.item.autoplay"   indicator-position="none">
+                <div class="sP-srcollPos" id="fpsrcollpos">
+                    <el-carousel :interval="3000" arrow="always" :autoplay="props.item.autoplay" indicator-position="none">
                         <el-carousel-item v-for="ite in props.item.contentObj">
                             <div v-for="i in ite">
                                 <div class="sP-Boxli cc-120" :style="props.item.styleImg">
                                     <div class="ProImg">
-                                        <a target="_blank" :href="i.href" :title="i.title"> 
-                                        <img :alt="i.Title" :src="i.imgSrc" :style="props.item.styleImg"></a>
+                                        <a target="_blank" :href="i.href" :title="i.title">
+                                            <img :alt="i.Title" :src="i.imgSrc" :style="props.item.styleImg"></a>
                                     </div>
-                                    <div class="ProInf" >
-                                        <a target="_blank" :href="i.href" :title="i.title" >
-                                            <template v-if="props.item.ifPropPrice">
-                                                <span class="nowSpace">{{ i.title }}</span>
-                                            </template>
-                                            <template v-else>
-                                                <span :style="props.item.style">{{ i.title }}</span>
-                                            </template>
+                                    <div class="ProInf">
+                                        <a target="_blank" :href="i.href" :title="i.title">
+                                            <span :class="props.item.ifPropPrice ? 'nowSpace' : ''"
+                                                :style="props.item.ifPropPrice ? '' : props.item.style">{{ i.title }}</span>
                                         </a>
                                     </div>
                                     <template v-if="props.item.ifPropPrice">
-                                        <div class="ProPrice"><span>Price:</span><span class="ms">{{ i.proPrice }}</span></div>
-                                        <div class="ProOrder"><span>Min. Order:</span><span class="ms">{{ i.proOrder }}</span></div>
+                                        <div class="ProPrice"><span>Price:</span><span class="ms">{{ i.proPrice }}</span>
+                                        </div>
+                                        <div class="ProOrder"><span>Min. Order:</span><span class="ms">{{ i.proOrder
+                                        }}</span></div>
                                     </template>
                                     <template v-else>
                                         <div class="featureCompanyName"><span>{{ i.companyName }}</span></div>
@@ -71,14 +69,17 @@ const props = defineProps(['item'])
     margin-bottom: 25px;
     font-weight: 600;
 }
+
 .more {
     position: absolute;
     right: 20px;
     top: 15px;
-    a{
+
+    a {
         color: blue;
     }
 }
+
 .box {
     width: 100%;
     position: relative;
@@ -117,17 +118,22 @@ const props = defineProps(['item'])
     width: 100%;
     overflow: hidden;
 }
-.ProPrice, .ProOrder {
+
+.ProPrice,
+.ProOrder {
     font-size: 12px;
     color: #ff6d18;
 }
-.ProPrice span.ms, .ProOrder span.ms {
+
+.ProPrice span.ms,
+.ProOrder span.ms {
     color: #888888;
     padding-left: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .cc-120 img {
     width: 200px;
     height: 200px;
@@ -137,6 +143,7 @@ const props = defineProps(['item'])
     -o-transition: All 0.3s ease;
     overflow: hidden;
 }
+
 .cc-120 img:hover {
     transform: scale(1.05);
     -webkit-transform: scale(1.05);
@@ -163,9 +170,12 @@ const props = defineProps(['item'])
     font-size: 12px;
     color: #888888;
 }
-.nowSpace:hover, .more a:hover {
+
+.nowSpace:hover,
+.more a:hover {
     color: #ff6d18;
 }
+
 .nowSpace {
     color: #333;
     font-size: 14px;
@@ -177,26 +187,32 @@ const props = defineProps(['item'])
     display: block;
 }
 </style>
-<style lang="scss">/* 轮播图css */
+<style lang="scss">
+/* 轮播图css */
 #fpsrcollpos {
     position: relative;
 }
-#fpsrcollpos .el-carousel{
+
+#fpsrcollpos .el-carousel {
     height: 100%;
 }
+
 #fpsrcollpos .el-carousel .el-carousel__container {
     display: flex;
     height: 100%;
     padding-left: 40px;
-    > div{
+
+    >div {
         overflow: hidden;
     }
-    .el-carousel__item{
-        animation-timing-function:ease-in;
+
+    .el-carousel__item {
+        animation-timing-function: ease-in;
         display: flex;
         height: 100%;
         width: 100%;
     }
+
     .el-carousel__arrow {
         padding: 10px;
         width: 30px;
@@ -207,26 +223,31 @@ const props = defineProps(['item'])
         z-index: 9;
         position: absolute;
         border: none;
-        i{
+
+        i {
             display: none;
         }
     }
+
     .el-carousel__arrow--left {
         background: url('@/assets/images/sP-Prev.png') center center no-repeat;
         left: 10px;
     }
+
     .el-carousel__arrow--right {
         background: url('@/assets/images/sP-Next.png') center center no-repeat;
         right: 10px;
     }
+
     .el-carousel__arrow--left:hover {
         background: url("@/assets/images/sP-PrevHv.png") center center no-repeat;
     }
+
     .el-carousel__arrow--right:hover {
         background: url('@/assets/images/sP-NextHv.png') center center no-repeat;
     }
+
     .is-active {
-        overflow:visible;
+        overflow: visible;
     }
-}
-</style>
+}</style>
