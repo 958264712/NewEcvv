@@ -2,6 +2,7 @@
 import 'element-plus/theme-chalk/display.css'
 import {useRouter} from 'vue-router'
 import { ref } from 'vue';
+import { ElMessage } from 'element-plus';
 const props = defineProps(['style'])
 const router = useRouter()
 // 定义是否显示
@@ -10,9 +11,15 @@ const searchText = ref<string>('General Search')
 const SearchInput = ref('')
 
 // 执行提交
-const SearchSubmit = () =>{
-    if(SearchInput.value.length){
-        router.push({path:`/search?kw`,query:{kw:SearchInput.value}})
+const SearchSubmit = () => {
+    const reg = /^[A-Za-z0-9]{0,}$/
+    if (reg.test(SearchInput.value)) {     
+        if(SearchInput.value.length){
+            router.push({path:`/search?kw`,query:{kw:SearchInput.value}})
+        }
+    } else {
+        SearchInput.value = ''
+        ElMessage.error('Please input the information in English instead')
     }
 }
 const queryRFQ = () => {
@@ -20,6 +27,13 @@ const queryRFQ = () => {
 }
 const queryReg = () => {
     router.push({ path: `/register` })
+}
+
+const downEnter = (e:any) => {
+    if (e.keyCode === 13) {
+        SearchInput.value = ''
+        SearchSubmit()
+    }
 }
 </script>
 
@@ -74,7 +88,7 @@ const queryReg = () => {
                     </div>
                     <div class="SearchBox">
                         <input type="text" v-model.lazy="SearchInput" placeholder="What are you looking for" id="txtKeyWord" autocomplete="off"
-                            class="ac_input">
+                            class="ac_input" @keydown="downEnter">
                         <input type="hidden" id="SearchType" value="2">
                         <button class="searchBtn" id="btnSearch" @click="SearchSubmit"><img
                                 src="@/assets/images/search.png" /></button>

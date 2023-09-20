@@ -45,7 +45,7 @@ const props = defineProps(['item'])
                                     </template>
                                 </div>
                             </div>
-                            <!-- <div class="sP-Boxli" /> -->
+                            <div class="sP-Boxli" />
                         </el-carousel-item>
                     </el-carousel>
                 </div>
@@ -54,7 +54,7 @@ const props = defineProps(['item'])
     </section>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .feature {
     display: flex;
     max-width: 1440px;
@@ -113,9 +113,6 @@ const props = defineProps(['item'])
     width: 200px;
 }
 
-/deep/.el-carousel__item{
-    padding-left: 40px;
-}
 .ProImg {
     text-align: center;
     width: 100%;

@@ -147,7 +147,7 @@ const blurPhoneNumber = async () => {
         await isExistPhoneNumber(ruleForm.phoneNumber.trim()).then((res: any) => {
             if (res.data.type === 'success') {
                 if (res.data.result === true) {
-                    ElMessage.error('该手机号已存在，如想重新注册，请先行使用手机号登录，再进行注销该手机号')
+                    ElMessage.error('该手机号已存在')
                     ruleForm.phoneNumber = ''
                 }
             }
