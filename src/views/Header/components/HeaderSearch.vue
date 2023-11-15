@@ -1,334 +1,355 @@
 <script setup lang="ts">
-import 'element-plus/theme-chalk/display.css'
-import {useRouter} from 'vue-router'
-import { ref } from 'vue';
-import { ElMessage } from 'element-plus';
-const props = defineProps(['style'])
-const router = useRouter()
+import "element-plus/theme-chalk/display.css";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { ElMessage } from "element-plus";
+const props = defineProps(["style"]);
+const router = useRouter();
 // 定义是否显示
-const isShow = ref<boolean>(false)
-const searchText = ref<string>('General Search')
-const SearchInput = ref('')
-
+const isShow = ref<boolean>(false);
+const searchText = ref<string>("General Search");
+const SearchInput = ref("");
+const searchList = ref<any>([
+    {
+        title:'General Search'
+    },
+    {
+        title:'Sourcing Services'
+    },
+    {
+        title:'Manufacturers'
+    },
+])
 // 执行提交
 const SearchSubmit = () => {
-    const reg = /^[A-Za-z0-9]{0,}$/
-    if (reg.test(SearchInput.value)) {     
-        if(SearchInput.value.length){
-            router.push({path:`/search?kw`,query:{kw:SearchInput.value}})
-        }
-    } else {
-        SearchInput.value = ''
-        ElMessage.error('Please input the information in English instead')
+  const reg = /^[A-Za-z0-9]{0,}$/;
+  if (reg.test(SearchInput.value)) {
+    if (SearchInput.value.length) {
+      router.push({ path: `/search?kw`, query: { kw: SearchInput.value } });
     }
-}
+  } else {
+    SearchInput.value = "";
+    ElMessage.error("Please input the information in English instead");
+  }
+};
 const queryRFQ = () => {
-    router.push({path:`/RFQInquiry`})
-}
+  router.push({ path: `/RFQInquiry` });
+};
 const queryReg = () => {
-    router.push({ path: `/register` })
-}
+  router.push({ path: `/register` });
+};
 
-const downEnter = (e:any) => {
-    if (e.keyCode === 13) {
-        SearchInput.value = ''
-        SearchSubmit()
+const downEnter = (e: any) => {
+  if (e.keyCode === 13) {
+    SearchSubmit();
+  }
+};
+
+const clickShow = (e:any) => {
+// 点击打开下拉列表，修改值条件为：不同数据，不为空
+    isShow.value = !isShow.value
+    if (searchText.value !== (e.target as HTMLElement).innerText && (e.target as HTMLElement).innerText !== '') {
+        searchText.value = (e.target as HTMLElement).innerText;
+        isShow.value = false;
     }
 }
 </script>
 
 <template>
-    <!-- 搜索栏 + 置顶 -->
-    <section :style="props.style">
-        <el-row>
-            <el-col :span="4" class="hidden-sm-and-down">
-                <div class="logo">
-                    <a href="//www.ecvv.com">
-                        <img src="//www.ecvv.com/Content/images/logo201902.png">
-                    </a>
-                </div>
-            </el-col>
+  <!-- 搜索栏 + 置顶 -->
+  <section :style="props.style">
+    <el-row>
+      <el-col :span="4" class="hidden-sm-and-down">
+        <div class="logo">
+          <a href="//www.ecvv.com">
+            <img src="//www.ecvv.com/Content/images/logo201902.png" />
+          </a>
+        </div>
+      </el-col>
 
-            <!--categories-->
-            <!--search-->
-            <el-col :span="12">
-                <div class="Search">
-                    <div class="SearchBorder" @click="(e) => {
-                        // 点击打开下拉列表，修改值条件为：不同数据，不为空
-                        isShow = !isShow
-                        if (searchText !== (e.target as HTMLElement).innerText && (e.target as HTMLElement).innerText !== '') {
-                            searchText = (e.target as HTMLElement).innerText;
-                            isShow = false;
-                        }
-                    }">
-                        <template v-if="isShow">
-                            <div class="SearchListDown">
-                                <span>{{ searchText }}</span>
-                                <em>
-                                    <img src="@/assets/images/Content_images/jt.png">
-                                </em>
-                            </div>
-                            <ul>
-                                <li><a href="javascript:void(0);" rel="nofollow" data-value="2">
-                                        General Search</a></li>
-                                <li><a href="javascript:void(0);" rel="nofollow" data-value="5">
-                                        Sourcing Services</a></li>
-                                <li><a href="javascript:void(0);" rel="nofollow" data-value="4">
-                                        Manufacturers</a></li>
-                            </ul>
-                        </template>
-                        <template v-else>
-                            <div class="SearchListDown">
-                                <span>{{ searchText }}</span>
-                                <em>
-                                    <img src="@/assets/images/Content_images/jt.png">
-                                </em>
-                            </div>
-                        </template>
-                    </div>
-                    <div class="SearchBox">
-                        <input type="text" v-model.lazy="SearchInput" placeholder="What are you looking for" id="txtKeyWord" autocomplete="off"
-                            class="ac_input" @keydown="downEnter">
-                        <input type="hidden" id="SearchType" value="2">
-                        <button class="searchBtn" id="btnSearch" @click="SearchSubmit"><img
-                                src="@/assets/images/search.png" /></button>
-                    </div>
-                </div>
-            </el-col>
-            <el-col :span="3" class="payRequest hidden-md-and-down" @click="queryRFQ">
-                <i title="One request, multiple quotes" />
-                <a  title="Easy Sourcing More Convenient, More Efficient" target="_blank">Post Sourcing Request</a>
-            </el-col>
-            <el-col :span="5" class="hidden-lg-and-down">
-                <el-row id="UNavMenu" class=" nav-list2 fr">
-                    <el-col :span="8"  class="active ">
-                        <i>For Buyer</i>
-                        <div id="LoginUserName" class="join"><a class="sign"
-                                href="//myecvv.ecvv.com/AccountEcvv/pcLogin.html">Sign
-                                in</a><a href="//myecvv.ecvv.com/AccountEcvv/pcLogin.html?join=1">Join free</a></div>
-                    </el-col>
-                    <el-col :span="9"  class="active2">
-                        <i>For Supplier</i>
-                        <div id="LoginUserName2" class="join"><a id="Slogin" href="javaScript:void(0)">Sign
-                                in</a><a class="sign-ok" @click="queryReg">Join free</a></div>
-                    </el-col>
-                    <el-col id="li_cart" style="display:none">
-                        <div> <a href="//www.ecvv.com/Order/ShoppingCartLog?a=104.11.11"><img
-                                    src="@/assets/images/Content_images/cart.png"
-                                    style=" display:inline; cursor:pointer; width:30px"><i id="productCount">0</i></a></div>
-                    </el-col>
-                </el-row>
-            </el-col>
-
+      <!--categories-->
+      <!--search-->
+      <el-col :span="12">
+        <div class="Search">
+          <div
+            class="SearchBorder"
+            @click="(e) => clickShow(e)"
+          >
+              <div class="SearchListDown">
+                <span>{{ searchText }}</span>
+                <em>
+                  <img src="@/assets/images/Content_images/jt.png" />
+                </em>
+              </div>
+              <ul v-show="isShow">
+                <li v-for="i in searchList"><a href="javascript:void(0);" rel="nofollow" >{{i.title}}</a></li>
+              </ul>
+          </div>
+          <div class="SearchBox">
+            <input
+              type="text"
+              v-model="SearchInput"
+              placeholder="What are you looking for"
+              id="txtKeyWord"
+              autocomplete="off"
+              class="ac_input"
+              @keydown="downEnter"
+            />
+            <input type="hidden" id="SearchType" value="2" />
+            <button class="searchBtn" id="btnSearch" @click="SearchSubmit">
+              <img src="@/assets/images/search.png" />
+            </button>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="3" class="payRequest hidden-md-and-down" @click="queryRFQ">
+        <i title="One request, multiple quotes" />
+        <a title="Easy Sourcing More Convenient, More Efficient" target="_blank"
+          >Post Sourcing Request</a
+        >
+      </el-col>
+      <el-col :span="5" class="hidden-lg-and-down">
+        <el-row id="UNavMenu" class="nav-list2 fr">
+          <el-col :span="8" class="active">
+            <i>For Buyer</i>
+            <div id="LoginUserName" class="join">
+              <a  href="//myecvv.ecvv.com/AccountEcvv/pcLogin.html"
+                >Sign in</a
+              ><a href="//myecvv.ecvv.com/AccountEcvv/pcLogin.html?join=1"
+                >Join free</a
+              >
+            </div>
+          </el-col>
+          <el-col :span="9" class="active2">
+            <i>For Supplier</i>
+            <div id="LoginUserName2" class="join">
+              <a  href="//myecvv.ecvv.com/AccountEcvv/pcLogin.html">Sign in</a
+              ><a  @click="queryReg">Join free</a>
+            </div>
+          </el-col>
+          <el-col id="li_cart" style="display: none">
+            <div>
+              <a href="//www.ecvv.com/Order/ShoppingCartLog?a=104.11.11"
+                ><img
+                  src="@/assets/images/Content_images/cart.png"
+                  style="display: inline; cursor: pointer; width: 30px"
+                /><i id="productCount">0</i></a
+              >
+            </div>
+          </el-col>
         </el-row>
-    </section>
+      </el-col>
+    </el-row>
+  </section>
 </template>
 
 <style scoped>
 /* 默认宽高 */
 section {
-    padding: 0 11%;
+  padding: 0 11%;
 }
-.el-row{
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
+.el-row {
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
 }
-.el-row .el-col{
-    display: flex;
- }
+.el-row .el-col {
+  display: flex;
+}
 .payRequest {
-    background-color: #fff;
-    width: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-    cursor: pointer;
+  background-color: #fff;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0;
+  cursor: pointer;
 }
 
 .payRequest i:before {
-    content: "";
-    display: block;
-    width: 32px;
-    height: 32px;
-    background: url('@/assets/images/Icon/targetBlue.png') no-repeat center center;
+  content: "";
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url("@/assets/images/Icon/targetBlue.png") no-repeat center center;
 }
 
 .payRequest a {
-    color: #0f55ae;
-    display: block;
-    text-align: center;
+  color: #0f55ae;
+  display: block;
+  text-align: center;
 }
 
 .Search {
-    height: 49px;
-    border: 2px solid #0f55ae;
-    border-radius: 25px;
+  height: 49px;
+  border: 2px solid #0f55ae;
+  border-radius: 25px;
 }
 
 .SearchBorder {
-    position: relative;
-    border-right: 0px;
-    margin-right: -1px;
+  position: relative;
+  border-right: 0px;
+  margin-right: -1px;
 }
 
 .SearchBox {
-    width: 460px;
-    display: flex;
-    align-items: center;
+  width: 460px;
+  display: flex;
+  align-items: center;
 }
 
 .SearchBox #txtKeyWord {
-    padding: 0 16px;
-    width: 88%;
-    height: 43px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    color: #333;
-    border: none;
-    line-height: 26px;
-
+  padding: 0 16px;
+  width: 88%;
+  height: 43px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border: none;
+  line-height: 26px;
 }
 
 .SearchBox #btnSearch {
-    height: 45px;
-    color: #fff;
-    background: #0f55ae;
-    cursor: pointer;
-    width: 12%;
-    border: none;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
+  height: 45px;
+  color: #fff;
+  background: #0f55ae;
+  cursor: pointer;
+  width: 12%;
+  border: none;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .SearchListDown {
-    width: 187px;
-    height: 41px;
-    line-height: 41px;
-    border-right: 1px solid #888888;
-    cursor: pointer;
-    text-align: center;
+  width: 187px;
+  height: 41px;
+  line-height: 41px;
+  border-right: 1px solid #888888;
+  cursor: pointer;
+  text-align: center;
 }
 
 .SearchListDown span {
-    color: #0f55ae;
-    font-size: 14px;
+  color: #0f55ae;
+  font-size: 14px;
 }
 
 #UNavMenu,
 .Search {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
 }
 
 #UNavMenu a:hover {
-    color: #0f55ae;
+  color: #0f55ae;
 }
 
 #LoginUserName,
 #LoginUserName2 {
-    display: none;
+  display: none;
 }
 
 .active,
 .active2 {
-    margin: 0 19px;
-    padding: 5px 0;
-    background: #fff;
+  margin: 0 19px;
+  padding: 5px 0;
+  background: #fff;
+  justify-content:center;
 }
 
 .active:hover,
 .active2:hover {
-    position: relative;
-    background: #fff;
-    box-shadow: 1px 1px 3px 0 #AAA;
+  position: relative;
+  background: #fff;
+  box-shadow: 1px 1px 3px 0 #aaa;
 }
 
 .active:hover #LoginUserName,
 .active2:hover #LoginUserName2 {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .active i,
 .active2 i {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 16px;
-    font-style: normal;
-    text-align: center;
-    padding: 5px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  font-style: normal;
+  text-align: center;
+  padding: 5px 0;
 }
 
 .active i:before {
-    content: "";
-    display: block;
-    width: 32px;
-    height: 24px;
-    background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-buyer.png) center top no-repeat;
+  content: "";
+  display: block;
+  width: 32px;
+  height: 24px;
+  background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-buyer.png) center top
+    no-repeat;
 }
 
 .active2 i:before {
-    content: "";
-    display: block;
-    width: 32px;
-    height: 24px;
-    background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-supplier.png) center top no-repeat;
+  content: "";
+  display: block;
+  width: 32px;
+  height: 24px;
+  background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-supplier.png) center
+    top no-repeat;
 }
 
 .join {
-    display: none;
-    position: absolute;
-    box-shadow: 1px 1px 3px 0 #AAA;
-    background: #fff;
-    left: 0px;
-    right: 0px;
-    top: 59px;
-    width: 100px;
-    z-index: 666;
-    text-align: center;
+  position: absolute;
+  box-shadow: 1px 1px 3px 0 #aaa;
+  background: #fff;
+  left: 0px;
+  right: 0px;
+  top: 59px;
+  width: 100px;
+  z-index: 666;
+  text-align: center;
 }
 
 .join a {
-    display: block;
-    font-size: 16px;
-    line-height: 30px;
-    color: #333;
+  display: block;
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+  cursor:pointer;
 }
 
 .SearchBorder ul {
-    position: absolute;
-    left: 15px;
-    top: 40px;
-    background-color: #fff;
-    text-align: center;
-    width: 80%;
-    padding: 0;
-    z-index: 999;
+  position: absolute;
+  left: 15px;
+  top: 40px;
+  background-color: #fff;
+  text-align: center;
+  width: 80%;
+  padding: 0;
+  z-index: 999;
 }
 
 .SearchBorder ul li {
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .SearchListDown:hover,
 .SearchBorder ul li:hover {
-    background: #ececec;
+  background: #ececec;
 }
 
 .SearchListDown:hover {
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
 
 .SearchBorder ul li a {
-    color: #0f55ae;
-    display: block;
-}</style>
+  color: #0f55ae;
+  display: block;
+}
+</style>

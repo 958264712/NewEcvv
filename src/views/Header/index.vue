@@ -97,10 +97,9 @@ window.addEventListener('resize', () => {
 </script>
 
 <template>
-  <main>
-      <headerDown :style="ifFixed === true ? style : ''"/>
+  <main >
+    <headerDown :style="ifFixed === true ? style : ''"/>
     <headerUp />
-
   </main>
 </template>
 

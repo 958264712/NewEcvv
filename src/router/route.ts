@@ -53,7 +53,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: '/',
-				name: 'home',
+				name: 'Home',
 				component: () => import('@/views/Content/index.vue')
 			},
 			{
@@ -70,6 +70,11 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				path: '/RFQInquiry',
 				name: 'RFQInquiry',
 				component: () => import('@/views/RFQ/index.vue'),
+			},
+			{
+				path: '/company/:id',
+				name: 'Company',
+				component: () => import('@/views/Layout/company/index.vue'),
 			},
 		],
 	},

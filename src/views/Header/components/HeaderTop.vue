@@ -1,176 +1,219 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-const styleTop = ref({})
+import { ref } from "vue";
+const styleTop = ref({});
+const countriesList = ref([
+  {
+    href: "https://www.ecvv.sa",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/flags/sa.svg",
+    title: "SA",
+  },
+  {
+    href: "https://www.ecvv.qa",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/qa-flag.png",
+    title: "QA",
+  },
+  {
+    href: "https://www.ecvv.ma",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/mar-flag.png",
+    title: "Mar",
+  },
+  {
+    href: "https://www.ecvv.eg",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/flags/EGY.svg",
+    title: "Egypt",
+  },
+  {
+    href: "https://www.ecvv.com.kw",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/flags/KWT.svg",
+    title: "Kuwait",
+  },
+  {
+    href: "https://www.ecvv.com.tr",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/flags/tr.svg",
+    title: "Turkey",
+  },
+  {
+    href: "https://www.ecvv.co.in",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/flags/in.svg",
+    title: "India",
+  },
+  {
+    href: "https://www.ecvv.vn",
+    src: "https://eresource.ecvv.com/PC_Ecvv/images/vn-flag.png",
+    title: "Vietnam",
+  },
+]);
+const boxList = ref([
+    {
+        span:6,
+        href:'https://rcep.ecvv.cn',
+        title:'MRO Products Mall',
+        className:''
+    },
+    {
+        span:8,
+        href:'//www.ecvv.cn',
+        title:'MRO Products Mall/China',
+        className:''
+    },
+    {
+        span:5,
+        href:'https://www.ecvv.com/aboutus/Company_Overview.html',
+        title:'About Us',
+        className:'about'
+    },
+    {
+        span:5,
+        href:'https://www.ecvv.com/aboutus/Contact_Us.html',
+        title:'Contact us',
+        className:'about'
+    },
+])
 // 浏览器改变时
-window.onresize = () =>{
-    if(document.body.clientWidth < 1400){
-      styleTop.value={
-        padding:'0',
-      }
-    }else{
-      styleTop.value={
-        padding:'0 13%'
-      }
-    }
-}
+window.onresize = () => {
+  if (document.body.clientWidth < 1400) {
+    styleTop.value = {
+      padding: "0",
+    };
+  } else {
+    styleTop.value = {
+      padding: "0 13%",
+    };
+  }
+};
 </script>
 <template>
-    <!-- 开头 -->
-    <section class="header-box auto-w" :style="styleTop">   
-        <!-- 假设封装组件，会导致富文本标签做不了更多的事情，暂不使用 -->
-         <!-- <ListUl :setUl ='setUl'/> -->
-             <el-row class="nav-top-box">
-                <el-col :span="6" >
-                    <a class="mrourl" href="https://rcep.ecvv.cn">MRO Products Mall</a>
-               </el-col>
-                <el-col :span="8"  >
-                    <a href="//www.ecvv.cn"><span>MRO Products Mall/China</span></a>
-                </el-col>
-                 <el-col :span="5" class="about hidden-sm-and-down">
-                    <a href="https://www.ecvv.com/aboutus/Company_Overview.html" rel="nofollow" target="_blank">
-                        About Us
-                    </a>
-                </el-col>
-                <el-col :span="5" class="contact hidden-sm-and-down">
-                    <a href="https://www.ecvv.com/aboutus/Contact_Us.html" target="_blank">Contact us</a>
-                </el-col>
-            </el-row>
-      <!-- 实现各国地方切换跳转 -->
-      <!-- 封装组件时，hover逻辑： @mouseover="((e:any)=>{
-            if(e.target.className === 'hoverLi' && e.target.children[1].id === 'header-top-r-min-ul'){
-                e.target.children[1].style.display ='flex'}})"
-        @mouseleave="((e:any)=>{
-            if(e.target.className === 'header-top-r' && e.target.children[1].id === 'ecvv0704-1'
-                && e.target.children[1].children[0].children[1].id === 'header-top-r-min-ul'){
-                e.target.children[1].children[0].children[1].style.display ='none'}
-            })" -->
-      <div class="header-top-r">
-          <span>Countries:</span>
-          <el-row class="header-top-r-ul">
-                <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="6" class="hoverShow">
-                    <a href="http://www.ecvv.ae">
-                        <img src="https://eresource.ecvv.com/PC_Ecvv/images/uae-flag.png" style="width:25px;height:16px;text-indent: 30px;">
-                        UAE
-                        <em>
-                            <img style="width:12px;margin-left: -1px;" src="@/assets/images/Content_images/jt.png">
-                        </em>
-                    </a>
-                    <ul class="header-top-r-min-ul">
-                        <li>
-                            <a href="https://www.ecvv.sa"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/flags/sa.svg" style="border:1px solid #d7d5d5; width:25px;height:16px;text-indent: 30px;"> SA</a>
-                        </li>
-                        <li>
-                            <a href="https://www.ecvv.qa"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/qa-flag.png" style="border:1px solid #d7d5d5; width:25px;height:16px;text-indent: 30px;"> QA</a>
-                        </li>
-                        <li>
-                            <a href="https://www.ecvv.ma"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/mar-flag.png" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> Mar</a>
-                        </li>
-                        
-                        <li>
-                            <a href="https://www.ecvv.eg"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/flags/EGY.svg" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> Egypt</a>
-                        </li>
-                        <li>
-                            <a href="https://www.ecvv.com.kw"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/flags/KWT.svg" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> Kuwait</a>
-                        </li>
-                        
-                        <li>
-                            <a href="https://www.ecvv.com.tr"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/flags/tr.svg" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> Turkey</a>
-                        </li>
-                        <li>
-                            <a href="https://www.ecvv.co.in"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/flags/in.svg" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> India</a>
-                        </li>
-                        <li>
-                            <a href="https://www.ecvv.vn"> <img src="https://eresource.ecvv.com/PC_Ecvv/images/vn-flag.png" style="border:1px solid #d7d5d5;width:25px;height:16px;text-indent: 30px;"> Vietnam</a>
-                        </li>
-                    </ul>
-                </el-col>
-               
-
-            </el-row >
-      </div>
+  <!-- 开头 -->
+  <section class="header-box auto-w" :style="styleTop">
+    <el-row class="nav-top-box">
+      <el-col :span="i.span" v-for="i in boxList" :class="i.className">
+        <a :href="i.href" rel="nofollow" target="_blank">{{i.title}}</a>
+      </el-col>
+    </el-row>
+    <!-- 实现各国地方切换跳转 -->
+    <div class="header-top-r">
+      <span>Countries:</span>
+      <el-row class="header-top-r-ul">
+        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="6" class="hoverShow">
+          <a href="http://www.ecvv.ae">
+            <img
+              src="https://eresource.ecvv.com/PC_Ecvv/images/uae-flag.png"
+              class="img"
+            />
+            UAE
+            <em>
+              <img
+                style="width: 12px; margin-left: -1px"
+                src="@/assets/images/Content_images/jt.png"
+              />
+            </em>
+          </a>
+          <ul class="header-top-r-min-ul">
+            <li v-for="i in countriesList">
+              <a :href="i.href">
+                <img
+                  :src="i.src"
+                  class="img"
+                  style="border: 1px solid #d7d5d5"
+                />{{ i.title }}
+              </a>
+            </li>
+          </ul>
+        </el-col>
+      </el-row>
+    </div>
   </section>
 </template>
 
 <style scoped lang="scss">
 .header-box {
-    height: 50px;
-    padding: 0 13%;
-    background-color: #fff;
-    border-top: 1px solid #e6e7eb;
+  height: 50px;
+  padding: 0 13%;
+  background-color: #fff;
+  border-top: 1px solid #e6e7eb;
+  border-bottom: 1px solid #dcdcdc;
+  box-shadow: 1px 2px 3px #dcdcdc;
 }
 .nav-top-box {
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    margin-right: 50px;
-    text-align: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-right: 50px;
+  text-align: center;
 }
 .nav-top-box .el-col a:hover {
-    color: #1e5eb5;
+  color: #1e5eb5;
 }
-.nav-top-box .el-col{
-    &::after{
-    content: '';
+.nav-top-box .el-col {
+  &::after {
+    content: "";
     height: 18px;
     border-right: 1px solid #e6e7eb;
-    margin-left:25px;
+    margin-left: 25px;
+  }
 }
-}
-.nav-top-box .el-col:last-child{
-    &::after{
-    content: '';
-    border-right:none;
-}
+.nav-top-box .el-col:last-child {
+  &::after {
+    content: "";
+    border-right: none;
+  }
 }
 .header-top-r {
-    z-index: 500;
-    font-size: 14px;
-    display: flex;
-    justify-content: end;
-    align-items: center;
+  z-index: 500;
+  font-size: 14px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
-.header-top-r span{
-    display: inline-block;
-    margin-right: 37px;
+.header-top-r span {
+  display: inline-block;
+  margin-right: 37px;
 }
 .header-top-r-ul {
-    width: 330px;
-    display: flex;
-    justify-content: space-between;
-    margin-left: -27px;
+  width: 330px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: -27px;
 }
 .header-top-r-ul .el-col {
-    height: 35px;
-    min-width: 25%;
-    line-height: 35px;
-    text-align: center;
+  height: 35px;
+  min-width: 25%;
+  line-height: 35px;
+  text-align: center;
 }
-.contact a,.about a{
-    color: #888;
+
+.about a {
+  color: #888;
 }
-.header-top-r-ul>.el-col:hover{
-    box-shadow: 1px 1px 3px 0 #AAA;
-    background: #fff;
+.header-top-r-ul > .el-col:hover {
+  box-shadow: 1px 1px 3px 0 #aaa;
+  background: #fff;
 }
 .header-top-r a:hover {
-    color: #ff6d18;
+  color: #ff6d18;
 }
-.nav-top-box,.header-top-r{
-    width: 50%;
+.nav-top-box,
+.header-top-r {
+  width: 50%;
 }
-.hoverShow{
-    margin-right: 10px;
+.hoverShow {
+  margin-right: 10px;
 }
-.hoverShow:hover .header-top-r-min-ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.hoverShow:hover .header-top-r-min-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .header-top-r-min-ul {
-    text-align: left;
-    display: none;
-    padding: 0 1px;
-    box-shadow: 1px 1px 3px 0 #AAA;
-    background: #fff;
+  text-align: left;
+  display: none;
+  padding: 0 3px;
+  box-shadow: 1px 1px 3px 0 #aaa;
+  background: #fff;
+}
+.hoverShow .img {
+  width: 25px;
+  height: 16px;
+  text-indent: 30px;
 }
 </style>

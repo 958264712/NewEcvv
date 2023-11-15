@@ -277,7 +277,7 @@ const CategoryList = (item: any) => {
                         <el-input v-model="queryParams.detailsVal" type="textarea" placeholder="Describe the product you want to source.
 You may include: Color, Material, Size, Weight, Packaging and certificate requirements and/or others." rows="5" />
                         <el-upload :on-remove="removeFile" :on-success="successUpload" ref="uploadRef"
-                            action="http://newecvv.ecvv.com/api/sourcingRequest/fileUpload" :limit="3" :multiple="true"
+                            action="http://newsiteapi.ecvv.com/api/sourcingRequest/fileUpload" :limit="3" :multiple="true"
                             :auto-upload="false">
                             <template #trigger>
                                 <el-button>Upload product images or files only 3</el-button>
@@ -318,7 +318,7 @@ You may include: Color, Material, Size, Weight, Packaging and certificate requir
                             <el-input v-model="queryParams.verificationCode" clearable placeholder="" />
                             <div class=" layui-col-md1" style="margin-left: 10px;">
                                 <img id="imgValidateCode" title="Load new image"
-                                    src="http://newecvv.ecvv.com/api/sourcingRequest/getValidateCode"
+                                    src="http://newsiteapi.ecvv.com/api/sourcingRequest/getValidateCode"
                                     @click="(e: any) => { e.target.src = e.target.src + '?' + Math.random(); }"
                                     style="border: 1px solid #ccc; border-radius: 5px; cursor: pointer">
                             </div>

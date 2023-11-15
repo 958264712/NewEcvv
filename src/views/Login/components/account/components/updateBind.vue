@@ -13,6 +13,8 @@ const ifqueryCode = ref('')
 const url = ref('')
 const timer = ref<any>()
 const num = ref(60)
+
+// 打开二维码链接
 const handleQuery = () => {
     const code = document.getElementById('hinput') as any
     if (ifqueryCode.value === code.value) {
@@ -119,7 +121,6 @@ const handleCode = async () => {
                 timers()
             }
             if (object.code === 416) {
-                ifqueryCode.value = '1111'
                 ElMessage.error('多次获取验证码，号码受限')
             }
         })

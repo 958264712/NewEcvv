@@ -36,11 +36,11 @@ export default defineConfig((mode: ConfigEnv) => {
       open: JSON.parse(env.VITE_OPEN),
       hmr: true,
       proxy: {
-        '/gitee': {
-          target: 'https://gitee.com',
+        '/api': {
+          target: 'https://newsiteapi.ecvv.com',
           ws: true,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/gitee/, ''),
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
         '^/[Uu]pload': {
           target: env.VITE_API_URL,

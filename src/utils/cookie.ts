@@ -8,7 +8,7 @@ export const setCookie = (cname: string, cvalue: any, exdays: any) => {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires +";domain=.newecvv.ecvv.com"; 
+    document.cookie = cname + "=" + cvalue + "; " + expires +";domain=.newsiteapi.ecvv.com"; 
 }
 export const getCookie = (cname: string) => {
     var name = cname + "=";

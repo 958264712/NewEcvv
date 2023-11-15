@@ -6,6 +6,8 @@ import router from './router/index'
 import "./utils/rem.js"
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+import './theme/template.less'
+import './theme/mixins.less'
 
 const app = createApp(App)
 
