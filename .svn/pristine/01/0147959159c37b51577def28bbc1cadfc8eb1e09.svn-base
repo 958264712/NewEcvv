@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
 
 const formSize = ref("default");
 const ruleFormRef = ref<FormInstance>();
@@ -19,16 +17,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   });
 };
-// function ChatSkype(skypeId, objCId, objPId,AccessPage, detectClientCtlId) {
-//     $.getJSON("/EcvvAjax/AjaxSaveSkypeStatistics.ashx",
-//          { SkySkypeID: skypeId, SkyCID: objCId, SkyPID: objPId, SkyAccessPage: AccessPage, AccessType: 0, rd: Math.random() },
-//           function (msg) {  }
-//        );
-//     Skype.tryAnalyzeSkypeUri('chat', '0'); Skype.trySkypeUri_Generic('skype:' + skypeId + '?chat', detectClientCtlId, '0'); return false;
-// }
-const queryRFQ = () => {
-  router.push({ path: `/RFQInquiry` });
-};
 </script>
 <template>
   <div class="v3-email">
@@ -40,7 +28,7 @@ const queryRFQ = () => {
       class="demo-ruleForm"
     >
       <el-form-item label="From：" prop="id" style="margin-bottom: 3px">
-        <el-input v-model="ruleForm.id" placeholder='Enter your email address' style="width: 400px" />
+        <el-input v-model="ruleForm.id" style="width: 400px" />
       </el-form-item>
       <p class="space wai">Enter email or Member ID.</p>
       <el-form-item label="To:" prop="name">
@@ -85,7 +73,6 @@ const queryRFQ = () => {
             style="width: 600px"
             rows="10"
             minlength="20"
-            placeholder='Enter your inquiry details such as product name, color, size, quantity, material, etc.'
             maxlength="3000"
         /></el-tooltip>
       </el-form-item>
@@ -94,13 +81,6 @@ const queryRFQ = () => {
         <el-button type="primary" @click="submitForm(ruleFormRef)">
           Send
         </el-button>
-        <p  class="space1">This is not what you are looking for?</p>
-        <div class="payRequest" @click="queryRFQ">
-        <i title="One request, multiple quotes" />
-        <a title="Easy Sourcing More Convenient, More Efficient" target="_blank"
-          >Post a Sourcing Request Now</a
-        >
-        </div>
       </el-form-item>
     </el-form>
   </div>
@@ -130,12 +110,6 @@ const queryRFQ = () => {
     font-size: 11px;
     line-height: 20px;
   }
-  .space1 {
-    color: #999;
-    font-family: tahoma;
-    font-size: 14px;
-    margin:0 20px;
-  }
   .name {
     display: block;
     margin-right: 10px;
@@ -149,25 +123,5 @@ const queryRFQ = () => {
     background-position: -208px -156px;
     padding-left: 23px;
   }
-  .payRequest {
-  background-color: #fff;
-  display: flex;
-  cursor: pointer;
-}
-
-.payRequest i:before {
-  content: "";
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: url("@/assets/images/Icon/targetBlue.png") no-repeat center center;
-  background-size:75%
-}
-
-.payRequest a {
-  color: #0f55ae;
-  display: block;
-  text-align: center;
-}
 }
 </style>

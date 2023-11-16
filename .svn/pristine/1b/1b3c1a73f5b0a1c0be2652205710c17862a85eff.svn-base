@@ -41,11 +41,6 @@ if (store.width < 1400) {
     }
 }
 
-const radiusStyle = ref({
-    width:'60px',
-    height:'10px',
-    radius:'none'
-})
 
 // // 浏览器改变时，轮播图大小改变
 
@@ -592,7 +587,7 @@ window.addEventListener('resize', () => {
                 </ul>
             </div>
             <!--轮播图部分 -->
-            <Section :list="imgList" :style="styleTop" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
+            <Section :list="imgList" :style="styleTop" :interval="3000" :arrow="always" />
         </nav>
     </section>
 </template>

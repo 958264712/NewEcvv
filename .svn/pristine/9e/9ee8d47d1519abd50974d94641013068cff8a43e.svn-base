@@ -17,18 +17,13 @@ const style = ref({
     height:'300px',
     width:'100%'
 })
-const radiusStyle = ref({
-    width:'10px',
-    height:'10px',
-    radius:'50%'
-})
 </script>
 <template>
     <main>
         <TopBar />
         <HeaderWrap />
         <NavWrap />
-        <Section :list="imgList" :style="style" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
+        <Section :list="imgList" :style="style" :interval="3000" :arrow="always" />
         <MBoxWrap />
         <PCcols />
         <FormInquire />

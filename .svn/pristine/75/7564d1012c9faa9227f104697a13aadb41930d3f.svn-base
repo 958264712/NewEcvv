@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps(["radiusStyle","id","list", "style", "interval", "arrow","index","trigger","interval","autoplay","loop","direction","pause","change"]);
-
+const props = defineProps(["list", "style", "interval", "arrow"]);
 </script>
 <template>
   <section id="slideWrap" :style="props.style">
@@ -15,7 +14,6 @@ const props = defineProps(["radiusStyle","id","list", "style", "interval", "arro
       :pause-on-hover="props.pause"
       @change="props.change"
       :id="props.id"
-      :style="{'--primary-width':props.radiusStyle.width,'--primary-height':props.radiusStyle.height,'--primary-radius':props.radiusStyle.radius}"
     >
       <el-carousel-item v-for="item in props.list" :key="item.key">
         <a :href="item.href">
@@ -49,7 +47,7 @@ const props = defineProps(["radiusStyle","id","list", "style", "interval", "arro
   .el-carousel__arrow {
     width: 40px;
     height: 62px;
-    top: calc(50%);
+    top: calc(50% - 31px);
     cursor: pointer;
     z-index: 9;
     position: absolute;
@@ -88,17 +86,16 @@ const props = defineProps(["radiusStyle","id","list", "style", "interval", "arro
   display: flex;
   position: absolute;
   z-index: 999;
-  bottom: 3%;
+  bottom: 25px;
   left: calc(50% - 10px);
 
-  .el-carousel__indicator .el-carousel__button{
-    width: var(--primary-width);
-    height:var(--primary-height);
+  .el-carousel__indicator .el-carousel__button {
+    width: 60px;
+    height: 10px;
     background: rgba(233, 233, 233, 0.5);
     color: #ffffff;
     margin-right: 20px;
     border: none;
-    border-radius:var(--primary-radius);
   }
 
   .is-active .el-carousel__button {

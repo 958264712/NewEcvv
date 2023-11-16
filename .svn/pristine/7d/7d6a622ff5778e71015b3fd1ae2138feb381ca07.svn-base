@@ -277,11 +277,10 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   text-align: center;
-  /* padding: 5px 0; */
-  margin-top:4px;
+  padding: 5px 0;
 }
 
 .active i:before {
@@ -291,7 +290,6 @@ section {
   height: 24px;
   background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-buyer.png) center top
     no-repeat;
-  margin-top:6px;
 }
 
 .active2 i:before {
@@ -299,7 +297,6 @@ section {
   display: block;
   width: 32px;
   height: 24px;
-  margin-top:6px;
   background: url(//eresource.ecvv.com/PC_Ecvv/images/icon-supplier.png) center
     top no-repeat;
 }
