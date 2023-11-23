@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent, ref,onMounted  } from 'vue'
+import {useRouter} from 'vue-router'
 // 懒加载 引入组件
 const headerUp = defineAsyncComponent(() => import('./components/HeaderTop.vue'));
 const headerDown = defineAsyncComponent(() => import('./components/HeaderSearch.vue'));
+
+const router = useRouter()
+const location = router.options.history.location.split('/')[1]
+// 判断是否为公司页面
+const ifCompany = ref(false)
 
 // 获取当前屏幕高度，判断是否固定高度
 const ifFixed = ref<boolean>(false)
@@ -33,7 +39,7 @@ if (width.value < 1400) {
 // 滚动条高度改变时
 window.addEventListener('scroll', () => {
   width.value = document.body.clientWidth
-  if (document.documentElement.scrollTop > 80) {
+  if (document.documentElement.scrollTop > 80 && location !== 'vipcompany') {
     ifFixed.value = true
     if (width.value < 1400) {
       style.value = {
@@ -62,9 +68,10 @@ window.addEventListener('scroll', () => {
   }
 })
 // 浏览器改变时
+
 window.addEventListener('resize', () => {
   width.value = document.body.clientWidth
-  if (document.documentElement.scrollTop > 80  ) {
+  if (document.documentElement.scrollTop > 80 && location !== 'vipcompany' ) {
     ifFixed.value = true
     if (width.value < 1400) {
       style.value = {
@@ -93,13 +100,17 @@ window.addEventListener('resize', () => {
   
 })
 
-
+onMounted(()=>{
+  if(location === 'company' || location === 'vipcompany'){
+    ifCompany.value = true
+  }
+})
 </script>
 
 <template>
   <main >
-    <headerDown :style="ifFixed === true ? style : ''"/>
-    <headerUp />
+    <headerDown :style="ifFixed === true ? style : ''" :ifCompany="ifCompany"/>
+    <headerUp v-show='!ifCompany'/>
   </main>
 </template>
 

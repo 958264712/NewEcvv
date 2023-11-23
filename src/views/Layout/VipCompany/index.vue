@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import { defineAsyncComponent } from "vue";
+const ComHeader = defineAsyncComponent(() => import("./components/company_header.vue"));
+const NavWrap = defineAsyncComponent(() => import("./components/navWrap.vue"));
+const Content = defineAsyncComponent(() => import("./components/content.vue"));
+const ProduceList = defineAsyncComponent(() => import("./components/produceList.vue"));
+
+</script>
+<template>
+  <main class='companyModuler'>
+      <ComHeader />
+      <NavWrap />
+      <Content />
+      <ProduceList />
+      <FormInquire />
+  </main>
+</template>
+<style lang="less" setup>
+.companyModuler {
+  background-color: #fff;
+}
+
+</style>

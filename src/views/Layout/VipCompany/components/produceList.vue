@@ -1,0 +1,1452 @@
+<script setup lang="ts">
+import { defineAsyncComponent } from "vue";
+
+const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
+</script>
+
+<template>
+  <el-row id="produceModule">
+    <el-col :span="4" class="leftSider">
+      <div class="sr-layout-nav home-nav">
+        <div class="sr-layout-block">
+          <div
+            class="sr-layout-subblock sr-side-proGroup"
+            faw-module="Prod_group_filter"
+            faw-exposure=""
+            faw-id="1hfe7og2f54"
+          >
+            <div class="sr-txt-title">
+              <h2 class="sr-txt-h2">Product Categories</h2>
+            </div>
+            <ul class="sr-side-proGroup-list">
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/VeoGqKJWAzhX/Artificial-Sky-Light-catalog-1.html"
+                  title="Artificial Sky Light"
+                  ads-data=""
+                  >Artificial Sky Light</a
+                >
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/IeCmhGcYYRVH/LED-Panel-Light-catalog-1.html"
+                  title="LED Panel Light"
+                  ads-data=""
+                  >LED Panel Light<i
+                    class="ob-icon icon-right J-showSubList"
+                  ></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/ibKaeJZAZzcX/Custom-made-design-1.html"
+                      title="Custom-made design"
+                      ads-data=""
+                      >Custom-made design</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/VenQWchMgukP/CCT-Tunable-White-Panel-Education-Lighting-1.html"
+                      title="CCT Tunable White Panel - Education Lighting"
+                      ads-data=""
+                      >CCT Tunable White Panel - Education Lighting</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/xMnQcvhHOzki/Frameless-Panel-Light-1.html"
+                      title="Frameless Panel Light"
+                      ads-data=""
+                      >Frameless Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/BbctFYDyMgks/LED-Hollow-Panel-Light-1.html"
+                      title="LED Hollow Panel Light"
+                      ads-data=""
+                      >LED Hollow Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/vbHTPulEvgVf/Backlit-Panel-Light-1.html"
+                      title="Backlit Panel Light"
+                      ads-data=""
+                      >Backlit Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/GofnjIzxJuWd/Up-Down-Lit-Panel-Light-1.html"
+                      title="Up-Down Lit Panel Light"
+                      ads-data=""
+                      >Up-Down Lit Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/lMQEcjVPYLhg/IP65-Panel-Light-1.html"
+                      title="IP65 Panel Light"
+                      ads-data=""
+                      >IP65 Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/KexnVTkcJuWg/Anti-glare-Panels-1.html"
+                      title="Anti-glare Panels"
+                      ads-data=""
+                      >Anti-glare Panels</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/JexEkQVbIuhI/Dimmable-Solutions-1.html"
+                      title="Dimmable Solutions"
+                      ads-data=""
+                      >Dimmable Solutions</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/oeEJkycHhLVP/Emergency-Panel-Light-1.html"
+                      title="Emergency Panel Light"
+                      ads-data=""
+                      >Emergency Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/IqsEcYhrgUkH/RGB-W-Panel-Light-1.html"
+                      title="RGB/W Panel Light"
+                      ads-data=""
+                      >RGB/W Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/aeTJCqPLhzcw/Standard-Panel-Light-1.html"
+                      title="Standard Panel Light"
+                      ads-data=""
+                      >Standard Panel Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/DqsxWuVEYUkH/Others-LED-Panel-Light-1.html"
+                      title="Others LED Panel Light"
+                      ads-data=""
+                      >Others LED Panel Light</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/yqvEDuWVZrTN/LED-Ceiling-Light-catalog-1.html"
+                  title="LED Ceiling Light"
+                  ads-data=""
+                  >LED Ceiling Light</a
+                >
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/zqCnWrcxJphH/LED-Linear-Light-catalog-1.html"
+                  title="LED Linear Light"
+                  ads-data=""
+                  >LED Linear Light<i
+                    class="ob-icon icon-right J-showSubList"
+                  ></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/hqSfmEUoHukw/6870-series-shop-lights-1.html"
+                      title="6870 series shop lights"
+                      ads-data=""
+                      >6870 series shop lights</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/oenmFSKJCzhV/5075-series-1.html"
+                      title="5075 series"
+                      ads-data=""
+                      >5075 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/LoNmhPkDhpVi/7575-series-1.html"
+                      title="7575 series"
+                      ads-data=""
+                      >7575 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/PeQmUniJRLkw/3575-series-1.html"
+                      title="3575 series"
+                      ads-data=""
+                      >3575 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/PejmVwkdlUWi/3567-series-1.html"
+                      title="3567 series"
+                      ads-data=""
+                      >3567 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/MenmWYVJVPhL/4055-series-1.html"
+                      title="4055 series"
+                      ads-data=""
+                      >4055 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/DoIfxPuJuzWH/2285-series-1.html"
+                      title="2285 series"
+                      ads-data=""
+                      >2285 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/zeCxVkcYhpWi/9035-series-1.html"
+                      title="9035 series"
+                      ads-data=""
+                      >9035 series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/GomQtJVjRgWz/Rigid-Bar-1.html"
+                      title="Rigid Bar"
+                      ads-data=""
+                      >Rigid Bar</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/AocTlObuEgVF/LED-Pendant-Light-catalog-1.html"
+                  title="LED Pendant Light"
+                  ads-data=""
+                  >LED Pendant Light</a
+                >
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/bqjGZOWuSPVl/Aluminium-Profile-catalog-1.html"
+                  title="Aluminium Profile"
+                  ads-data=""
+                  >Aluminium Profile<i
+                    class="ob-icon icon-right J-showSubList"
+                  ></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/mbBGaUzMJgVe/Suspending-Surface-Linear-Light-Office-Shops-1.html"
+                      title="Suspending / Surface Linear Light -- Office\Shops"
+                      ads-data=""
+                      >Suspending / Surface Linear Light -- Office\Shops</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/NbsTptzAYufC/LED-Strip-Light-catalog-1.html"
+                  title="LED Strip Light"
+                  ads-data=""
+                  >LED Strip Light<i
+                    class="ob-icon icon-right J-showSubList"
+                  ></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/VMeGIHqlCghi/COB-LED-strip-1.html"
+                      title="COB LED strip"
+                      ads-data=""
+                      >COB LED strip</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/WqbTIMoKfzhi/Others-LED-Strip-Light-1.html"
+                      title="Others LED Strip Light"
+                      ads-data=""
+                      >Others LED Strip Light</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/tbManFAvhuVe/LED-Down-Light-catalog-1.html"
+                  title="LED Down Light"
+                  ads-data=""
+                  >LED Down Light</a
+                >
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/OMFmJjzCEUhp/LED-Track-Light-catalog-1.html"
+                  title="LED Track Light"
+                  ads-data=""
+                  >LED Track Light</a
+                >
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/MemnhcWKCgVo/LED-Tri-proof-Light-IP65-catalog-1.html"
+                  title="LED Tri- proof Light IP65 "
+                  ads-data=""
+                  >LED Tri- proof Light IP65
+                </a>
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/aqZmXWsrfYVN/LED-Grow-Light-catalog-1.html"
+                  title="LED Grow Light"
+                  ads-data=""
+                  >LED Grow Light<i class="ob-icon icon-right J-showSubList"></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/beLtaYGoqgWp/G2-Spydrx-Series-1.html"
+                      title="G2 Spydrx Series"
+                      ads-data=""
+                      >G2 Spydrx Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/CorGhgFvrLVk/G3-Spydrx-Foldable-Series-1.html"
+                      title="G3 Spydrx Foldable Series"
+                      ads-data=""
+                      >G3 Spydrx Foldable Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/MbLtGeTJIPcR/G4-DIY-Series-1.html"
+                      title="G4 DIY Series"
+                      ads-data=""
+                      >G4 DIY Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/NMpGWVFEZghk/G5-Skiving-Fin-Series-1.html"
+                      title="G5 Skiving Fin Series"
+                      ads-data=""
+                      >G5 Skiving Fin Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/OqLGMleUCgWz/G6-led-grow-light-1.html"
+                      title="G6 led grow light"
+                      ads-data=""
+                      >G6 led grow light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/CezfSpZrZLWP/G7-LED-Grow-Light-1.html"
+                      title="G7 LED Grow Light"
+                      ads-data=""
+                      >G7 LED Grow Light</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/veYftwdrZzVl/LM-Quantum-Board-Series-1.html"
+                      title="LM Quantum Board Series"
+                      ads-data=""
+                      >LM Quantum Board Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/boPTaltzVgcr/Others-LED-Grow-Light-1.html"
+                      title="Others LED Grow Light"
+                      ads-data=""
+                      >Others LED Grow Light</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li class="sr-side-proGroup-rightSpace">
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/boxQVjcUbzWq/LED-High-Bay-Light-catalog-1.html"
+                  title="LED High Bay Light"
+                  ads-data=""
+                  >LED High Bay Light<i
+                    class="ob-icon icon-right J-showSubList"
+                  ></i
+                ></a>
+                <ol class="sr-side-proGroup-sublist">
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/LogtRJudHzhw/UFO-Series-1.html"
+                      title="UFO Series"
+                      ads-data=""
+                      >UFO Series</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      ref="nofollow"
+                      href="https://luminlighting.en.made-in-china.com/product-group/gePtpUzbgLhd/Others-LED-High-Bay-Light-1.html"
+                      title="Others LED High Bay Light"
+                      ads-data=""
+                      >Others LED High Bay Light</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a
+                  ref="nofollow"
+                  href="https://luminlighting.en.made-in-china.com/product-group/WoiTwVPUbLhu/Soar-Lights-catalog-1.html"
+                  title="Soar Lights"
+                  ads-data=""
+                  >Soar Lights</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="sr-layout-block contact-block J-contact-fix"
+          faw-module="sendInquiry"
+          faw-exposure=""
+          faw-id="1hfe7oo2m811"
+          style="inset: 40px auto auto; position: static; width: auto"
+        >
+          <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">Contact Supplier</h2>
+            <a
+              href="javascript:void(0);"
+              title="Business Card"
+              rel="nofollow"
+              class="title-icon J-show-card"
+              ads-data="st:20,pdid:,pcid:IMRmDLvcafHV"
+              ><i class="ob-icon icon-buyer-sourcing"></i
+            ></a>
+          </div>
+          <div class="sr-layout-content contact-supplier">
+            <div class="sr-side-contSupplier-info">
+              <div class="sr-side-contSupplier-pic">
+                <a href="javascript:void(0);">
+                  <img
+                    class="J-contact-img"
+                    src="//image.made-in-china.com/336f0j00ItLTVPOMuEcQ/made-in-china.webp"
+                    alt="Avatar"
+                  />
+                </a>
+              </div>
+              <div class="sr-side-contSupplier-txt">
+                <div class="sr-side-contSupplier-name">Mr. Kevin</div>
+                <div class="sr-side-contSupplier-position">General Manager</div>
+                <div class="sr-side-contSupplier-chat">
+                  <b
+                    class="tm3_chat_status"
+                    lan="en"
+                    tmlan="en"
+                    dataid="IMRmDLvcafHV_IMRmDLvcafHV_3"
+                    inquiry="https://www.made-in-china.com/sendInquiry/shrom_IMRmDLvcafHV_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=home"
+                    processor="chat"
+                    cid="IMRmDLvcafHV"
+                    style="display: none"
+                    state="initialized"
+                  ></b
+                  ><a
+                    rel="nofollow"
+                    ads-data="st:13"
+                    class="tm-status-on"
+                    href="javascript:void('Chat Now')"
+                    title="Chat with supplier online now!"
+                    >Chat with Supplier</a
+                  >
+                </div>
+                <div class="sr-side-contSupplier-startMeeting">
+                  <b
+                    class="J-start-meeting"
+                    comid="IMRmDLvcafHV"
+                    theme="pc-search-list"
+                    target="_blank"
+                  ></b>
+                </div>
+              </div>
+            </div>
+            <form
+              id="sideInqueryForm"
+              class="form obelisk-form"
+              method="post"
+              target="_blank"
+              action="//www.made-in-china.com/sendInquiry/shrom_IMRmDLvcafHV_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=home&amp;quickpost=1"
+            >
+              <input type="hidden" id="loginStatu" value="0" />
+              <div class="sr-side-contSupplier-field">
+                <textarea
+                  class="input-textarea sr-side-contSupplier-message J-side-contSupplier-message"
+                  name="content"
+                  id="inquiryContent"
+                  cols="90"
+                  rows="2"
+                  placeholder="Enter between 20 to 4,000 characters."
+                  maxlength="4000"
+                ></textarea>
+              </div>
+              <div
+                class="sr-side-contSupplier-field sr-side-contSupplier-emailfield J-contSupplier-email-field"
+              >
+                <input
+                  class="input-text sr-side-contSupplier-email"
+                  name="senderMail"
+                  placeholder="Your email address"
+                  value=""
+                />
+              </div>
+              <div class="sr-side-contSupplier-btn cf">
+                <div class="cf">
+                  <div id="captcha" style="float: left"></div>
+                  <input
+                    type="hidden"
+                    name="hmToken"
+                    class="J-hmToken"
+                    value=""
+                  />
+                  <input
+                    type="hidden"
+                    class="J-hmCaptchaId"
+                    value="18bd4c8e-230c-435c-9a1d-cb9309d80086"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  id="sourceReqType"
+                  name="sourceReqType"
+                  value="GLP"
+                />
+                <input
+                  type="hidden"
+                  name="showRoomQuickInquireFlag"
+                  value="1"
+                />
+                <input type="hidden" name="showRoomId" value="" />
+                <input
+                  type="hidden"
+                  name="compareFromPage"
+                  id="compareFromPage"
+                  value="1"
+                />
+                <button
+                  fun-inquiry-supplier=""
+                  type="submit"
+                  class="btn btn-main btn-large"
+                  id="sideInquirySend"
+                  ads-data="st:5,pdid:,pcid:IMRmDLvcafHV"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div></el-col
+    >
+    <el-col :span="18" class="rightSider">
+      <div class="J-spotlight-show">
+        <div class="sr-layout-block">
+          <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">
+              LED Panel light &amp; Artificial Sky Light Panel
+            </h2>
+          </div>
+          <div class="sr-layout-content">
+            <ul class="sr-layout-row">
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sr-layout-block">
+          <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">Ceiling Light</h2>
+          </div>
+          <div class="sr-layout-content">
+            <ul class="sr-layout-row">
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sr-layout-block">
+          <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">You May Like</h2>
+          </div>
+          <div class="sr-layout-content">
+            <ul class="sr-layout-row">
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
+                      >
+                        <img
+                          src="https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525"
+                          title="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
+                          alt="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
+                      title="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
+                    >
+                      ECVV Laser level 5 Lines Green Light Professional Cross
+                      Marking Meter Self-leveling Horizontal Vertical Laser
+                      Ruler Spirit Level
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  >Contact Now</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <FormInquire />
+    </el-col>
+  </el-row>
+</template>
+<style lang="less" setup>
+#produceModule {
+  margin: 2% auto;
+  width: 73%;
+  display: flex;
+  justify-content: space-between;
+
+  .leftSider {
+    .sr-layout-nav {
+      margin-right: 20px;
+      min-height: 1px;
+      width: 300px;
+      .sr-layout-block {
+        padding: 30px 29px;
+        margin-bottom: 20px;
+        background: #fff;
+        border: 1px solid #e9eef4;
+        .sr-layout-subblock:last-child {
+          border-bottom: 0;
+          padding-bottom: 0;
+        }
+        .sr-layout-subblock:first-child {
+          padding-top: 0;
+        }
+        .sr-layout-subblock {
+          border-bottom: 1px solid #e6ecf2;
+          padding: 30px;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .sr-txt-title {
+          margin-bottom: 20px;
+          .sr-txt-h2 {
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: middle;
+            word-break: break-word;
+          }
+        }
+        .sr-side-proGroup-list {
+          margin-top: -10px;
+          margin-bottom: -10px;
+          margin-left: -30px;
+          margin-right: -30px;
+          padding: 0;
+          li {
+            position: relative;
+            a {
+              line-height: 21px;
+              padding: 10px 30px;
+              color: #222;
+              font-size: 14px;
+              text-decoration: none;
+              display: block;
+              overflow-wrap: break-word;
+              word-wrap: break-word;
+            }
+            .sr-side-proGroup-sublist {
+              display: none;
+              position: absolute;
+              left: 100%;
+              top: 0;
+              margin-top: -11px;
+              border: 1px solid #ced3d9;
+              background: #fff;
+              z-index: 99;
+              padding: 10px 0;
+              box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+
+              li a {
+                padding: 10px 20px;
+                white-space: nowrap;
+              }
+            }
+          }
+          li.sr-side-proGroup-rightSpace > a {
+            padding-right: 56px;
+            i {
+              position: absolute;
+              right: 30px;
+              top: 50%;
+              transform: translateY(-50%);
+              -ms-transform: translateY(-50%);
+              -moz-transform: translateY(-50%);
+              -webkit-transform: translateY(-50%);
+              -o-transform: translateY(-50%);
+            }
+            .ob-icon,
+            .micon {
+              font-family: "FontAwesome";
+              font-weight: normal;
+              font-style: normal;
+              text-decoration: inherit;
+              -webkit-font-smoothing: antialiased;
+              display: inline-block;
+              *display: inline;
+              *zoom: 1;
+              font-size: 16px;
+              line-height: 1;
+              vertical-align: middle;
+              text-decoration: none !important;
+            }
+            .ob-icon.icon-right:before {
+              content: "\f054";
+            }
+          }
+        }
+        .sr-side-contSupplier-pic {
+          font-size: 0;
+          float: left;
+          margin-right: 15px;
+          a {
+            cursor: default;
+          }
+          img {
+            max-width: 70px;
+            max-height: 70px;
+            border-radius: 3px;
+          }
+        }
+        .sr-side-contSupplier-txt {
+          overflow: hidden;
+          .sr-side-contSupplier-name {
+            color: #222;
+            font-size: 14px;
+          }
+          .sr-side-contSupplier-position {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 5px;
+          }
+          .sr-side-contSupplier-chat {
+            color: #1470cc;
+            font-size: 14px;
+            text-decoration: none;
+            word-wrap: break-word;
+            word-break: break-word;
+          }
+          .sr-side-contSupplier-chat .tm-status-on,
+          .sr-side-contSupplier-chat .tm-status-off {
+            background-position: 0 0;
+            white-space: pre-wrap;
+          }
+          .tm-status-on {
+            background: url(https://www.micstatic.com/common/img/logo/tm_on_16_8a9a2d8a.png)
+              no-repeat 0 center;
+          }
+          .tm-status-off,
+          .tm-status-on {
+            display: inline-block !important;
+            *display: inline !important;
+            zoom: 1;
+            padding-left: 20px;
+            line-height: 16px;
+            white-space: nowrap;
+            text-align: left;
+          }
+          .sr-side-contSupplier-startMeeting {
+            margin-top: 5px;
+            b {
+              font-weight: bold;
+            }
+          }
+        }
+        .sr-side-contSupplier-info:before,
+        .sr-side-contSupplier-info:after {
+          content: "";
+          display: table;
+        }
+        .sr-side-contSupplier-info:after {
+          clear: both;
+        }
+        .sr-side-contSupplier-field {
+          margin-bottom: 10px;
+          textarea.input-textarea {
+            resize: none;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ced3d9;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            -o-border-radius: 3px;
+            border-radius: 3px;
+            resize: vertical;
+            outline: 0;
+            overflow: auto;
+            vertical-align: top;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+          .feedback-block {
+            clear: left;
+          }
+          .error {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #e64545;
+            display: inline-block;
+          }
+        }
+        .obelisk-form .input-text,
+        .ob-form .input-text {
+          padding-left: 10px;
+          padding-right: 10px;
+          padding-top: 6px;
+          padding-bottom: 6px;
+          border: 1px solid #ced3d9;
+          border-radius: 3px;
+          vertical-align: middle;
+          line-height: 16px;
+          font-size: 12px;
+          background-color: #fff;
+          margin-right: 10px;
+          height: 30px;
+          *height: 16px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -ms-box-sizing: border-box;
+          -o-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+        .sr-side-contSupplier-btn .btn {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        .btn-main {
+          color: #fff;
+          border: solid 1px #e64545;
+          background-color: #e64545;
+        }
+        .btn {
+          height: 36px;
+          line-height: 34px;
+          font-size: 14px;
+          display: inline-block;
+          vertical-align: middle;
+          *display: inline;
+          *zoom: 1;
+          text-align: center;
+          color: #222;
+          border: solid 1px #ced3d9;
+          background-color: #f5f7fa;
+          padding: 0 15px;
+          border-radius: 3px;
+          cursor: pointer;
+          box-sizing: border-box;
+        }
+        .sr-side-contSupplier-message {
+          width: 100%;
+          font-size: 12px;
+        }
+        .sr-side-contSupplier-field {
+          margin-bottom: 10px;
+        }
+        .sr-side-contSupplier-btn {
+          font-size: 12px;
+        }
+      }
+      //   .sr-layout-block {
+      //     // border: 0;
+      //   }
+    }
+  }
+
+  .rightSider {
+    .sr-layout-block {
+      border: 0;
+      padding: 30px 29px;
+      margin-bottom: 20px;
+      background: #fff;
+      border: 1px solid #e9eef4;
+      .sr-txt-title {
+        margin-bottom: 20px;
+        .sr-txt-h2 {
+          font-size: 18px;
+          font-weight: bold;
+          display: inline-block;
+          vertical-align: middle;
+          word-break: break-word;
+        }
+      }
+      .sr-layout-row {
+        margin-left: -10px;
+        margin-right: -10px;
+        margin-bottom: -20px;
+        display: flex;
+        flex-wrap: wrap;
+        .sr-proList {
+          position: relative;
+          .btn {
+            height: 36px;
+            line-height: 34px;
+            font-size: 14px;
+            display: inline-block;
+            vertical-align: middle;
+            *display: inline;
+            *zoom: 1;
+            text-align: center;
+            color: #222;
+            border: solid 1px #ced3d9;
+            background-color: #f5f7fa;
+            padding: 0 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            box-sizing: border-box;
+          }
+          .btn:hover {
+            color: #222;
+            background-color: #e6ecf2;
+          }
+        }
+        .sr-layout-col-4 {
+          width: 25%;
+          padding: 0 9px;
+          margin-bottom: 20px;
+          .sr-proList-pic-wrap {
+            max-width: 500px;
+            margin: 0 auto;
+            .sr-proList-pic {
+              position: relative;
+              width: 100%;
+              font-size: 0;
+              .prod-image{
+                  width:200px;
+                  height:200px;
+                  img {
+                    transition: all 0.3s ease-in;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    max-width: 100%;
+                    max-height: 100%;
+                  }
+                }
+              .prod-video-mark,
+              .prod-gif-mark {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                color: #fff;
+                background: #7f7f7f;
+                padding: 2px 5px;
+                z-index: 2;
+                font-size: 12px;
+                
+              }
+            }
+          }
+          .sr-proList-txt {
+            margin-top: 10px;
+            .sr-proList-name {
+              line-height: 21px;
+              height: 42px;
+              overflow: hidden;
+              margin-bottom: 5px;
+              font-size: 14px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              a {
+                color: #222;
+                text-decoration: none;
+              }
+            }
+            .sr-proList-price {
+              height: 21px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              color: #888;
+              .sr-proList-unit {
+                font-size: 14px;
+                line-height: 21px;
+              }
+              .sr-proList-num {
+                color: #e64545;
+                line-height: 21px;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

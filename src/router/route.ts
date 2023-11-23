@@ -74,7 +74,12 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			{
 				path: '/company/:id',
 				name: 'Company',
-				component: () => import('@/views/Layout/company/index.vue'),
+				component: () => import('@/views/Layout/Company/index.vue'),
+			},
+			{
+				path: '/VipCompany/:id',
+				name: 'VipCompany',
+				component: () => import('@/views/Layout/VipCompany/index.vue'),
 			},
 		],
 	},

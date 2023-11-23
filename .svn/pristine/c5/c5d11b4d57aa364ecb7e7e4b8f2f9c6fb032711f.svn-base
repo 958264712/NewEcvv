@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import "element-plus/theme-chalk/display.css";
 import { useRouter } from "vue-router";
-import { ref} from "vue";
+import { ref } from "vue";
 import { ElMessage } from "element-plus";
-
-
-const props = defineProps(["style","ifCompany"]);
+const props = defineProps(["style"]);
 const router = useRouter();
-
-
 // 定义是否显示
 const isShow = ref<boolean>(false);
 const searchText = ref<string>("General Search");
@@ -57,8 +53,6 @@ const clickShow = (e:any) => {
         isShow.value = false;
     }
 }
-
-
 </script>
 
 <template>
@@ -76,7 +70,7 @@ const clickShow = (e:any) => {
       <!--categories-->
       <!--search-->
       <el-col :span="12">
-        <div class="Search" v-show='!props.ifCompany'>
+        <div class="Search">
           <div
             class="SearchBorder"
             @click="(e) => clickShow(e)"
@@ -153,7 +147,6 @@ const clickShow = (e:any) => {
 /* 默认宽高 */
 section {
   padding: 0 11%;
-  border-bottom:1px solid #eee;
 }
 .el-row {
   width: 100%;
