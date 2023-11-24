@@ -179,7 +179,7 @@ let r = "";
     </ul>
   </div>
 </template>
-<style lang="less" setup>
+<style lang="less" scoped>
 .app-companyTopBar {
   width: 100%;
   height: 30px;

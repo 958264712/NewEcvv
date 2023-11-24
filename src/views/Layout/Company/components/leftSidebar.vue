@@ -78,7 +78,7 @@ const itemList = ref([
   </div>
 </template>
 
-<style lang="less" setup>
+<style lang="less" scoped>
 #EcvvCompanyHomeshopifyProduct {
   border: 1px solid #f1f1f1;
   box-shadow: 4px 4px 4px rgb(0 0 0 / 13%);

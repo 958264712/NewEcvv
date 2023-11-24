@@ -439,7 +439,7 @@
     <div class="clear"></div>
   </div>
 </template>
-<style lang="less" setup>
+<style lang="less" scoped>
 .PCcols:after,
 .PCcol-left:after,
 .select-products-main:after,

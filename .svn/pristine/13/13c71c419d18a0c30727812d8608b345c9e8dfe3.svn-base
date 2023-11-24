@@ -393,7 +393,7 @@ const calTime = (e) => {
     </div>
   </div>
 </template>
-<style lang="less" scoped>
+<style lang="less" setup>
 .company_header {
   .sr-layout-wrap {
     max-width: 1480px;

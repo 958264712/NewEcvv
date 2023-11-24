@@ -42,7 +42,7 @@ import { ref } from "vue";
   </div>
 </template>
 
-<style lang="less" setup>
+<style lang="less" scoped>
 .cws-wrap {
   margin: 0 0 10px 7px;
   width: 182px;

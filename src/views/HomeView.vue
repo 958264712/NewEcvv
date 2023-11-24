@@ -20,7 +20,7 @@ const Sidebar = defineAsyncComponent(() => import('@/views/Sidebar/index.vue'));
 <style scoped>
 .head {
   width: 100%;
-  padding-top: 10px;
+  padding: 10px 0;
   background-color: #fff;
 }
 

@@ -45,7 +45,7 @@
     </div>
   </div>
 </template>
-<style lang="less" setup>
+<style lang="less" scoped>
 .header-warp {
   .header {
     position: relative;

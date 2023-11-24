@@ -598,7 +598,7 @@
     </div>
   </div>
 </template>
-<style lang="less" setup>
+<style lang="less" scoped>
 .m-box {
   margin-bottom: 10px;
   padding-bottom: 8px;

@@ -101,7 +101,7 @@ window.addEventListener('resize', () => {
 })
 
 onMounted(()=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'){
+  if(location === 'company' || location === 'vipcompany'){
     ifCompany.value = true
   }
 })

@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue";
-import {useRouter} from 'vue-router'
 
-const router = useRouter()
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
-
-const SendMessage = (id) => {
-  router.push({ path: `/sendMsg/${id}`})
-}
 </script>
+
 <template>
   <el-row id="produceModule">
     <el-col :span="4" class="leftSider">
@@ -672,12 +667,12 @@ const SendMessage = (id) => {
                     30 Pieces
                   </div>
                 </div>
-                <!-- href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en" -->
                 <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
                   target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
-                  @click="SendMessage('123')"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
                   >Contact Now</a
                 >
               </li>
@@ -1054,7 +1049,7 @@ const SendMessage = (id) => {
     </el-col>
   </el-row>
 </template>
-<style lang="less" scoped>
+<style lang="less" setup>
 #produceModule {
   margin: 2% auto;
   width: 73%;

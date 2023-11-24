@@ -64,7 +64,7 @@ const clickShow = (e:any) => {
 <template>
   <!-- 搜索栏 + 置顶 -->
   <section :style="props.style">
-    <el-row  :style='props.ifCompany ?{width: "1000px"} :""' >
+    <el-row>
       <el-col :span="4" class="hidden-sm-and-down">
         <div class="logo">
           <a href="//www.ecvv.com">
@@ -75,7 +75,7 @@ const clickShow = (e:any) => {
 
       <!--categories-->
       <!--search-->
-      <el-col :span="!props.ifCompany ?12:4">
+      <el-col :span="12">
         <div class="Search" v-show='!props.ifCompany'>
           <div
             class="SearchBorder"
@@ -108,13 +108,13 @@ const clickShow = (e:any) => {
           </div>
         </div>
       </el-col>
-      <el-col :span="!props.ifCompany ?3:4" class="payRequest hidden-md-and-down" @click="queryRFQ">
+      <el-col :span="3" class="payRequest hidden-md-and-down" @click="queryRFQ">
         <i title="One request, multiple quotes" />
         <a title="Easy Sourcing More Convenient, More Efficient" target="_blank"
           >Post Sourcing Request</a
         >
       </el-col>
-      <el-col :span="!props.ifCompany ?5:7" class="hidden-lg-and-down">
+      <el-col :span="5" class="hidden-lg-and-down">
         <el-row id="UNavMenu" class="nav-list2 fr">
           <el-col :span="8" class="active">
             <i>For Buyer</i>
@@ -152,10 +152,10 @@ const clickShow = (e:any) => {
 <style scoped>
 /* 默认宽高 */
 section {
-  padding: 0 12%;
+  padding: 0 11%;
+  border-bottom:1px solid #eee;
 }
 .el-row {
-  margin:0 auto;
   width: 100%;
   align-items: center;
   justify-content: space-around;

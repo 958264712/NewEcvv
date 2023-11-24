@@ -106,12 +106,12 @@ const queryRFQ = () => {
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less" setup>
 .v3-email {
   border-style: solid;
   border-width: 3px;
-  padding-top: 10px;
-  margin-bottom: 30px;
+  margin:30px auto;
+  width:950px;
   .title {
     color: #333;
     font-size: 16px;
