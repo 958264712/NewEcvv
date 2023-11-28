@@ -5,15 +5,8 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
-// 询盘1
 const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
-  window.open(routeUrl.href, '_blank');
-}
-
-const clickProduct = (id) =>{
-  let routeUrl = router.resolve({path:`/product/${id}`})
-  window.open(routeUrl.href, '_blank');
+  router.push({ path: `/sendMsg/${id}`})
 }
 </script>
 <template>
@@ -643,7 +636,8 @@ const clickProduct = (id) =>{
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                       @click="clickProduct(123)"
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
                       >
                         <img
                           src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
@@ -651,7 +645,6 @@ const clickProduct = (id) =>{
                           title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                           alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                           style="display: block"
-                           @click="clickProduct(123)"
                         />
                       </a>
                     </div>
@@ -660,7 +653,7 @@ const clickProduct = (id) =>{
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                       @click="clickProduct(123)"
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
                       title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                     >
                       LED Sky Ceiling Panel Light 40W LED Panel Lights

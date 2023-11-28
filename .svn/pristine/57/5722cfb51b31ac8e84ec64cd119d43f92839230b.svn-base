@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref,watch,onMounted  } from 'vue'
+import { defineAsyncComponent, ref,onMounted  } from 'vue'
 import {useRouter} from 'vue-router'
 // 懒加载 引入组件
 const headerUp = defineAsyncComponent(() => import('./components/HeaderTop.vue'));
@@ -101,23 +101,10 @@ window.addEventListener('resize', () => {
 })
 
 onMounted(()=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'){
+  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'){
     ifCompany.value = true
-  }else{
-    ifCompany.value = false
   }
 })
-
-watch(() =>router,(val)=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'){
-    ifCompany.value = true
-  }else{
-    ifCompany.value = false
-  }
-},{
-    // 深度观察监听
-    deep: true
-  })
 </script>
 
 <template>

@@ -86,16 +86,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				name: 'SendMessage',
 				component: () => import('@/views/Layout/SendMessage/index.vue'),
 			},
-			{
-				path: '/requestSample/:id',
-				name: 'RequestSample',
-				component: () => import('@/views/Layout/RequestSample/index.vue'),
-			},
-			{
-				path: '/product/:id',
-				name: 'Product',
-				component: () => import('@/views/Layout/Product/index.vue'),
-			},
 		],
 	},
 	{

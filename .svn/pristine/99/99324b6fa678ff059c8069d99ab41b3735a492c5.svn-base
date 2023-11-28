@@ -64,7 +64,7 @@ const clickShow = (e:any) => {
 <template>
   <!-- 搜索栏 + 置顶 -->
   <section :style="props.style">
-    <el-row  :style='props.ifCompany&& router.options.history.location.split("/")[1] !== "vipcompany" ?{width: "1000px"} :""' >
+    <el-row  :style='props.ifCompany ?{width: "1000px"} :""' >
       <el-col :span="4" class="hidden-sm-and-down">
         <div class="logo">
           <a href="//www.ecvv.com">

@@ -299,9 +299,11 @@ const handleSendMsg = (id:number) =>{
 .details-content-all {
     margin-top: 30px;
     clear: both;
-    width: 1440px;
-    margin: 0 auto;
+    width: 100%;
+    // margin: 0 auto;
+    padding:10px 11%;
     align-items: flex-start;
+    background-color:#fff;
 }
 
 // 左边文档

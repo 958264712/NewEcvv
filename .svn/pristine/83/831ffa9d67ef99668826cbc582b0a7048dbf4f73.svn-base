@@ -1,0 +1,173 @@
+<script lang="ts" setup>
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const formSize = ref("default");
+const ruleFormRef = ref<FormInstance>();
+const ruleForm = reactive<RuleForm>({
+  id: "",
+  message: "",
+});
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log("submit!");
+    } else {
+      console.log("error submit!", fields);
+    }
+  });
+};
+// function ChatSkype(skypeId, objCId, objPId,AccessPage, detectClientCtlId) {
+//     $.getJSON("/EcvvAjax/AjaxSaveSkypeStatistics.ashx",
+//          { SkySkypeID: skypeId, SkyCID: objCId, SkyPID: objPId, SkyAccessPage: AccessPage, AccessType: 0, rd: Math.random() },
+//           function (msg) {  }
+//        );
+//     Skype.tryAnalyzeSkypeUri('chat', '0'); Skype.trySkypeUri_Generic('skype:' + skypeId + '?chat', detectClientCtlId, '0'); return false;
+// }
+const queryRFQ = () => {
+  router.push({ path: `/RFQInquiry` });
+};
+</script>
+<template>
+  <div class="v3-email">
+    <h3 class="title">Send your message to this supplier</h3>
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="From：" prop="id" style="margin-bottom: 3px">
+        <el-input v-model="ruleForm.id" placeholder='Enter your email address' style="width: 400px" />
+      </el-form-item>
+      <p class="space wai">Enter email or Member ID.</p>
+      <el-form-item label="To:" prop="name">
+        <div>
+          <span class="name"> Yancheng Really Houseware Corp., Ltd.</span>
+          <a
+            class="main-icon ico-skype-on"
+            rel="nofollow"
+            href="javascript:void(0);"
+            @click="
+              ChatSkype(
+                'betty-he552',
+                '779973',
+                '-1',
+                'https://www.ecvv.com/company/betty-glass/index.html',
+                '_detectEcvvSkypeClient'
+              )
+            "
+            >Chat Now</a
+          >
+        </div>
+      </el-form-item>
+      <el-form-item label="Message：" prop="message" style="margin-bottom: 3px">
+        <el-tooltip
+          class="box-item"
+          effect="light"
+          placement="right"
+          :visible="true"
+        >
+          <template #content>
+            <span>Enter your inquiry details such as:</span>
+            <ul class="balloon-items" style="padding-left:20px">
+              <li style="list-style-type: disc;">Self introduction</li>
+              <li style="list-style-type: disc;">Required specifications</li>
+              <li style="list-style-type: disc;">Inquire about price/MOQ</li>
+            </ul>
+          </template>
+          <el-input
+            v-model="ruleForm.message"
+            type="textarea"
+            show-word-limit
+            style="width: 600px"
+            rows="10"
+            minlength="20"
+            placeholder='Enter your inquiry details such as product name, color, size, quantity, material, etc.'
+            maxlength="3000"
+        /></el-tooltip>
+      </el-form-item>
+      <p class="space wai">Your message must be between 20-3000 characters</p>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">
+          Send
+        </el-button>
+        <p  class="space1">This is not what you are looking for?</p>
+        <div class="payRequest" @click="queryRFQ">
+        <i title="One request, multiple quotes" />
+        <a title="Easy Sourcing More Convenient, More Efficient" target="_blank"
+          >Post a Sourcing Request Now</a
+        >
+        </div>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<style lang="less" scoped>
+.v3-email {
+  border-style: solid;
+  border-width: 3px;
+  padding-top: 10px;
+  margin-bottom: 30px;
+  .title {
+    color: #333;
+    font-size: 16px;
+    font-weight: 700;
+    height: 16px;
+    line-height: 16px;
+    margin: 20px;
+  }
+  .wai {
+    margin-left: 100px;
+    padding-bottom: 10px;
+  }
+  .space {
+    color: #999;
+    font-family: tahoma;
+    font-size: 11px;
+    line-height: 20px;
+  }
+  .space1 {
+    color: #999;
+    font-family: tahoma;
+    font-size: 14px;
+    margin:0 20px;
+  }
+  .name {
+    display: block;
+    margin-right: 10px;
+  }
+  .main-icon {
+    height: 15px;
+    line-height: 16px;
+    display: block;
+  }
+  .ico-skype-on {
+    background-position: -208px -156px;
+    padding-left: 23px;
+  }
+  .payRequest {
+  background-color: #fff;
+  display: flex;
+  cursor: pointer;
+}
+
+.payRequest i:before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url("@/assets/images/Icon/targetBlue.png") no-repeat center center;
+  background-size:75%
+}
+
+.payRequest a {
+  color: #0f55ae;
+  display: block;
+  text-align: center;
+}
+}
+</style>

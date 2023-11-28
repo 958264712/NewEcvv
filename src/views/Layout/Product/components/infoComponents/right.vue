@@ -1,0 +1,476 @@
+<script lang="ts" setup>
+import { ref } from "vue";
+</script>
+<template>
+  <div class="right">
+    <div class="sr-layout-block sr-contact-button-place block-top">
+      <div faw-module="sendInquiry" faw-exposure="" faw-id="1hg78b35acc">
+        <div class="sr-layout-block contact-block J-contact-fix">
+          <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">Contact Supplier</h2>
+            <a
+              href="javascript:void(0);"
+              title="Business Card"
+              rel="nofollow"
+              class="title-icon J-show-card"
+              ads-data="st:20,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+              ><i class="ob-icon icon-buyer-sourcing"></i
+            ></a>
+          </div>
+          <div class="sr-layout-content contact-supplier">
+            <div class="sr-side-contSupplier-info">
+              <div class="sr-side-contSupplier-pic">
+                <a href="javascript:void(0);">
+                  <img
+                    class="J-contact-img"
+                    src="//image.made-in-china.com/336f0j00ItLTVPOMuEcQ/made-in-china.webp"
+                    alt="Avatar"
+                  />
+                </a>
+              </div>
+              <div class="sr-side-contSupplier-txt">
+                <div class="sr-side-contSupplier-name">Mr. Kevin</div>
+                <div class="sr-side-contSupplier-position">General Manager</div>
+              </div>
+            </div>
+            <div class="button-block">
+              <a
+                fun-inquiry-product=""
+                class="btns button-link-contact"
+                target="_blank"
+                href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=p_detail"
+                rel="nofollow"
+                ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+                ><i class="ob-icon icon-mail"></i>Contact Now</a
+              >
+            </div>
+            <div class="sr-side-contSupplier-chat button-block">
+              <b
+                class="tm3_chat_status"
+                lan="en"
+                tmlan="en"
+                dataid="IMRmDLvcafHV_GvDxWsrYvEtX_1"
+                inquiry="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=p_detail"
+                processor="chat"
+                cid="IMRmDLvcafHV"
+                state="initialized"
+              ></b
+              ><a
+                rel="nofollow"
+                ads-data="st:13"
+                class="tm-status-on"
+                href="javascript:void('Chat Now')"
+                title="Chat with supplier online now!"
+                >Chat with Supplier</a
+              >
+            </div>
+            <div class="button-block sr-proMainInfo-baseInfo-actActs">
+              <span class="act-item">
+                <span
+                  class="J-added-to-basket already-in-basket GvDxWsrYvEtX"
+                  style=""
+                >
+                  <a
+                    href="javascript:;"
+                    onclick="showMiniInquiry('product');"
+                    ads-data="st:6,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+                  >
+                    <i class="micon"></i>Inquiry Basket
+                  </a>
+                </span>
+                <span
+                  class="J-add-to-basket GvDxWsrYvEtX add-to-basket"
+                  style="display: none"
+                >
+                  <a
+                    href="javascript:add2BasketProd( 0, 'GvDxWsrYvEtX', '//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg')"
+                    rel="nofollow"
+                    title="Add to inquiry basket to compare."
+                    ads-data="st:6,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+                  >
+                    <i class="ob-icon icon-cart-add"></i>Inquiry Basket
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sr-layout-block sr-com-place sr-com-place-top">
+      <div faw-module="company_homepage" faw-exposure="" faw-id="1hg78b35ab90">
+        <input
+          type="hidden"
+          id="J-linkInfo"
+          value="https://luminlighting.en.made-in-china.com"
+        />
+        <div class="sr-linkTo-comInfo J-linkTo-comInfo" ads-data="">
+          <div class="sr-com com-place-one">
+            <div class="sr-com-logo">
+              <img
+                src="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
+                data-original="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
+                style="display: inline"
+              />
+            </div>
+            <div class="sr-com-info">
+              <div class="sr-comInfo-title has360">
+                <div class="title-txt">
+                  <a
+                    href="https://luminlighting.en.made-in-china.com"
+                    target="_blank"
+                    ads-data=""
+                    title="Shenzhen Lumin Lighting Co., Ltd."
+                    >Shenzhen Lumin Lighting Co., Ltd.
+                    <i class="ob-icon icon-right"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <a
+              href="javascript:;"
+              rel="nofollow"
+              class="detail-pop360 J-pop360"
+              view-url="//world-port.made-in-china.com/viewVR?comId=IMRmDLvcafHV"
+              ><i class="ob-icon icon-panorama"></i
+            ></a>
+            <div class="tip arrow-bottom tip-gold">
+              <div class="tip-con">
+                <p class="tip-para">360° Virtual Tour</p>
+              </div>
+              <span class="arrow arrow-out">
+                <span class="arrow arrow-in"></span>
+              </span>
+            </div>
+          </div>
+          <div class="sr-comInfo-sign com-place-two">
+            <div class="sign-item">
+              <i class="item-icon icon-diamond"></i>
+              Diamond Member <span class="txt-year">Since 2013</span>
+              <div class="tip arrow-bottom tip-gold">
+                <div class="gold-content">
+                  <div class="tip-con">
+                    <p class="tip-para">
+                      Suppliers with verified business licenses
+                    </p>
+                  </div>
+                  <span class="arrow arrow-out">
+                    <span class="arrow arrow-in"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="sign-item as-logo"
+              style="margin-top: 8px"
+              data-title="Audited by an independent third-party inspection agency"
+            >
+              <img
+                class="item-icon"
+                src="https://www.micstatic.com/common/img/as/ico-as.png"
+                alt=""
+              />
+              Audited Supplier
+            </div>
+          </div>
+        </div>
+        <div class="com-place-three">
+          <div class="detail-col mod-2">
+            <div class="detail-infos">
+              <div
+                class="info-item info-businessType"
+                title="Manufacturer/Factory &amp; Trading Company"
+              >
+                Manufacturer/Factory &amp; Trading Company
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="less" scoped>
+.right {
+  min-height: 1px;
+  width: 300px;
+  margin-top: 20px;
+  position: sticky;
+  top: 57px;
+  .sr-layout-block {
+    padding: 30px 29px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #e9eef4;
+  }
+  .sr-contact-button-place {
+    padding: 15px 20px;
+    width: inherit;
+    .contact-block {
+      padding: 0;
+      border-width: 0;
+      margin-bottom: 0;
+      .sr-txt-title {
+        margin-bottom: 15px;
+      }
+      .button-block {
+        margin-top: 15px;
+        text-align: center;
+      }
+      .sr-side-contSupplier-chat {
+        height: 37px;
+        background: #f5f7fa;
+        border: 1px solid #ced3d9;
+        border-radius: 3px;
+        line-height: 37px;
+      }
+      .sr-side-contSupplier-chat {
+        color: #1470cc;
+        font-size: 14px;
+        text-decoration: none;
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+      .sr-side-contSupplier-pic {
+        margin-right: 20px;
+        font-size: 0;
+        float: left;
+      }
+      .sr-side-contSupplier-txt {
+        overflow: hidden;
+      }
+      .sr-side-contSupplier-name {
+        font-weight: 500;
+        color: #222;
+        font-size: 14px;
+      }
+      .sr-side-contSupplier-position {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .button-link-contact {
+        color: #fff;
+        background: #e64545;
+        border: 1px solid #e64545;
+        border-radius: 3px;
+        font-size: 14px;
+        width: 100%;
+        height: 36px;
+        line-height: 34px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .tm-status-on {
+        background: url(https://www.micstatic.com/athena/2017/img/product-detail/tm-mic-logo_80c35358.png)
+          no-repeat 0 center;
+        background-size: contain;
+        padding-left: 22px;
+        white-space: pre-wrap;
+      }
+      .act-item {
+        margin-right: 0;
+        padding-bottom: 0;
+        line-height: 21px;
+        display: inline-block;
+        vertical-align: middle;
+        .already-in-basket,
+        .add-to-basket {
+          margin: 0;
+          -webkit-text-size-adjust: none;
+          padding: 0 !important;
+          background: none !important;
+        }
+        .sr-proMainInfo-baseInfo-actActs .act-item i {
+          margin-right: 6px;
+          line-height: 21px;
+        }
+        .micon {
+          color: #39bc39 !important;
+          font-size: 16px;
+        }
+        .add-to-basket a {
+          color: #222;
+        }
+      }
+    }
+  }
+  .sr-com-place {
+    padding: 0;
+    .sr-linkTo-comInfo,
+    .com-place-two {
+      cursor: pointer;
+    }
+    .com-place-one {
+      background-image: url("https://www.micstatic.com/athena/2017/img/product-detail/company_6556ba98.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      padding: 15px 12px 15px 20px;
+    }
+    .sr-com {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .sr-com-logo {
+        margin-right: 12px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 4px;
+        background: #fff;
+        font-size: 0;
+        overflow: hidden;
+        img {
+          max-width: 50px;
+          max-height: 50px;
+          vertical-align: middle;
+        }
+      }
+      .sr-com-info {
+        flex: 1;
+        .sr-comInfo-title.has360 {
+          padding-right: 38px;
+          display: block;
+          position: relative;
+          .title-txt {
+            font-size: 18px;
+            display: block;
+            word-wrap: break-word;
+            word-break: break-word;
+            font-weight: bold;
+            a {
+              height: 42px;
+              font-weight: bold;
+              font-size: 14px;
+              line-height: 21px;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              word-break: break-word;
+              color: #222;
+            }
+          }
+          .title-txt a:hover {
+            color: #e64545;
+          }
+        }
+      }
+      .detail-pop360 {
+        position: absolute;
+        top: 20px;
+        right: 16px;
+        width: 26px;
+        height: 26px;
+        background: #fff;
+        border-radius: 50%;
+        color: #222;
+        font-size: 18px;
+        font-family: micon;
+        text-align: center;
+        color: #222;
+        line-height: 21.5px;
+      }
+      .tip-gold {
+        display: none;
+        top: -20px;
+        right: 10px;
+        border-radius: 6px;
+        padding: 3.5px 10px;
+        .arrow-out {
+          left: 92px;
+          bottom: -16px;
+          border-top: 8px solid #ced3d9;
+        }
+      }
+      .tip {
+        position: absolute;
+        padding: 10px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #555;
+        background: #fff;
+        border: 1px solid #ced3d9;
+        box-shadow: 2px 2px 3px rgba(0, 33, 66, 0.1);
+        .arrow {
+          position: absolute;
+          zoom: 1;
+          width: 0;
+          height: 0;
+          line-height: 0;
+          font-size: 0;
+          border: 8px dashed transparent;
+        }
+      }
+    }
+    .com-place-two.sr-comInfo-sign {
+      padding-bottom: 10px;
+      margin: 15px 20px 0;
+      border-bottom: 1px dotted #ced3d9;
+      .sign-item {
+        float: none;
+        margin-right: 0;
+        color: #555;
+        position: relative;
+        .icon-diamond {
+          background: url(https://www.micstatic.com/athena/2017/img/product-detail/logo-spirit_238df59c.png)
+            no-repeat;
+          background-size: cover;
+          background-position: 0 0;
+        }
+        .item-icon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 3px;
+          vertical-align: -5px;
+        }
+        .txt-year {
+          margin-left: 7px;
+          color: #e64545;
+        }
+        .tip-gold {
+          top: -45px;
+          border-radius: 7px;
+          z-index: 35;
+          display: none;
+          width: 271px;
+          background: #fff;
+          border: 1px solid #fff;
+          padding: 10px 10px 5px;
+          left: -9px;
+          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12),
+            0px 6px 10px rgba(0, 0, 0, 0.06), 0px 9px 16px rgba(0, 0, 0, 0.03);
+          .arrow-out {
+            left: 10px;
+            border-color: transparent;
+            border-top: 8px solid #ced3d9;
+            bottom: -16px;
+          }
+          .arrow-in {
+            border-top: 8px solid #fff;
+            margin: -9px 0 0 -8px;
+          }
+        }
+      }
+    }
+    .com-place-three {
+      padding: 10px 20px 15px;
+      .info-item {
+        font-size: 14px;
+        font-weight: 400;
+        color: #222;
+        line-height: 21px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        max-height: 42px;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+}
+</style>
