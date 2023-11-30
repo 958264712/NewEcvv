@@ -92,11 +92,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				component: () => import('@/views/Layout/RequestSample/index.vue'),
 			},
 			{
-				path: '/send-customized-request/:id',
-				name: 'SendCustomizedRequest',
-				component: () => import('@/views/Layout/SendCustomizedRequest/index.vue'),
-			},
-			{
 				path: '/product/:id',
 				name: 'Product',
 				component: () => import('@/views/Layout/Product/index.vue'),

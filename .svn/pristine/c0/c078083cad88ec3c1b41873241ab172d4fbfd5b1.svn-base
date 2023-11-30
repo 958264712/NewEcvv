@@ -1067,9 +1067,7 @@ const clickProduct = (id) =>{
   width: 73%;
   display: flex;
   justify-content: space-between;
-a{
-    cursor:pointer;
-  }
+
   .leftSider {
     .sr-layout-nav {
       margin-right: 20px;

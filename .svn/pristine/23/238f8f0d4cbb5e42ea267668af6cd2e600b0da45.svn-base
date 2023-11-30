@@ -3,7 +3,7 @@ import { defineAsyncComponent, ref } from "vue";
 import PicZoom from "vue3-piczoom";
 import { useRouter } from "vue-router";
 
-const props = defineProps(['handleStartOrder',"title"]);
+const props = defineProps(["title"]);
 const router = useRouter();
 const picPathList = ref<any>([
   "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1wqogsvxxxxbaxfxxq6xxfxxxhadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
@@ -52,11 +52,6 @@ const handleEnter = (e: any) => {
 
 const requestSample = (id) => {
   let routeUrl = router.resolve({ path: `/requestSample/${id}` });
-  window.open(routeUrl.href, '_blank');
-};
-
-const SendCustomizedRequest = (id) => {
-  let routeUrl = router.resolve({ path: `/send-customized-request/${id}` });
   window.open(routeUrl.href, '_blank');
 };
 </script>
@@ -123,9 +118,9 @@ const SendCustomizedRequest = (id) => {
                     rel="nofollow"
                     class="baseInfo-propertyGetPrice"
                     id="latestPriceInquiry"
-                   @click="props.handleStartOrder"
+                    href="javascript:;"
                   >
-                    Get Latest Price >
+                    Get Latest Price <i class="ob-icon icon-right"></i>
                   </a>
                 </div>
               </div>
@@ -199,7 +194,7 @@ const SendCustomizedRequest = (id) => {
                         target="_blank"
                         @click="requestSample(123)"
                         rel="nofollow"
-                        ><el-icon style="margin:3px 3px 0 0"><Box /></el-icon>Request Sample</a
+                        ><i class="ob-icon icon-product"></i>Request Sample</a
                       >
                     </div>
                   </td>
@@ -217,10 +212,10 @@ const SendCustomizedRequest = (id) => {
                       <a
                         target="_blank"
                         rel="nofollow"
-                        @click="SendCustomizedRequest(123)"
+                        href="//purchase.made-in-china.com/send-customized-request/prod/GvDxWsrYvEtX.html"
                         ads-data="st:16,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
                       >
-                        <el-icon><EditPen /></el-icon>Customized Request
+                        <i class="ob-icon icon-fill"></i>Customized Request
                       </a>
                     </div>
                   </td>
@@ -240,9 +235,6 @@ const SendCustomizedRequest = (id) => {
   background: #fff;
   border: 1px solid #e9eef4;
   display: flex;
-  a{
-    cursor:pointer;
-  }
   //   margin: 30px auto;
   #carousel {
     width: 378px;

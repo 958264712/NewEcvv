@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent,ref } from 'vue'
 
 const props = defineProps(['handleStartOrder','ProductInfo'])
+const Form = defineAsyncComponent(()=>import("./formInquire.vue"))
 const ifMore = ref(false)
 const service = ref(true)
 const cuarantee = ref(true)
@@ -291,7 +292,7 @@ const handleSendMsg = (id:number) =>{
                     </li>
                 </ul>
             </div>
-
+            <Form />
         </div>
     </section>
 </template>

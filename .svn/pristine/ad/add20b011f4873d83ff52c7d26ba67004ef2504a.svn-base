@@ -1,22 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import {useRouter} from 'vue-router'
-
-const props = defineProps(["shopNum","setshopNum"])
-const router = useRouter()
-const num = ref(0)
-// 询盘1
-const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
-  window.open(routeUrl.href, '_blank');
-}
-
-const showMiniInquiry = (val) =>{
-  num.value++
-  emit("setshopNum",num)
-}
-
-const emit = defineEmits(["shopNum","setshopNum"])
 </script>
 <template>
   <div class="right">
@@ -50,21 +33,35 @@ const emit = defineEmits(["shopNum","setshopNum"])
                 <div class="sr-side-contSupplier-position">General Manager</div>
               </div>
             </div>
-            <div class="button-block" @click="SendMessage(123)">
+            <div class="button-block">
               <a
+                fun-inquiry-product=""
                 class="btns button-link-contact"
-                ><el-icon><Position /></el-icon>
-                Contact Now</a
+                target="_blank"
+                href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=p_detail"
+                rel="nofollow"
+                ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+                ><i class="ob-icon icon-mail"></i>Contact Now</a
               >
             </div>
             <div class="sr-side-contSupplier-chat button-block">
-              
-              <a
+              <b
+                class="tm3_chat_status"
+                lan="en"
+                tmlan="en"
+                dataid="IMRmDLvcafHV_GvDxWsrYvEtX_1"
+                inquiry="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=p_detail"
+                processor="chat"
+                cid="IMRmDLvcafHV"
+                state="initialized"
+              ></b
+              ><a
                 rel="nofollow"
                 ads-data="st:13"
                 class="tm-status-on"
+                href="javascript:void('Chat Now')"
                 title="Chat with supplier online now!"
-                > <el-icon><ChatDotRound /></el-icon>Chat with Supplier</a
+                >Chat with Supplier</a
               >
             </div>
             <div class="button-block sr-proMainInfo-baseInfo-actActs">
@@ -75,11 +72,23 @@ const emit = defineEmits(["shopNum","setshopNum"])
                 >
                   <a
                     href="javascript:;"
-                    @click="showMiniInquiry('product');"
+                    onclick="showMiniInquiry('product');"
+                    ads-data="st:6,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
                   >
-                  <template v-if="props.shopNum<=0"><el-icon><Plus /></el-icon></template>
-                  <template v-else><el-icon><ShoppingCartFull /></el-icon></template>
-                    Inquiry Basket
+                    <i class="micon"></i>Inquiry Basket
+                  </a>
+                </span>
+                <span
+                  class="J-add-to-basket GvDxWsrYvEtX add-to-basket"
+                  style="display: none"
+                >
+                  <a
+                    href="javascript:add2BasketProd( 0, 'GvDxWsrYvEtX', '//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg')"
+                    rel="nofollow"
+                    title="Add to inquiry basket to compare."
+                    ads-data="st:6,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
+                  >
+                    <i class="ob-icon icon-cart-add"></i>Inquiry Basket
                   </a>
                 </span>
               </span>
@@ -182,9 +191,6 @@ const emit = defineEmits(["shopNum","setshopNum"])
   </div>
 </template>
 <style lang="less" scoped>
-a{
-  cursor:pointer;
-}
 .right {
   min-height: 1px;
   width: 300px;
@@ -252,29 +258,15 @@ a{
         width: 100%;
         height: 36px;
         line-height: 34px;
-         display:flex;
-        align-items:center;
-        justify-content:center;
-        i{
-          margin-right:5px;
-        }
+        display: inline-block;
+        vertical-align: middle;
       }
       .tm-status-on {
-        // background: url(https://www.micstatic.com/athena/2017/img/product-detail/tm-mic-logo_80c35358.png)
-        //   no-repeat 0 center;
-        // background-size: contain;
-        // padding-left: 22px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
+        background: url(https://www.micstatic.com/athena/2017/img/product-detail/tm-mic-logo_80c35358.png)
+          no-repeat 0 center;
+        background-size: contain;
+        padding-left: 22px;
         white-space: pre-wrap;
-        i{
-          margin-right:5px;
-          svg{
-            height:16px;
-            width:16px;
-          }
-        }
       }
       .act-item {
         margin-right: 0;

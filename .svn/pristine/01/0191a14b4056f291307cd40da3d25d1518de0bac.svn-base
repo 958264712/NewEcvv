@@ -5,11 +5,7 @@ import { ElMessage } from 'element-plus';
 const ProductsInfo = defineAsyncComponent(()=>import('./components/productInfo.vue'))
 const ProductDescription = defineAsyncComponent(()=>import('./components/productDescription.vue'))
 const StartOrderModel = defineAsyncComponent(() => import('./components/StartOrderModel.vue'))
-const Basket = defineAsyncComponent(() => import('../Basket/index.vue'))
 const otp = defineAsyncComponent(() => import('@/views/Product/Sourcing/components/otp.vue'))
-
-const StartOrderDialog = ref()
-const shopNum = ref(0)
 const ifOpen = ref(false)
 const info = ref({
     title:'LED Sky Ceiling Panel Light 40W LED Panel Lights'
@@ -17,24 +13,20 @@ const info = ref({
 const ProductInfo = ref<any>({})
 const ProductDataInfo = ref<any>({})
 const handleStartOrder = () =>{
-    // if(ifOpen.value === true){
+    if(ifOpen.value === true){
         // handleQuery1()
         StartOrderDialog.value.openDialog()
-    // }else{
-    //     ElMessage.error('Please select All Message')
-    // }
-}
-const setshopNum = (val:number) => {
-    shopNum.value = val
+    }else{
+        ElMessage.error('Please select All Message')
+    }
 }
 </script>
 <template>
 <div class='productsModule'>
-    <ProductsInfo :info="info" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum"/>
+    <ProductsInfo :info="info"/>
     <otp :ProductInfo = "ProductInfo"/>
     <ProductDescription :ProductInfo="ProductInfo" :handleStartOrder="handleStartOrder"/>
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "ProductDataInfo" />
-    <Basket class="basket" :shopNum="shopNum"/>
 </div>
 </template>
 <style lang='less' scoped>

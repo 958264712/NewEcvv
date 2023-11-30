@@ -1,19 +1,14 @@
 <script lang='ts' setup>
-import {defineAsyncComponent,ref,watch} from 'vue'
+import {defineAsyncComponent,ref} from 'vue'
 
-const props = defineProps(["handleStartOrder","info","shopNum","setshopNum"])
-const emit = defineEmits(["shopNum","setshopNum"])
+const props = defineProps(["info"])
 const Left = defineAsyncComponent(()=>import('./infoComponents/left.vue'))
 const Right = defineAsyncComponent(()=>import('./infoComponents/right.vue'))
-
-const setshopNum = (val:number) => {
-    emit("setshopNum",val.value)
-}
 </script>
 <template>
 <div class='productsInfo'>
-    <Left :title = "props.info.title" :handleStartOrder = "props.handleStartOrder" />
-    <Right :shopNum="props.shopNum" @setshopNum="setshopNum"/>
+    <Left :title = "props.info.title"/>
+    <Right />
 </div>
 </template>
 <style lang='less' scoped>

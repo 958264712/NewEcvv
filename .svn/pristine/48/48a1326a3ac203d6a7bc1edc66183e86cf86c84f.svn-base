@@ -101,7 +101,7 @@ window.addEventListener('resize', () => {
 })
 
 onMounted(()=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'||location === 'send-customized-request'){
+  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'){
     ifCompany.value = true
   }else{
     ifCompany.value = false
@@ -109,7 +109,7 @@ onMounted(()=>{
 })
 
 watch(() =>router,(val)=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample' ||location === 'send-customized-request'){
+  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'){
     ifCompany.value = true
   }else{
     ifCompany.value = false
