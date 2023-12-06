@@ -15,10 +15,7 @@ const handleShow = (val: boolean) => {
 };
 
 // 点击全选
-const clickAllCheck = () => {};
-
-// 删除列表
-const deleteItem = () => {
+const clickAllCheck = () => {
 
 }
 
@@ -28,9 +25,9 @@ const clickProduct = (id) => {
 };
 
 const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
-  window.open(routeUrl.href, "_blank");
-};
+  let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
+  window.open(routeUrl.href, '_blank');
+}
 watch(
   () => ifShow.value,
   (val) => {
@@ -51,16 +48,16 @@ watch(
 );
 </script>
 <template>
-  <div v-show="props.shopNum.length > 0" id="in-basket" :style="style">
+  <div v-show="props.shopNum > 0" id="in-basket" :style="style">
     <div
       class="in-basket-main-info"
       id="J-inquiryControl"
       @click="handleShow(!ifShow)"
     >
-      <span class="in-basket-main-info-txt">
-        <ShoppingCartFull style="width: 16px; margin-right: 5px" />
-        Inquiry Basket (<em>{{ props.shopNum.length }}</em>)
-      </span>
+      <span class="in-basket-main-info-txt"
+        ><ShoppingCartFull style="width: 16px; margin-right: 5px" />Inquiry
+        Basket (<em>1</em>)</span
+      >
     </div>
     <div class="in-basket-wrap obelisk-form">
       <div class="in-basket-con J-productContent" style="display: block">
@@ -73,7 +70,9 @@ watch(
               Shenzhen Lumin Lighting Co., Ltd.
             </div>
           </li>
-          <li class="in-basket-item ibselected">
+          <li
+            class="in-basket-item ibselected"
+          >
             <div class="in-basket-checker input-checkbox">
               <label class="input-wrap">
                 <input type="checkbox" class="J-item-checkbox" />
@@ -98,12 +97,13 @@ watch(
                   @click="clickProduct(123)"
                   title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                   alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                  target="_blank"
                   >LED Sky Ceiling Panel Light 40W LED Panel Lights</a
                 >
               </div>
             </div>
             <div class="in-basket-delete-wrap">
-              <a @click="deleteItem(123)" class="in-basket-delete"
+              <a href="javascript:void(0);" class="in-basket-delete"
                 ><el-icon><Close /></el-icon
               ></a>
             </div>
@@ -120,45 +120,56 @@ watch(
           <div class="in-basket-btn-group">
             <a
               @click="SendMessage(123)"
+              rel="nofollow"
               class="btn btn-main btn-send J-sendInquiry"
+              target="_blank"
               >Send Inquiry</a
             >
-            <!-- <a
+            <a
               href="javascript:void(0);"
+              rel="nofollow"
               class="btn btn-compare J-compare"
+              target="_blank"
               >Compare</a
-            > -->
+            >
           </div>
         </div>
+      </div>
+      <div
+        class="in-basket-con in-basket-con-supplier J-supplierContent"
+        style="display: none"
+      >
+        {SUPPLIER}
+      </div>
+      <div class="in-basket-con J-o2oProductContent" style="display: none">
+        {O2OPRODUCT}
       </div>
     </div>
     <ul class="in-basket-tab">
       <li
         class="in-basket-tab-item in-basket-tab-2 J-productCount ibselected"
+        data-type="product"
       >
-        Products
-        <span class="tab-count" style="margin-left: 5px">
-          (<em>{{ props.shopNum.length }}</em>)
-        </span>
+        Products<span class="tab-count" style="margin-left: 5px"
+          >(<em>1</em>)</span
+        >
       </li>
-      <!-- <li
+      <li
         class="in-basket-tab-item in-basket-tab-2 J-supplierCount"
         data-type="supplier"
       >
-        Suppliers
-        <span class="tab-count" style="margin-left: 5px">
-          (<em>0</em>)
-      </span>
-      </li> -->
+        Suppliers<span class="tab-count" style="margin-left: 5px"
+          >(<em>0</em>)</span
+        >
+      </li>
       <li
         class="in-basket-tab-item in-basket-tab-2 J-o2oProductCount"
         data-type="o2oProduct"
         style="display: none"
       >
-        Exhibition
-        <span class="tab-count" style="margin-left: 5px">
-          (<em>0</em>)
-        </span>
+        Exhibition<span class="tab-count" style="margin-left: 5px"
+          >(<em>0</em>)</span
+        >
       </li>
     </ul>
   </div>
@@ -173,7 +184,7 @@ watch(
   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   background: #fff;
-  z-index: 9999;
+  z-index: 999;
   font-size: 12px;
   font-family: arial, sans-serif;
   a {
@@ -310,7 +321,7 @@ watch(
           font-size: 12px;
           line-height: 1em;
           height: 26px;
-          display: inline-block;
+          display:inline-block;
         }
         .btn-compare {
           margin-left: 10px;
@@ -353,7 +364,7 @@ watch(
       }
     }
     .in-basket-tab-item.in-basket-tab-2 {
-      width: 100%;
+      width: 150px;
     }
     .in-basket-tab-item + .in-basket-tab-item {
       border-left: 1px solid #dae0e5;

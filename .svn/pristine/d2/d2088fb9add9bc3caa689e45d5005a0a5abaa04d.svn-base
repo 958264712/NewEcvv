@@ -6,7 +6,7 @@ const emit = defineEmits(["shopNum","setshopNum"])
 const Left = defineAsyncComponent(()=>import('./infoComponents/left.vue'))
 const Right = defineAsyncComponent(()=>import('./infoComponents/right.vue'))
 
-const setshopNum = (val:any) => {
+const setshopNum = (val:number) => {
     emit("setshopNum",val.value)
 }
 </script>

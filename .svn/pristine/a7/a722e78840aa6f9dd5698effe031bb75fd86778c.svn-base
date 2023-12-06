@@ -1,31 +1,22 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import {useRouter} from 'vue-router'
 
-const props = defineProps(["shopNum", "setshopNum"]);
-const emit = defineEmits(["shopNum", "setshopNum"]);
-const router = useRouter();
-const productItem = ref<any>({});
+const props = defineProps(["shopNum","setshopNum"])
+const router = useRouter()
+const num = ref(0)
 // 询盘1
 const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
-  window.open(routeUrl.href, "_blank");
-};
-
-const showMiniInquiry = (val) => {
-  productItem.value={
-    companyName:'',
-    productName:'',
-    productImg:''
-  }
-  emit("setshopNum", productItem);
-};
-
-const clickCompany = (id) =>{
-  let routeUrl = router.resolve({path:`/vipcompany/${id}`})
+  let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
   window.open(routeUrl.href, '_blank');
 }
 
+const showMiniInquiry = (val) =>{
+  num.value++
+  emit("setshopNum",num)
+}
+
+const emit = defineEmits(["shopNum","setshopNum"])
 </script>
 <template>
   <div class="right">
@@ -60,18 +51,20 @@ const clickCompany = (id) =>{
               </div>
             </div>
             <div class="button-block" @click="SendMessage(123)">
-              <a class="btns button-link-contact"
-                ><el-icon><Position /></el-icon> Contact Now</a
+              <a
+                class="btns button-link-contact"
+                ><el-icon><Position /></el-icon>
+                Contact Now</a
               >
             </div>
             <div class="sr-side-contSupplier-chat button-block">
+              
               <a
                 rel="nofollow"
                 ads-data="st:13"
                 class="tm-status-on"
                 title="Chat with supplier online now!"
-              >
-                <el-icon><ChatDotRound /></el-icon>Chat with Supplier</a
+                > <el-icon><ChatDotRound /></el-icon>Chat with Supplier</a
               >
             </div>
             <div class="button-block sr-proMainInfo-baseInfo-actActs">
@@ -80,13 +73,12 @@ const clickCompany = (id) =>{
                   class="J-added-to-basket already-in-basket GvDxWsrYvEtX"
                   style=""
                 >
-                  <a href="javascript:;" @click="showMiniInquiry('product')">
-                    <template v-if="props.shopNum <= 0"
-                      ><el-icon><Plus /></el-icon
-                    ></template>
-                    <template v-else
-                      ><el-icon><ShoppingCartFull /></el-icon
-                    ></template>
+                  <a
+                    href="javascript:;"
+                    @click="showMiniInquiry('product');"
+                  >
+                  <template v-if="props.shopNum<=0"><el-icon><Plus /></el-icon></template>
+                  <template v-else><el-icon><ShoppingCartFull /></el-icon></template>
                     Inquiry Basket
                   </a>
                 </span>
@@ -116,7 +108,7 @@ const clickCompany = (id) =>{
               <div class="sr-comInfo-title has360">
                 <div class="title-txt">
                   <a
-                    @click="clickCompany(123)"
+                    href="https://luminlighting.en.made-in-china.com"
                     target="_blank"
                     ads-data=""
                     title="Shenzhen Lumin Lighting Co., Ltd."
@@ -125,6 +117,21 @@ const clickCompany = (id) =>{
                   ></a>
                 </div>
               </div>
+            </div>
+            <a
+              href="javascript:;"
+              rel="nofollow"
+              class="detail-pop360 J-pop360"
+              view-url="//world-port.made-in-china.com/viewVR?comId=IMRmDLvcafHV"
+              ><i class="ob-icon icon-panorama"></i
+            ></a>
+            <div class="tip arrow-bottom tip-gold">
+              <div class="tip-con">
+                <p class="tip-para">360° Virtual Tour</p>
+              </div>
+              <span class="arrow arrow-out">
+                <span class="arrow arrow-in"></span>
+              </span>
             </div>
           </div>
           <div class="sr-comInfo-sign com-place-two">
@@ -175,8 +182,8 @@ const clickCompany = (id) =>{
   </div>
 </template>
 <style lang="less" scoped>
-a {
-  cursor: pointer;
+a{
+  cursor:pointer;
 }
 .right {
   min-height: 1px;
@@ -222,10 +229,6 @@ a {
         margin-right: 20px;
         font-size: 0;
         float: left;
-        img {
-          max-width: 50px;
-          max-height: 50px;
-        }
       }
       .sr-side-contSupplier-txt {
         overflow: hidden;
@@ -249,11 +252,11 @@ a {
         width: 100%;
         height: 36px;
         line-height: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        i {
-          margin-right: 5px;
+         display:flex;
+        align-items:center;
+        justify-content:center;
+        i{
+          margin-right:5px;
         }
       }
       .tm-status-on {
@@ -261,15 +264,15 @@ a {
         //   no-repeat 0 center;
         // background-size: contain;
         // padding-left: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display:flex;
+        align-items:center;
+        justify-content:center;
         white-space: pre-wrap;
-        i {
-          margin-right: 5px;
-          svg {
-            height: 16px;
-            width: 16px;
+        i{
+          margin-right:5px;
+          svg{
+            height:16px;
+            width:16px;
           }
         }
       }

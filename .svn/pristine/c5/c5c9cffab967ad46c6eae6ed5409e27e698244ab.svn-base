@@ -9,7 +9,7 @@ const Basket = defineAsyncComponent(() => import('../Basket/index.vue'))
 const otp = defineAsyncComponent(() => import('@/views/Product/Sourcing/components/otp.vue'))
 
 const StartOrderDialog = ref()
-const shopNum = ref<any>([])
+const shopNum = ref(0)
 const ifOpen = ref(false)
 const info = ref({
     title:'LED Sky Ceiling Panel Light 40W LED Panel Lights'
@@ -24,8 +24,8 @@ const handleStartOrder = () =>{
     //     ElMessage.error('Please select All Message')
     // }
 }
-const setshopNum = (val:any) => {
-    shopNum.value.push(val)
+const setshopNum = (val:number) => {
+    shopNum.value = val
 }
 </script>
 <template>
