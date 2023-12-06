@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import {getLatestProduct} from '@/api/modular/search'
 
+const params = ref<RightAsideListType>({
+    list:[],
+    title:''
+})
 const itemList = ref([
   {
     href: "https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1",
@@ -43,6 +48,16 @@ const itemList = ref([
     title: "ECVV Office Chair, Ergonomic Desk Chair  with Adjustable Height   for Conference Room",
   },
 ]);
+
+// 获取最新产品
+const handleQuery = async () => {
+    await getLatestProduct(Object.assign({ keyword: router.options.history.location.split('=')[1] })).then(res => {
+        if (res.data.type === 'success') {
+            params.value.list = res.data.result.list
+            params.value.title = res.data.result.title
+        }
+    })
+}
 </script>
 <template>
   <div id="EcvvCompanyHomeshopifyProduct">

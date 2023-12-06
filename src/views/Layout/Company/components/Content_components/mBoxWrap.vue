@@ -1,4 +1,9 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from "vue";
+const props = defineProps(["companyname", "companyInfo"]);
+
+
+</script>
 <template>
   <div class="m-box-wrap mt10">
     <div class="m-box">
@@ -25,7 +30,7 @@
         <div class="company-intro-text">
           <p class="home-company-name">
             <a href="https://www.ecvv.com/company/betty-glass/profile.html">
-              Yancheng Really Houseware Corp., Ltd.</a
+              {{props.companyname}}</a
             >
           </p>
 
@@ -39,55 +44,10 @@
 
           <table class="table">
             <tbody>
-              <tr>
-                <th>Business Type:</th>
+              <tr :key="item" :id="item" v-show="item.length" v-for="(item,key,index) in props.companyInfo">
+                <th> {{key}}: </th>
                 <td>
-                  <span title="Sourcing Services"> Sourcing Services</span>
-                </td>
-              </tr>
-
-              <tr>
-                <th>Factory Location:</th>
-                <td>
-                  <span title="Yancheng, Jiangsu Province">
-                    Yancheng, Jiangsu Province</span
-                  >
-                </td>
-              </tr>
-
-              <tr>
-                <th>Year Established:</th>
-                <td>
-                  <span title="2000"> 2000</span>
-                </td>
-              </tr>
-              <tr>
-                <th>Registered Capital:</th>
-                <td>
-                  <span title="US$101 Thousand - US$500 Thousand">
-                    US$101 Thousand - US$500 Thousand</span
-                  >
-                </td>
-              </tr>
-
-              <tr>
-                <th>Main Markets:</th>
-                <td>
-                  <span
-                    title="North America, South America, Eastern Europe, Southeast Asia, Africa, Oceania, Mid East, Eastern Asia, Western Europe"
-                  >
-                    North America, South America, Eastern Euro...</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <th>Main Products:</th>
-                <td>
-                  <span
-                    title="Glass Dome Vase, Laboratory Glassware, Glass Terrarium Vase, Glass Jewelry, Christmas Glass Pendant, Glass Angel, Solar Lamp, Solar Water Heater"
-                  >
-                    Glass Dome Vase, Laboratory Glassware, Gla...</span
-                  >
+                  <span :title="item">{{item}}</span>
                 </td>
               </tr>
             </tbody>

@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { ref } from "vue";
+const props = defineProps(["companyname", "description"]);
+
+
 </script>
 <template>
   <div class="header-warp">
@@ -25,13 +29,11 @@
                 class="examp"
                 href="https://www.ecvv.com/company/betty-glass/index.html"
               >
-                Yancheng Really Houseware Corp., Ltd.</a
+                {{props.companyname}}</a
               >
 
               <h3>
-                China Manufacturer with main products: Glass Dome Vase,
-                Laboratory Glassware, Glass Terrarium Vase, Glass Jewelry,
-                Christmas Glass Pendant, Glass Angel, Solar Lamp, Solar Water...
+                {{props.description}}
               </h3>
             </td>
           </tr>
