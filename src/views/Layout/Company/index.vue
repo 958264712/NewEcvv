@@ -21,7 +21,7 @@ const Content = defineAsyncComponent(() => import("./components/content.vue"));
     </el-col>
   </el-row>
 </template>
-<style lang="less" scoped>
+<style lang="less" >
 .companyModuler {
   padding: 0 10%;
   padding-top: 20px;

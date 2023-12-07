@@ -14,6 +14,9 @@ const companyInfo = ref<any>({})
 const companyCardInfo = ref<any>({})
 const companyname = ref("");
 const description = ref("");
+const companyPic = ref("");
+const companyarea = ref("");
+const countryName = ref("");
 
 
 const imgList = ref([
@@ -38,6 +41,9 @@ const handleQuery = async () => {
             companyCardInfo.value = res.data.result.companyCardInfo
             companyname.value = res.data.result.companyname
             description.value = res.data.result.description
+            countryName.value = res.data.result.countryName
+            companyarea.value = res.data.result.companyarea
+            companyPic.value = res.data.result.companyPic
         }
     })
 }
@@ -49,11 +55,11 @@ onMounted(()=>{
 </script>
 <template>
     <main>
-        <TopBar :companyname="companyname" :companyCardInfo="companyCardInfo"/>
+        <TopBar :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea"/>
         <HeaderWrap :companyname="companyname" :description="description" />
         <NavWrap />
         <Section :list="imgList" :style="style" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
-        <MBoxWrap :companyname="companyname" :companyInfo="companyInfo"/>
+        <MBoxWrap :companyname="companyname" :companyInfo="companyInfo" :companyPic="companyPic"/>
         <PCcols />
         <FormInquire />
     </main>

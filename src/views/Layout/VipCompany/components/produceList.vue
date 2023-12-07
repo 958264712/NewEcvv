@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { ref,defineAsyncComponent } from "vue";
 import {useRouter} from 'vue-router'
+import {getLatestProduct} from '@/api/modular/search'
 
 const router = useRouter()
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
+const itemList = ref([]);
 // 询盘1
 const SendMessage = (id) => {
   let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
@@ -15,6 +17,16 @@ const clickProduct = (id) =>{
   let routeUrl = router.resolve({path:`/product/${id}`})
   window.open(routeUrl.href, '_blank');
 }
+
+// 获取最新产品
+const handleQuery = async () => {
+    await getLatestProduct(Object.assign({ keyword: 'led' })).then(res => {
+        if (res.data.type === 'success') {
+            itemList.value = res.data.result.list
+        }
+    })
+}
+handleQuery()
 </script>
 <template>
   <el-row id="produceModule">
@@ -1004,17 +1016,17 @@ const clickProduct = (id) =>{
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList">
+              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in itemList" :key="item.productID">
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                        href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
+                        :href="item.href"
                       >
                         <img
-                          src="https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525"
-                          title="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
-                          alt="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
+                          :src="item.src"
+                          :title="item.title"
+                          :alt="item.title"
                           style="display: block"
                         />
                       </a>
@@ -1024,29 +1036,14 @@ const clickProduct = (id) =>{
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                      href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
-                      title="ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level"
-                    >
-                      ECVV Laser level 5 Lines Green Light Professional Cross
-                      Marking Meter Self-leveling Horizontal Vertical Laser
-                      Ruler Spirit Level
+                      :href="item.href"
+                      :title="item.title"
+                    >{{item.text}}
                     </a>
-                  </div>
-                  <div
-                    class="sr-proList-price"
-                    title="FOB Price: US $29.8-30.55 / Piece"
-                  >
-                    <span class="sr-proList-unit">FOB Price: </span>
-                    <span class="sr-proList-num">US $29.8-30.55 </span>
-                    <span class="">/ Piece</span>
-                  </div>
-                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
-                    <span class="sr-proList-unit">Min. Order: </span>
-                    30 Pieces
                   </div>
                 </div>
                 <a
-                  href="https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1"
+                  :href="item.href"
                   target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"

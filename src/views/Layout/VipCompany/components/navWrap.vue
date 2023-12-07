@@ -281,7 +281,7 @@ window.addEventListener("resize", () => {
 </template>
 <style lang="less" scoped>
 .nav {
-  padding-left: 20%;
+  padding-left: 12%;
   .nav-tabs2 {
     display: flex;
     align-items: center;

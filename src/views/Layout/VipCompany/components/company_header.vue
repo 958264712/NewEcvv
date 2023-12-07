@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent } from "vue";
+
+const props = defineProps([
+  "companyname",
+  "companyCardInfo",
+  "companyarea",
+  "countryName",
+  "companyPic"
+]);
 const isShow = ref(false);
 const title = ref("");
 const handlemouseOver = (val) => {
@@ -33,12 +41,11 @@ const calTime = (e) => {
       <div class="sr-comInfo-logo">
         <a
           href="https://luminlighting.en.made-in-china.com"
-          title="Shenzhen Lumin Lighting Co., Ltd."
+          :title="props.companyname"
         >
           <img
-            src="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
-            data-original="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
-            alt="Shenzhen Lumin Lighting Co., Ltd."
+            :src="props.companyPic"
+            :alt="props.companyname"
             style="display: inline"
           />
         </a>
@@ -51,11 +58,7 @@ const calTime = (e) => {
         >
           <div class="title-txt">
             <a href="https://luminlighting.en.made-in-china.com">
-              <h1>
-                Shenzhen Lumin Lighting Co., Ltd.<i
-                  class="ob-icon icon-down"
-                ></i>
-              </h1>
+              <h1>{{ props.companyname }}<i class="ob-icon icon-down"></i></h1>
             </a>
           </div>
           <div
@@ -68,9 +71,9 @@ const calTime = (e) => {
             <div class="boxflex">
               <div id="container"></div>
               <div id="company-card-main-content" class="company-card">
-                <h3>Yancheng Really Houseware Corp., Ltd.</h3>
+                <h3>{{ props.companyname }}</h3>
                 <div class="meta">
-                  [ Jiangsu, China ]
+                  [ {{ props.companyarea }}, {{ props.countryName }} ]
                   <span
                     class="location-icon"
                     :title="title"
@@ -79,93 +82,14 @@ const calTime = (e) => {
                   </span>
                 </div>
 
-                <div class="meta" id="BussinessTypeValueStr">
-                  Business Type: <strong> Sourcing Services</strong>
-                </div>
-
-                <div class="meta" id="BrandName">
-                  Brand(s): <strong> betty</strong>
-                </div>
-
-                <div class="meta" id="MainMarketValueStr">
-                  Main Markets:
-                  <strong>
-                    North America, South America, Eastern Europe, Southeast
-                    Asia, Africa, Oceania, Mid East, Eastern Asia, Western
-                    Europe</strong
-                  >
-                </div>
-
-                <div class="meta" id="MainCustomer">
-                  Main Customer:
-                  <strong> USA, Germany, UK, Hongkong, UAE</strong>
-                </div>
-
-                <div class="meta" id="MainProduct1">
-                  Main Product:
-                  <strong>
-                    Glass Dome Vase, Laboratory Glassware, Glass Terrarium Vase,
-                    Glass Jewelry, Christmas Glass Pendant, Glass Angel, Solar
-                    Lamp, Solar Water Heater</strong
-                  >
-                </div>
-
-                <div class="meta" id="Foundtime">
-                  Year Established: <strong> 2000</strong>
-                </div>
-
-                <div class="meta" id="LegalRepresentative">
-                  Legal Representative: <strong> Hongdi He</strong>
-                </div>
-
-                <div class="meta" id="FactoryLocation">
-                  Factory Location: <strong> Yancheng, Jiangsu Province</strong>
-                </div>
-
-                <div class="meta" id="YearsOEMExperience">
-                  Years OEM Experience: <strong> 20</strong>
-                </div>
-
-                <div class="meta" id="ProductionLineNum">
-                  Production Line Count: <strong> 8</strong>
-                </div>
-
-                <div class="meta" id="OwnershipType">
-                  Ownership Type: <strong> LLC (Ltd Liability Corp)</strong>
-                </div>
-
-                <div class="meta" id="EmployeesCount">
-                  Employ Number: <strong> 101 - 500 People</strong>
-                </div>
-
-                <div class="meta" id="AnnualSalesVolume">
-                  Annual Sales Volume:
-                  <strong> US$5 Million - US$10 Million</strong>
-                </div>
-
-                <div class="meta" id="RegisteredCapital">
-                  Registered Capital:
-                  <strong> US$101 Thousand - US$500 Thousand</strong>
-                </div>
-
-                <div class="meta" id="ExportPercentage">
-                  Export Percentage: <strong> 81% - 90%</strong>
-                </div>
-
-                <div class="meta" id="FactorySize">
-                  Factory Size: <strong> 3,000-5,000 square meters</strong>
-                </div>
-
-                <div class="meta" id="QA_QC">
-                  QA/QC: <strong> In House</strong>
-                </div>
-
-                <div class="meta" id="RDStaffCountNum">
-                  Number of R&amp;D Staff: <strong> 21 - 30 People</strong>
-                </div>
-
-                <div class="meta" id="QCStaffCountNum">
-                  Number of QC Staff: <strong> 11 - 20 People</strong>
+                <div
+                  class="meta"
+                  :key="item"
+                  :id="item"
+                  v-show="item.length"
+                  v-for="(item, key, index) in props.companyCardInfo"
+                >
+                  {{ key }}: <strong> {{ item }}</strong>
                 </div>
               </div>
             </div>
@@ -404,20 +328,20 @@ const calTime = (e) => {
     padding: 0 20px;
     *zoom: 1;
     .sr-comInfo-components {
-      width:600px;
-      height:100%;
-      padding-left:100px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      width: 600px;
+      height: 100%;
+      padding-left: 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       .payRequest {
         background-color: #fff;
         width: 200px;
         display: flex;
         // flex-direction: column;
-        justify-content:center;
-        border:1px solid #ccc;
-        border-radius:5px;
+        justify-content: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
         align-items: center;
         padding: 5px 0;
         cursor: pointer;
@@ -480,7 +404,7 @@ const calTime = (e) => {
     }
     .sr-comInfo-r {
       float: left;
-      width: calc(50% - 140px);
+      width: calc(50% - 60px);
       .sr-comInfo-title {
         position: relative;
         display: inline-block;
@@ -489,7 +413,7 @@ const calTime = (e) => {
           padding: 15px;
           font-size: 11px;
           font-family: Tahoma;
-          background-color:#fff;
+          background-color: #fff;
           z-index: 999;
           position: absolute;
           border: 1px solid #fff;
@@ -603,29 +527,6 @@ const calTime = (e) => {
         .sr-comInfo-sign .sign-item .txt-year {
           color: #e64545;
         }
-        #company-topbar .ct-icon-onsite a {
-          display: block;
-          height: 16px;
-          line-height: 16px;
-          vertical-align: text-top;
-          padding-left: 20px;
-          margin: 0 10px 5px 0;
-          font-family: Tahoma;
-          font-size: 11px;
-          -webkit-text-size-adjust: none;
-          color: #666;
-          background-position: 0 -400px;
-          .lice-logo {
-            background-position: 0 -30px;
-            height: 25px;
-            width: 20px;
-            margin-right: 5px;
-            vertical-align: middle;
-            background-image: url("@/assets/images/Content_images/sprites-small.png");
-            background-repeat: no-repeat;
-            display: inline-block;
-          }
-        }
       }
       .sr-comInfo-sign .sign-item .icon-diamond {
         background: url("https://www.micstatic.com/athena/2017/img/common/icon-diamond_c1f4757f.png")
@@ -721,6 +622,34 @@ const calTime = (e) => {
   .sr-layout-wrap:after {
     content: "";
     display: table;
+  }
+  #trustworthy-icons .sesame-click-target,
+  #company-topbar .ct-icon-onsite a {
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: text-top;
+    font-family: Tahoma;
+    font-size: 11px;
+    -webkit-text-size-adjust: none;
+    color: #666;
+    background-position: 0 -400px;
+    .lice-logo {
+      background-position: 0 -30px;
+      height: 25px;
+      width: 20px;
+      margin-right: 5px;
+      vertical-align: middle;
+      background-image: url("@/assets/images/Content_images/sprites-small.png");
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+  }
+  #trustworthy-icons {
+    padding: 0;
+    li {
+      display: flex;
+    }
   }
 }
 </style>

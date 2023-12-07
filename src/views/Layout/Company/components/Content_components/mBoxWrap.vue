@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-const props = defineProps(["companyname", "companyInfo"]);
+const props = defineProps(["companyname", "companyInfo","companyPic"]);
 
 
 </script>
@@ -14,13 +14,12 @@ const props = defineProps(["companyname", "companyInfo"]);
         <div>
           <div class="company-image-wrap">
             <div class="company-image-container">
-              <a title="Yancheng Really Houseware Corp., Ltd.">
+              <a :title="props.companyname">
                 <img
                   id="ucCompanyShowIcoImg"
-                  src="https://upload.ecvv.com/upload/Company/200910/China_Yancheng_Foreign_Trade_Co_Ltd200910172021445.jpg"
+                  :src="props.companyPic"
                   style="display: inline"
-                  onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
-                  alt="Yancheng Really Houseware Corp., Ltd."
+                  :alt="props.companyname"
               /></a>
             </div>
             <div id="ucCompanyMiniIcoDiv" class="company-thumb-container"></div>
@@ -77,7 +76,7 @@ const props = defineProps(["companyname", "companyInfo"]);
               rel="nofollow"
               href="javascript:void(0);"
               onclick="ChatSkype('betty-he552','779973','-1','https://www.ecvv.com/company/betty-glass/index.html','_detectEcvvSkypeClient');"
-              >Chat Now</a
+              ><p>Chat Now</p></a
             >
           </div>
 
@@ -578,6 +577,11 @@ const props = defineProps(["companyname", "companyInfo"]);
   word-wrap: normal;
   white-space: nowrap;
 }
+.main-icon,.icon-content-supplier{
+  background-image: url(@/assets/images/Content_images/sprites-small.png);
+    display: inline-block;
+    background-repeat: no-repeat;
+}
 .mt10 .m-box-main {
   display: flex;
   padding: 16px 16px 0;
@@ -729,7 +733,12 @@ const props = defineProps(["companyname", "companyInfo"]);
 }
 .ico-skype-on {
   padding-left: 23px;
-  background-position: -208px -156px;
+  vertical-align: middle;
+  width:18px;
+  background-position: -30px -60px;
+  p{
+    width:100px;
+  }
 }
 .home-contact .supplier-feedback {
   padding-left: 15px;
@@ -756,7 +765,7 @@ const props = defineProps(["companyname", "companyInfo"]);
     color: #333 !important;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
     .icon-content-supplier {
-      background-position: -32px -306px;
+      background-position: -60px -60px;
       display: inline-block;
       height: 13px;
       margin-right: 5px;

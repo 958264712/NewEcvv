@@ -2,62 +2,18 @@
 import { ref } from "vue";
 import {getLatestProduct} from '@/api/modular/search'
 
-const params = ref<RightAsideListType>({
-    list:[],
-    title:''
-})
-const itemList = ref([
-  {
-    href: "https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525",
-    title: "ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/office-chair-ergonomic-desk-chair-with-adjustable-height",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/2_e2d45cd9-9027-45d0-9fb2-1941c2bb7db1.jpg?v=1638512125",
-    title: "ECVV Office Chair, Ergonomic Desk Chair  with Adjustable Height   for Conference Room",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525",
-    title: "ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/office-chair-ergonomic-desk-chair-with-adjustable-height",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/2_e2d45cd9-9027-45d0-9fb2-1941c2bb7db1.jpg?v=1638512125",
-    title: "ECVV Office Chair, Ergonomic Desk Chair  with Adjustable Height   for Conference Room",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525",
-    title: "ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/office-chair-ergonomic-desk-chair-with-adjustable-height",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/2_e2d45cd9-9027-45d0-9fb2-1941c2bb7db1.jpg?v=1638512125",
-    title: "ECVV Office Chair, Ergonomic Desk Chair  with Adjustable Height   for Conference Room",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/ecvv-laser-level-5-lines-green-light-professional-cross-marking-meter-self-leveling-horizontal-vertical-laser-ruler-spirit-level-1",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/LM550GD-MAIN1_1.jpg?v=1637826525",
-    title: "ECVV Laser level 5 Lines Green Light Professional Cross Marking Meter Self-leveling Horizontal Vertical Laser Ruler Spirit Level",
-  },
-  {
-    href: "https://rcep.ecvv.cn/products/office-chair-ergonomic-desk-chair-with-adjustable-height",
-    src: "https://cdn.shopify.com/s/files/1/0515/0448/0426/products/2_e2d45cd9-9027-45d0-9fb2-1941c2bb7db1.jpg?v=1638512125",
-    title: "ECVV Office Chair, Ergonomic Desk Chair  with Adjustable Height   for Conference Room",
-  },
-]);
+
+const itemList = ref([]);
 
 // 获取最新产品
 const handleQuery = async () => {
-    await getLatestProduct(Object.assign({ keyword: router.options.history.location.split('=')[1] })).then(res => {
+    await getLatestProduct(Object.assign({ keyword: 'led' })).then(res => {
         if (res.data.type === 'success') {
-            params.value.list = res.data.result.list
-            params.value.title = res.data.result.title
+            itemList.value = res.data.result.list
         }
     })
 }
+handleQuery()
 </script>
 <template>
   <div id="EcvvCompanyHomeshopifyProduct">
@@ -68,7 +24,7 @@ const handleQuery = async () => {
         </div>
         <ul class="yml-content">
           <li class="item" v-for="i in itemList" :key="i">
-            <a :href="i.href" target="_blank"
+            <a :href="i.href"  target="_blank"
               ><div class="yml-img-wrap">
                 <img :src="i.src" :alt="i.title" />
               </div>

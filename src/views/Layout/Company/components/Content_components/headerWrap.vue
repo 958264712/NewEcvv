@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 const props = defineProps(["companyname", "description"]);
-
-
 </script>
 <template>
   <div class="header-warp">
@@ -29,11 +27,11 @@ const props = defineProps(["companyname", "description"]);
                 class="examp"
                 href="https://www.ecvv.com/company/betty-glass/index.html"
               >
-                {{props.companyname}}</a
+                {{ props.companyname }}</a
               >
 
               <h3>
-                {{props.description}}
+                {{ props.description }}
               </h3>
             </td>
           </tr>
@@ -137,6 +135,19 @@ const props = defineProps(["companyname", "description"]);
     }
     .gold .supplier-badge-num {
       color: #d26d00;
+    }
+    .header .supplier-badge-num {
+      display: inline-block;
+      margin-left: 112px;
+      font-weight: 700;
+      position: relative;
+      .y {
+        font-size: 22px;
+        position: relative;
+      }
+      span {
+        float: left;
+      }
     }
     .diamond {
       background-position: -13px -43px;

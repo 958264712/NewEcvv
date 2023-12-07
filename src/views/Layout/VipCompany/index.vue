@@ -1,23 +1,83 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { ref,onMounted,defineAsyncComponent } from "vue";
+import { getCompanyInfo } from '@/api/modular/company.ts'
+
 const ComHeader = defineAsyncComponent(() => import("./components/company_header.vue"));
 const NavWrap = defineAsyncComponent(() => import("./components/navWrap.vue"));
 const Content = defineAsyncComponent(() => import("./components/content.vue"));
 const ProduceList = defineAsyncComponent(() => import("./components/produceList.vue"));
 
+const companyInfo = ref<any>({})
+const companyCardInfo = ref<any>({})
+const companyname = ref("");
+const description = ref("");
+const companyPic = ref("");
+const companyarea = ref("");
+const countryName = ref("");
+
+// 获取公司信息
+const handleQuery = async () => {
+    await getCompanyInfo().then((res)=>{
+        if(res.data.type === 'success'){
+            companyInfo.value = res.data.result.companyInfo
+            companyCardInfo.value = res.data.result.companyCardInfo
+            companyname.value = res.data.result.companyname
+            description.value = res.data.result.description
+            countryName.value = res.data.result.countryName
+            companyarea.value = res.data.result.companyarea
+            companyPic.value = res.data.result.companyPic
+        }
+    })
+}
+
+
+onMounted(()=>{
+    handleQuery()
+})
+
+
 </script>
 <template>
   <main class='companyModuler'>
-      <ComHeader />
+      <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
       <NavWrap />
       <Content />
       <ProduceList />
       <FormInquire />
   </main>
 </template>
-<style lang="less" scoped>
+<style lang="less" >
 .companyModuler {
   background-color: #fff;
 }
-
+.main-icon,
+.top .search-submit,
+.header .diamond,
+.header .platinum,
+.header .gold,
+.gold-button .icon-content-supplier,
+.icon-prev-btn-large,
+.icon-next-btn-large,
+.col-left .search-box .submit,
+.related-product-prev-btn a,
+.related-product-next-btn a,
+.mod-banner .slide .next,
+.mod-banner .slide .prev,
+.mod-banner .slide .slide-nav a,
+.member-join span,
+.member-logon span,
+.nav-site .basket,
+.view-page-wrap .page .pre-none,
+.view-page-wrap .page .next,
+.products-container .ico-select a,
+.products-container .ico-select .selected,
+.PDcol-right .contact .basket,
+.PDcol-right .share .fb,
+.PDcol-right .share .tt,
+.see-larger-img .magnifier,
+.header .verified {
+  background-image: url('@/assets/images/com-sprites-v4.png');
+  display: inline-block;
+  background-repeat: no-repeat;
+}
 </style>

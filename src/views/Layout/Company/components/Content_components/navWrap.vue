@@ -31,7 +31,8 @@ const handleShow = (item,val) => {
             @mouseleave="handleShow('isShow',false)"
             >Product Categories<b class="triangle"></b
           ></a>
-          <ul class="dropdown-menu2" v-show="isShow">
+          <ul class="dropdown-menu2" v-show="isShow" @mouseover="handleShow('isShow',true)"
+            @mouseleave="handleShow('isShow',false)">
             <li>
               <a
                 href="https://www.ecvv.com/company/betty-glass/catalog/42426.html"
@@ -97,7 +98,8 @@ const handleShow = (item,val) => {
           >
             Company Profile<b class="triangle"></b
           ></a>
-          <ul class="dropdown-menu2" v-show="isShow1">
+          <ul class="dropdown-menu2" v-show="isShow1" @mouseover="handleShow('isShow1',true)"
+            @mouseleave="handleShow('isShow1',false)">
             <li class="">
               <a
                 title="company introduction"

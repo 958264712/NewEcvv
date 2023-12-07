@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps(["companyname", "companyCardInfo"]);
+const props = defineProps(["companyname", "companyCardInfo","companyarea","countryName"]);
 const isShow = ref(false);
 const title = ref('')
 const handlemouseOver = (val) => {
@@ -54,8 +54,8 @@ const calTime = (e) => {
           <div id="company-card-main-content" class="company-card">
             <h3>{{ props.companyname }}</h3>
             <div class="meta">
-              [ {{ props.companyCardInfo?.Companyarea }},
-              {{ props.companyCardInfo?.CountryName }} ]
+              [ {{ props.companyarea }},
+              {{ props.countryName }} ]
               <span
                 class="location-icon"
                 :title="title"
