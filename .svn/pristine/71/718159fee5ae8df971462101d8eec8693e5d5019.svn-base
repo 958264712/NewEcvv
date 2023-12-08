@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-const props = defineProps(["companyname", "companyInfo","companyPic","productShowcase","companyContactPerson","companyContactUrl"]);
+const props = defineProps(["companyname", "companyInfo","companyPic"]);
 
 
 </script>
@@ -64,10 +64,10 @@ const props = defineProps(["companyname", "companyInfo","companyPic","productSho
         <div class="home-contact">
           <div class="supplier-name">
             <a
-              :href="props.companyContactUrl"
+              href="https://www.ecvv.com/company/betty-glass/contact.html"
               title="Yancheng Really Houseware Corp., Ltd. contact "
             >
-              {{props.companyContactPerson}}
+              Ms. Betty Ho
             </a>
           </div>
           <div class="supplier-line">
@@ -101,31 +101,296 @@ const props = defineProps(["companyname", "companyInfo","companyPic","productSho
       </div>
       <div class="m-box-main">
         <ul class="small120-products">
-          <li v-for="(item,index) in props.productShowcase">
+          <li>
             <div class="small120-product">
               <div class="product-img abs-center">
                 <a
                   target="_blank"
-                  :href="item.productUrl"
-                  :title="item.productname"
+                  href="https://www.ecvv.com/product/5048645.html"
+                  title="Black Base Glass Dome Vase Home Decoration Creative Glass Cover Wedding Favor Gift"
                 >
                   <img
-                    :src="item.picPath"
-                    :alt="item.productname"
-                    :title="item.productname"
+                    src="//ic10.ecvv.com/upload/UserImage/20200528/200x200/15-181-1af5d914-146d-4490-9279-abc30325c603.jpg"
+                    alt="Black Base Glass Dome Vase Home Decoration Creative Glass Cover Wedding Favor Gift"
+                    title="Black Base Glass Dome Vase Home Decoration Creative Glass Cover Wedding Favor Gift"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
                   />
                 </a>
               </div>
               <div class="product-title1">
                 <a
                   target="_blank"
-                  :href="item.productUrl"
-                  :title="item.productname"
-                >{{item.productname}}</a
+                  href="https://www.ecvv.com/product/5048645.html"
+                  title="Black Base Glass Dome Vase Home Decoration Creative Glass Cover Wedding Favor Gift"
+                >
+                  Black Base Glass Dome Vase Home Decoration Creative Glass
+                  Cover Wedding Favor Gift</a
                 >
               </div>
             </div>
             <div class="main-icon hot-pro-small"></div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5048649.html"
+                  title="Antique Base Glass Dome Vase Home Decoration Creative Glass Cove Wedding Favor Gift"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200528/200x200/12-1811-f262ed63-6569-4766-bd6f-f45185444ae3.jpg"
+                    alt="Antique Base Glass Dome Vase Home Decoration Creative Glass Cove Wedding Favor Gift"
+                    title="Antique Base Glass Dome Vase Home Decoration Creative Glass Cove Wedding Favor Gift"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5048649.html"
+                  title="Antique Base Glass Dome Vase Home Decoration Creative Glass Cove Wedding Favor Gift"
+                >
+                  Antique Base Glass Dome Vase Home Decoration Creative Glass
+                  Cove Wedding Favor Gift</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4777224.html"
+                  title="Transparent Glass Dome Vase Home Decoration Handmade Glassaware Gift Log Base"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20160911/200x200/11-04c36773-50e7-4935-8a04-6540f4b0a321.jpg"
+                    alt="Transparent Glass Dome Vase Home Decoration Handmade Glassaware Gift Log Base"
+                    title="Transparent Glass Dome Vase Home Decoration Handmade Glassaware Gift Log Base"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4777224.html"
+                  title="Transparent Glass Dome Vase Home Decoration Handmade Glassaware Gift Log Base"
+                >
+                  Transparent Glass Dome Vase Home Decoration Handmade
+                  Glassaware Gift Log Base</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776194.html"
+                  title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20160909/200x200/HangingGlassTerrariumAirplantsGlassBottleHomeDecorationMetalFrameGlassVase_4b36787e-16de-4722-89db-fabb5ad9512e.JPG"
+                    alt="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container"
+                    title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776194.html"
+                  title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container"
+                >
+                  Metal Frame Hanging Glass Terrarium Vase Home Decoration
+                  Airplants Glass Container</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776186.html"
+                  title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container Home Decoration"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20160909/200x200/HangingGlassTerrariumAirplantsGlassBottleHomeDecorationMetalFrameGlassVase_41e68b4d-18e9-4f26-9988-a516ff48bbea.jpg"
+                    alt="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container Home Decoration"
+                    title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container Home Decoration"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776186.html"
+                  title="Metal Frame Hanging Glass Terrarium Vase Home Decoration Airplants Glass Container Home Decoration"
+                >
+                  Metal Frame Hanging Glass Terrarium Vase Home Decoration
+                  Airplants Glass Container Home Decoratio...</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776263.html"
+                  title="10*10cm Small Size Metal Frame Square Glass Terrarium Vase Home Decoration Table Stand Glass Vase Business Favor Gift"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20160909/200x200/HangingGlassTerrariumAirplantsGlassBottleHomeDecorationMetalFrameGlassVase_66b6ac04-42e9-4713-b9bf-fef32e6bd04e.jpg"
+                    alt="10*10cm Small Size Metal Frame Square Glass Terrarium Vase Home Decoration Table Stand Glass Vase Business Favor Gift"
+                    title="10*10cm Small Size Metal Frame Square Glass Terrarium Vase Home Decoration Table Stand Glass Vase Business Favor Gift"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4776263.html"
+                  title="10*10cm Small Size Metal Frame Square Glass Terrarium Vase Home Decoration Table Stand Glass Vase Business Favor Gift"
+                >
+                  10*10cm Small Size Metal Frame Square Glass Terrarium Vase
+                  Home Decoration Table Stand Glass Vase...</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/1108522.html"
+                  title="Transparent Glass Globe Christmas Day Home Decorative Wedding Favor Gift Hanging Ball"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200527/200x200/TransparentGlassGlobeChristmasDayHomeDecorativeWeddingFavorGiftHangingBall_c74bb49f-2062-402d-b1a8-afb136597725.jpg"
+                    alt="Transparent Glass Globe Christmas Day Home Decorative Wedding Favor Gift Hanging Ball"
+                    title="Transparent Glass Globe Christmas Day Home Decorative Wedding Favor Gift Hanging Ball"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/1108522.html"
+                  title="Transparent Glass Globe Christmas Day Home Decorative Wedding Favor Gift Hanging Ball"
+                >
+                  Transparent Glass Globe Christmas Day Home Decorative Wedding
+                  Favor Gift Hanging Ball</a
+                >
+              </div>
+            </div>
+            <div class="main-icon hot-pro-small"></div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/1108520.html"
+                  title="Hanging Glass Terrarium Vase Home Decoration Handmade Wedding Decorative Props Creative Hanging Candle Holder"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200527/200x200/HangingGlassTerrariumVaseHomeDecorationHandmadeWeddingDecorativePropsCreativeHangingCandleHolder_f204325f-11b0-457e-83c2-e9c1d1ef4ab2.jpg"
+                    alt="Hanging Glass Terrarium Vase Home Decoration Handmade Wedding Decorative Props Creative Hanging Candle Holder"
+                    title="Hanging Glass Terrarium Vase Home Decoration Handmade Wedding Decorative Props Creative Hanging Candle Holder"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/1108520.html"
+                  title="Hanging Glass Terrarium Vase Home Decoration Handmade Wedding Decorative Props Creative Hanging Candle Holder"
+                >
+                  Hanging Glass Terrarium Vase Home Decoration Handmade Wedding
+                  Decorative Props Creative Hanging C...</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4365998.html"
+                  title="Hanging Glass Terrarium Vase Home Decoration Creative Candle Holder Wedding Decorative Props"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200528/200x200/HangingGlassTerrariumVaseHomeDecorationCreativeCandleHolderWeddingDecorativeProps_5f5f4f45-3832-4801-a615-ffced072f008.jpg"
+                    alt="Hanging Glass Terrarium Vase Home Decoration Creative Candle Holder Wedding Decorative Props"
+                    title="Hanging Glass Terrarium Vase Home Decoration Creative Candle Holder Wedding Decorative Props"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/4365998.html"
+                  title="Hanging Glass Terrarium Vase Home Decoration Creative Candle Holder Wedding Decorative Props"
+                >
+                  Hanging Glass Terrarium Vase Home Decoration Creative Candle
+                  Holder Wedding Decorative Props</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/994289.html"
+                  title="600ml High Borosilicate Glass Material Teapot Home Office Hotel Handmade Glass Teapot Cup Set"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200528/200x200/600mlHighBorosilicateGlassMaterialTeapotHomeOfficeHotelHandmadeGlassTeapotCupSet_f6680ea0-44c2-4dee-a380-6c9255164627.jpg"
+                    alt="600ml High Borosilicate Glass Material Teapot Home Office Hotel Handmade Glass Teapot Cup Set"
+                    title="600ml High Borosilicate Glass Material Teapot Home Office Hotel Handmade Glass Teapot Cup Set"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/994289.html"
+                  title="600ml High Borosilicate Glass Material Teapot Home Office Hotel Handmade Glass Teapot Cup Set"
+                >
+                  600ml High Borosilicate Glass Material Teapot Home Office
+                  Hotel Handmade Glass Teapot Cup Set</a
+                >
+              </div>
+            </div>
           </li>
         </ul>
         <div class="more-cat">

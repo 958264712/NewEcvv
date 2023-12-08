@@ -3,7 +3,7 @@ import { defineAsyncComponent, ref } from "vue";
 import PicZoom from "vue3-piczoom";
 import { useRouter } from "vue-router";
 
-const props = defineProps(['handleStartOrder',"title"]);
+const props = defineProps(['handleStartOrder',"title", 'ProductInfo']);
 const router = useRouter();
 const picPathList = ref<any>([
   "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1wqogsvxxxxbaxfxxq6xxfxxxhadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
@@ -22,9 +22,9 @@ const clickCarousel = (val) => {
   const hidden = document.getElementsByClassName("hidden");
   const itemNum = document.getElementsByClassName("carousel_item").length;
   if (val === "prev") {
-    num--;
-  } else {
     num++;
+  } else {
+    num--;
   }
   if (num <= 0 && itemNum + num !== 5) {
     hidden[0].style.left = `${num * 54}px`;

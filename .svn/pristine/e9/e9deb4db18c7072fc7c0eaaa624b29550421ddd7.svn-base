@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref,onMounted,defineAsyncComponent } from "vue";
 import { getCompanyInfo } from '@/api/modular/company.ts'
-import { Session } from '@/utils/storage';
 
 const ComHeader = defineAsyncComponent(() => import("./components/company_header.vue"));
 const NavWrap = defineAsyncComponent(() => import("./components/navWrap.vue"));
@@ -10,31 +9,23 @@ const ProduceList = defineAsyncComponent(() => import("./components/produceList.
 
 const companyInfo = ref<any>({})
 const companyCardInfo = ref<any>({})
-const productShowcase = ref<any>([])
 const companyname = ref("");
 const description = ref("");
 const companyPic = ref("");
 const companyarea = ref("");
 const countryName = ref("");
-const companyContactPerson = ref("");
-const companyContactUrl = ref("");
 
 // 获取公司信息
 const handleQuery = async () => {
     await getCompanyInfo().then((res)=>{
-      if(res.data.type === 'success'){
-        companyInfo.value = res.data.result.companyInfo
-        companyCardInfo.value = res.data.result.companyCardInfo
-        companyname.value = res.data.result.companyname
-        description.value = res.data.result.description
-        countryName.value = res.data.result.countryName
-        companyarea.value = res.data.result.companyarea
-        companyPic.value = res.data.result.companyPic
-        productShowcase.value = res.data.result.productShowcase 
-        companyContactPerson.value = res.data.result.companyContactPerson
-        companyContactUrl.value = res.data.result.companyContactUrl
-        Session.set('companyInfo',res.data.result)
-
+        if(res.data.type === 'success'){
+            companyInfo.value = res.data.result.companyInfo
+            companyCardInfo.value = res.data.result.companyCardInfo
+            companyname.value = res.data.result.companyname
+            description.value = res.data.result.description
+            countryName.value = res.data.result.countryName
+            companyarea.value = res.data.result.companyarea
+            companyPic.value = res.data.result.companyPic
         }
     })
 }
@@ -51,7 +42,8 @@ onMounted(()=>{
       <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
       <NavWrap />
       <Content />
-      <ProduceList :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
+      <ProduceList />
+      <FormInquire />
   </main>
 </template>
 <style lang="less" >

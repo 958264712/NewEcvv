@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const props = defineProps(["shopNum", "setshopNum"]);
+const props = defineProps(["shopNum", "setshopNum","companyPic","title"]);
 const emit = defineEmits(["shopNum", "setshopNum"]);
 const router = useRouter();
 const productItem = ref<any>({});
@@ -39,7 +39,6 @@ const clickCompany = (id) =>{
               title="Business Card"
               rel="nofollow"
               class="title-icon J-show-card"
-              ads-data="st:20,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
               ><i class="ob-icon icon-buyer-sourcing"></i
             ></a>
           </div>
@@ -49,7 +48,7 @@ const clickCompany = (id) =>{
                 <a href="javascript:void(0);">
                   <img
                     class="J-contact-img"
-                    src="//image.made-in-china.com/336f0j00ItLTVPOMuEcQ/made-in-china.webp"
+                    :src="props.companyPic"
                     alt="Avatar"
                   />
                 </a>
@@ -107,8 +106,7 @@ const clickCompany = (id) =>{
           <div class="sr-com com-place-one">
             <div class="sr-com-logo">
               <img
-                src="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
-                data-original="//image.made-in-china.com/206f0j00rTtRVazItfgb/Shenzhen-Lumin-Lighting-Co-Ltd-.webp"
+                :src="props.companyPic"
                 style="display: inline"
               />
             </div>
@@ -118,9 +116,8 @@ const clickCompany = (id) =>{
                   <a
                     @click="clickCompany(123)"
                     target="_blank"
-                    ads-data=""
-                    title="Shenzhen Lumin Lighting Co., Ltd."
-                    >Shenzhen Lumin Lighting Co., Ltd.
+                    :title="props.title"
+                    >{{props.title}}
                     <i class="ob-icon icon-right"></i
                   ></a>
                 </div>

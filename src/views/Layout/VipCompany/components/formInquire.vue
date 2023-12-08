@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+
+const props = defineProps(["companyname"])
 const router = useRouter();
 
 const formSize = ref("default");
@@ -19,6 +21,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   });
 };
+
 // function ChatSkype(skypeId, objCId, objPId,AccessPage, detectClientCtlId) {
 //     $.getJSON("/EcvvAjax/AjaxSaveSkypeStatistics.ashx",
 //          { SkySkypeID: skypeId, SkyCID: objCId, SkyPID: objPId, SkyAccessPage: AccessPage, AccessType: 0, rd: Math.random() },
@@ -45,7 +48,7 @@ const queryRFQ = () => {
       <p class="space wai">Enter email or Member ID.</p>
       <el-form-item label="To:" prop="name">
         <div>
-          <span class="name"> Yancheng Really Houseware Corp., Ltd.</span>
+          <span class="name"> {{props.companyname}}</span>
           <a
             class="main-icon ico-skype-on"
             rel="nofollow"

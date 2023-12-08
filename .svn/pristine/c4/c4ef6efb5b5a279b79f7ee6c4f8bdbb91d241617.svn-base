@@ -1,7 +1,6 @@
 <script setup lang = "ts" >
 import { defineAsyncComponent,ref,onMounted } from "vue";
 import { getCompanyInfo } from '@/api/modular/company.ts'
-import { Session } from '@/utils/storage';
 
 const TopBar = defineAsyncComponent(() => import("./Content_components/topBar.vue"));
 const HeaderWrap = defineAsyncComponent(() => import("./Content_components/headerWrap.vue"));
@@ -13,14 +12,11 @@ const FormInquire = defineAsyncComponent(() => import("./Content_components/form
 
 const companyInfo = ref<any>({})
 const companyCardInfo = ref<any>({})
-const productShowcase = ref<any>([])
 const companyname = ref("");
 const description = ref("");
 const companyPic = ref("");
 const companyarea = ref("");
 const countryName = ref("");
-const companyContactPerson = ref("");
-const companyContactUrl = ref("");
 
 
 const imgList = ref([
@@ -41,7 +37,6 @@ const radiusStyle = ref({
 const handleQuery = async () => {
     await getCompanyInfo().then((res)=>{
         if(res.data.type === 'success'){
-            Session.set('companyInfo',res.data.result)
             companyInfo.value = res.data.result.companyInfo
             companyCardInfo.value = res.data.result.companyCardInfo
             companyname.value = res.data.result.companyname
@@ -49,9 +44,6 @@ const handleQuery = async () => {
             countryName.value = res.data.result.countryName
             companyarea.value = res.data.result.companyarea
             companyPic.value = res.data.result.companyPic
-            productShowcase.value = res.data.result.productShowcase
-            companyContactPerson.value = res.data.result.companyContactPerson
-            companyContactUrl.value = res.data.result.companyContactUrl
         }
     })
 }
@@ -67,8 +59,8 @@ onMounted(()=>{
         <HeaderWrap :companyname="companyname" :description="description" />
         <NavWrap />
         <Section :list="imgList" :style="style" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
-        <MBoxWrap :companyname="companyname" :companyContactUrl="companyContactUrl" :companyContactPerson="companyContactPerson" :companyInfo="companyInfo" :companyPic="companyPic" :productShowcase="productShowcase"/>
+        <MBoxWrap :companyname="companyname" :companyInfo="companyInfo" :companyPic="companyPic"/>
         <PCcols />
-        <FormInquire :companyname="companyname"/>
+        <FormInquire />
     </main>
 </template>

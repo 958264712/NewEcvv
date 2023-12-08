@@ -1,6 +1,7 @@
 <script lang='ts' setup>
 import {defineAsyncComponent,ref} from 'vue'
 import { ElMessage } from 'element-plus';
+import { Session } from '@/utils/storage';
 
 const ProductsInfo = defineAsyncComponent(()=>import('./components/productInfo.vue'))
 const ProductDescription = defineAsyncComponent(()=>import('./components/productDescription.vue'))
@@ -8,12 +9,12 @@ const StartOrderModel = defineAsyncComponent(() => import('./components/StartOrd
 const Basket = defineAsyncComponent(() => import('../Basket/index.vue'))
 const otp = defineAsyncComponent(() => import('@/views/Product/Sourcing/components/otp.vue'))
 
+const companyInfo = ref<any>(Session.get('companyInfo'))
 const StartOrderDialog = ref()
 const shopNum = ref<any>([])
 const ifOpen = ref(false)
-const info = ref({
-    title:'LED Sky Ceiling Panel Light 40W LED Panel Lights'
-})
+const companyPic = companyInfo.value.companyPic
+const info = companyInfo.value.companyname
 const ProductInfo = ref<any>({})
 const ProductDataInfo = ref<any>({})
 const handleStartOrder = () =>{
@@ -30,15 +31,45 @@ const setshopNum = (val:any) => {
 </script>
 <template>
 <div class='productsModule'>
-    <ProductsInfo :info="info" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum"/>
+    <ProductsInfo :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum"/>
     <otp :ProductInfo = "ProductInfo"/>
-    <ProductDescription :ProductInfo="ProductInfo" :handleStartOrder="handleStartOrder"/>
+    <ProductDescription :ProductInfo="ProductInfo" :handleStartOrder="handleStartOrder" :info="info"/>
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "ProductDataInfo" />
     <Basket class="basket" :shopNum="shopNum"/>
 </div>
 </template>
-<style lang='less' scoped>
+<style lang='less' >
 .productsModule{
     background-color:#fff;
+}
+.main-icon,
+.top .search-submit,
+.header .diamond,
+.header .platinum,
+.header .gold,
+.gold-button .icon-content-supplier,
+.icon-prev-btn-large,
+.icon-next-btn-large,
+.col-left .search-box .submit,
+.related-product-prev-btn a,
+.related-product-next-btn a,
+.mod-banner .slide .next,
+.mod-banner .slide .prev,
+.mod-banner .slide .slide-nav a,
+.member-join span,
+.member-logon span,
+.nav-site .basket,
+.view-page-wrap .page .pre-none,
+.view-page-wrap .page .next,
+.products-container .ico-select a,
+.products-container .ico-select .selected,
+.PDcol-right .contact .basket,
+.PDcol-right .share .fb,
+.PDcol-right .share .tt,
+.see-larger-img .magnifier,
+.header .verified {
+  background-image: url('@/assets/images/com-sprites-v4.png');
+  display: inline-block;
+  background-repeat: no-repeat;
 }
 </style>

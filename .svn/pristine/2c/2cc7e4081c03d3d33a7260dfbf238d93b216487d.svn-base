@@ -3,7 +3,6 @@ import { ref,defineAsyncComponent } from "vue";
 import {useRouter} from 'vue-router'
 import {getLatestProduct} from '@/api/modular/search'
 
-const props = defineProps(["productShowcase","companyname","companyContactPerson","companyContactUrl","companyPic"]);
 const router = useRouter()
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
@@ -522,25 +521,34 @@ handleQuery()
           <div class="sr-layout-content contact-supplier">
             <div class="sr-side-contSupplier-info">
               <div class="sr-side-contSupplier-pic">
-                <a :href="props.companyContactUrl">
+                <a href="javascript:void(0);">
                   <img
                     class="J-contact-img"
-                    :src="props.companyPic"
+                    src="//image.made-in-china.com/336f0j00ItLTVPOMuEcQ/made-in-china.webp"
                     alt="Avatar"
                   />
                 </a>
               </div>
               <div class="sr-side-contSupplier-txt">
-                <a class="sr-side-contSupplier-name" :href="props.companyContactUrl">{{props.companyContactPerson}}</a>
+                <div class="sr-side-contSupplier-name">Mr. Kevin</div>
                 <div class="sr-side-contSupplier-position">General Manager</div>
                 <div class="sr-side-contSupplier-chat">
                   <b
                     class="tm3_chat_status"
+                    lan="en"
+                    tmlan="en"
+                    dataid="IMRmDLvcafHV_IMRmDLvcafHV_3"
+                    inquiry="https://www.made-in-china.com/sendInquiry/shrom_IMRmDLvcafHV_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=home"
+                    processor="chat"
+                    cid="IMRmDLvcafHV"
                     style="display: none"
+                    state="initialized"
                   ></b
                   ><a
                     rel="nofollow"
+                    ads-data="st:13"
                     class="tm-status-on"
+                    href="javascript:void('Chat Now')"
                     title="Chat with supplier online now!"
                     >Chat with Supplier</a
                   >
@@ -636,23 +644,26 @@ handleQuery()
       <div class="J-spotlight-show">
         <div class="sr-layout-block">
           <div class="sr-txt-title">
-            <h2 class="sr-txt-h2">Product Showcase</h2>
+            <h2 class="sr-txt-h2">
+              LED Panel light &amp; Artificial Sky Light Panel
+            </h2>
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in props.productShowcase">
+              <li class="sr-layout-col-4 sr-proList">
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                       @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                       @click="clickProduct(123)"
                       >
                         <img
-                          :src="item.picPath"
-                          :alt="item.productname"
-                          :title="item.productname"
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                           style="display: block"
+                           @click="clickProduct(123)"
                         />
                       </a>
                     </div>
@@ -661,10 +672,10 @@ handleQuery()
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                       @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                       @click="clickProduct(123)"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                     >
-                     {{item.productname}}
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
                     </a>
                   </div>
                   <div
@@ -685,7 +696,7 @@ handleQuery()
                   target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
-                  @click="SendMessage(item.pid)"
+                  @click="SendMessage('123')"
                   >Contact Now</a
                 >
               </li>
@@ -1043,7 +1054,7 @@ handleQuery()
           </div>
         </div>
       </div>
-      <FormInquire :companyname="props.companyname"/>
+      <FormInquire />
     </el-col>
   </el-row>
 </template>
