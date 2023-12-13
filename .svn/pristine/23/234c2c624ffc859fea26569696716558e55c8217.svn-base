@@ -11,7 +11,6 @@ const ProduceList = defineAsyncComponent(() => import("./components/produceList.
 const companyInfo = ref<any>({})
 const companyCardInfo = ref<any>({})
 const productShowcase = ref<any>([])
-const newProducts = ref<any>([])
 const companyname = ref("");
 const description = ref("");
 const companyPic = ref("");
@@ -34,7 +33,6 @@ const handleQuery = async () => {
         productShowcase.value = res.data.result.productShowcase 
         companyContactPerson.value = res.data.result.companyContactPerson
         companyContactUrl.value = res.data.result.companyContactUrl
-        newProducts.value = res.data.result.newProducts 
         Session.set('companyInfo',res.data.result)
 
         }
@@ -53,7 +51,7 @@ onMounted(()=>{
       <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
       <NavWrap />
       <Content />
-      <ProduceList :newProducts="newProducts" :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
+      <ProduceList :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
   </main>
 </template>
 <style lang="less" >

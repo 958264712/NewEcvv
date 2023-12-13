@@ -1,16 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-const props = defineProps([
-  "companyname",
-  "companyInfo",
-  "companyPic",
-  "productShowcase",
-  "companyContactPerson",
-  "companyContactUrl",
-  "newProducts",
-  "SubDomainName"
-]);
-const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
+const props = defineProps(["companyname", "companyInfo","companyPic","productShowcase","companyContactPerson","companyContactUrl"]);
+
+
 </script>
 <template>
   <div class="m-box-wrap mt10">
@@ -37,7 +29,7 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
         <div class="company-intro-text">
           <p class="home-company-name">
             <a href="https://www.ecvv.com/company/betty-glass/profile.html">
-              {{ props.companyname }}</a
+              {{props.companyname}}</a
             >
           </p>
 
@@ -51,15 +43,10 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
 
           <table class="table">
             <tbody>
-              <tr
-                :key="item"
-                :id="item"
-                v-show="item.length"
-                v-for="(item, key, index) in props.companyInfo"
-              >
-                <th>{{ key }}:</th>
+              <tr :key="item" :id="item" v-show="item.length" v-for="(item,key,index) in props.companyInfo">
+                <th> {{key}}: </th>
                 <td>
-                  <span :title="item">{{ item }}</span>
+                  <span :title="item">{{item}}</span>
                 </td>
               </tr>
             </tbody>
@@ -80,7 +67,7 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
               :href="props.companyContactUrl"
               title="Yancheng Really Houseware Corp., Ltd. contact "
             >
-              {{ props.companyContactPerson }}
+              {{props.companyContactPerson}}
             </a>
           </div>
           <div class="supplier-line">
@@ -114,7 +101,7 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
       </div>
       <div class="m-box-main">
         <ul class="small120-products">
-          <li v-for="(item, index) in props.productShowcase">
+          <li v-for="(item,index) in props.productShowcase">
             <div class="small120-product">
               <div class="product-img abs-center">
                 <a
@@ -134,26 +121,15 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
                   target="_blank"
                   :href="item.productUrl"
                   :title="item.productname"
-                  >{{ item.productname }}</a
+                >{{item.productname}}</a
                 >
-              </div>
-              <div class="sr-proList-price">
-                <span class="sr-proList-unit">Price: </span>
-                <span class="sr-proList-num"
-                  >{{ item.m_Currency }} ${{ item.m_FobPrice }}
-                </span>
-                <span class="">/ Piece</span>
-              </div>
-              <div class="sr-proList-price">
-                <span class="sr-proList-unit">Min. Order: </span>
-                {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
               </div>
             </div>
             <div class="main-icon hot-pro-small"></div>
           </li>
         </ul>
         <div class="more-cat">
-          <a :href="href"
+          <a href="https://www.ecvv.com/company/betty-glass/products.html"
             >See all products in showcase&gt;&gt;</a
           >
         </div>
@@ -167,36 +143,147 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
       </div>
       <div class="m-box-main">
         <ul class="small120-products">
-          <li v-for="(item, index) in props.newProducts">
+          <li>
             <div class="small120-product">
               <div class="product-img abs-center">
                 <a
                   target="_blank"
-                  :href="item.productUrl"
-                  :title="item.productname"
+                  href="https://www.ecvv.com/product/5442916.html"
+                  title="7*12cm Spun Glass Christmas Tree Table Decorations Mall Holiday Party Window Props"
                 >
                   <img
-                    :src="item.picPath"
-                    :alt="item.productname"
-                    :title="item.productname"
+                    src="//ic10.ecvv.com/upload/UserImage/20201010/200x200/712cmSpunGlassChristmasTreeTableDecorationsMallHolidayPartyWindowProps_9161a59c-602a-4bea-aada-5193939d5391.jpg"
+                    alt="7*12cm Spun Glass Christmas Tree Table Decorations Mall Holiday Party Window Props"
+                    title="7*12cm Spun Glass Christmas Tree Table Decorations Mall Holiday Party Window Props"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
                   />
                 </a>
               </div>
               <div class="product-title1">
-                <a :href="item.productUrl" :title="item.productname">{{
-                  item.productname
-                }}</a>
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5442916.html"
+                  title="7*12cm Spun Glass Christmas Tree Table Decorations Mall Holiday Party Window Props"
+                >
+                  7*12cm Spun Glass Christmas Tree Table Decorations Mall
+                  Holiday Party Window Props</a
+                >
               </div>
-              <div class="sr-proList-price">
-                <span class="sr-proList-unit">Price: </span>
-                <span class="sr-proList-num"
-                  >{{ item.m_Currency }} ${{ item.m_FobPrice }}
-                </span>
-                <span class="">/ Piece</span>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436670.html"
+                  title="Round Shaped Glass Oil Lamp with Heart Inner Oil Holder Decorative Table Lamp Glassware"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                    alt="Round Shaped Glass Oil Lamp with Heart Inner Oil Holder Decorative Table Lamp Glassware"
+                    title="Round Shaped Glass Oil Lamp with Heart Inner Oil Holder Decorative Table Lamp Glassware"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
               </div>
-              <div class="sr-proList-price">
-                <span class="sr-proList-unit">Min. Order: </span>
-                {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436670.html"
+                  title="Round Shaped Glass Oil Lamp with Heart Inner Oil Holder Decorative Table Lamp Glassware"
+                >
+                  Round Shaped Glass Oil Lamp with Heart Inner Oil Holder
+                  Decorative Table Lamp Glassware</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436666.html"
+                  title="Transparent Glass Oil Lamp Decorative Stripped Glass Table Lamp"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12306-9174317d-9bd3-4738-8be3-69c6ae87c3d7.jpg"
+                    alt="Transparent Glass Oil Lamp Decorative Stripped Glass Table Lamp"
+                    title="Transparent Glass Oil Lamp Decorative Stripped Glass Table Lamp"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436666.html"
+                  title="Transparent Glass Oil Lamp Decorative Stripped Glass Table Lamp"
+                >
+                  Transparent Glass Oil Lamp Decorative Stripped Glass Table
+                  Lamp</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436663.html"
+                  title="Transparent Glass Oil Lamp Diameter=8cm Height=21cm 23cm 25cm Different Height Table Lamp Decorative"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/32801-18083ce5-1fdb-4542-9547-19d10c74208f.jpg"
+                    alt="Transparent Glass Oil Lamp Diameter=8cm Height=21cm 23cm 25cm Different Height Table Lamp Decorative"
+                    title="Transparent Glass Oil Lamp Diameter=8cm Height=21cm 23cm 25cm Different Height Table Lamp Decorative"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436663.html"
+                  title="Transparent Glass Oil Lamp Diameter=8cm Height=21cm 23cm 25cm Different Height Table Lamp Decorative"
+                >
+                  Transparent Glass Oil Lamp Diameter=8cm Height=21cm 23cm 25cm
+                  Different Height Table Lamp Decorat...</a
+                >
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436661.html"
+                  title="Round Shaped Glass Oil Lamp Oval Shaped Table Lamp Home Decoration Handcraft Glass Gift"
+                >
+                  <img
+                    src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12304-1-76788123-9bd4-4120-a063-e3fc8c2f81a5.jpg"
+                    alt="Round Shaped Glass Oil Lamp Oval Shaped Table Lamp Home Decoration Handcraft Glass Gift"
+                    title="Round Shaped Glass Oil Lamp Oval Shaped Table Lamp Home Decoration Handcraft Glass Gift"
+                    onerror="this.src='https://upload.ecvv.com/ECVV2011/images/bigNoPhoto.jpg'"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  href="https://www.ecvv.com/product/5436661.html"
+                  title="Round Shaped Glass Oil Lamp Oval Shaped Table Lamp Home Decoration Handcraft Glass Gift"
+                >
+                  Round Shaped Glass Oil Lamp Oval Shaped Table Lamp Home
+                  Decoration Handcraft Glass Gift</a
+                >
               </div>
             </div>
           </li>
@@ -225,11 +312,10 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
   word-wrap: normal;
   white-space: nowrap;
 }
-.main-icon,
-.icon-content-supplier {
+.main-icon,.icon-content-supplier{
   background-image: url(@/assets/images/Content_images/sprites-small.png);
-  display: inline-block;
-  background-repeat: no-repeat;
+    display: inline-block;
+    background-repeat: no-repeat;
 }
 .mt10 .m-box-main {
   display: flex;
@@ -383,10 +469,10 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
 .ico-skype-on {
   padding-left: 23px;
   vertical-align: middle;
-  width: 18px;
+  width:18px;
   background-position: -30px -60px;
-  p {
-    width: 100px;
+  p{
+    width:100px;
   }
 }
 .home-contact .supplier-feedback {
@@ -452,7 +538,7 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-
+  
   li {
     width: 175px;
     position: relative;
@@ -485,25 +571,9 @@ const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
     }
     .product-title1 {
       padding: 0px;
-      max-height: 120px;
+      height: 120px;
       display: inline-block;
       overflow: hidden;
-    }
-    .sr-proList-price {
-      height: 21px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #888;
-      .sr-proList-unit {
-        font-size: 14px;
-        line-height: 21px;
-      }
-      .sr-proList-num {
-        color: #e64545;
-        line-height: 21px;
-        font-weight: bold;
-      }
     }
     .small120-products .hot-pro-small {
       left: 25px !important;

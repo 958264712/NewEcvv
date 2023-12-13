@@ -3,7 +3,7 @@ import { ref,defineAsyncComponent } from "vue";
 import {useRouter} from 'vue-router'
 import {getLatestProduct} from '@/api/modular/search'
 
-const props = defineProps(["productShowcase","companyname","companyContactPerson","companyContactUrl","companyPic","newProducts"]);
+const props = defineProps(["productShowcase","companyname","companyContactPerson","companyContactUrl","companyPic"]);
 const router = useRouter()
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
@@ -669,14 +669,15 @@ handleQuery()
                   </div>
                   <div
                     class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
                   >
-                    <span class="sr-proList-unit">Price: </span>
-                    <span class="sr-proList-num">{{item.m_Currency}} ${{item.m_FobPrice}} </span>
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
                     <span class="">/ Piece</span>
                   </div>
-                  <div class="sr-proList-price" >
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
                     <span class="sr-proList-unit">Min. Order: </span>
-                    {{item.m_Minimum_Order}} {{item.minOrderUnit}}
+                    30 Pieces
                   </div>
                 </div>
                 <!-- href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en" -->
@@ -693,22 +694,23 @@ handleQuery()
         </div>
         <div class="sr-layout-block">
           <div class="sr-txt-title">
-            <h2 class="sr-txt-h2">New products</h2>
+            <h2 class="sr-txt-h2">Ceiling Light</h2>
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in props.newProducts">
+              <li class="sr-layout-col-4 sr-proList">
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                        @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
                       >
                         <img
-                          :src="item.picPath"
-                          :alt="item.productname"
-                          :title="item.productname"
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                           style="display: block"
                         />
                       </a>
@@ -718,29 +720,279 @@ handleQuery()
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                       @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
                     >
-                     {{item.productname}}
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
                     </a>
                   </div>
                   <div
                     class="sr-proList-price"
                     title="FOB Price: US $29.8-30.55 / Piece"
                   >
-                    <span class="sr-proList-unit">Price: </span>
-                    <span class="sr-proList-num">{{item.m_Currency}} ${{item.m_FobPrice}} </span>
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
                     <span class="">/ Piece</span>
                   </div>
-                  <div class="sr-proList-price" >
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
                     <span class="sr-proList-unit">Min. Order: </span>
-                    {{item.m_Minimum_Order}} {{item.minOrderUnit}}
+                    30 Pieces
                   </div>
                 </div>
                 <a
-                  @click="SendMessage(item.pid)"
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                        ads-data="st:8,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          data-original="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
+                  >Contact Now</a
+                >
+              </li>
+              <li class="sr-layout-col-4 sr-proList">
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a
+                        href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      >
+                        <img
+                          src="//ic10.ecvv.com/upload/UserImage/20200815/200x200/12301-bcf07390-d0ab-4268-b310-976c0765dce9.jpg"
+                          title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a
+                      href="https://luminlighting.en.made-in-china.com/product/GvDxWsrYvEtX/China-LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.html"
+                      title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                    >
+                      LED Sky Ceiling Panel Light 40W LED Panel Lights
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">FOB Price: </span>
+                    <span class="sr-proList-num">US $29.8-30.55 </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price" title="Min. Order: 30 Pieces">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    30 Pieces
+                  </div>
+                </div>
+                <a
+                  href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en"
+                  target="_blank"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  ads-data="st:5,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV,a:10"
                   >Contact Now</a
                 >
               </li>

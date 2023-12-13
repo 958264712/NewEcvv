@@ -14,7 +14,6 @@ const FormInquire = defineAsyncComponent(() => import("./Content_components/form
 const companyInfo = ref<any>({})
 const companyCardInfo = ref<any>({})
 const productShowcase = ref<any>([])
-const newProducts = ref<any>([])
 const companyname = ref("");
 const description = ref("");
 const companyPic = ref("");
@@ -53,7 +52,6 @@ const handleQuery = async () => {
             productShowcase.value = res.data.result.productShowcase
             companyContactPerson.value = res.data.result.companyContactPerson
             companyContactUrl.value = res.data.result.companyContactUrl
-            newProducts.value = res.data.result.newProducts 
         }
     })
 }
@@ -69,7 +67,7 @@ onMounted(()=>{
         <HeaderWrap :companyname="companyname" :description="description" />
         <NavWrap />
         <Section :list="imgList" :style="style" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
-        <MBoxWrap  :newProducts="newProducts" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyContactPerson="companyContactPerson" :companyInfo="companyInfo" :companyPic="companyPic" :productShowcase="productShowcase"/>
+        <MBoxWrap :companyname="companyname" :companyContactUrl="companyContactUrl" :companyContactPerson="companyContactPerson" :companyInfo="companyInfo" :companyPic="companyPic" :productShowcase="productShowcase"/>
         <PCcols />
         <FormInquire :companyname="companyname"/>
     </main>

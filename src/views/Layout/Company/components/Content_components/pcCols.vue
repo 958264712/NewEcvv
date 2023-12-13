@@ -440,6 +440,21 @@
   </div>
 </template>
 <style lang="less" scoped>
+.m-box-header {
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  height: 28px;
+  line-height: 28px;
+}
+.m-box-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  float: left;
+  overflow: hidden;
+  padding-left: 15px;
+  word-wrap: normal;
+  white-space: nowrap;
+}
 .PCcols:after,
 .PCcol-left:after,
 .select-products-main:after,
