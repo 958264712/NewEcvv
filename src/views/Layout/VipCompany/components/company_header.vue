@@ -44,7 +44,7 @@ const calTime = (e) => {
           :title="props.companyname"
         >
           <img
-            :src="props.companyPic"
+            :src="props.companyPic[1]"
             :alt="props.companyname"
             style="display: inline"
           />

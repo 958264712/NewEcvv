@@ -525,7 +525,7 @@ handleQuery()
                 <a :href="props.companyContactUrl">
                   <img
                     class="J-contact-img"
-                    :src="props.companyPic[0]"
+                    :src="props.companyPic"
                     alt="Avatar"
                   />
                 </a>

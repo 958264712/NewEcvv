@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, ref,onMounted } from "vue";
-
-const Section = defineAsyncComponent(import("@/components/Section/index.vue"));
+import { ref } from "vue";
 const props = defineProps([
   "companyname",
   "companyInfo",
@@ -10,34 +8,9 @@ const props = defineProps([
   "companyContactPerson",
   "companyContactUrl",
   "newProducts",
-  "SubDomainName",
+  "SubDomainName"
 ]);
-
-const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`;
-const styleTop = ref<any>({
-  height: "220px",
-  width: "300px",
-});
-const carousel = ref()
-
-// 改变显示图片
-const handlemouseOver = (item) => {
-  carousel.value.setActiveItem(item)
-}
-// 改变走马灯高亮
-const carouselChange = (val) => {
-  const bottomCarousel = document.getElementById("bottomCarousel")
-  let newList = Array.from(bottomCarousel.children)
-  for(let i of newList){
-    i.children[0].removeAttribute("class", 'current')
-  }
-  bottomCarousel.children[val].children[0].setAttribute("class", 'current')
-}
-// 刷新完成页面配置高亮
-window.addEventListener("load",()=>{
-  const bottomCarousel = document.getElementById("bottomCarousel")
-  bottomCarousel.children[0].children[0].setAttribute("class", 'current')
-})
+const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`
 </script>
 <template>
   <div class="m-box-wrap mt10">
@@ -49,59 +22,13 @@ window.addEventListener("load",()=>{
         <div>
           <div class="company-image-wrap">
             <div class="company-image-container">
-              <template v-if="props.companyPic.length > 1">
-                <el-carousel
-                  arrow="never"
-                  indicator-position="none"
-                  :style="styleTop"
-                  :interval="7000"
-                  @change ="(val)=>carouselChange(val)"
-                  ref="carousel"
-                >
-                  <el-carousel-item
-                    v-for="item in props.companyPic"
-                    :key="item.key"
-                  >
-                    <a
-                      :title="props.companyname"
-                      :href="props.companyContactUrl"
-                    >
-                      <img
-                        :src="item"
-                        style="display: inline"
-                        :alt="props.companyname"
-                      />
-                    </a>
-                  </el-carousel-item>
-                </el-carousel>
-                <ul class="bottomCarousel" id="bottomCarousel">
-                  <li 
-                    v-for="(item,index) in props.companyPic" 
-                    :key="item.key" 
-                    @mouseover="handlemouseOver(index)"
-                  >
-                    <a
-                      :title="props.companyname"
-                      :href="props.companyContactUrl"
-                    >
-                      <img
-                        :src="item"
-                        style="display: inline"
-                        :alt="props.companyname"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </template>
-              <template v-else>
-                <a :title="props.companyname">
-                  <img
-                    id="ucCompanyShowIcoImg"
-                    :src="props.companyPic"
-                    style="display: inline"
-                    :alt="props.companyname"
-                /></a>
-              </template>
+              <a :title="props.companyname">
+                <img
+                  id="ucCompanyShowIcoImg"
+                  :src="props.companyPic"
+                  style="display: inline"
+                  :alt="props.companyname"
+              /></a>
             </div>
             <div id="ucCompanyMiniIcoDiv" class="company-thumb-container"></div>
           </div>
@@ -226,7 +153,9 @@ window.addEventListener("load",()=>{
           </li>
         </ul>
         <div class="more-cat">
-          <a :href="href">See all products in showcase&gt;&gt;</a>
+          <a :href="href"
+            >See all products in showcase&gt;&gt;</a
+          >
         </div>
       </div>
     </div>
@@ -314,28 +243,6 @@ window.addEventListener("load",()=>{
   height: 220px;
   width: 300px;
 }
-.company-image-container .bottomCarousel {
-  padding: 0;
-  display:flex;
-  li {
-    margin-top: 10px;
-    a {
-      display: inline-block;
-      margin-right: 2px;
-      border: 2px solid #ddd;
-      img {
-        width: 50px;
-        height: 50px;
-      }
-    }
-  }
-}
-
-
-.company-image-container .bottomCarousel a:hover,.company-image-container .bottomCarousel .current {
-    border-color: #ee8800;
-}
-
 .company-intro-text {
   padding-right: 15px;
   color: #666;
