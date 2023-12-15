@@ -1,22 +1,37 @@
-<script setup lang = "ts" >
-import { defineAsyncComponent,ref,onMounted } from "vue";
-import { getCompanyInfo } from '@/api/modular/company.ts'
-import { Session } from '@/utils/storage';
+<script setup lang="ts">
+import { defineAsyncComponent, ref, onMounted } from "vue";
+import { getCompanyInfo } from "@/api/modular/company.ts";
+import { Session } from "@/utils/storage";
 
-const TopBar = defineAsyncComponent(() => import("./Content_components/topBar.vue"));
-const HeaderWrap = defineAsyncComponent(() => import("./Content_components/headerWrap.vue"));
-const NavWrap = defineAsyncComponent(() => import("./Content_components/navWrap.vue"));
-const Section = defineAsyncComponent(() => import("@/components/Section/index.vue"));
-const MBoxWrap = defineAsyncComponent(() => import("./Content_components/mBoxWrap.vue"));
-const PCcols = defineAsyncComponent(() => import("./Content_components/pcCols.vue"));
-const FormInquire = defineAsyncComponent(() => import("./Content_components/formInquire.vue"));
+const TopBar = defineAsyncComponent(
+  () => import("./Content_components/topBar.vue")
+);
+const HeaderWrap = defineAsyncComponent(
+  () => import("./Content_components/headerWrap.vue")
+);
+const NavWrap = defineAsyncComponent(
+  () => import("./Content_components/navWrap.vue")
+);
+const Section = defineAsyncComponent(
+  () => import("@/components/Section/index.vue")
+);
+const MBoxWrap = defineAsyncComponent(
+  () => import("./Content_components/mBoxWrap.vue")
+);
+const PCcols = defineAsyncComponent(
+  () => import("./Content_components/pcCols.vue")
+);
+const FormInquire = defineAsyncComponent(
+  () => import("./Content_components/formInquire.vue")
+);
 
-const companyInfo = ref<any>({})
-const companyCardInfo = ref<any>({})
-const productShowcase = ref<any>([])
-const newProducts = ref<any>([])
-const companyCateGroup = ref<any>([])
-const companyPic = ref<any>([])
+const companyInfo = ref<any>({});
+const companyCardInfo = ref<any>({});
+const productShowcase = ref<any>([]);
+const newProducts = ref<any>([]);
+const companyCateGroup = ref<any>([]);
+const companyPic = ref<any>([]);
+const companySlidePicList = ref<any>([]);
 const companyname = ref("");
 const description = ref("");
 const companyarea = ref("");
@@ -25,56 +40,75 @@ const companyContactPerson = ref("");
 const companyContactUrl = ref("");
 const subDomainName = ref("");
 
-
-const imgList = ref([
-    { url: 'https://upload.ecvv.com/upload/UserImage/20200528/ecvv1-49c18bff-5d00-4747-a6f5-5fdb5d3778dc.jpg',  key: 0 },
-    { url: 'https://upload.ecvv.com/upload/UserImage/20200528/ECVV2-c1efe2cc-8706-47b5-9d4f-1786056aa65b.jpg',  key: 1 },
-    { url: 'https://upload.ecvv.com/upload/UserImage/20200528/ecvv3-635fd0c4-f71c-4ae6-8b44-52c232e31302.jpg',  key: 2 },
-])
 const style = ref({
-    height:'300px',
-    width:'100%'
-})
+  height: "300px",
+  width: "100%",
+});
 const radiusStyle = ref({
-    width:'10px',
-    height:'10px',
-    radius:'50%'
-})
+  width: "10px",
+  height: "10px",
+  radius: "50%",
+});
 // 获取公司信息
 const handleQuery = async () => {
-    await getCompanyInfo().then((res)=>{
-        if(res.data.type === 'success'){
-            Session.set('companyInfo',res.data.result)
-            companyInfo.value = res.data.result.companyInfo
-            companyCardInfo.value = res.data.result.companyCardInfo
-            companyname.value = res.data.result.companyname
-            description.value = res.data.result.description
-            countryName.value = res.data.result.countryName
-            companyarea.value = res.data.result.companyarea
-            companyPic.value = res.data.result.companyPic
-            subDomainName.value = res.data.result.subDomainName
-            companyCateGroup.value = res.data.result.companyCateGroup
-            productShowcase.value = res.data.result.productShowcase
-            companyContactPerson.value = res.data.result.companyContactPerson
-            companyContactUrl.value = res.data.result.companyContactUrl
-            newProducts.value = res.data.result.newProducts 
-        }
-    })
-}
+  await getCompanyInfo().then((res) => {
+    if (res.data.type === "success") {
+      Session.set("companyInfo", res.data.result);
+      companyInfo.value = res.data.result.companyInfo;
+      companyCardInfo.value = res.data.result.companyCardInfo;
+      companyname.value = res.data.result.companyname;
+      description.value = res.data.result.description;
+      countryName.value = res.data.result.countryName;
+      companyarea.value = res.data.result.companyarea;
+      companyPic.value = res.data.result.companyPic;
+      subDomainName.value = res.data.result.subDomainName;
+      companyCateGroup.value = res.data.result.companyCateGroup;
+      companySlidePicList.value = res.data.result.companySlidePicList;
+      productShowcase.value = res.data.result.productShowcase;
+      companyContactPerson.value = res.data.result.companyContactPerson;
+      companyContactUrl.value = res.data.result.companyContactUrl;
+      newProducts.value = res.data.result.newProducts;
+    }
+  });
+};
 
-
-onMounted(()=>{
-    handleQuery()
-})
+onMounted(() => {
+  handleQuery();
+});
 </script>
 <template>
-    <main>
-        <TopBar :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea"/>
-        <HeaderWrap :companyname="companyname" :description="description" />
-        <NavWrap />
-        <Section :list="imgList" :style="style" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
-        <MBoxWrap :subDomainName="subDomainName" :newProducts="newProducts" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyContactPerson="companyContactPerson" :companyInfo="companyInfo" :companyPic="companyPic" :productShowcase="productShowcase"/>
-        <PCcols :subDomainName="subDomainName" :companyCateGroup="companyCateGroup"/>
-        <FormInquire :companyname="companyname"/>
-    </main>
+  <main>
+    <TopBar
+      :companyname="companyname"
+      :companyCardInfo="companyCardInfo"
+      :countryName="countryName"
+      :companyarea="companyarea"
+    />
+    <HeaderWrap :companyname="companyname" :description="description" />
+    <NavWrap />
+    <el-carousel
+      arrow="always"
+      :interval="3000"
+      v-show="companySlidePicList.length"
+    >
+      <el-carousel-item v-for="item in companySlidePicList" :key="item">
+          <img :src="item"  :style="style"/>
+      </el-carousel-item>
+    </el-carousel>
+    <MBoxWrap
+      :subDomainName="subDomainName"
+      :newProducts="newProducts"
+      :companyname="companyname"
+      :companyContactUrl="companyContactUrl"
+      :companyContactPerson="companyContactPerson"
+      :companyInfo="companyInfo"
+      :companyPic="companyPic"
+      :productShowcase="productShowcase"
+    />
+    <PCcols
+      :subDomainName="subDomainName"
+      :companyCateGroup="companyCateGroup"
+    />
+    <FormInquire :companyname="companyname" />
+  </main>
 </template>

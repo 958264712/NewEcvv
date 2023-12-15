@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+const props = defineProps(["subDomainName"])
 const isShow = ref(false);
 const isShow1 = ref(false);
 const handleShow = (item, val) => {
@@ -10,6 +13,7 @@ const handleShow = (item, val) => {
     isShow1.value = val;
   }
 };
+const isSearch = ref(false);
 const queryParams = ref<any>({});
 // 获取当前屏幕高度，判断是否固定高度
 const ifFixed = ref<boolean>(false);
@@ -36,6 +40,76 @@ if (width.value < 1400) {
     padding: "0 13%",
   };
 }
+const ValidateInput = (e, userName) => {
+  isSearch.value = false;
+  var key = e.keyCode;
+
+  if (key == 13) {
+    if (userName != "") {
+      searchProduct(userName);
+      isSearch.value = true;
+    } else {
+      SearchECVVTradeLeads();
+    }
+  }
+};
+const GE = (id) => {
+  return document.getElementById(id);
+};
+const searchProduct = (userName) => {
+  if (
+    GE("KeyWord").value == "" ||
+    GE("KeyWord").value == "Search our products"
+  ) {
+    alert("Please enter a keyword for search.");
+  } else if (GE("KeyWord").value.length > 50) {
+    alert("Key word for search must be less than 50 characters.");
+  } else if (GE("KeyWord").value.length < 2) {
+    alert("Keyword for search must at least 2 characters.");
+  } else {
+    router.push({path:"/company/" + userName + "/products.html?keyword=" + GE("KeyWord").value})  
+  }
+};
+const SearchECVVTradeLeads = () => {
+  if (isSearch.value == false) {
+    if (
+      ReplaceUrl(GE("ECVVKeyWord").value) == "" ||
+      GE("ECVVKeyWord").value == "Enter your keywords"
+    ) {
+      alert("Please enter a keyword for search.");
+    } else if (GE("ECVVKeyWord").value.length < 2) {
+      alert("Keyword for search must at least 2 characters.");
+    } else if (GE("ECVVKeyWord").value.length > 50) {
+      alert("Key word for search must be less than 50 characters.");
+    } else {
+      window.location.href =  "//www.ecvv.com/product/Search.html?kw=" +ReplaceUrl(GE("ECVVKeyWord").value);
+    }
+  }
+  if (isSearch) {
+    isSearch.value = false;
+    return false;
+  }
+};
+
+const ReplaceUrl = (p_source) => {
+  var res = p_source
+    .replace(/[\W]/g, "-")
+    .split("@")
+    .join("-")
+    .split("_")
+    .join("-");
+  ress = res.split("-");
+  var result = "";
+  for (var i = 0; i < ress.length; i++) {
+    if (ress[i].length > 0) {
+      result += ress[i] + "-";
+    }
+  }
+  if (result.lastIndexOf("-") == result.length - 1) {
+    result = result.substring(0, result.length - 1);
+  }
+  return result;
+};
 
 // 滚动条高度改变时
 window.addEventListener("scroll", () => {
@@ -269,9 +343,11 @@ window.addEventListener("resize", () => {
                 class="form-text"
                 placeholder="Sreach Producets"
                 clearable
+                id="KeyWord"
                 style="width: 200px"
+                @keydown="(e)=>ValidateInput(e, `${props.subDomainName}`)"
               />
-              <Search style="width: 20px; height: 34px; font-size: 20px" />
+              <Search style="width: 20px; height: 34px; font-size: 20px" @click="searchProduct(`${props.subDomainName}`)"/>
             </el-form-item>
           </el-form>
         </div>
