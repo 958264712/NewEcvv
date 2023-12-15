@@ -1,521 +1,96 @@
 <script setup lang="ts">
-import { ref,defineAsyncComponent } from "vue";
-import {useRouter} from 'vue-router'
-import {getLatestProduct} from '@/api/modular/search'
+import { ref, defineAsyncComponent } from "vue";
+import { useRouter } from "vue-router";
+import { getLatestProduct } from "@/api/modular/search";
 
-const props = defineProps(["productShowcase","companyname","companyContactPerson","companyContactUrl","companyPic","newProducts"]);
-const router = useRouter()
+const props = defineProps([
+  "productShowcase",
+  "companyname",
+  "companyContactPerson",
+  "companyContactUrl",
+  "companyCateGroup",
+  "companyPic",
+  "newProducts",
+]);
+const router = useRouter();
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
-const itemList = ref([]);
+const itemList = ref<any>([]);
+const productGroup = ref<any>([]);
+
 // 询盘1
 const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}`})
-  window.open(routeUrl.href, '_blank');
-}
+  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+  window.open(routeUrl.href, "_blank");
+};
 
-const clickProduct = (id) =>{
-  let routeUrl = router.resolve({path:`/product/${id}`})
-  window.open(routeUrl.href, '_blank');
-}
+const clickProduct = (id) => {
+  let routeUrl = router.resolve({ path: `/product/${id}` });
+  window.open(routeUrl.href, "_blank");
+};
 
 // 获取最新产品
 const handleQuery = async () => {
-    await getLatestProduct(Object.assign({ keyword: 'led' })).then(res => {
-        if (res.data.type === 'success') {
-            itemList.value = res.data.result.list
-        }
-    })
-}
-handleQuery()
+  await getLatestProduct(Object.assign({ keyword: "led" })).then((res) => {
+    if (res.data.type === "success") {
+      itemList.value = res.data.result.list;
+    }
+  });
+  props.companyCateGroup.map((item, index) => {
+    item.groupProList.map((i) => {
+      productGroup.value.push(i);
+    });
+  });
+};
+handleQuery();
 </script>
 <template>
   <el-row id="produceModule">
     <el-col :span="4" class="leftSider">
       <div class="sr-layout-nav home-nav">
         <div class="sr-layout-block">
-          <div
-            class="sr-layout-subblock sr-side-proGroup"
-            faw-module="Prod_group_filter"
-            faw-exposure=""
-            faw-id="1hfe7og2f54"
-          >
+          <div class="sr-layout-subblock sr-side-proGroup">
             <div class="sr-txt-title">
               <h2 class="sr-txt-h2">Product Categories</h2>
             </div>
             <ul class="sr-side-proGroup-list">
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/VeoGqKJWAzhX/Artificial-Sky-Light-catalog-1.html"
-                  title="Artificial Sky Light"
-                  ads-data=""
-                  >Artificial Sky Light</a
-                >
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/IeCmhGcYYRVH/LED-Panel-Light-catalog-1.html"
-                  title="LED Panel Light"
-                  ads-data=""
-                  >LED Panel Light<i
+              <li
+                v-for="(item, index) in props.companyCateGroup"
+                :key="item"
+                :class="
+                  item.groupProList.length > 0
+                    ? 'sr-side-proGroup-rightSpace'
+                    : null
+                "
+              >
+                <a ref="nofollow" :href="item.url" :title="item.name"
+                  >{{ item.name }}
+                  <i
                     class="ob-icon icon-right J-showSubList"
-                  ></i
-                ></a>
-                <ol class="sr-side-proGroup-sublist">
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/ibKaeJZAZzcX/Custom-made-design-1.html"
-                      title="Custom-made design"
-                      ads-data=""
-                      >Custom-made design</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/VenQWchMgukP/CCT-Tunable-White-Panel-Education-Lighting-1.html"
-                      title="CCT Tunable White Panel - Education Lighting"
-                      ads-data=""
-                      >CCT Tunable White Panel - Education Lighting</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/xMnQcvhHOzki/Frameless-Panel-Light-1.html"
-                      title="Frameless Panel Light"
-                      ads-data=""
-                      >Frameless Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/BbctFYDyMgks/LED-Hollow-Panel-Light-1.html"
-                      title="LED Hollow Panel Light"
-                      ads-data=""
-                      >LED Hollow Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/vbHTPulEvgVf/Backlit-Panel-Light-1.html"
-                      title="Backlit Panel Light"
-                      ads-data=""
-                      >Backlit Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/GofnjIzxJuWd/Up-Down-Lit-Panel-Light-1.html"
-                      title="Up-Down Lit Panel Light"
-                      ads-data=""
-                      >Up-Down Lit Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/lMQEcjVPYLhg/IP65-Panel-Light-1.html"
-                      title="IP65 Panel Light"
-                      ads-data=""
-                      >IP65 Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/KexnVTkcJuWg/Anti-glare-Panels-1.html"
-                      title="Anti-glare Panels"
-                      ads-data=""
-                      >Anti-glare Panels</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/JexEkQVbIuhI/Dimmable-Solutions-1.html"
-                      title="Dimmable Solutions"
-                      ads-data=""
-                      >Dimmable Solutions</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/oeEJkycHhLVP/Emergency-Panel-Light-1.html"
-                      title="Emergency Panel Light"
-                      ads-data=""
-                      >Emergency Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/IqsEcYhrgUkH/RGB-W-Panel-Light-1.html"
-                      title="RGB/W Panel Light"
-                      ads-data=""
-                      >RGB/W Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/aeTJCqPLhzcw/Standard-Panel-Light-1.html"
-                      title="Standard Panel Light"
-                      ads-data=""
-                      >Standard Panel Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/DqsxWuVEYUkH/Others-LED-Panel-Light-1.html"
-                      title="Others LED Panel Light"
-                      ads-data=""
-                      >Others LED Panel Light</a
-                    >
-                  </li>
-                </ol>
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/yqvEDuWVZrTN/LED-Ceiling-Light-catalog-1.html"
-                  title="LED Ceiling Light"
-                  ads-data=""
-                  >LED Ceiling Light</a
-                >
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/zqCnWrcxJphH/LED-Linear-Light-catalog-1.html"
-                  title="LED Linear Light"
-                  ads-data=""
-                  >LED Linear Light<i
-                    class="ob-icon icon-right J-showSubList"
-                  ></i
-                ></a>
-                <ol class="sr-side-proGroup-sublist">
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/hqSfmEUoHukw/6870-series-shop-lights-1.html"
-                      title="6870 series shop lights"
-                      ads-data=""
-                      >6870 series shop lights</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/oenmFSKJCzhV/5075-series-1.html"
-                      title="5075 series"
-                      ads-data=""
-                      >5075 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/LoNmhPkDhpVi/7575-series-1.html"
-                      title="7575 series"
-                      ads-data=""
-                      >7575 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/PeQmUniJRLkw/3575-series-1.html"
-                      title="3575 series"
-                      ads-data=""
-                      >3575 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/PejmVwkdlUWi/3567-series-1.html"
-                      title="3567 series"
-                      ads-data=""
-                      >3567 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/MenmWYVJVPhL/4055-series-1.html"
-                      title="4055 series"
-                      ads-data=""
-                      >4055 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/DoIfxPuJuzWH/2285-series-1.html"
-                      title="2285 series"
-                      ads-data=""
-                      >2285 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/zeCxVkcYhpWi/9035-series-1.html"
-                      title="9035 series"
-                      ads-data=""
-                      >9035 series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/GomQtJVjRgWz/Rigid-Bar-1.html"
-                      title="Rigid Bar"
-                      ads-data=""
-                      >Rigid Bar</a
-                    >
-                  </li>
-                </ol>
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/AocTlObuEgVF/LED-Pendant-Light-catalog-1.html"
-                  title="LED Pendant Light"
-                  ads-data=""
-                  >LED Pendant Light</a
-                >
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/bqjGZOWuSPVl/Aluminium-Profile-catalog-1.html"
-                  title="Aluminium Profile"
-                  ads-data=""
-                  >Aluminium Profile<i
-                    class="ob-icon icon-right J-showSubList"
-                  ></i
-                ></a>
-                <ol class="sr-side-proGroup-sublist">
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/mbBGaUzMJgVe/Suspending-Surface-Linear-Light-Office-Shops-1.html"
-                      title="Suspending / Surface Linear Light -- Office\Shops"
-                      ads-data=""
-                      >Suspending / Surface Linear Light -- Office\Shops</a
-                    >
-                  </li>
-                </ol>
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/NbsTptzAYufC/LED-Strip-Light-catalog-1.html"
-                  title="LED Strip Light"
-                  ads-data=""
-                  >LED Strip Light<i
-                    class="ob-icon icon-right J-showSubList"
-                  ></i
-                ></a>
-                <ol class="sr-side-proGroup-sublist">
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/VMeGIHqlCghi/COB-LED-strip-1.html"
-                      title="COB LED strip"
-                      ads-data=""
-                      >COB LED strip</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/WqbTIMoKfzhi/Others-LED-Strip-Light-1.html"
-                      title="Others LED Strip Light"
-                      ads-data=""
-                      >Others LED Strip Light</a
-                    >
-                  </li>
-                </ol>
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/tbManFAvhuVe/LED-Down-Light-catalog-1.html"
-                  title="LED Down Light"
-                  ads-data=""
-                  >LED Down Light</a
-                >
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/OMFmJjzCEUhp/LED-Track-Light-catalog-1.html"
-                  title="LED Track Light"
-                  ads-data=""
-                  >LED Track Light</a
-                >
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/MemnhcWKCgVo/LED-Tri-proof-Light-IP65-catalog-1.html"
-                  title="LED Tri- proof Light IP65 "
-                  ads-data=""
-                  >LED Tri- proof Light IP65
+                    v-show="item.groupProList.length > 0"
+                  ></i>
                 </a>
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/aqZmXWsrfYVN/LED-Grow-Light-catalog-1.html"
-                  title="LED Grow Light"
-                  ads-data=""
-                  >LED Grow Light<i class="ob-icon icon-right J-showSubList"></i
-                ></a>
                 <ol class="sr-side-proGroup-sublist">
-                  <li>
+                  <li v-for="(i, ind) in item.groupProList" :key="i.pid">
                     <a
                       ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/beLtaYGoqgWp/G2-Spydrx-Series-1.html"
-                      title="G2 Spydrx Series"
-                      ads-data=""
-                      >G2 Spydrx Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/CorGhgFvrLVk/G3-Spydrx-Foldable-Series-1.html"
-                      title="G3 Spydrx Foldable Series"
-                      ads-data=""
-                      >G3 Spydrx Foldable Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/MbLtGeTJIPcR/G4-DIY-Series-1.html"
-                      title="G4 DIY Series"
-                      ads-data=""
-                      >G4 DIY Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/NMpGWVFEZghk/G5-Skiving-Fin-Series-1.html"
-                      title="G5 Skiving Fin Series"
-                      ads-data=""
-                      >G5 Skiving Fin Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/OqLGMleUCgWz/G6-led-grow-light-1.html"
-                      title="G6 led grow light"
-                      ads-data=""
-                      >G6 led grow light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/CezfSpZrZLWP/G7-LED-Grow-Light-1.html"
-                      title="G7 LED Grow Light"
-                      ads-data=""
-                      >G7 LED Grow Light</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/veYftwdrZzVl/LM-Quantum-Board-Series-1.html"
-                      title="LM Quantum Board Series"
-                      ads-data=""
-                      >LM Quantum Board Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/boPTaltzVgcr/Others-LED-Grow-Light-1.html"
-                      title="Others LED Grow Light"
-                      ads-data=""
-                      >Others LED Grow Light</a
+                      :href="i.productUrl"
+                      :title="i.productname"
+                      >{{ i.productname }}</a
                     >
                   </li>
                 </ol>
-              </li>
-              <li class="sr-side-proGroup-rightSpace">
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/boxQVjcUbzWq/LED-High-Bay-Light-catalog-1.html"
-                  title="LED High Bay Light"
-                  ads-data=""
-                  >LED High Bay Light<i
-                    class="ob-icon icon-right J-showSubList"
-                  ></i
-                ></a>
-                <ol class="sr-side-proGroup-sublist">
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/LogtRJudHzhw/UFO-Series-1.html"
-                      title="UFO Series"
-                      ads-data=""
-                      >UFO Series</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      ref="nofollow"
-                      href="https://luminlighting.en.made-in-china.com/product-group/gePtpUzbgLhd/Others-LED-High-Bay-Light-1.html"
-                      title="Others LED High Bay Light"
-                      ads-data=""
-                      >Others LED High Bay Light</a
-                    >
-                  </li>
-                </ol>
-              </li>
-              <li>
-                <a
-                  ref="nofollow"
-                  href="https://luminlighting.en.made-in-china.com/product-group/WoiTwVPUbLhu/Soar-Lights-catalog-1.html"
-                  title="Soar Lights"
-                  ads-data=""
-                  >Soar Lights</a
-                >
               </li>
             </ul>
           </div>
         </div>
         <div
           class="sr-layout-block contact-block J-contact-fix"
-          faw-module="sendInquiry"
-          faw-exposure=""
-          faw-id="1hfe7oo2m811"
           style="inset: 40px auto auto; position: static; width: auto"
         >
           <div class="sr-txt-title">
             <h2 class="sr-txt-h2">Contact Supplier</h2>
-            <a
-              href="javascript:void(0);"
-              title="Business Card"
-              rel="nofollow"
-              class="title-icon J-show-card"
-              ads-data="st:20,pdid:,pcid:IMRmDLvcafHV"
+            <a title="Business Card" class="title-icon J-show-card"
               ><i class="ob-icon icon-buyer-sourcing"></i
             ></a>
           </div>
@@ -531,13 +106,14 @@ handleQuery()
                 </a>
               </div>
               <div class="sr-side-contSupplier-txt">
-                <a class="sr-side-contSupplier-name" :href="props.companyContactUrl">{{props.companyContactPerson}}</a>
+                <a
+                  class="sr-side-contSupplier-name"
+                  :href="props.companyContactUrl"
+                  >{{ props.companyContactPerson }}</a
+                >
                 <div class="sr-side-contSupplier-position">General Manager</div>
                 <div class="sr-side-contSupplier-chat">
-                  <b
-                    class="tm3_chat_status"
-                    style="display: none"
-                  ></b
+                  <b class="tm3_chat_status" style="display: none"></b
                   ><a
                     rel="nofollow"
                     class="tm-status-on"
@@ -548,7 +124,6 @@ handleQuery()
                 <div class="sr-side-contSupplier-startMeeting">
                   <b
                     class="J-start-meeting"
-                    comid="IMRmDLvcafHV"
                     theme="pc-search-list"
                     target="_blank"
                   ></b>
@@ -560,7 +135,6 @@ handleQuery()
               class="form obelisk-form"
               method="post"
               target="_blank"
-              action="//www.made-in-china.com/sendInquiry/shrom_IMRmDLvcafHV_IMRmDLvcafHV.html?plant=en&amp;from=shrom&amp;type=cs&amp;style=2&amp;page=home&amp;quickpost=1"
             >
               <input type="hidden" id="loginStatu" value="0" />
               <div class="sr-side-contSupplier-field">
@@ -630,8 +204,8 @@ handleQuery()
             </form>
           </div>
         </div>
-      </div></el-col
-    >
+      </div>
+    </el-col>
     <el-col :span="18" class="rightSider">
       <div class="J-spotlight-show">
         <div class="sr-layout-block">
@@ -640,13 +214,16 @@ handleQuery()
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in props.productShowcase">
+              <li
+                class="sr-layout-col-4 sr-proList"
+                v-for="(item, index) in props.productShowcase"
+              >
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                       @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                        @click="clickProduct(item.pid)"
+                        :title="item.productname"
                       >
                         <img
                           :src="item.picPath"
@@ -661,22 +238,22 @@ handleQuery()
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                       @click="clickProduct(item.pid)"
+                      @click="clickProduct(item.pid)"
                       :title="item.productname"
                     >
-                     {{item.productname}}
+                      {{ item.productname }}
                     </a>
                   </div>
-                  <div
-                    class="sr-proList-price"
-                  >
+                  <div class="sr-proList-price">
                     <span class="sr-proList-unit">Price: </span>
-                    <span class="sr-proList-num">{{item.m_Currency}} ${{item.m_FobPrice}} </span>
+                    <span class="sr-proList-num"
+                      >{{ item.m_Currency }} ${{ item.m_FobPrice }}
+                    </span>
                     <span class="">/ Piece</span>
                   </div>
-                  <div class="sr-proList-price" >
+                  <div class="sr-proList-price">
                     <span class="sr-proList-unit">Min. Order: </span>
-                    {{item.m_Minimum_Order}} {{item.minOrderUnit}}
+                    {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
                   </div>
                 </div>
                 <!-- href="https://www.made-in-china.com/sendInquiry/prod_GvDxWsrYvEtX_IMRmDLvcafHV.html?from=shrom&amp;page=home_spot&amp;plant=en" -->
@@ -697,13 +274,16 @@ handleQuery()
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in props.newProducts">
+              <li
+                class="sr-layout-col-4 sr-proList"
+                v-for="(item, index) in props.newProducts"
+              >
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
                         @click="clickProduct(item.pid)"
-                      :title="item.productname"
+                        :title="item.productname"
                       >
                         <img
                           :src="item.picPath"
@@ -718,10 +298,10 @@ handleQuery()
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                       @click="clickProduct(item.pid)"
+                      @click="clickProduct(item.pid)"
                       :title="item.productname"
                     >
-                     {{item.productname}}
+                      {{ item.productname }}
                     </a>
                   </div>
                   <div
@@ -729,12 +309,14 @@ handleQuery()
                     title="FOB Price: US $29.8-30.55 / Piece"
                   >
                     <span class="sr-proList-unit">Price: </span>
-                    <span class="sr-proList-num">{{item.m_Currency}} ${{item.m_FobPrice}} </span>
+                    <span class="sr-proList-num"
+                      >{{ item.m_Currency }} ${{ item.m_FobPrice }}
+                    </span>
                     <span class="">/ Piece</span>
                   </div>
-                  <div class="sr-proList-price" >
+                  <div class="sr-proList-price">
                     <span class="sr-proList-unit">Min. Order: </span>
-                    {{item.m_Minimum_Order}} {{item.minOrderUnit}}
+                    {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
                   </div>
                 </div>
                 <a
@@ -749,17 +331,74 @@ handleQuery()
         </div>
         <div class="sr-layout-block">
           <div class="sr-txt-title">
+            <h2 class="sr-txt-h2">Product Categories List</h2>
+          </div>
+          <div class="sr-layout-content">
+            <ul class="sr-layout-row">
+              <li
+                class="sr-layout-col-4 sr-proList"
+                v-for="(i, index) in productGroup"
+              >
+                <div class="sr-proList-pic-wrap">
+                  <div class="sr-proList-pic">
+                    <div class="prod-image">
+                      <a @click="clickProduct(i.pid)" :title="i.productname">
+                        <img
+                          :src="i.picPath"
+                          :alt="i.productname"
+                          :title="i.productname"
+                          style="display: block"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="sr-proList-txt">
+                  <div class="sr-proList-name">
+                    <a @click="clickProduct(i.pid)" :title="i.productname">
+                      {{ i.productname }}
+                    </a>
+                  </div>
+                  <div
+                    class="sr-proList-price"
+                    title="FOB Price: US $29.8-30.55 / Piece"
+                  >
+                    <span class="sr-proList-unit">Price: </span>
+                    <span class="sr-proList-num"
+                      >{{ i.m_Currency }} ${{ i.m_FobPrice }}
+                    </span>
+                    <span class="">/ Piece</span>
+                  </div>
+                  <div class="sr-proList-price">
+                    <span class="sr-proList-unit">Min. Order: </span>
+                    {{ i.m_Minimum_Order }} {{ i.minOrderUnit }}
+                  </div>
+                </div>
+                <a
+                  @click="SendMessage(i.pid)"
+                  class="btn"
+                  style="margin-top: 13px; width: 100%"
+                  >Contact Now</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sr-layout-block">
+          <div class="sr-txt-title">
             <h2 class="sr-txt-h2">You May Like</h2>
           </div>
           <div class="sr-layout-content">
             <ul class="sr-layout-row">
-              <li class="sr-layout-col-4 sr-proList" v-for="(item,index) in itemList" :key="item.productID">
+              <li
+                class="sr-layout-col-4 sr-proList"
+                v-for="(item, index) in itemList"
+                :key="item.productID"
+              >
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
-                      <a
-                        :href="item.href"
-                      >
+                      <a :href="item.href">
                         <img
                           :src="item.src"
                           :title="item.title"
@@ -772,10 +411,8 @@ handleQuery()
                 </div>
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
-                    <a
-                      :href="item.href"
-                      :title="item.title"
-                    >{{item.text}}
+                    <a :href="item.href" :title="item.title"
+                      >{{ item.text }}
                     </a>
                   </div>
                 </div>
@@ -791,7 +428,7 @@ handleQuery()
           </div>
         </div>
       </div>
-      <FormInquire :companyname="props.companyname"/>
+      <FormInquire :companyname="props.companyname" />
     </el-col>
   </el-row>
 </template>
@@ -801,8 +438,8 @@ handleQuery()
   width: 73%;
   display: flex;
   justify-content: space-between;
-a{
-    cursor:pointer;
+  a {
+    cursor: pointer;
   }
   .leftSider {
     .sr-layout-nav {
@@ -902,6 +539,11 @@ a{
             }
             .ob-icon.icon-right:before {
               content: "\f054";
+            }
+          }
+          li.sr-side-proGroup-rightSpace:hover {
+            .sr-side-proGroup-sublist {
+              display: block;
             }
           }
         }
@@ -1128,21 +770,21 @@ a{
               position: relative;
               width: 100%;
               font-size: 0;
-              .prod-image{
-                  width:200px;
-                  height:200px;
-                  img {
-                    transition: all 0.3s ease-in;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    margin: auto;
-                    max-width: 100%;
-                    max-height: 100%;
-                  }
+              .prod-image {
+                width: 200px;
+                height: 200px;
+                img {
+                  transition: all 0.3s ease-in;
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  margin: auto;
+                  max-width: 100%;
+                  max-height: 100%;
                 }
+              }
               .prod-video-mark,
               .prod-gif-mark {
                 position: absolute;
@@ -1153,7 +795,6 @@ a{
                 padding: 2px 5px;
                 z-index: 2;
                 font-size: 12px;
-                
               }
             }
           }

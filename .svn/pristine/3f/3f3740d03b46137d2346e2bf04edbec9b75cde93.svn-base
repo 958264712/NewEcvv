@@ -13,14 +13,12 @@ const companyCardInfo = ref<any>({})
 const productShowcase = ref<any>([])
 const newProducts = ref<any>([])
 const companyPic = ref<any>([])
-const companyCateGroup = ref<any>([])
 const companyname = ref("");
 const description = ref("");
 const companyarea = ref("");
 const countryName = ref("");
 const companyContactPerson = ref("");
 const companyContactUrl = ref("");
-const subDomainName = ref("");
 
 // 获取公司信息
 const handleQuery = async () => {
@@ -33,8 +31,6 @@ const handleQuery = async () => {
         countryName.value = res.data.result.countryName
         companyarea.value = res.data.result.companyarea
         companyPic.value = res.data.result.companyPic
-        subDomainName.value = res.data.result.subDomainName
-        companyCateGroup.value = res.data.result.companyCateGroup
         productShowcase.value = res.data.result.productShowcase 
         companyContactPerson.value = res.data.result.companyContactPerson
         companyContactUrl.value = res.data.result.companyContactUrl
@@ -57,7 +53,7 @@ onMounted(()=>{
       <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
       <NavWrap />
       <Content />
-      <ProduceList :companyCateGroup="companyCateGroup" :newProducts="newProducts" :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
+      <ProduceList :newProducts="newProducts" :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
   </main>
 </template>
 <style lang="less" >

@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, ref } from "vue";
-import { useRouter } from "vue-router";
+import { defineAsyncComponent, ref,onMounted } from "vue";
 
-const router = useRouter();
 const Section = defineAsyncComponent(import("@/components/Section/index.vue"));
 const props = defineProps([
   "companyname",
@@ -12,9 +10,10 @@ const props = defineProps([
   "companyContactPerson",
   "companyContactUrl",
   "newProducts",
-  "subDomainName",
+  "SubDomainName",
 ]);
 
+const href = `https://www.ecvv.com/company/${props.SubDomainName}/products.html`;
 const styleTop = ref<any>({
   height: "220px",
   width: "300px",
@@ -34,16 +33,11 @@ const carouselChange = (val) => {
   }
   bottomCarousel.children[val].children[0].setAttribute("class", 'current')
 }
-const clickHref = () => {
-  window.open(`https://www.ecvv.com/company/${props.subDomainName}/products.html`, "_blank");
-}
-
 // 刷新完成页面配置高亮
 window.addEventListener("load",()=>{
   const bottomCarousel = document.getElementById("bottomCarousel")
   bottomCarousel.children[0].children[0].setAttribute("class", 'current')
 })
-
 </script>
 <template>
   <div class="m-box-wrap mt10">
@@ -232,7 +226,7 @@ window.addEventListener("load",()=>{
           </li>
         </ul>
         <div class="more-cat">
-          <a @click="clickHref()">See all products in showcase&gt;&gt;</a>
+          <a :href="href">See all products in showcase&gt;&gt;</a>
         </div>
       </div>
     </div>
@@ -283,9 +277,6 @@ window.addEventListener("load",()=>{
   </div>
 </template>
 <style lang="less" scoped>
-a{
-  cursor:pointer;
-}
 .m-box {
   margin-bottom: 10px;
   padding-bottom: 8px;
