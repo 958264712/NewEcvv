@@ -110,7 +110,7 @@ defineExpose({ openDialog });
 </template>
 <style scoped lang="less">
 #transferModel {
-    /deep/.el-dialog {
+    :deep(.el-dialog) {
         width: 600px;
 
         .el-dialog__header {

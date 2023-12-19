@@ -114,7 +114,7 @@ handleQuery()
 
     }
 
-    /deep/.el-form {
+    :deep(.el-form ){
         width: 95%;
         padding-bottom: 30px;
         margin: 0 auto;
@@ -125,7 +125,7 @@ handleQuery()
 
     }
 
-    /deep/.el-form :nth-last-child(1) {
+    :deep(.el-form :nth-last-child(1)) {
         border-bottom: none;
     }
 

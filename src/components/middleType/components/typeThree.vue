@@ -113,7 +113,7 @@ const props = defineProps(['item'])
     width: 200px;
 }
 
-/deep/.el-carousel__item{
+:deep(.el-carousel__item){
     padding-left: 40px;
 }
 .ProImg {

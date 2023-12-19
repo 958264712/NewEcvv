@@ -855,20 +855,20 @@ function getUrlParam(name: any) {
 
 .textCode {
     .el-form-item {
-        /deep/ .el-form-item__content {
+        :deep(.el-form-item__content ) {
             flex-wrap: nowrap;
         }
     }
 }
 
 .imgModel {
-    /deep/ .el-form-item__content {
+    :deep(.el-form-item__content)  {
         display: block;
     }
 }
 
 .FilesModel {
-    /deep/ .el-form-item__content {
+    :deep(.el-form-item__content)  {
         display: block;
     }
 }
@@ -876,11 +876,11 @@ function getUrlParam(name: any) {
 .submit {
     margin: 0 auto;
 
-    /deep/ .el-input__wrapper {
+    :deep(.el-input__wrapper)  {
         background-color: #4ec401;
     }
 
-    /deep/ .el-input__inner {
+    :deep(.el-input__inner)  {
         color: #fff;
     }
 }

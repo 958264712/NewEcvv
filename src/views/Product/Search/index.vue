@@ -44,6 +44,7 @@ const onifMore = (item: boolean, index: number) => {
         }
     })
 };
+console.log(1111);
 
 // 获取cid
 const onCid = (item: number) => {

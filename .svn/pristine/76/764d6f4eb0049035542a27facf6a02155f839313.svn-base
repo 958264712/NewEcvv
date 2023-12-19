@@ -195,8 +195,7 @@ window.addEventListener("resize", () => {
               @mouseleave="handleShow('isShow', false)"
               >Product Categories<b class="triangle"></b
             ></a>
-            <ul class="dropdown-menu2" v-show="isShow" @mouseover="handleShow('isShow', true)"
-              @mouseleave="handleShow('isShow', false)">
+            <ul class="dropdown-menu2" v-show="isShow">
               <li>
                 <a
                   href="https://www.ecvv.com/company/betty-glass/catalog/42426.html"
@@ -262,8 +261,7 @@ window.addEventListener("resize", () => {
             >
               Company Profile<b class="triangle"></b
             ></a>
-            <ul class="dropdown-menu2" v-show="isShow1" @mouseover="handleShow('isShow1', true)"
-              @mouseleave="handleShow('isShow1', false)">
+            <ul class="dropdown-menu2" v-show="isShow1">
               <li class="">
                 <a
                   title="company introduction"
@@ -471,20 +469,20 @@ window.addEventListener("resize", () => {
   line-height: 40px;
   margin-top:5px;
 }
-:deep(.el-form-item)  {
+/deep/ .el-form-item {
   margin: 0;
 }
 :deep(.el-form-item__content) {
   flex-wrap: nowrap;
 }
-:deep(.el-input__wrappe) r {
+/deep/ .el-input__wrapper {
   box-shadow: none;
   border-radius: 0;
   border-left: 1px solid #dcdfe6;
   border-right: 1px solid #dcdfe6;
   margin-right: 10px;
 }
-:deep(.el-input__wrapper:hover)  {
+/deep/ .el-input__wrapper:hover {
   box-shadow: none;
   border-radius: 0;
   border-right: 1px solid #dcdfe6;

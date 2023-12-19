@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from "vue";
+import { Session } from '@/utils/storage';
+
 
 const pieces = ref("");
 const piecesList = ref([
@@ -21,6 +23,8 @@ const queryParams = ref({});
 const change = (val) => {
   pieces.value = val;
 };
+const productInfo = Session.get('productInfo')
+const vipcompanyInfo = Session.get('vipcompanyInfo')
 
 const quantity = ref("");
 const add = ref("");
@@ -49,12 +53,12 @@ const onSubmit = () => {
 <template>
   <div class="sendInquiry">
     <div class="product">
-      <div class="companyName">company name</div>
+      <div class="companyName">{{vipcompanyInfo.companyname}}</div>
       <div class="productInfo">
         <div class="img">
-          <img src="../../../assets/images/16-Welding_Machine.jpg" />
+          <img :src="productInfo.picPath" />
           <div class="prod-name">
-            <a href="" title="">product Name</a>
+            <a href="" title="">{{productInfo.productname}}</a>
           </div>
         </div>
         <div class="productNum">

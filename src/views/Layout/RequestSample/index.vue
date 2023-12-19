@@ -973,24 +973,24 @@ const submit = async () => {
         margin-bottom: 20px;
       }
       .imgModel {
-        /deep/ .el-form-item__content {
+        :deep(.el-form-item__conten) t {
           display: block;
         }
       }
 
       .FilesModel {
-        /deep/ .el-form-item__content {
+        :deep(.el-form-item__conten) t {
           display: block;
         }
       }
       .submit {
         margin: 30px 100px;
         width: 200px;
-        /deep/ .el-input__wrapper {
+        :deep(.el-input__wrapper)  {
           background-color: #4ec401;
         }
 
-        /deep/ .el-input__inner {
+        :deep(.el-input__inner)  {
           color: #fff;
         }
       }

@@ -244,7 +244,7 @@ const blurEmail = async () => {
         font-weight: bold;
     }
 
-    /deep/.el-form {
+    :deep(.el-form ){
         width: 80%;
         padding-bottom: 30px;
     }

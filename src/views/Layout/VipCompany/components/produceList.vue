@@ -2,6 +2,7 @@
 import { ref, defineAsyncComponent } from "vue";
 import { useRouter } from "vue-router";
 import { getLatestProduct } from "@/api/modular/search";
+import { Session } from '@/utils/storage';
 
 const props = defineProps([
   "productShowcase",
@@ -19,14 +20,16 @@ const itemList = ref<any>([]);
 const productGroup = ref<any>([]);
 
 // 询盘1
-const SendMessage = (id) => {
+const SendMessage = (id, item) => {
   let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
   window.open(routeUrl.href, "_blank");
+  Session.set("productInfo", item);
 };
 
-const clickProduct = (id) => {
+const clickProduct = (id,item) => {
   let routeUrl = router.resolve({ path: `/product/${id}` });
   window.open(routeUrl.href, "_blank");
+  Session.set("productInfo", item);
 };
 
 // 获取最新产品
@@ -222,7 +225,7 @@ handleQuery();
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                        @click="clickProduct(item.pid)"
+                        @click="clickProduct(item.pid,item)"
                         :title="item.productname"
                       >
                         <img
@@ -238,7 +241,7 @@ handleQuery();
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                      @click="clickProduct(item.pid)"
+                      @click="clickProduct(item.pid, item)"
                       :title="item.productname"
                     >
                       {{ item.productname }}
@@ -261,7 +264,7 @@ handleQuery();
                   target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
-                  @click="SendMessage(item.pid)"
+                  @click="SendMessage(item.pid, item)"
                   >Contact Now</a
                 >
               </li>
@@ -282,7 +285,7 @@ handleQuery();
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                        @click="clickProduct(item.pid)"
+                        @click="clickProduct(item.pid, item)"
                         :title="item.productname"
                       >
                         <img
@@ -298,7 +301,7 @@ handleQuery();
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
                     <a
-                      @click="clickProduct(item.pid)"
+                      @click="clickProduct(item.pid, item)"
                       :title="item.productname"
                     >
                       {{ item.productname }}
@@ -320,7 +323,7 @@ handleQuery();
                   </div>
                 </div>
                 <a
-                  @click="SendMessage(item.pid)"
+                  @click="SendMessage(item.pid, item)"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
                   >Contact Now</a
@@ -342,7 +345,7 @@ handleQuery();
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
-                      <a @click="clickProduct(i.pid)" :title="i.productname">
+                      <a @click="clickProduct(i.pid, item)" :title="i.productname">
                         <img
                           :src="i.picPath"
                           :alt="i.productname"
@@ -355,7 +358,7 @@ handleQuery();
                 </div>
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
-                    <a @click="clickProduct(i.pid)" :title="i.productname">
+                    <a @click="clickProduct(i.pid, item)" :title="i.productname">
                       {{ i.productname }}
                     </a>
                   </div>
@@ -375,7 +378,7 @@ handleQuery();
                   </div>
                 </div>
                 <a
-                  @click="SendMessage(i.pid)"
+                  @click="SendMessage(i.pid, item)"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
                   >Contact Now</a
