@@ -10,7 +10,9 @@ const Basket = defineAsyncComponent(() => import('../Basket/index.vue'))
 const otp = defineAsyncComponent(() => import('@/views/Product/Sourcing/components/otp.vue'))
 
 const companyInfo = ref<any>(Session.get('companyInfo'))
+const pInfo = ref<any>(Session.get('pInfo'))
 const StartOrderDialog = ref()
+const prodInfo = ref()
 const shopNum = ref<any>([])
 const ifOpen = ref(false)
 const companyPic = companyInfo.value.companyPic
@@ -18,22 +20,24 @@ const info = companyInfo.value.companyname
 const ProductInfo = ref<any>({})
 const ProductDataInfo = ref<any>({})
 const handleStartOrder = () =>{
-    // if(ifOpen.value === true){
+    if(prodInfo.value.ifOpen === true){
         // handleQuery1()
         StartOrderDialog.value.openDialog()
-    // }else{
-    //     ElMessage.error('Please select All Message')
-    // }
+    }else{
+        ElMessage.error('Please select All Message')
+    }
 }
+// emit 
+
 const setshopNum = (val:any) => {
     shopNum.value.push(val)
 }
 </script>
 <template>
 <div class='productsModule'>
-    <ProductsInfo :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum"/>
-    <otp :ProductInfo = "ProductInfo"/>
-    <ProductDescription :ProductInfo="ProductInfo" :handleStartOrder="handleStartOrder" :info="info"/>
+    <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum" />
+    <otp :ProductInfo = "pInfo"/>
+    <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" @select="select"/>
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "ProductDataInfo" />
     <Basket class="basket" :shopNum="shopNum"/>
 </div>

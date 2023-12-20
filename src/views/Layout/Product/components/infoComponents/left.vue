@@ -3,19 +3,17 @@ import { defineAsyncComponent, ref } from "vue";
 import PicZoom from "vue3-piczoom";
 import { useRouter } from "vue-router";
 
-const props = defineProps(['handleStartOrder',"title", 'ProductInfo']);
+const props = defineProps(["handleStartOrder", "title", "ProductInfo"]);
+const emit = defineEmits(["select"])
 const router = useRouter();
-const picPathList = ref<any>([
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1wqogsvxxxxbaxfxxq6xxfxxxhadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1oitsvxxxxb2xvxxq6xxfxxxyadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1kpfrsvxxxxbmapxxq6xxfxxxeadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1t4ssvxxxxazapxxq6xxfxxx1adjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb1jfl2svxxxxbfaxxxq6xxfxxxtadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb130psvxxxxbtxvxxq6xxfxxxcadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb130psvxxxxbtxvxxq6xxfxxxcadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-  "https://upload.ecvv.com/upload/SMT/0000466/32826457142-kfhtb130psvxxxxbtxvxxq6xxfxxxcadjustable-wall-lamp-modren-simple-6w-black-white-led-wall-lighting-for-study-room-living-room.jpg",
-]);
-const picUrl = ref(picPathList.value[0]);
+const picPathList = props.ProductInfo.picPathAllList;
+const picUrl = ref(props.ProductInfo.picPathAll);
+console.log(props.ProductInfo);
+
+const selectList = ref([])
+const selectList1 = ref([])
+
+
 // 判断移动距离
 let num = 0;
 const clickCarousel = (val) => {
@@ -50,15 +48,25 @@ const handleEnter = (e: any) => {
   }
 };
 
-const requestSample = (id) => {
-  let routeUrl = router.resolve({ path: `/requestSample/${id}` });
-  window.open(routeUrl.href, '_blank');
+const requestSample = (item) => {
+  let routeUrl = router.resolve({ path: `/requestSample/${item.productID}` });
+  window.open(routeUrl.href, "_blank");
 };
 
-const SendCustomizedRequest = (id) => {
-  let routeUrl = router.resolve({ path: `/send-customized-request/${id}` });
-  window.open(routeUrl.href, '_blank');
+const SendCustomizedRequest = (item) => {
+  let routeUrl = router.resolve({ path: `/send-customized-request/${item.productID}` });
+  window.open(routeUrl.href, "_blank");
 };
+// 选中产品类型
+const bindCheckBox = () => {
+    if (selectList.value.length > 1) {
+        selectList.value.splice(0, 1)
+    }
+    emit('select',selectList.value,selectList1.value)
+}
+const bindCheckBox1 = () => {
+    emit('select',selectList.value,selectList1.value)
+}
 </script>
 <template>
   <div class="left">
@@ -105,7 +113,7 @@ const SendCustomizedRequest = (id) => {
       <div class="baseInfo">
         <div class="baseInfo-name">
           <h1 class="baseInfoH1 J-baseInfo-name">
-            {{ props.title }}
+            {{ props.ProductInfo.productName }}
           </h1>
         </div>
         <div class="baseInfo-property">
@@ -123,7 +131,7 @@ const SendCustomizedRequest = (id) => {
                     rel="nofollow"
                     class="baseInfo-propertyGetPrice"
                     id="latestPriceInquiry"
-                   @click="props.handleStartOrder"
+                    @click="props.handleStartOrder"
                   >
                     Get Latest Price >
                   </a>
@@ -134,17 +142,73 @@ const SendCustomizedRequest = (id) => {
                 <div id="swiper-container" class="swiper-container-div">
                   <div class="swiper-wrapper-div">
                     <div class="swiper-slide-div">
-                      <div class="swiper-money-container">US $29.80</div>
+                      <div class="swiper-money-container">
+                        {{ props.ProductInfo.priceUnit
+                        }}{{ props.ProductInfo.productPrice }}
+                      </div>
                       <div class="swiper-unit-container">
-                        30-99 <span class="unit">Pieces</span>
+                        1000+
+                        <span class="unit">{{
+                          props.ProductInfo.productUnit
+                        }}</span>
                       </div>
                     </div>
-                    <div class="swiper-slide-div">
+                    <div class="details-content-spc-sku" id="dvSkuDetail">
+                      <template v-if="props.ProductInfo.ifSku">
+                        <dl
+                          class="p-property-item"
+                          v-for="(i, index) in props.ProductInfo.skuInfo"
+                          :key="index"
+                        >
+                          <dt class="p-item-title">
+                            {{ i.title }}
+                          </dt>
+                          <dd
+                            class="p-item-main sku-attr-list util-clearfix"
+                            v-for="(ite, ind) in i.content"
+                          >
+                            <template v-if="ite.type === 0">
+                              <el-checkbox-group
+                                v-model="selectList"
+                                @change="bindCheckBox"
+                              >
+                                <el-checkbox :label="ite.sku" :key="ind">
+                                  <a data-role="sku" :data-sku-id="ite.sku">
+                                    <img
+                                      :src="ite.imgPath"
+                                      :title="ite.imgTitle"
+                                      :bigpic="ite.imgPath"
+                                    />
+                                    {{ ite.imgTitle }}
+                                  </a>
+                                </el-checkbox>
+                              </el-checkbox-group>
+                            </template>
+                            <template v-else-if="ite.type === 1">
+                              <el-checkbox-group
+                                v-model="selectList1"
+                                @change="bindCheckBox1"
+                              >
+                                <el-checkbox-button :key="ind" :label="ite.sku">
+                                  <a data-role="sku" :data-sku-id="ite.sku">
+                                    {{ ite.text }}
+                                  </a>
+                                </el-checkbox-button>
+                              </el-checkbox-group>
+                            </template>
+                            <!-- <div data-role="msg-error" class="msg-error sku-msg-error">
+                                {{ i.errorMsg }}
+                            </div> -->
+                          </dd>
+                        </dl>
+                      </template>
+                    </div>
+                    <!-- <div class="swiper-slide-div">
                       <div class="swiper-money-container">US $30.55</div>
                       <div class="swiper-unit-container">
                         100+ <span class="unit">Pieces</span>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -154,29 +218,19 @@ const SendCustomizedRequest = (id) => {
             <div class="attr-line"></div>
             <table>
               <tbody>
-                <tr>
-                  <th width="160" class="th-label">Light Source:</th>
-                  <td>LED</td>
-                </tr>
-                <tr>
-                  <th width="160" class="th-label">Housing Material:</th>
-                  <td>Aluminium</td>
-                </tr>
-                <tr>
-                  <th width="160" class="th-label">Emitting Color:</th>
-                  <td>Warm White, White, Cool White</td>
-                </tr>
-                <tr>
-                  <th width="160" class="th-label">Dimmable:</th>
-                  <td>Without Dimmable</td>
-                </tr>
-                <tr>
-                  <th width="160" class="th-label">Appearance:</th>
-                  <td>Square</td>
-                </tr>
-                <tr>
-                  <th width="160" class="th-label">Type:</th>
-                  <td>Recessed, Surface Mounted, Suspended</td>
+                <tr
+                 
+                  v-for="(i, index) in props.ProductInfo.productPropertyList"
+                  :key="index"
+                  v-show="index <= 6"
+                >
+                  <th width="160"
+                  class="th-label">
+                    <span>{{ i.propertyName }}:</span>
+                  </th>
+                  <td>
+                    <span>{{ i.valueStr }}</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -188,18 +242,24 @@ const SendCustomizedRequest = (id) => {
                   <td>
                     <div class="sample-order-info">
                       <div class="info-text">
-                        <strong class="red">US$ 33.55/Piece</strong>
+                        <strong class="red">{{ props.ProductInfo.priceUnit
+                        }}{{ props.ProductInfo.productPrice }}/{{
+                          props.ProductInfo.productUnit
+                        }}</strong>
                         <span title="1 Piece(Min.Order)"
-                          >1 Piece(Min.Order)</span
+                          >1 {{
+                          props.ProductInfo.productUnit
+                        }}(Min.Order)</span
                         >
                       </div>
                       <span class="gap">|</span>
                       <a
                         class=""
                         target="_blank"
-                        @click="requestSample(123)"
+                        @click="requestSample(props.ProductInfo)"
                         rel="nofollow"
-                        ><el-icon style="margin:3px 3px 0 0"><Box /></el-icon>Request Sample</a
+                        ><el-icon style="margin: 3px 3px 0 0"><Box /></el-icon
+                        >Request Sample</a
                       >
                     </div>
                   </td>
@@ -217,7 +277,7 @@ const SendCustomizedRequest = (id) => {
                       <a
                         target="_blank"
                         rel="nofollow"
-                        @click="SendCustomizedRequest(123)"
+                        @click="SendCustomizedRequest(props.ProductInfo)"
                         ads-data="st:16,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
                       >
                         <el-icon><EditPen /></el-icon>Customized Request
@@ -240,9 +300,13 @@ const SendCustomizedRequest = (id) => {
   background: #fff;
   border: 1px solid #e9eef4;
   display: flex;
-  a{
-    cursor:pointer;
+  a {
+    cursor: pointer;
   }
+  .details-content-spc-sku {
+    padding-left: 2%;
+  }
+
   //   margin: 30px auto;
   #carousel {
     width: 378px;
@@ -421,6 +485,24 @@ const SendCustomizedRequest = (id) => {
           }
         }
       }
+    }
+  }
+}
+// sku style
+.p-property-item {
+  display: flex;
+  margin-bottom: 10px;
+  .p-item-title {
+    width: 150px;
+  }
+  .sku-attr-list {
+    display: flex;
+    .el-checkbox-button__inner {
+      padding: 0;
+    }
+    .el-checkbox__label a img {
+      width: 40px;
+      height: 40px;
     }
   }
 }

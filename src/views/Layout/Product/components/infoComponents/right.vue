@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { Session } from "@/utils/storage";
 
 const props = defineProps(["shopNum", "setshopNum","companyPic","title"]);
 const emit = defineEmits(["shopNum", "setshopNum"]);
+
+const companyInfo = Session.get("companyInfo");
+const ProductInfo = Session.get("pInfo");
+
 const router = useRouter();
 const productItem = ref<any>({});
 // 询盘1
@@ -22,8 +27,7 @@ const showMiniInquiry = (val) => {
 };
 
 const clickCompany = (id) =>{
-  let routeUrl = router.resolve({path:`/vipcompany/${id}`})
-  window.open(routeUrl.href, '_blank');
+  window.open(id, '_blank');
 }
 
 </script>
@@ -48,17 +52,17 @@ const clickCompany = (id) =>{
                 <a href="javascript:void(0);">
                   <img
                     class="J-contact-img"
-                    :src="props.companyPic"
+                    :src="companyInfo.companyPic[0]"
                     alt="Avatar"
                   />
                 </a>
               </div>
               <div class="sr-side-contSupplier-txt">
-                <div class="sr-side-contSupplier-name">Mr. Kevin</div>
+                <div class="sr-side-contSupplier-name">{{companyInfo.companyContactPerson}}</div>
                 <div class="sr-side-contSupplier-position">General Manager</div>
               </div>
             </div>
-            <div class="button-block" @click="SendMessage(123)">
+            <div class="button-block" @click="SendMessage(ProductInfo.productID)">
               <a class="btns button-link-contact"
                 ><el-icon><Position /></el-icon> Contact Now</a
               >
@@ -79,7 +83,7 @@ const clickCompany = (id) =>{
                   class="J-added-to-basket already-in-basket GvDxWsrYvEtX"
                   style=""
                 >
-                  <a href="javascript:;" @click="showMiniInquiry('product')">
+                  <a href="javascript:;" @click="showMiniInquiry(ProductInfo)">
                     <template v-if="props.shopNum <= 0"
                       ><el-icon><Plus /></el-icon
                     ></template>
@@ -106,7 +110,7 @@ const clickCompany = (id) =>{
           <div class="sr-com com-place-one">
             <div class="sr-com-logo">
               <img
-                :src="props.companyPic"
+                :src="companyInfo.companyPic[0]"
                 style="display: inline"
               />
             </div>
@@ -114,7 +118,7 @@ const clickCompany = (id) =>{
               <div class="sr-comInfo-title has360">
                 <div class="title-txt">
                   <a
-                    @click="clickCompany(123)"
+                    @click="clickCompany(companyInfo.companyContactUrl)"
                     target="_blank"
                     :title="props.title"
                     >{{props.title}}

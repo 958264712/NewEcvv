@@ -1,0 +1,256 @@
+<script setup lang="ts">
+import { reactive, ref } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
+import { registerEmember, sendCode, isExistUserName, isExistPhoneNumber, isExistEmail } from '@/api/modular/register.ts'
+import { ElMessage } from 'element-plus'
+interface RuleForm {
+    userName: string
+    password: string
+    password2: string
+    email: string
+    phoneNumber: string
+    checkbox: boolean
+    code: string
+    phoneHead: string
+}
+
+const timer = ref<any>()
+const formSize = ref('default')
+const num = ref(60)
+const ifhandleCode = ref(false)
+const ifqueryCode = ref('')
+const ruleFormRef = ref<FormInstance>()
+const ruleForm = reactive<RuleForm>({
+    userName: '',
+    password: '',
+    password2: '',
+    email: '',
+    phoneNumber: '',
+    checkbox: true,
+    code: '',
+    phoneHead: '+86'
+})
+
+const rules = reactive<FormRules<RuleForm>>({
+    userName: [
+        { required: true, message: '请填写用户名', trigger: 'blur' },
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'blur' },
+    ],
+    password2: [
+        { required: true, message: '请再次填写密码', trigger: 'blur' },
+    ],
+    phoneNumber: [
+        { required: true, message: '请输入11数字电话号码', trigger: 'blur' },
+        { min: 11, max: 11, message: '请输入11数字电话号码', trigger: 'blur' },
+    ],
+    code: [
+        { required: true, message: '请填写验证码', trigger: 'blur' },
+    ],
+
+})
+
+const timers = () => {
+    if (num.value <= 0) {
+        clearTimeout(timer.value)
+        ifhandleCode.value = false
+        num.value = 60
+    } else {
+        if (ifhandleCode.value) {
+            num.value = num.value - 1
+            timer.value = setTimeout(() => {
+                timers()
+            }, 1000)
+        }
+    }
+}
+const handleCode = async () => {
+    if (ruleForm.phoneNumber) {
+        await sendCode(ruleForm.phoneNumber).then((res) => {
+            if (res.data.type === "success") {
+                ifhandleCode.value = true
+                const object = JSON.parse(res.data.result)
+                ifqueryCode.value = object.obj
+                timers()
+            }
+        })
+    } else {
+        ElMessage.error('请输入正确的手机号')
+    }
+}
+
+
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate((valid, fields) => {
+        if (valid && ruleForm.checkbox) {
+            if (ruleForm.password === ruleForm.password2) {
+                if (ruleForm.code === ifqueryCode.value) {
+                    const regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+                    const regPhone = /^[1][3,4,5,7,8][0-9]{9}$/
+                    const regName = /^[A-Za-z0-9]{6,20}$/
+                    if (regEmail.test(ruleForm.email)) {
+                        if (regPhone.test(ruleForm.phoneNumber)) {
+                            if (regName.test(ruleForm.userName)) {
+                                registerEmember(Object.assign(ruleForm)).then(res => {
+                                    if (res.data.type === "success") {
+                                        ElMessage.success('注册成功！')
+                                        formEl.resetFields()
+                                        ifhandleCode.value = false
+                                    }
+                                })
+                            } else {
+                                ElMessage.error('请输入6-20位英文和数字组成的用户名')
+                            }
+                        } else {
+                            ElMessage.error('请输入正确的手机号')
+                        }
+
+                    } else {
+                        ElMessage.error('请输入正确的邮箱')
+                    }
+                } else {
+                    ElMessage.error('您输入的验证码错误！')
+                }
+            } else {
+                ElMessage.error('您输入的密码错误，请重新确认！')
+            }
+        } else {
+            ElMessage.error('请勾选协议！')
+        }
+    })
+}
+
+const resetForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.resetFields()
+}
+
+// 验证用户名是否存在
+const blurUserName = async () => {
+    if (ruleForm.userName.trim().length) {
+    await isExistUserName(ruleForm.userName.trim()).then((res: any) => {
+        if (res.data.type === 'success') {
+            if (res.data.result === true) {
+                ElMessage.error('该名称已存在')
+                ruleForm.userName = ''
+            }
+        }
+    })
+    }
+}
+// 验证手机号是否存在
+const blurPhoneNumber = async () => {
+    if (ruleForm.phoneNumber.trim().length) {
+        await isExistPhoneNumber(ruleForm.phoneNumber.trim()).then((res: any) => {
+            if (res.data.type === 'success') {
+                if (res.data.result === true) {
+                    ElMessage.error('该手机号已存在，如想重新注册，请先行使用手机号登录，再进行注销该手机号')
+                    ruleForm.phoneNumber = ''
+                }
+            }
+        })
+    }
+}
+// 验证邮箱是否存在
+const blurEmail = async () => {
+    if (ruleForm.email.trim().length) {
+        await isExistEmail(ruleForm.email.trim()).then((res: any) => {
+            if (res.data.type === 'success') {
+                if (res.data.result === true) {
+                    ruleForm.email = ''
+                    ElMessage.error('该邮箱已存在')
+                }
+            }
+        })
+    }
+}
+</script >
+<template>
+    <div class="content">
+        <h2>用户注册</h2>
+        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm"
+            :size="formSize" status-icon>
+            <el-form-item label="用户名：" prop="userName">
+                <el-input v-model="ruleForm.userName" @blur="blurUserName" placeholder="请输入您的用户名" clearable />
+            </el-form-item>
+            <el-form-item label="密码：" prop="password">
+                <el-input v-model="ruleForm.password" type="password" placeholder="请输入您的密码" clearable />
+            </el-form-item>
+            <el-form-item label="确认密码：" prop="password2">
+                <el-input v-model="ruleForm.password2" type="password" placeholder="请您确认您的密码" clearable />
+            </el-form-item>
+            <el-form-item label="邮箱：" prop="email">
+                <el-input v-model="ruleForm.email" type="email" @blur="blurEmail"  placeholder="请输入您的邮箱" clearable />
+            </el-form-item>
+            <el-form-item label="手机号：" prop="phoneNumber">
+                <template #default="scope">
+                    <div style="display:flex">
+                        <el-select v-model="ruleForm.phoneHead" style="width:220px" placeholder="请选择电话头">
+                            <el-option value="+86" label="+86" />
+                            <el-option value="+852" label="+852" />
+                            <el-option value="+853" label="+853" />
+                            <el-option value="+886" label="+886" />
+                        </el-select>
+                        <el-input v-model="ruleForm.phoneNumber" @blur="blurPhoneNumber" placeholder="请您确认您的手机号" style="margin:0 10px" clearable />
+                        <template v-if="ifhandleCode">
+                            <span
+                                style="display:inline-block;width:62px; padding:0 4px ; border:1px solid #ccc; borderRadius:5px">{{
+                                    num }} s</span>
+                        </template>
+                        <template v-else>
+                            <el-button @click="handleCode">获取验证码</el-button>
+                        </template>
+                    </div>
+                </template>
+            </el-form-item>
+            <el-form-item label="验证码：" prop="code">
+                <el-input v-model="ruleForm.code" placeholder="请您确认您的验证码" clearable />
+            </el-form-item>
+            <el-form-item label=" ">
+                <div style="display:flex;">
+                    <el-checkbox v-model="ruleForm.checkbox" size="large" style="marginRight:20px" />
+                    <span style="padding-top:5px;">我同意以下条款
+                        <a href="https://www.ecvv.com/help/helpPage36.html" target="_blank" class="bule">使用协议</a> ,
+                        <a href="https://www.ecvv.com/help/helpPage37.html" target="_blank" class="bule">隐私权协议</a>
+                        和
+                        <a href="https://www.ecvv.com/help/helpPage51.html" target="_blank" class="bule">服务协议.</a>
+                        <br>&nbsp;<span id="chkAgreeError" style="display: none;"></span></span>
+                </div>
+            </el-form-item>
+            <el-form-item>
+                <div style="display:flex;justifyContent:space-evenly;width:100%">
+                    <el-button type="primary" @click="submitForm(ruleFormRef)">
+                        注册
+                    </el-button>
+                    <el-button @click="resetForm(ruleFormRef)">清空</el-button>
+                </div>
+            </el-form-item>
+        </el-form>
+    </div>
+</template>
+<style scoped lang="less">
+.content {
+    background-color: #fff;
+    margin-bottom: 30px;
+
+    h2 {
+        margin: 20px;
+        padding-top: 20px;
+        line-height: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    :deep(.el-form ){
+        width: 80%;
+        padding-bottom: 30px;
+    }
+}
+
+a {
+    color: blue;
+}
+</style>
