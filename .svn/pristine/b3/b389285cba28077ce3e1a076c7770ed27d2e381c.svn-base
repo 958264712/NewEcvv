@@ -1,0 +1,98 @@
+<script setup lang="ts">
+import { ref, defineAsyncComponent, watch } from 'vue'
+import 'element-plus/theme-chalk/display.css'
+import { useRouter } from 'vue-router';
+import { getProductAttributes } from '@/api/modular/search'
+
+const router = useRouter()
+
+// 懒加载 引入组件
+const contentMain = defineAsyncComponent(() => import('./components/contentMain.vue'));
+const leftAside = defineAsyncComponent(() => import('./components/leftAside.vue'));
+const rightAside = defineAsyncComponent(() => import('./components/rightAside.vue'));
+const params = ref<any>({
+    keyword: router.options.history.location.split('=')[1],
+})
+// 创建mock数据
+const mock1 = ref<leftAsideListType>({ list: [] })
+
+const handleAttr = async () => {
+    await getProductAttributes(Object.assign(params.value)).then(res => {
+        if (res.data.type === 'success') {
+            mock1.value = res.data.result
+        }
+    })
+}
+handleAttr()
+const mock3 = ref<ContentMainType>({
+    code: router.options.history.location.split('=')[1]
+})
+
+// 获取当前点击more状态
+const onMore = (item: boolean, index: number) => {
+    mock1.value.list.map((i: any, ind: number) => {
+        if (ind === index) {
+            i.more = item
+        }
+    })
+};
+// 获取当前点击more状态
+const onifMore = (item: boolean, index: number) => {
+    mock1.value.list.map((i: any, ind: number) => {
+        if (ind === index) {
+            i.ifMore = item
+        }
+    })
+};
+// console.log(1111);
+
+// 获取cid
+const onCid = (item: number) => {
+    mock3.value.cid = item
+}
+
+// 获取onurlPVMsg
+const onurlPVMsg = (item: string) => {
+    mock3.value.UrlPVMsg = item
+    params.value.urlPVMsg = item
+}
+watch(() => params.value.urlPVMsg,
+    (val) => {
+        handleAttr()
+    })
+</script>
+<template>
+    <main>
+        <el-row>
+            <el-col :span="4" class="hidden-md-and-down">
+                <leftAside :leftAside='mock1' @onMore="onMore" @onifMore="onifMore" @onCid="onCid"
+                    @onurlPVMsg="onurlPVMsg" />
+            </el-col>
+            <el-col :span="18">
+                <contentMain :contentMain='mock3' />
+            </el-col>
+            <el-col :span="2" class="hidden-lg-and-down">
+                <rightAside />
+            </el-col>
+        </el-row>
+    </main>
+</template>
+<style scoped lang="scss">
+main {
+    width: 1440px;
+    height: 100%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.el-row {
+    flex-wrap: nowrap;
+}
+
+a,
+a:link {
+    color: #004B91;
+    text-decoration: none;
+}
+</style>

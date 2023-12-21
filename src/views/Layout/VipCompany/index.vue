@@ -9,6 +9,7 @@ const Content = defineAsyncComponent(() => import("./components/content.vue"));
 const ProduceList = defineAsyncComponent(() => import("./components/produceList.vue"));
 
 const companyInfo = ref<any>({})
+const companyProfile = ref<any>({})
 const companyCardInfo = ref<any>({})
 const productShowcase = ref<any>([])
 const newProducts = ref<any>([])
@@ -32,6 +33,7 @@ const handleQuery = async () => {
     await getCompanyInfo().then((res)=>{
       if(res.data.type === 'success'){
         companyInfo.value = res.data.result.companyInfo
+        companyProfile.value = res.data.result.companyProfile
         companyCardInfo.value = res.data.result.companyCardInfo
         companyname.value = res.data.result.companyname
         description.value = res.data.result.description
@@ -61,7 +63,7 @@ onMounted(()=>{
 <template>
   <main class='companyModuler'>
       <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
-      <NavWrap :subDomainName="subDomainName"/>
+      <NavWrap :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
      <el-carousel
       arrow="always"
       :interval="3000"

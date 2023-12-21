@@ -26,6 +26,7 @@ const FormInquire = defineAsyncComponent(
 );
 
 const companyInfo = ref<any>({});
+const companyProfile = ref<any>({})
 const companyCardInfo = ref<any>({});
 const productShowcase = ref<any>([]);
 const newProducts = ref<any>([]);
@@ -55,6 +56,7 @@ const handleQuery = async () => {
     if (res.data.type === "success") {
       Session.set("companyInfo", res.data.result);
       companyInfo.value = res.data.result.companyInfo;
+      companyProfile.value = res.data.result.companyProfile
       companyCardInfo.value = res.data.result.companyCardInfo;
       companyname.value = res.data.result.companyname;
       description.value = res.data.result.description;
@@ -84,7 +86,7 @@ onMounted(() => {
       :countryName="countryName"
       :companyarea="companyarea"
     />
-    <HeaderWrap :companyname="companyname" :description="description" />
+    <HeaderWrap :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
     <NavWrap />
     <el-carousel
       arrow="always"

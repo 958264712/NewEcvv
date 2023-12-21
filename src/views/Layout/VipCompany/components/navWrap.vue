@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const props = defineProps(["subDomainName"])
+const props = defineProps(["subDomainName","companyCateGroup","companyProfile"])
 const isShow = ref(false);
 const isShow1 = ref(false);
 const handleShow = (item, val) => {
@@ -197,58 +197,11 @@ window.addEventListener("resize", () => {
             ></a>
             <ul class="dropdown-menu2" v-show="isShow" @mouseover="handleShow('isShow', true)"
               @mouseleave="handleShow('isShow', false)">
-              <li>
+              <li v-for="(item,index) in props.companyCateGroup" :key="item">
                 <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/42426.html"
-                  >Glass Dome Decoration</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/46223.html"
-                  >Glass Terrarium Vase</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/243899.html"
-                  >Metal Frame Glass Terrarium</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/46222.html"
-                  >Laboratory Glassware</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/46221.html"
-                  >Glass Cup and Teapot</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/197677.html"
-                  >Christmas Ornaments</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/42424.html"
-                  >Artificial Decorative Flower</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/42417.html"
-                  >Epidemic Mask</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.ecvv.com/company/betty-glass/catalog/84174.html"
-                  >Solar Products</a
+                  :href="item.url"
+                  :title="item.name"
+                  >{{item.name}}</a
                 >
               </li>
             </ul>
@@ -264,58 +217,11 @@ window.addEventListener("resize", () => {
             ></a>
             <ul class="dropdown-menu2" v-show="isShow1" @mouseover="handleShow('isShow1', true)"
               @mouseleave="handleShow('isShow1', false)">
-              <li class="">
+              <li v-for="(item, key, index) in props.companyProfile" :key="item">
                 <a
-                  title="company introduction"
-                  href="https://www.ecvv.com/company/betty-glass/profile.html"
-                  >Company Introduction</a
-                >
-              </li>
-              <li class="">
-                <a
-                  title="License Verify"
-                  href="https://www.ecvv.com/company/betty-glass/license-verify.html"
-                  >License Verify</a
-                >
-              </li>
-              <li>
-                <a
-                  title="Payment Terms"
-                  href="https://www.ecvv.com/company/betty-glass/column/PayMent_Terms.html"
-                  rel="nofollow"
-                  >Payment Terms</a
-                >
-              </li>
-              <li>
-                <a
-                  title="Quality Control"
-                  href="https://www.ecvv.com/company/betty-glass/column/Quality_Control.html"
-                  rel="nofollow"
-                  >Quality Control</a
-                >
-              </li>
-              <li>
-                <a
-                  title="R&amp;D"
-                  href="https://www.ecvv.com/company/betty-glass/column/R_D.html"
-                  rel="nofollow"
-                  >R&amp;D</a
-                >
-              </li>
-              <li>
-                <a
-                  title="Trade Show"
-                  href="https://www.ecvv.com/company/betty-glass/column/Trade_Show.html"
-                  rel="nofollow"
-                  >Trade Show</a
-                >
-              </li>
-              <li>
-                <a
-                  title="Factory Tour"
-                  href="https://www.ecvv.com/company/betty-glass/column/Factory_Tour.html"
-                  rel="nofollow"
-                  >Factory Tour</a
+                  :href="item"
+                  :title="key"
+                  >{{key}}</a
                 >
               </li>
             </ul>
