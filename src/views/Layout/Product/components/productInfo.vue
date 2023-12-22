@@ -4,8 +4,7 @@ import {getProductInfo,getProductOrder} from '@/api/modular/search'
 import {useRouter} from 'vue-router'
 import { Session } from "@/utils/storage";
 
-const props = defineProps(["handleStartOrder","info","shopNum","setshopNum","companyPic"])
-const emit = defineEmits(["shopNum","setshopNum"])
+const props = defineProps(["handleStartOrder","info","companyPic"])
 const Left = defineAsyncComponent(()=>import('./infoComponents/left.vue'))
 const Right = defineAsyncComponent(()=>import('./infoComponents/right.vue'))
 
@@ -14,9 +13,7 @@ const ProductInfo = Session.get("pInfo");
 const ifOpen = ref(false)
 const paramsInfo = ref({})
 
-const setshopNum = (val:any) => {
-    emit("setshopNum",val.value)
-}
+
 const select = (list:any,list1:any) => {
     const selectList = list.concat(list1)
     if(selectList.length === 3){
@@ -34,7 +31,7 @@ defineExpose({ifOpen})
 <template>
 <div class='productsInfo'>
     <Left :title = "props.info" :ProductInfo = "ProductInfo" :handleStartOrder = "props.handleStartOrder" @select="select"/>
-    <Right :shopNum="props.shopNum" @setshopNum="setshopNum" :title = "props.info" :companyPic="companyPic"/>
+    <Right  :title = "props.info" :companyPic="companyPic"/>
 </div>
 </template>
 <style lang='less' scoped>

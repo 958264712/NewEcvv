@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useProductStore } from "@/stores/productStore";
+import pinia from "@/stores/index";
+import { Session } from "@/utils/storage";
 
+const stores = useProductStore(pinia);
 const router = useRouter();
 const ifShow = ref(false);
-const props = defineProps(["shopNum"]);
+const len = ref(Session.get("productItemList"));
+
 const style = ref({
   height: "34px",
   overflow: "hidden",
@@ -18,9 +23,7 @@ const handleShow = (val: boolean) => {
 const clickAllCheck = () => {};
 
 // 删除列表
-const deleteItem = () => {
-
-}
+const deleteItem = () => {};
 
 const clickProduct = (id) => {
   let routeUrl = router.resolve({ path: `/product/${id}` });
@@ -49,9 +52,15 @@ watch(
     }
   }
 );
+watch(
+  () => stores.productItemList.length,
+  () => {
+    len.value = Session.get("productItemList");
+  }
+);
 </script>
 <template>
-  <div v-show="props.shopNum.length > 0" id="in-basket" :style="style">
+  <div v-show="len !== null" id="in-basket" :style="style">
     <div
       class="in-basket-main-info"
       id="J-inquiryControl"
@@ -59,7 +68,10 @@ watch(
     >
       <span class="in-basket-main-info-txt">
         <ShoppingCartFull style="width: 16px; margin-right: 5px" />
-        Inquiry Basket (<em>{{ props.shopNum.length }}</em>)
+        Inquiry Basket (<em>{{
+          len === null ? stores.productItemList : len.length
+        }}</em
+        >)
       </span>
     </div>
     <div class="in-basket-wrap obelisk-form">
@@ -133,12 +145,11 @@ watch(
       </div>
     </div>
     <ul class="in-basket-tab">
-      <li
-        class="in-basket-tab-item in-basket-tab-2 J-productCount ibselected"
-      >
+      <li class="in-basket-tab-item in-basket-tab-2 J-productCount ibselected">
         Products
         <span class="tab-count" style="margin-left: 5px">
-          (<em>{{ props.shopNum.length }}</em>)
+          (<em>{{ stores.productItemList.length }}</em
+          >)
         </span>
       </li>
       <!-- <li
@@ -156,9 +167,7 @@ watch(
         style="display: none"
       >
         Exhibition
-        <span class="tab-count" style="margin-left: 5px">
-          (<em>0</em>)
-        </span>
+        <span class="tab-count" style="margin-left: 5px"> (<em>0</em>) </span>
       </li>
     </ul>
   </div>

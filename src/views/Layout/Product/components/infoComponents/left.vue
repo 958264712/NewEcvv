@@ -8,7 +8,6 @@ const emit = defineEmits(["select"])
 const router = useRouter();
 const picPathList = props.ProductInfo.picPathAllList;
 const picUrl = ref(props.ProductInfo.picPathAll);
-console.log(props.ProductInfo);
 
 const selectList = ref([])
 const selectList1 = ref([])

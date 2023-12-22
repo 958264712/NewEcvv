@@ -13,7 +13,6 @@ const companyInfo = ref<any>(Session.get('companyInfo'))
 const pInfo = ref<any>(Session.get('pInfo'))
 const StartOrderDialog = ref()
 const prodInfo = ref()
-const shopNum = ref<any>([])
 const ifOpen = ref(false)
 const companyPic = companyInfo.value.companyPic
 const info = companyInfo.value.companyname
@@ -29,17 +28,15 @@ const handleStartOrder = () =>{
 }
 // emit 
 
-const setshopNum = (val:any) => {
-    shopNum.value.push(val)
-}
+
 </script>
 <template>
 <div class='productsModule'>
-    <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder" :shopNum="shopNum" @setshopNum="setshopNum" />
+    <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder"  />
     <otp :ProductInfo = "pInfo"/>
     <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" @select="select"/>
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "ProductDataInfo" />
-    <Basket class="basket" :shopNum="shopNum"/>
+    <Basket class="basket" />
 </div>
 </template>
 <style lang='less' >

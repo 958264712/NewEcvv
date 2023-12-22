@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { Session } from "@/utils/storage";
+import { useProductStore } from "@/stores/productStore";
+import pinia from "@/stores/index";
 
-const props = defineProps(["shopNum", "setshopNum","companyPic","title"]);
-const emit = defineEmits(["shopNum", "setshopNum"]);
+const stores = useProductStore(pinia);
+const props = defineProps(["companyPic", "title"]);
 
 const companyInfo = Session.get("companyInfo");
-const ProductInfo = Session.get("pInfo");
+const ProductInfo = Session.get("productInfo");
+const len = ref(Session.get("productItemList"));
 
 const router = useRouter();
 const productItem = ref<any>({});
@@ -18,18 +21,18 @@ const SendMessage = (id) => {
 };
 
 const showMiniInquiry = (val) => {
-  productItem.value={
-    companyName:'',
-    productName:'',
-    productImg:''
-  }
-  emit("setshopNum", productItem);
+  stores.addProductItem(val);
 };
 
-const clickCompany = (id) =>{
-  window.open(id, '_blank');
-}
-
+const clickCompany = (id) => {
+  window.open(id, "_blank");
+};
+watch(
+  () => stores.productItemList.length,
+  () => {
+    len.value = Session.get("productItemList");
+  }
+);
 </script>
 <template>
   <div class="right">
@@ -58,11 +61,13 @@ const clickCompany = (id) =>{
                 </a>
               </div>
               <div class="sr-side-contSupplier-txt">
-                <div class="sr-side-contSupplier-name">{{companyInfo.companyContactPerson}}</div>
+                <div class="sr-side-contSupplier-name">
+                  {{ companyInfo.companyContactPerson }}
+                </div>
                 <div class="sr-side-contSupplier-position">General Manager</div>
               </div>
             </div>
-            <div class="button-block" @click="SendMessage(ProductInfo.productID)">
+            <div class="button-block" @click="SendMessage(ProductInfo.pid)">
               <a class="btns button-link-contact"
                 ><el-icon><Position /></el-icon> Contact Now</a
               >
@@ -84,7 +89,7 @@ const clickCompany = (id) =>{
                   style=""
                 >
                   <a href="javascript:;" @click="showMiniInquiry(ProductInfo)">
-                    <template v-if="props.shopNum <= 0"
+                    <template v-if="len === null"
                       ><el-icon><Plus /></el-icon
                     ></template>
                     <template v-else
@@ -109,10 +114,7 @@ const clickCompany = (id) =>{
         <div class="sr-linkTo-comInfo J-linkTo-comInfo" ads-data="">
           <div class="sr-com com-place-one">
             <div class="sr-com-logo">
-              <img
-                :src="companyInfo.companyPic[0]"
-                style="display: inline"
-              />
+              <img :src="companyInfo.companyPic[0]" style="display: inline" />
             </div>
             <div class="sr-com-info">
               <div class="sr-comInfo-title has360">
@@ -121,8 +123,7 @@ const clickCompany = (id) =>{
                     @click="clickCompany(companyInfo.companyContactUrl)"
                     target="_blank"
                     :title="props.title"
-                    >{{props.title}}
-                    <i class="ob-icon icon-right"></i
+                    >{{ props.title }} <i class="ob-icon icon-right"></i
                   ></a>
                 </div>
               </div>
