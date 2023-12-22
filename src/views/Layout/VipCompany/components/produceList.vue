@@ -16,6 +16,7 @@ const props = defineProps([
 const router = useRouter();
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
+const companyInfo = Session.get('companyInfo')
 const itemList = ref<any>([]);
 const productGroup = ref<any>([]);
 const ProductInfo = ref<any>({})
@@ -51,7 +52,7 @@ const clickProduct = (id,item) => {
 
 // 获取最新产品
 const handleQuery = async () => {
-  await getLatestProduct(Object.assign({ keyword: "led" })).then((res) => {
+  await getLatestProduct(Object.assign({ keyword: companyInfo.companyCateGroup.catalog_id})).then((res) => {
     if (res.data.type === "success") {
       itemList.value = res.data.result.list;
     }

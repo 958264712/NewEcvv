@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import {getLatestProduct} from '@/api/modular/search'
+import { Session } from "@/utils/storage";
 
-
+const companyInfo = Session.get('companyInfo')
 const itemList = ref([]);
 
 // 获取最新产品
 const handleQuery = async () => {
-    await getLatestProduct(Object.assign({ keyword: 'led' })).then(res => {
+    await getLatestProduct(Object.assign({ keyword: companyInfo.companyCateGroup.catalog_id })).then(res => {
         if (res.data.type === 'success') {
             itemList.value = res.data.result.list
         }
