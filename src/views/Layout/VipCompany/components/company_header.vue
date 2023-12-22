@@ -6,7 +6,8 @@ const props = defineProps([
   "companyCardInfo",
   "companyarea",
   "countryName",
-  "companyPic"
+  "companyPic",
+  "companyIcon"
 ]);
 const isShow = ref(false);
 const title = ref("");
@@ -16,6 +17,8 @@ const handlemouseOver = (val) => {
 const calTime = (e) => {
   if (String(e) == "undefined") return;
   let d = new Date();
+  console.log(d);
+  
   let utc = d.getTime() + d.getTimezoneOffset() * 6e4;
   let nd = new Date(utc + 36e5 * e);
   var t = nd.toString();
@@ -236,8 +239,17 @@ const calTime = (e) => {
         </div>
         <div class="sr-comInfo-sign">
           <div class="sign-item">
-            <i class="item-icon icon-diamond"></i> Diamond Member
-            <span class="txt-year">Since 2013</span>
+             <template v-if="props.companyIcon.companylevel === 25"
+                ><i class="item-icon icon-gold"></i> Gold Member</template
+              >
+              <template v-else-if="props.companyIcon.companylevel === 23"
+                ><i class="item-icon icon-diamond"></i>platinum Member</template
+              >
+              <template v-else-if="props.companyIcon.companylevel === 21"
+                ><i class="item-icon icon-diamond"></i
+                ><i class="item-icon icon-diamond"></i> Diamond Member</template
+              >
+            <span class="txt-year">Since {{new Date().getFullYear() - props.companyIcon.year}}</span>
             <div class="tip arrow-top tip-gold">
               <div class="tip-con">
                 <p class="tip-para">
@@ -538,6 +550,11 @@ const calTime = (e) => {
         height: 20px;
         margin-right: 3px;
         vertical-align: -5px;
+      }
+      .icon-gold {
+        background: url(https://www.micstatic.com/athena/2017/img/product-detail/logo-spirit_238df59c.png) no-repeat;
+        background-size: cover;
+        background-position: -69px 0;
       }
       .sr-comInfo-sign .sign-item {
         float: left;

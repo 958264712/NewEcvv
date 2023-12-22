@@ -1,0 +1,381 @@
+<script lang="ts" setup>
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useProductStore } from "@/stores/productStore";
+import pinia from "@/stores/index";
+import { Session } from "@/utils/storage";
+
+const stores = useProductStore(pinia);
+const router = useRouter();
+const ifShow = ref(false);
+const len = ref(Session.get("productItemList"));
+
+const style = ref({
+  height: "34px",
+  overflow: "hidden",
+  bottom: "0px",
+});
+const handleShow = (val: boolean) => {
+  ifShow.value = val;
+};
+
+// 点击全选
+const clickAllCheck = () => {};
+
+// 删除列表
+const deleteItem = () => {};
+
+const clickProduct = (id) => {
+  let routeUrl = router.resolve({ path: `/product/${id}` });
+  window.open(routeUrl.href, "_blank");
+};
+
+const SendMessage = (id) => {
+  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+  window.open(routeUrl.href, "_blank");
+};
+watch(
+  () => ifShow.value,
+  (val) => {
+    if (val) {
+      style.value = {
+        height: "270px",
+        overflow: "hidden",
+        bottom: "0px",
+      };
+    } else {
+      style.value = {
+        height: "34px",
+        overflow: "hidden",
+        bottom: "0px",
+      };
+    }
+  }
+);
+watch(
+  () => stores.productItemList.length,
+  () => {
+    len.value = Session.get("productItemList");
+  }
+);
+</script>
+<template>
+  <div v-show="len !== null" id="in-basket" :style="style">
+    <div
+      class="in-basket-main-info"
+      id="J-inquiryControl"
+      @click="handleShow(!ifShow)"
+    >
+      <span class="in-basket-main-info-txt">
+        <ShoppingCartFull style="width: 16px; margin-right: 5px" />
+        Inquiry Basket (<em>{{
+          len === null ? stores.productItemList : len.length
+        }}</em
+        >)
+      </span>
+    </div>
+    <div class="in-basket-wrap obelisk-form">
+      <div class="in-basket-con J-productContent" style="display: block">
+        <ul style="height: auto; overflow: hidden">
+          <li class="in-basket-supplier J-companyName">
+            <div
+              class="in-basket-name"
+              title="Shenzhen Lumin Lighting Co., Ltd."
+            >
+              Shenzhen Lumin Lighting Co., Ltd.
+            </div>
+          </li>
+          <li class="in-basket-item ibselected">
+            <div class="in-basket-checker input-checkbox">
+              <label class="input-wrap">
+                <input type="checkbox" class="J-item-checkbox" />
+                <span class="input-ctnr"></span>
+              </label>
+            </div>
+            <div class="in-basket-pic-wrap">
+              <div class="in-basket-pic">
+                <a @click="clickProduct(123)">
+                  <img
+                    data-src="//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg"
+                    width="50"
+                    height="37"
+                    src="//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="in-basket-text">
+              <div class="in-basket-title">
+                <a
+                  @click="clickProduct(123)"
+                  title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                  alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
+                  >LED Sky Ceiling Panel Light 40W LED Panel Lights</a
+                >
+              </div>
+            </div>
+            <div class="in-basket-delete-wrap">
+              <a @click="deleteItem(123)" class="in-basket-delete"
+                ><el-icon><Close /></el-icon
+              ></a>
+            </div>
+          </li>
+        </ul>
+        <div class="in-basket-tips J-inquiryError" style="display: none"></div>
+        <div class="in-basket-fun">
+          <div class="input-checkbox">
+            <label class="input-wrap" @click="clickAllCheck()">
+              <input type="checkbox" class="J-inquiryCheckedAll" />
+              <span class="input-ctnr"></span> Select All
+            </label>
+          </div>
+          <div class="in-basket-btn-group">
+            <a
+              @click="SendMessage(123)"
+              class="btn btn-main btn-send J-sendInquiry"
+              >Send Inquiry</a
+            >
+            <!-- <a
+              href="javascript:void(0);"
+              class="btn btn-compare J-compare"
+              >Compare</a
+            > -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="in-basket-tab">
+      <li class="in-basket-tab-item in-basket-tab-2 J-productCount ibselected">
+        Products
+        <span class="tab-count" style="margin-left: 5px">
+          (<em>{{ stores.productItemList.length }}</em
+          >)
+        </span>
+      </li>
+      <!-- <li
+        class="in-basket-tab-item in-basket-tab-2 J-supplierCount"
+        data-type="supplier"
+      >
+        Suppliers
+        <span class="tab-count" style="margin-left: 5px">
+          (<em>0</em>)
+      </span>
+      </li> -->
+      <li
+        class="in-basket-tab-item in-basket-tab-2 J-o2oProductCount"
+        data-type="o2oProduct"
+        style="display: none"
+      >
+        Exhibition
+        <span class="tab-count" style="margin-left: 5px"> (<em>0</em>) </span>
+      </li>
+    </ul>
+  </div>
+</template>
+<style lang="less" scoped>
+#in-basket {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  z-index: 9999;
+  font-size: 12px;
+  font-family: arial, sans-serif;
+  a {
+    cursor: pointer;
+  }
+  .in-basket-main-info {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #5c7a99;
+    color: #fff;
+    font-size: 0;
+    text-align: center;
+    cursor: pointer;
+    .in-basket-main-info-txt {
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .in-basket-tips {
+    padding: 5px;
+    background: #ffdbdb;
+  }
+  .in-basket-wrap {
+    ul {
+      padding: 0;
+    }
+    .in-basket-supplier {
+      margin: 0 10px;
+      height: auto;
+      padding: 0 10px;
+      border-top: 1px solid #dae0e5;
+      position: relative;
+      z-index: 1;
+      .in-basket-name {
+        margin: 20px 0 10px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        word-wrap: normal;
+        text-overflow: ellipsis;
+        color: #222;
+        font-weight: bold;
+        display: block;
+      }
+    }
+    .in-basket-supplier:first-child {
+      border-top: 0;
+    }
+    li {
+      padding: 10px;
+      height: 55px;
+      position: relative;
+    }
+    li.in-basket-item {
+      min-height: 50px;
+      height: auto;
+      display: flex;
+      .in-basket-checker {
+        flex-shrink: 0;
+        .input-wrap {
+          margin: 0;
+          color: #222;
+          display: inline-block;
+          .input-ctnr {
+            margin-right: 0;
+          }
+        }
+      }
+      .in-basket-pic-wrap {
+        margin: 0 10px;
+        width: 55px;
+        height: 55px;
+        border: 1px solid #e6ecf2;
+        box-sizing: border-box;
+        overflow: hidden;
+        .in-basket-pic {
+          width: 100%;
+          height: 100%;
+          a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+              max-width: 100%;
+              max-height: 100%;
+            }
+          }
+        }
+      }
+      .in-basket-text {
+        flex-grow: 1;
+        overflow: hidden;
+        zoom: 1;
+        .in-basket-title {
+          height: 32px;
+          overflow: hidden;
+          a {
+            color: #555;
+          }
+        }
+      }
+      .in-basket-delete-wrap {
+        margin-left: 10px;
+        flex-shrink: 0;
+        .in-basket-delete {
+          color: #888;
+          font-size: 16px;
+        }
+      }
+    }
+    .in-basket-fun {
+      margin: 10px 10px 0;
+      padding: 20px 0;
+      border-top: 1px solid #dae0e5;
+      font-size: 0;
+      display: flex;
+      justify-content: space-between;
+      .input-checkbox {
+        font-size: 12px;
+        flex-shrink: 0;
+        .input-wrap {
+          color: #888;
+        }
+      }
+      .in-basket-btn-group {
+        flex-shrink: 0;
+        .btn-send,
+        .btn-compare {
+          padding: 5px 10px;
+          font-size: 12px;
+          line-height: 1em;
+          height: 26px;
+          display: inline-block;
+        }
+        .btn-compare {
+          margin-left: 10px;
+          color: #222;
+          background-color: #f5f7fa;
+        }
+        .btn-compare:hover {
+          color: #222;
+          background-color: #f5f7fa;
+        }
+        .btn-main {
+          color: #fff;
+          border: solid 1px #e64545;
+          background-color: #e64545;
+        }
+        .btn-main:hover {
+          color: #fff;
+          border: solid 1px #d92121;
+          background-color: #d92121;
+        }
+      }
+    }
+  }
+
+  .in-basket-tab {
+    height: 36px;
+    background: #f5f7fa;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li {
+      height: 36px;
+      line-height: 36px;
+      color: #888;
+      text-align: center;
+      cursor: pointer;
+      .tab-count {
+        color: #888;
+      }
+    }
+    .in-basket-tab-item.in-basket-tab-2 {
+      width: 100%;
+    }
+    .in-basket-tab-item + .in-basket-tab-item {
+      border-left: 1px solid #dae0e5;
+      box-sizing: border-box;
+    }
+
+    .ibselected {
+      border-top: none;
+      color: #222;
+      font-weight: bold;
+      background: #fff;
+      cursor: default;
+    }
+  }
+}
+</style>

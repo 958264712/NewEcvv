@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-const props = defineProps(["companyname", "description"]);
+const props = defineProps(["companyname", "description","companyIcon"]);
 </script>
 <template>
   <div class="header-warp">
@@ -29,7 +29,6 @@ const props = defineProps(["companyname", "description"]);
               >
                 {{ props.companyname }}</a
               >
-
               <h3>
                 {{ props.description }}
               </h3>
@@ -37,9 +36,9 @@ const props = defineProps(["companyname", "description"]);
           </tr>
         </tbody>
       </table>
-      <div class="supplier-badge gold">
+      <div :class="props.companyIcon.companylevel === 25 ? 'supplier-badge gold' : props.companyIcon.companylevel === 23 ? 'supplier-badge platinum' : 'supplier-badge diamond'" v-show="props.companyIcon.companylevel < 50">
         <div class="supplier-badge-num">
-          <span class="y">17</span><span class="t">th</span>
+          <span class="y">{{props.companyIcon.year}}</span><span class="t">{{props.companyIcon.yearEnd}}</span>
         </div>
       </div>
     </div>

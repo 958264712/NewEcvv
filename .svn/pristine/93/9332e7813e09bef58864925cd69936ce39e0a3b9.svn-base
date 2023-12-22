@@ -129,21 +129,10 @@ watch(
               </div>
             </div>
           </div>
-          <div class="sr-comInfo-sign com-place-two" v-show="companyInfo.companylevel < 50">
+          <div class="sr-comInfo-sign com-place-two">
             <div class="sign-item">
-              <template v-if="companyInfo.companylevel === 25"
-                ><i class="item-icon icon-gold"></i> Gold Member</template
-              >
-              <template v-else-if="companyInfo.companylevel === 23"
-                ><i class="item-icon icon-diamond"></i>platinum Member</template
-              >
-              <template v-else-if="companyInfo.companylevel === 21"
-                ><i class="item-icon icon-diamond"></i
-                ><i class="item-icon icon-diamond"></i> Diamond Member</template
-              >
-              <span class="txt-year"
-                >Since {{ new Date().getFullYear() - companyInfo.year }}</span
-              >
+              <i class="item-icon icon-diamond"></i>
+              Diamond Member <span class="txt-year">Since 2013</span>
               <div class="tip arrow-bottom tip-gold">
                 <div class="gold-content">
                   <div class="tip-con">
@@ -488,12 +477,6 @@ a {
         max-height: 42px;
         -webkit-line-clamp: 2;
       }
-    }
-    .icon-gold {
-      background: url(https://www.micstatic.com/athena/2017/img/product-detail/logo-spirit_238df59c.png)
-        no-repeat;
-      background-size: cover;
-      background-position: -69px 0;
     }
   }
 }

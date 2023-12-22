@@ -28,6 +28,11 @@ const FormInquire = defineAsyncComponent(
 const companyInfo = ref<any>({});
 const companyProfile = ref<any>({})
 const companyCardInfo = ref<any>({});
+const companyIcon = ref<any>({
+  companylevel:50,
+  year:0,
+  yearEnd:''
+})
 const productShowcase = ref<any>([]);
 const newProducts = ref<any>([]);
 const companyCateGroup = ref<any>([]);
@@ -70,6 +75,11 @@ const handleQuery = async () => {
       companyContactPerson.value = res.data.result.companyContactPerson;
       companyContactUrl.value = res.data.result.companyContactUrl;
       newProducts.value = res.data.result.newProducts;
+      companyIcon.value = {
+        companylevel:res.data.result.companylevel,
+        year:res.data.result.year,
+        yearEnd:res.data.result.yearEnd
+      }
     }
   });
 };
@@ -86,7 +96,7 @@ onMounted(() => {
       :countryName="countryName"
       :companyarea="companyarea"
     />
-    <HeaderWrap :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
+    <HeaderWrap :companyIcon="companyIcon" :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
     <NavWrap />
     <el-carousel
       arrow="always"

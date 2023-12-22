@@ -28,6 +28,12 @@ const style = ref({
     width:'1400px',
     margin:'0 auto'
 })
+const companyIcon = ref<any>({
+  companylevel:50,
+  year:0,
+  yearEnd:''
+})
+
 // 获取公司信息
 const handleQuery = async () => {
     await getCompanyInfo().then((res)=>{
@@ -47,6 +53,11 @@ const handleQuery = async () => {
         companyContactPerson.value = res.data.result.companyContactPerson
         companyContactUrl.value = res.data.result.companyContactUrl
         newProducts.value = res.data.result.newProducts 
+        companyIcon.value = {
+          companylevel:res.data.result.companylevel,
+          year:res.data.result.year,
+          yearEnd:res.data.result.yearEnd
+        }
         Session.set('companyInfo',res.data.result)
 
         }
@@ -62,8 +73,8 @@ onMounted(()=>{
 </script>
 <template>
   <main class='companyModuler'>
-      <ComHeader :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
-      <NavWrap :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
+      <ComHeader :companyIcon="companyIcon" :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
+      <NavWrap  :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
      <el-carousel
       arrow="always"
       :interval="3000"
