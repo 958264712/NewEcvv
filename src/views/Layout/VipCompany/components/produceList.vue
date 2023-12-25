@@ -31,23 +31,23 @@ const params = ref({
 
 // 询盘1
 const SendMessage = (id, item) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
-  window.open(routeUrl.href, "_blank");
   Session.set("productInfo", item);
   paramsInfo.value.pid = '4868524'
   params.value.pid = '4868524'
   pDInfo()
   pInfo()
+  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+  window.open(routeUrl.href, "_blank");
 };
 
 const clickProduct = (id,item) => {
-  let routeUrl = router.resolve({ path: `/product/${id}` });
-  window.open(routeUrl.href, "_blank");
   Session.set("productInfo", item);
   paramsInfo.value.pid = '4868524'
   params.value.pid = '4868524'
   pDInfo()
   pInfo()
+  let routeUrl = router.resolve({ path: `/product/${id}` });
+  window.open(routeUrl.href, "_blank");
 };
 
 // 获取最新产品
@@ -244,12 +244,10 @@ const pInfo = async () => {
                     type="hidden"
                     name="hmToken"
                     class="J-hmToken"
-                    value=""
                   />
                   <input
                     type="hidden"
                     class="J-hmCaptchaId"
-                    value="18bd4c8e-230c-435c-9a1d-cb9309d80086"
                   />
                 </div>
                 <input
@@ -421,7 +419,7 @@ const pInfo = async () => {
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
-                      <a @click="clickProduct(i.pid, item)" :title="i.productname">
+                      <a @click="clickProduct(i.pid, i)" :title="i.productname">
                         <img
                           :src="i.picPath"
                           :alt="i.productname"
@@ -434,7 +432,7 @@ const pInfo = async () => {
                 </div>
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
-                    <a @click="clickProduct(i.pid, item)" :title="i.productname">
+                    <a @click="clickProduct(i.pid, i)" :title="i.productname">
                       {{ i.productname }}
                     </a>
                   </div>
@@ -454,7 +452,7 @@ const pInfo = async () => {
                   </div>
                 </div>
                 <a
-                  @click="SendMessage(i.pid, item)"
+                  @click="SendMessage(i.pid, i)"
                   class="btn"
                   style="margin-top: 13px; width: 100%"
                   >Contact Now</a

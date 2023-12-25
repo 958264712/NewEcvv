@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { Session, Local } from "@/utils/storage";
+import { Session } from "@/utils/storage";
 import { useProductStore } from "@/stores/productStore";
 import pinia from "@/stores/index";
 
 const stores = useProductStore(pinia);
-const router = useRouter();
 const props = defineProps(["companyPic", "title"]);
 
 const companyInfo = Session.get("companyInfo");
 const ProductInfo = Session.get("productInfo");
-const len = ref(Local.get("productItemList"));
+const len = ref(Session.get("productItemList"));
 
-const buy = ref(false);
+const router = useRouter();
 const productItem = ref<any>({});
 // 询盘1
 const SendMessage = (id) => {
@@ -22,7 +21,7 @@ const SendMessage = (id) => {
 };
 
 const showMiniInquiry = (val) => {
-  stores.addProductItem(val, props.title);
+  stores.addProductItem(val);
 };
 
 const clickCompany = (id) => {
@@ -31,34 +30,14 @@ const clickCompany = (id) => {
 watch(
   () => stores.productItemList.length,
   () => {
-    len.value = Local.get("productItemList");
-    if (len.value !== null) {
-      if (len.value.some((item) => item.pid === ProductInfo.pid)) {
-        buy.value = true;
-      } else {
-        buy.value = false;
-      }
-    } else {
-      buy.value = false;
-    }
+    len.value = Session.get("productItemList");
   }
 );
-onMounted(() => {
-  if (len.value !== null) {
-    if (len.value.some((item) => item.pid === ProductInfo.pid)) {
-      buy.value = true;
-    } else {
-      buy.value = false;
-    }
-  } else {
-    buy.value = false;
-  }
-});
 </script>
 <template>
   <div class="right">
     <div class="sr-layout-block sr-contact-button-place block-top">
-      <div>
+      <div faw-module="sendInquiry" faw-exposure="" faw-id="1hg78b35acc">
         <div class="sr-layout-block contact-block J-contact-fix">
           <div class="sr-txt-title">
             <h2 class="sr-txt-h2">Contact Supplier</h2>
@@ -96,6 +75,7 @@ onMounted(() => {
             <div class="sr-side-contSupplier-chat button-block">
               <a
                 rel="nofollow"
+                ads-data="st:13"
                 class="tm-status-on"
                 title="Chat with supplier online now!"
               >
@@ -109,7 +89,7 @@ onMounted(() => {
                   style=""
                 >
                   <a href="javascript:;" @click="showMiniInquiry(ProductInfo)">
-                    <template v-if="buy === false"
+                    <template v-if="len === null"
                       ><el-icon><Plus /></el-icon
                     ></template>
                     <template v-else
@@ -149,10 +129,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div
-            class="sr-comInfo-sign com-place-two"
-            v-show="companyInfo.companylevel < 50"
-          >
+          <div class="sr-comInfo-sign com-place-two" v-show="companyInfo.companylevel < 50">
             <div class="sign-item">
               <template v-if="companyInfo.companylevel === 25"
                 ><i class="item-icon icon-gold"></i> Gold Member</template

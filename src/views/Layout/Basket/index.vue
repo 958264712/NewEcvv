@@ -1,15 +1,30 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { getProductInfo,getProductOrder } from "@/api/modular/search";
 import { useProductStore } from "@/stores/productStore";
 import pinia from "@/stores/index";
-import { Session } from "@/utils/storage";
+import { Local,Session } from "@/utils/storage";
+import { ElTable } from "element-plus";
+import { ElMessage } from 'element-plus';
 
 const stores = useProductStore(pinia);
 const router = useRouter();
 const ifShow = ref(false);
-const len = ref(Session.get("productItemList"));
-
+const checked = ref(false); // 是否全选
+const len = ref(Local.get("productItemList"));
+const basketList = ref<any>(Local.get("basketList"));
+const multipleSelection = ref<User[]>([]);
+const multipleTableRef = ref<InstanceType<typeof ElTable>>();
+const ProductInfo = ref<any>({})
+const ProductDataInfo = ref<any>({})
+const paramsInfo = ref<any>({
+  pid:'',
+  skuId:''
+})
+const params = ref({
+    pid:''
+})
 const style = ref({
   height: "34px",
   overflow: "hidden",
@@ -20,26 +35,108 @@ const handleShow = (val: boolean) => {
 };
 
 // 点击全选
-const clickAllCheck = () => {};
+const clickAllCheck = () => {
+  multipleTableRef.value.map((i) => {
+    i.toggleAllSelection();
+    multipleSelection.value.push(i)
+  });
+};
 
+// 勾选
+const handleSelectionChange = (val)=>{
+   multipleSelection.value = val
+}
 // 删除列表
-const deleteItem = () => {};
+const deleteItem = (id,name) => {
+ stores.delProductItem(id,name)
+};
 
 const clickProduct = (id) => {
   let routeUrl = router.resolve({ path: `/product/${id}` });
   window.open(routeUrl.href, "_blank");
 };
 
-const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
-  window.open(routeUrl.href, "_blank");
+const SendMessage = () => {
+  if(multipleSelection.value.length>0){
+    multipleSelection.value.map((i=>{
+      Session.set("productInfo", i);
+      paramsInfo.value.pid = '4868524'
+      params.value.pid = '4868524'
+      pDInfo()
+      pInfo()
+      let routeUrl = router.resolve({ path: `/sendMsg/${i.pid}` });
+      window.open(routeUrl.href, i.pid);
+    }))
+  }else{
+    ElMessage.error('You need to select the product!');
+  }
 };
+
+
+// 获取产品订单信息
+const pDInfo = async () => {
+    const res = await getProductOrder(Object.assign(paramsInfo.value))
+    if(res.data.type === 'success'){
+        ProductDataInfo.value.productName = res.data.result.productName
+        ProductDataInfo.value.firstPicPath = res.data.result.firstPicPath
+        ProductDataInfo.value.m_packing = res.data.result.m_packing
+        ProductDataInfo.value.price = res.data.result.price
+        ProductDataInfo.value.productbrand = res.data.result.productbrand
+        ProductDataInfo.value.productmodel = res.data.result.productmodel
+        ProductDataInfo.value.unitStr = res.data.result.unitStr
+        ProductDataInfo.value.token = res.data.result.token
+        Session.set("pDInfo",res.data.result)
+    }
+}
+// 获取产品信息
+const pInfo = async () => {
+    const res = await getProductInfo(Object.assign(params.value))
+    if(res.data.type === 'success'){
+        ProductInfo.value = res.data.result
+        // 产品详情
+        ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0]
+        ProductInfo.value.productDescription = res.data.result.productDetail.productDescription
+        ProductInfo.value.productPropertyList = res.data.result.productDetail.productPropertyList
+        ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll
+        ProductInfo.value.productName = res.data.result.productDetail.productName
+        ProductInfo.value.supplyAbility = res.data.result.productDetail.supplyAbility
+        ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit
+        ProductInfo.value.minOrder = res.data.result.productDetail.minOrder
+        ProductInfo.value.productID = res.data.result.productDetail.productID
+        ProductInfo.value.productPrice = res.data.result.productOtherInfo.productPrice
+        ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit
+        ProductInfo.value.productUnit = res.data.result.productOtherInfo.productUnit
+        ProductInfo.value.skuInfo = res.data.result.productOtherInfo.skuInfo
+        if(ProductInfo.value.skuInfo.length > 0){
+            ProductInfo.value.ifSku = true
+        }else{
+            ProductInfo.value.ifSku = false
+        }
+        ProductInfo.value.skuPrice = JSON.parse(res.data.result.productOtherInfo.skuPrice)
+        // 面包屑
+        ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg
+        // 产品列表
+        const list = res.data.result.recommProductList
+        ProductInfo.value.recommProductList = []
+        const list1 = ref<any>([])
+        list.map((item:any)=>{
+            list1.value.push(item)
+            if(list1.value.length % 7 === 0){
+                ProductInfo.value.recommProductList.push(list1.value)
+                list1.value = []
+            }
+        }) 
+        // 推荐产品列表
+        ProductInfo.value.productRecommendList = res.data.result.productRecommendList
+        Session.set("pInfo",res.data.result)
+    }
+}
 watch(
   () => ifShow.value,
   (val) => {
     if (val) {
       style.value = {
-        height: "270px",
+        height: "auto",
         overflow: "hidden",
         bottom: "0px",
       };
@@ -55,12 +152,21 @@ watch(
 watch(
   () => stores.productItemList.length,
   () => {
-    len.value = Session.get("productItemList");
+    len.value = Local.get("productItemList");
+    basketList.value = Local.get("basketList")
   }
 );
+watch(()=>multipleSelection.value,
+()=>{
+  if(multipleSelection.value.length !== len.value.length){
+    checked.value = false
+  }else{
+    checked.value = true
+  }
+})
 </script>
 <template>
-  <div v-show="len !== null" id="in-basket" :style="style">
+  <div v-show="len !== null && len.length !== 0" id="in-basket" :style="style">
     <div
       class="in-basket-main-info"
       id="J-inquiryControl"
@@ -77,61 +183,67 @@ watch(
     <div class="in-basket-wrap obelisk-form">
       <div class="in-basket-con J-productContent" style="display: block">
         <ul style="height: auto; overflow: hidden">
-          <li class="in-basket-supplier J-companyName">
-            <div
-              class="in-basket-name"
-              title="Shenzhen Lumin Lighting Co., Ltd."
+          <template v-for="(i, key, index) in basketList">
+            <li class="in-basket-supplier J-companyName">
+              <div class="in-basket-name" :title="key">
+                {{ key }}
+              </div>
+            </li>
+
+            <el-table
+              ref="multipleTableRef"
+              style="width: 100%"
+              :show-header="false"
+              :data="i"
+              @selection-change="handleSelectionChange"
             >
-              Shenzhen Lumin Lighting Co., Ltd.
-            </div>
-          </li>
-          <li class="in-basket-item ibselected">
-            <div class="in-basket-checker input-checkbox">
-              <label class="input-wrap">
-                <input type="checkbox" class="J-item-checkbox" />
-                <span class="input-ctnr"></span>
-              </label>
-            </div>
-            <div class="in-basket-pic-wrap">
-              <div class="in-basket-pic">
-                <a @click="clickProduct(123)">
-                  <img
-                    data-src="//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg"
-                    width="50"
-                    height="37"
-                    src="//image.made-in-china.com/3f2j00RjVtpyADCuGd/LED-Sky-Ceiling-Panel-Light-40W-LED-Panel-Lights.jpg"
-                  />
-                </a>
-              </div>
-            </div>
-            <div class="in-basket-text">
-              <div class="in-basket-title">
-                <a
-                  @click="clickProduct(123)"
-                  title="LED Sky Ceiling Panel Light 40W LED Panel Lights"
-                  alt="LED Sky Ceiling Panel Light 40W LED Panel Lights"
-                  >LED Sky Ceiling Panel Light 40W LED Panel Lights</a
-                >
-              </div>
-            </div>
-            <div class="in-basket-delete-wrap">
-              <a @click="deleteItem(123)" class="in-basket-delete"
-                ><el-icon><Close /></el-icon
-              ></a>
-            </div>
-          </li>
+              <el-table-column type="selection" width="26" />
+              <el-table-column width="53">
+                <template #default="scope">
+                  <a @click="clickProduct(scope.row.pid)">
+                    <img width="53" height="53" :src="scope.row.picPath" />
+                  </a>
+                </template>
+              </el-table-column>
+              <el-table-column width="180">
+                <template #default="scope">
+                  <div class="in-basket-text">
+                    <a
+                      class="in-basket-title"
+                      style="font-size: 12px"
+                      @click="clickProduct(scope.row.pid)"
+                      :title="scope.row.productname"
+                      :alt="scope.row.productname"
+                      >{{ scope.row.productname }}</a
+                    >
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column width="30">
+                <template #default="scope">
+                  <a @click="deleteItem(scope.row.pid,key)" class="in-basket-delete"
+                    ><el-icon><Close /></el-icon
+                  ></a>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
         </ul>
         <div class="in-basket-tips J-inquiryError" style="display: none"></div>
         <div class="in-basket-fun">
           <div class="input-checkbox">
             <label class="input-wrap" @click="clickAllCheck()">
-              <input type="checkbox" class="J-inquiryCheckedAll" />
+              <el-checkbox
+                type="checkbox"
+                class="J-inquiryCheckedAll"
+                v-model="checked"
+              />
               <span class="input-ctnr"></span> Select All
             </label>
           </div>
           <div class="in-basket-btn-group">
             <a
-              @click="SendMessage(123)"
+              @click="SendMessage()"
               class="btn btn-main btn-send J-sendInquiry"
               >Send Inquiry</a
             >
@@ -148,7 +260,7 @@ watch(
       <li class="in-basket-tab-item in-basket-tab-2 J-productCount ibselected">
         Products
         <span class="tab-count" style="margin-left: 5px">
-          (<em>{{ stores.productItemList.length }}</em
+          (<em>{{ len === null ? 0 : len.length }}</em
           >)
         </span>
       </li>
@@ -288,19 +400,11 @@ watch(
           }
         }
       }
-      .in-basket-delete-wrap {
-        margin-left: 10px;
-        flex-shrink: 0;
-        .in-basket-delete {
-          color: #888;
-          font-size: 16px;
-        }
-      }
     }
     .in-basket-fun {
       margin: 10px 10px 0;
       padding: 20px 0;
-      border-top: 1px solid #dae0e5;
+      // border-top: 1px solid #dae0e5;
       font-size: 0;
       display: flex;
       justify-content: space-between;
@@ -377,5 +481,9 @@ watch(
       cursor: default;
     }
   }
+}
+// el-table
+:deep(.el-scrollbar__view) {
+  padding: 0;
 }
 </style>
