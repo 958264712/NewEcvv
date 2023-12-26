@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+import { Session } from "@/utils/storage";
 
 const props = defineProps(["companyname"])
 const router = useRouter();
@@ -11,24 +13,53 @@ const ruleForm = reactive<RuleForm>({
   id: "",
   message: "",
 });
+const rules = ref<FormRules>({
+  message: [
+    { required: true, message: "Please enter the content for your inquiry." },
+  ],
+  id: [{ required: true, message: "Please enter your email address." }],
+ 
+});
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
-    if (valid) {
-      console.log("submit!");
+    if (valid) {  
+      // 提交公司信息验证
+      if (ruleForm.id == "") {
+      ElMessage.error("Please Enter Email Address");
+      return false;
+    }
+    if (ruleForm.message == "") {
+      ElMessage.error("Please Enter Inquiry");
+      return false;
+    }
+    var re = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    if (!re.test(ruleForm.id)) {
+      ElMessage.error("Please enter the correct email format");
+      ruleForm.id = ''
+      return false;
+    }
+    if (ruleForm.message.length < 20) {
+      ElMessage.error("Please Enter Inquiry message must be more 20 characters");
+      return false;
+    }
+    // 验证结束
+    Session.set('sendCompanyInfo',{
+      form:ruleForm.id,
+      to:props.companyname,
+      message:ruleForm.message
+    })
+    ruleForm.id = '' 
+    ruleForm.message = ''
+    let routeUrl = router.resolve({ path: `/companySendMsg` });
+    window.open(routeUrl.href, "_blank");
     } else {
       console.log("error submit!", fields);
     }
   });
 };
 
-// function ChatSkype(skypeId, objCId, objPId,AccessPage, detectClientCtlId) {
-//     $.getJSON("/EcvvAjax/AjaxSaveSkypeStatistics.ashx",
-//          { SkySkypeID: skypeId, SkyCID: objCId, SkyPID: objPId, SkyAccessPage: AccessPage, AccessType: 0, rd: Math.random() },
-//           function (msg) {  }
-//        );
-//     Skype.tryAnalyzeSkypeUri('chat', '0'); Skype.trySkypeUri_Generic('skype:' + skypeId + '?chat', detectClientCtlId, '0'); return false;
-// }
+
 const queryRFQ = () => {
   router.push({ path: `/RFQInquiry` });
 };
@@ -41,8 +72,9 @@ const queryRFQ = () => {
       :model="ruleForm"
       label-width="100px"
       class="demo-ruleForm"
+      :rules="rules"
     >
-      <el-form-item label="From：" prop="id" style="margin-bottom: 3px">
+      <el-form-item label="From：" prop="id" style="margin-bottom: 10px">
         <el-input v-model="ruleForm.id" placeholder='Enter your email address' style="width: 400px" />
       </el-form-item>
       <p class="space wai">Enter email or Member ID.</p>
@@ -66,7 +98,7 @@ const queryRFQ = () => {
           >
         </div>
       </el-form-item>
-      <el-form-item label="Message：" prop="message" style="margin-bottom: 3px">
+      <el-form-item label="Message：" prop="message" style="margin-bottom: 10px">
         <el-tooltip
           class="box-item"
           effect="light"

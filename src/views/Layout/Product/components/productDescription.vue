@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import { defineAsyncComponent,ref } from 'vue'
+import { Session } from "@/utils/storage";
 
 const props = defineProps(['handleStartOrder','ProductInfo',"info"])
 const Form = defineAsyncComponent(()=>import("./formInquire.vue"))
 const ifMore = ref(false)
 const service = ref(true)
 const cuarantee = ref(true)
+const router = useRouter();
 const style = ref({})
+
 // 切换菜单
 const handleChange = (e:any) => {
     const list = e.target.parentElement.children
@@ -67,9 +71,14 @@ window.addEventListener('scroll', () => {
         scroll.value = false
     }
 })
-const handleSendMsg = (id:number) =>{
-    return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
-}
+// const handleSendMsg = (id:number) =>{
+//     return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
+// }
+const handleSendMsg = (id) => {
+      let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+      window.open(routeUrl.href);
+};
+
 </script>
 <template>
     <section class="details-content-all auto-w">
@@ -83,7 +92,7 @@ const handleSendMsg = (id:number) =>{
                             Breaker, Residual Current Circuit Breaker, ELCB, MCB, MCCB, RCCB</p>
                     </div>
                     <div class="details-content-sample-n" id="PusOrder">
-                        <a class="pus-now-n" :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                        <a class="pus-now-n" @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                             Inquiry Now
                         </a>
                         <a class="pus-now-n1" @click="props.handleStartOrder" rel="nofollow">
@@ -122,7 +131,7 @@ const handleSendMsg = (id:number) =>{
                             Breaker, Residual Current Circuit Breaker, ELCB, MCB, MCCB, RCCB</p>
                     </div>
                     <div class="details-content-sample-n" id="PusOrder">
-                        <a class="pus-now-n" :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                        <a class="pus-now-n" @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                             Inquiry Now
                         </a>
                         <a class="pus-now-n1" @click="props.handleStartOrder" rel="nofollow">
@@ -154,7 +163,7 @@ const handleSendMsg = (id:number) =>{
                     </li>
                 </ul>
                 <div class="details-r-tab-r" id="PusOrder2">
-                    <a :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                    <a @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                         Inquiry Now
                     </a>
                 </div>
