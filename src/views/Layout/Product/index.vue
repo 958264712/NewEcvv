@@ -11,13 +11,12 @@ const otp = defineAsyncComponent(() => import('@/views/Product/Sourcing/componen
 
 const companyInfo = ref<any>(Session.get('companyInfo'))
 const pInfo = ref<any>(Session.get('pInfo'))
+const pDInfo = ref<any>(Session.get('pDInfo'))
 const StartOrderDialog = ref()
 const prodInfo = ref()
 const ifOpen = ref(false)
 const companyPic = companyInfo.value.companyPic
 const info = companyInfo.value.companyname
-const ProductInfo = ref<any>({})
-const ProductDataInfo = ref<any>({})
 const handleStartOrder = () =>{
     if(prodInfo.value.ifOpen === true){
         // handleQuery1()
@@ -35,7 +34,7 @@ const handleStartOrder = () =>{
     <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder"  />
     <otp :ProductInfo = "pInfo"/>
     <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" @select="select"/>
-    <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "ProductDataInfo" />
+    <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "pDInfo" />
     <Basket class="basket" />
 </div>
 </template>
