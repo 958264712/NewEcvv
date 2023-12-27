@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 
-const props = defineProps(["companyCateGroup","companyProfile"])
+const props = defineProps(["companyCateGroup","companyProfile","subDomainName "])
 const isShow = ref(false)
 const isShow1 = ref(false)
 const handleShow = (item,val) => {
@@ -11,6 +11,21 @@ const handleShow = (item,val) => {
         isShow1.value = val
     }
 }
+const clickIndex = ()=>{
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/index.html`,'_blank')
+}
+const clickProducts = ()=>{
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/products.html`,'_blank')
+}
+const clickProfile = ()=>{
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/profile.html`,'_blank')
+}
+const clickContact= ()=>{
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/contact.html`,'_blank')
+}
+const clickProductsMap = ()=>{
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/products-map.html`,'_blank')
+}
 </script>
 <template>
   <div class="nav-warp">
@@ -19,7 +34,7 @@ const handleShow = (item,val) => {
         <li class="tab current">
           <a
             class="tab-link"
-            href="https://www.ecvv.com/company/betty-glass/index.html"
+            @click="clickIndex"
           >
             Home<b class="no-triangle"></b
           ></a>
@@ -27,7 +42,7 @@ const handleShow = (item,val) => {
         <li class="tab dropdown">
           <a
             class="tab-link"
-            href="https://www.ecvv.com/company/betty-glass/products.html"
+            @click="clickProducts"
             @mouseover="handleShow('isShow',true)"
             @mouseleave="handleShow('isShow',false)"
             >Product Categories<b class="triangle"></b
@@ -46,7 +61,7 @@ const handleShow = (item,val) => {
         <li class="tab dropdown">
           <a
             class="tab-link"
-            href="https://www.ecvv.com/company/betty-glass/profile.html"
+            @click="clickProfile"
             @mouseover="handleShow('isShow1',true)"
             @mouseleave="handleShow('isShow1',false)"
           >
@@ -66,14 +81,14 @@ const handleShow = (item,val) => {
         <li class="tab">
           <a
             class="tab-link"
-            href="https://www.ecvv.com/company/betty-glass/contact.html"
+            @click="clickContact"
             >Contacts<b class="no-triangle"></b>
           </a>
         </li>
         <li class="tab">
           <a
             class="tab-link"
-            href="https://www.ecvv.com/company/betty-glass/products-map.html"
+            @click="clickProductsMap"
             >Products Map<b class="no-triangle"></b>
           </a>
         </li>
