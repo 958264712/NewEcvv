@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { defineAsyncComponent,ref } from 'vue'
+import { defineAsyncComponent,ref,watch } from 'vue'
 import { Session } from "@/utils/storage";
 
 const props = defineProps(['handleStartOrder','ProductInfo',"info"])
@@ -64,13 +64,17 @@ window.addEventListener('scroll', () => {
             scroll.value = true
         }
     } 
-    if (scrollTop.value >= document.documentElement.scrollTop && scroll.value === true ) {
+    if ((scrollTop.value >= document.documentElement.scrollTop && scroll.value === true ) ||(scrollTop.value >= document.documentElement.scrollTop && scroll.value === false && top.offsetTop > document.documentElement.scrollTop)  ) {
         style.value = {
             position: 'inherit',
         }        
         scroll.value = false
     }
 })
+// watch(()=>document.documentElement.scrollTop,()=>{
+// console.log(document.getElementById("scroll").offsetTop);
+
+// })
 // const handleSendMsg = (id:number) =>{
 //     return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
 // }

@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { reactive, ref} from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { Session } from "@/utils/storage";
 
-const props = defineProps(["companyname"])
+const props = defineProps(["companyname","visible"])
 const router = useRouter();
 
-const formSize = ref("default");
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
   id: "",
@@ -58,11 +57,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   });
 };
-
-
 const queryRFQ = () => {
   router.push({ path: `/RFQInquiry` });
 };
+
 </script>
 <template>
   <div class="v3-email">
@@ -103,7 +101,7 @@ const queryRFQ = () => {
           class="box-item"
           effect="light"
           placement="right"
-          :visible="true"
+          :visible="props.visible"
         >
           <template #content>
             <span>Enter your inquiry details such as:</span>

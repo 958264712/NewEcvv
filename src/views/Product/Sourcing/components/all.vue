@@ -60,7 +60,7 @@ window.addEventListener('scroll', () => {
             scroll.value = true
         }
     } 
-    if (scrollTop.value >= document.documentElement.scrollTop && scroll.value === true ) {
+    if ((scrollTop.value >= document.documentElement.scrollTop && scroll.value === true ) ||(scrollTop.value >= document.documentElement.scrollTop && scroll.value === false && top.offsetTop > document.documentElement.scrollTop)  ) {
         style.value = {
             position: 'inherit',
         }        

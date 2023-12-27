@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent,onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { getLatestProduct,getProductInfo,getProductOrder } from "@/api/modular/search";
 import { Session } from '@/utils/storage';
@@ -17,6 +17,7 @@ const router = useRouter();
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
 const companyInfo = Session.get('companyInfo')
+const visible = ref(false);
 const itemList = ref<any>([]);
 const productGroup = ref<any>([]);
 const ProductInfo = ref<any>({})
@@ -122,6 +123,23 @@ const pInfo = async () => {
         Session.set("pInfo",res.data.result)
     }
 }
+
+window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop >= 4000) {
+        visible.value = true
+    } else {
+        visible.value = false
+    }
+})
+onMounted(()=>{
+ window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop >= 4000) {
+        visible.value = true
+    } else {
+        visible.value = false
+    }
+})
+})
 </script>
 <template>
   <el-row id="produceModule">
@@ -505,7 +523,7 @@ const pInfo = async () => {
           </div>
         </div>
       </div>
-      <FormInquire :companyname="props.companyname" />
+      <FormInquire :companyname="props.companyname" :visible="visible"/>
     </el-col>
   </el-row>
 </template>
