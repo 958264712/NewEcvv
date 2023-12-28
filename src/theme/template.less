@@ -1,5 +1,7 @@
 /*template-less*/
-@backGroundColor: #79C547;
+// --primaryColor:#79C547;
+@backGroundColor:var(--primaryColor);
+@backGroundColorRgba: var(--primaryRgbaColor);
 .main-wrap {
     /*background-color: #79C547;*/
 }
@@ -9,7 +11,7 @@
 }
 
 .cws .name span {
-    color: #408612;
+    color: @backGroundColor;
 }
 
 .back-top .main-icon {
@@ -37,8 +39,8 @@
 }
 
 .nav {
-    background-color: #90c41a;
-    background-image: linear-gradient(#a9dc1f, #90c41a);
+    background-color: @backGroundColorRgba;
+    // background-image: linear-gradient(@backGroundColor, @backGroundColor);
     background-repeat: repeat-x;
 }
 
@@ -56,7 +58,7 @@
 }
 
 .home-company-name a {
-    color: #1F8500;
+    color: @backGroundColor;
 }
 
 .home-company-name a:hover {
@@ -64,7 +66,7 @@
 }
 
 .m-box-header h3 {
-    color: #1f8500;
+    color: @backGroundColor;
 }
 
 .v3-email {

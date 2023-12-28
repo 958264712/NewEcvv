@@ -96,9 +96,9 @@ onMounted(() => {
       :countryName="countryName"
       :companyarea="companyarea"
     />
-    <HeaderWrap :companyIcon="companyIcon" :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
+    <HeaderWrap :companySlidePicList="companySlidePicList" :companyIcon="companyIcon" :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
       
-    <NavWrap :subDomainName="subDomainName"/>
+    <NavWrap :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
     <el-carousel
       arrow="always"
       :interval="3000"

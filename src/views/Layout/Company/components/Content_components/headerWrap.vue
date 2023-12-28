@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-const props = defineProps(["companyname", "description","companyIcon"]);
+const props = defineProps(["companyname", "description","companyIcon","companySlidePicList"]);
 </script>
 <template>
   <div class="header-warp">
@@ -14,8 +14,8 @@ const props = defineProps(["companyname", "description","companyIcon"]);
                 rel="nofollow"
               >
                 <img
-                  src="https://upload.ecvv.com/upload/UserImage/20200528/YanchengForeignTradeCoLtd_a597be45-e29a-4339-a3cb-1a4d0d0365b5.png"
-                  alt="Yancheng Really Houseware Corp., Ltd."
+                  :src="props.companySlidePicList[0]"
+                  :alt="props.companyname"
                   class="examp"
                   onerror="this.style.display='none'"
                 />

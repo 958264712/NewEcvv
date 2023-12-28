@@ -2,6 +2,8 @@
 import { ref,onMounted,defineAsyncComponent } from "vue";
 import { getCompanyInfo } from '@/api/modular/company.ts'
 import { Session } from '@/utils/storage';
+import '@/theme/template.less'
+
 
 const ComHeader = defineAsyncComponent(() => import("./components/company_header.vue"));
 const NavWrap = defineAsyncComponent(() => import("./components/navWrap.vue"));
@@ -33,6 +35,39 @@ const companyIcon = ref<any>({
   year:0,
   yearEnd:''
 })
+const primaryColor = ref("#0173a9");
+const primaryRgbaColor = primaryColor.value
+const companyStyleType = () => {
+  switch (key) {
+    case 1:
+      primaryColor.value = '#0173a9'
+      break;
+    case 2:
+      primaryColor.value = '#ed9706'
+      break;
+    case 3:
+      primaryColor.value = '#79C547'
+      break;
+    case 4:
+      primaryColor.value = '#d02460'
+      break;
+    case 5:
+      primaryColor.value = '#ad0101'
+      break;
+    case 6:
+      primaryColor.value = '#3e5e87'
+      break;
+    case 7:
+      primaryColor.value = '#3b3c3e'
+      break;
+    case 8:
+      primaryColor.value = '#2469aa'
+      break;
+    case 9:
+      primaryColor.value = '#64bbd7'
+      break;
+  }
+};
 
 // 获取公司信息
 const handleQuery = async () => {
@@ -74,7 +109,7 @@ onMounted(()=>{
 <template>
   <main class='companyModuler'>
       <ComHeader :companyIcon="companyIcon" :companyname="companyname" :companyCardInfo="companyCardInfo" :countryName="countryName" :companyarea="companyarea" :companyPic="companyPic"/>
-      <NavWrap  :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
+      <NavWrap :style="{'--primaryColor': primaryColor,'--primaryRgbaColor':primaryRgbaColor}" :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
      <el-carousel
       arrow="always"
       :interval="3000"
@@ -85,7 +120,7 @@ onMounted(()=>{
           <img :src="item" style="width:100%;height:100%" />
       </el-carousel-item>
     </el-carousel>
-      <ProduceList :companyCateGroup="companyCateGroup" :newProducts="newProducts" :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
+      <ProduceList :style="{'--primaryColor': primaryColor}" :companyCateGroup="companyCateGroup" :newProducts="newProducts" :productShowcase="productShowcase" :companyname="companyname" :companyContactUrl="companyContactUrl" :companyPic="companyPic" :companyContactPerson="companyContactPerson"/>
   </main>
 </template>
 <style lang="less" >

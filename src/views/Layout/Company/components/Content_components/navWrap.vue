@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 
-const props = defineProps(["companyCateGroup","companyProfile","subDomainName "])
+const props = defineProps(["companyCateGroup","companyProfile","subDomainName"])
 const isShow = ref(false)
 const isShow1 = ref(false)
 const handleShow = (item,val) => {
@@ -11,6 +11,7 @@ const handleShow = (item,val) => {
         isShow1.value = val
     }
 }
+
 const clickIndex = ()=>{
   window.open(`https://www.ecvv.com/company/${props.subDomainName}/index.html`,'_blank')
 }

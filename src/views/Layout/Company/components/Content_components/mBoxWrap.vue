@@ -356,7 +356,7 @@ a{
     a {
       font-size: 16px;
       font-weight: 700;
-      color: #1f8500;
+      color:var(--primaryColor)
     }
   }
   .company-join {

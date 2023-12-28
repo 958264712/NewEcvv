@@ -64,6 +64,9 @@ handleQuery()
   background-color: white;
   z-index: 1;
 }
+a{
+  color:var(--primaryColor)
+}
 .you-may-like {
   padding-left: 10px;
   font: 12px/1.5 "Roboto", Arial, "Microsoft YaHei", sans-serif;
@@ -79,7 +82,7 @@ handleQuery()
   }
   .yml-content::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background: #77a8e5;
+    background: var(--primaryColor);
   }
   .yml-content {
     max-height: 410px;
@@ -146,7 +149,7 @@ handleQuery()
 }
 a,
 a:link {
-  color: #004b91;
+  // color: #004b91;
   text-decoration: none;
 }
 a:hover {

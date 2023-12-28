@@ -2,11 +2,7 @@
 import { ref } from "vue";
 import { Session } from '@/utils/storage';
 
-  // const load =()=> {
-  //   document.getElementById("fb-root1").innerHTML +=
-  //     '<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fecvvchina&amp;width=50&amp;layout=button&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:20px;" allowTransparency="false"></iframe>';
-  // }
-  // window.addEventListener("load", load)
+
   const companyInfo = ref<any>(Session.get('companyInfo'))
 </script>
 <template>
@@ -84,7 +80,7 @@ import { Session } from '@/utils/storage';
     margin-top: 73px;
 
     h3 {
-      background-color: #004b91;
+      // background-color: #004b91;
       color: #ffffff;
       font-size: 12px;
       font-weight: 400;
@@ -98,9 +94,7 @@ import { Session } from '@/utils/storage';
       line-height: 1.2;
       padding: 10px 4px;
       text-align: center;
-      span {
-        color: #408612;
-      }
+      
     }
     .chat-feedback span {
       width: 19px;
