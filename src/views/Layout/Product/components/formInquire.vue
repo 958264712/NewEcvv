@@ -47,7 +47,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     Session.set('sendCompanyInfo',{
       form:ruleForm.id,
       to:props.title,
-      message:ruleForm.message
+      message:ruleForm.message,
+      product:true
     })
     ruleForm.id = '' 
     ruleForm.message = ''

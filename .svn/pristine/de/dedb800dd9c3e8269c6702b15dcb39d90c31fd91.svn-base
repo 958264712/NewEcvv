@@ -37,7 +37,7 @@ const companyIcon = ref<any>({
 })
 const primaryColor = ref("#0173a9");
 const primaryRgbaColor = primaryColor.value
-const companyStyleType = (key) => {
+const companyStyleType = () => {
   switch (key) {
     case 1:
       primaryColor.value = '#0173a9'
@@ -88,7 +88,6 @@ const handleQuery = async () => {
         companyContactPerson.value = res.data.result.companyContactPerson
         companyContactUrl.value = res.data.result.companyContactUrl
         newProducts.value = res.data.result.newProducts 
-        companyStyleType(res.data.result.webModel)
         companyIcon.value = {
           companylevel:res.data.result.companylevel,
           year:res.data.result.year,

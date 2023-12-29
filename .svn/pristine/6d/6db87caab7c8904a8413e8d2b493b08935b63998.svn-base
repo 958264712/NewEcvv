@@ -1,0 +1,629 @@
+<script lang="ts" setup>
+import { defineAsyncComponent, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const Section = defineAsyncComponent(import("@/components/Section/index.vue"));
+const props = defineProps([
+  "companyname",
+  "companyInfo",
+  "companyPic",
+  "productShowcase",
+  "companyContactPerson",
+  "companyContactUrl",
+  "newProducts",
+  "subDomainName",
+]);
+
+const styleTop = ref<any>({
+  height: "220px",
+  width: "300px",
+});
+const carousel = ref()
+
+// 改变显示图片
+const handlemouseOver = (item) => {
+  carousel.value.setActiveItem(item)
+}
+// 改变走马灯高亮
+const carouselChange = (val) => {
+  const bottomCarousel = document.getElementById("bottomCarousel")
+  let newList = Array.from(bottomCarousel.children)
+  for(let i of newList){
+    i.children[0].removeAttribute("class", 'current')
+  }
+  bottomCarousel.children[val].children[0].setAttribute("class", 'current')
+}
+const clickHref = () => {
+  window.open(`https://www.ecvv.com/company/${props.subDomainName}/products.html`, "_blank");
+}
+
+// 刷新完成页面配置高亮
+window.addEventListener("load",()=>{
+  const bottomCarousel = document.getElementById("bottomCarousel")
+  bottomCarousel.children[0].children[0].setAttribute("class", 'current')
+})
+
+</script>
+<template>
+  <div class="m-box-wrap mt10">
+    <div class="m-box">
+      <div class="m-box-header">
+        <h3 title="Company Introduction">Company Introduction</h3>
+      </div>
+      <div class="m-box-main">
+        <div>
+          <div class="company-image-wrap">
+            <div class="company-image-container">
+              <template v-if="props.companyPic.length > 1">
+                <el-carousel
+                  arrow="never"
+                  indicator-position="none"
+                  :style="styleTop"
+                  :interval="7000"
+                  @change ="(val)=>carouselChange(val)"
+                  ref="carousel"
+                >
+                  <el-carousel-item
+                    v-for="item in props.companyPic"
+                    :key="item.key"
+                  >
+                    <a
+                      :title="props.companyname"
+                      :href="props.companyContactUrl"
+                    >
+                      <img
+                        :src="item"
+                        style="display: inline"
+                        :alt="props.companyname"
+                      />
+                    </a>
+                  </el-carousel-item>
+                </el-carousel>
+                <ul class="bottomCarousel" id="bottomCarousel">
+                  <li 
+                    v-for="(item,index) in props.companyPic" 
+                    :key="item.key" 
+                    @mouseover="handlemouseOver(index)"
+                  >
+                    <a
+                      :title="props.companyname"
+                      :href="props.companyContactUrl"
+                    >
+                      <img
+                        :src="item"
+                        style="display: inline"
+                        :alt="props.companyname"
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </template>
+              <template v-else>
+                <a :title="props.companyname">
+                  <img
+                    id="ucCompanyShowIcoImg"
+                    :src="props.companyPic"
+                    style="display: inline"
+                    :alt="props.companyname"
+                /></a>
+              </template>
+            </div>
+            <div id="ucCompanyMiniIcoDiv" class="company-thumb-container"></div>
+          </div>
+        </div>
+
+        <div class="company-intro-text">
+          <p class="home-company-name">
+            <a href="https://www.ecvv.com/company/betty-glass/profile.html">
+              {{ props.companyname }}</a
+            >
+          </p>
+
+          <div class="company-join">
+            <div class="company-certificates">
+              <label> Verification Type:</label>
+              <i class="lice-logo"></i>Onsite Check
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <table class="table">
+            <tbody>
+              <tr
+                :key="item"
+                :id="item"
+                v-show="item.length"
+                v-for="(item, key, index) in props.companyInfo"
+              >
+                <th>{{ key }}:</th>
+                <td>
+                  <span :title="item">{{ item }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="company-intro-link">
+            <a
+              class="more"
+              target="_blank"
+              href="https://www.ecvv.com/company/betty-glass/profile.html"
+              title="Yancheng Really Houseware Corp., Ltd. profile "
+              >Learn more about us <em class="right-arrow"></em>
+            </a>
+          </div>
+        </div>
+        <div class="home-contact">
+          <div class="supplier-name">
+            <a
+              :href="props.companyContactUrl"
+              title="Yancheng Really Houseware Corp., Ltd. contact "
+            >
+              {{ props.companyContactPerson }}
+            </a>
+          </div>
+          <div class="supplier-line">
+            <a
+              class="main-icon ico-skype-on"
+              rel="nofollow"
+              href="javascript:void(0);"
+              onclick="ChatSkype('betty-he552','779973','-1','https://www.ecvv.com/company/betty-glass/index.html','_detectEcvvSkypeClient');"
+              ><p>Chat Now</p></a
+            >
+          </div>
+
+          <div class="supplier-feedback">
+            <a
+              class="primary-button gold-button fs18-button"
+              target="_blank"
+              rel="nofollow"
+              href="https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=C|779973"
+              ><span class="icon-content-supplier"> </span>Contact Supplier
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="m-box-wrap">
+    <div class="m-box">
+      <div class="m-box-header">
+        <h3 title="">Product Showcase</h3>
+      </div>
+      <div class="m-box-main">
+        <ul class="small120-products">
+          <li v-for="(item, index) in props.productShowcase">
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  :href="item.productUrl"
+                  :title="item.productname"
+                >
+                  <img
+                    :src="item.picPath"
+                    :alt="item.productname"
+                    :title="item.productname"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a
+                  target="_blank"
+                  :href="item.productUrl"
+                  :title="item.productname"
+                  >{{ item.productname }}</a
+                >
+              </div>
+              <div class="sr-proList-price">
+                <span class="sr-proList-unit">Price: </span>
+                <span class="sr-proList-num"
+                  >{{ item.m_Currency }} ${{ item.m_FobPrice }}
+                </span>
+                <span class="">/ Piece</span>
+              </div>
+              <div class="sr-proList-price">
+                <span class="sr-proList-unit">Min. Order: </span>
+                {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
+              </div>
+            </div>
+            <div class="main-icon hot-pro-small"></div>
+          </li>
+        </ul>
+        <div class="more-cat">
+          <a @click="clickHref()">See all products in showcase&gt;&gt;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-box-wrap">
+    <div class="m-box">
+      <div class="m-box-header">
+        <h3>New products</h3>
+      </div>
+      <div class="m-box-main">
+        <ul class="small120-products">
+          <li v-for="(item, index) in props.newProducts">
+            <div class="small120-product">
+              <div class="product-img abs-center">
+                <a
+                  target="_blank"
+                  :href="item.productUrl"
+                  :title="item.productname"
+                >
+                  <img
+                    :src="item.picPath"
+                    :alt="item.productname"
+                    :title="item.productname"
+                  />
+                </a>
+              </div>
+              <div class="product-title1">
+                <a :href="item.productUrl" :title="item.productname">{{
+                  item.productname
+                }}</a>
+              </div>
+              <div class="sr-proList-price">
+                <span class="sr-proList-unit">Price: </span>
+                <span class="sr-proList-num"
+                  >{{ item.m_Currency }} ${{ item.m_FobPrice }}
+                </span>
+                <span class="">/ Piece</span>
+              </div>
+              <div class="sr-proList-price">
+                <span class="sr-proList-unit">Min. Order: </span>
+                {{ item.m_Minimum_Order }} {{ item.minOrderUnit }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="less" scoped>
+a{
+  cursor:pointer;
+}
+.m-box {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+}
+.m-box-header {
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  height: 28px;
+  line-height: 28px;
+}
+.m-box-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  float: left;
+  overflow: hidden;
+  padding-left: 15px;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+.main-icon,
+.icon-content-supplier {
+  background-image: url(@/assets/images/Content_images/sprites-small.png);
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+.mt10 .m-box-main {
+  display: flex;
+  padding: 16px 16px 0;
+  justify-content: space-between;
+}
+.m-box-main {
+  padding: 16px 0 0;
+}
+.company-image-container a img {
+  height: 220px;
+  width: 300px;
+}
+.company-image-container .bottomCarousel {
+  padding: 0;
+  display:flex;
+  li {
+    margin-top: 10px;
+    a {
+      display: inline-block;
+      margin-right: 2px;
+      border: 2px solid #ddd;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}
+
+
+.company-image-container .bottomCarousel a:hover,.company-image-container .bottomCarousel .current {
+    border-color: #ee8800;
+}
+
+.company-intro-text {
+  padding-right: 15px;
+  color: #666;
+  float: left;
+  line-height: 180%;
+  overflow: hidden;
+  width: 380px;
+  .home-company-name {
+    a {
+      font-size: 16px;
+      font-weight: 700;
+      color:var(--primaryColor)
+    }
+  }
+  .company-join {
+    margin-bottom: 10px;
+    label {
+      float: left;
+      font-size: 14px;
+      line-height: 25px;
+      margin-right: 10px;
+    }
+    .lice-logo {
+      background-position: 0 -30px;
+      height: 25px;
+      width: 20px;
+      margin-right: 5px;
+      vertical-align: middle;
+      background-image: url("@/assets/images/Content_images/sprites-small.png");
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+    .clear {
+      margin: 0px;
+      padding: 0px;
+      clear: both;
+    }
+  }
+  .table {
+    color: #999;
+    width: 100%;
+    max-width: 100%;
+    th {
+      width: 110px;
+    }
+    td,
+    th {
+      padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+    }
+    span {
+      display: block;
+      overflow: hidden;
+      width: 245px;
+      white-space: nowrap;
+      height: 18px;
+      text-overflow: ellipsis;
+    }
+    th,
+    td {
+      margin-bottom: 8px;
+      padding: 0 10px 4px 0 !important;
+      border-top: none !important;
+      vertical-align: top;
+    }
+    th {
+      color: #666;
+      font-weight: 400;
+      text-align: left;
+    }
+  }
+  .company-intro-link {
+    margin: 5px 0 10px;
+    .more {
+      color: #999;
+      position: relative;
+      top: 0;
+      left: 0;
+      .right-arrow {
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #999;
+        border-style: dashed dashed dashed solid;
+        border-width: 4px;
+        display: inline-block;
+        height: 0;
+        line-height: 0;
+        margin-right: 1px;
+        margin-top: -2px;
+        width: 0;
+        margin-left: 5px;
+      }
+    }
+    .more:hover {
+      color: #ee6600;
+    }
+  }
+}
+
+.home-contact {
+  width: 235px;
+  padding-bottom: 15px;
+  height: 160px;
+  background-color: #f5f5f5;
+}
+.home-contact .supplier-name:after {
+  clear: both;
+  content: "";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+.home-contact .supplier-name {
+  border-bottom: 1px solid #fff;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  margin-top: 15px;
+}
+.home-contact .supplier-line {
+  padding-left: 15px;
+  margin-top: 20px;
+}
+.supplier-name a {
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 15px;
+  padding-left: 22px;
+  color: #999;
+  background-position: 0 0;
+  background-image: url("@/assets/images/Content_images/sprites-small.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.supplier-name a:hover {
+  color: #ee6600;
+}
+.ico-skype-on {
+  padding-left: 23px;
+  vertical-align: middle;
+  width: 18px;
+  background-position: -30px -60px;
+  p {
+    width: 100px;
+  }
+}
+.home-contact .supplier-feedback {
+  padding-left: 15px;
+  margin-top: 25px;
+  a {
+    float: left;
+  }
+  .fs18-button {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 2px;
+  }
+  .gold-button {
+    background-color: #f3d078;
+    background: -moz-linear-gradient(top, #f7dfa5, #f0c14b);
+    background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
+    background: -o-linear-gradient(top, #f7dfa5, #f0c14b);
+    background: -ms-linear-gradient(top, #f7dfa5, #f0c14b);
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cba957 #bf942a #aa8326;
+    color: #333 !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+    .icon-content-supplier {
+      background-position: -60px -60px;
+      display: inline-block;
+      height: 13px;
+      margin-right: 5px;
+      margin-top: -2px;
+      overflow: hidden;
+      vertical-align: middle;
+      width: 17px;
+    }
+  }
+  .primary-button {
+    cursor: pointer;
+    font-family: Arial;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+.home-company-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+.company-join {
+  margin-bottom: 10px;
+}
+.company-join .company-certificates label {
+  float: left;
+  font-size: 14px;
+  line-height: 25px;
+  margin-right: 10px;
+}
+
+// 1
+.small120-products {
+  zoom: 1;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  li {
+    width: 175px;
+    position: relative;
+    margin-right: 14px;
+    margin-bottom: 15px;
+    .small120-product .product-img {
+      width: 120px;
+      height: 120px;
+      border: 1px solid #eee;
+      margin: 5px auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .small120-product .product-img img {
+      max-height: 120px;
+      max-width: 120px;
+    }
+    .abs-center {
+      display: table;
+      table-layout: fixed;
+      text-align: center;
+      vertical-align: middle;
+      a {
+        display: table-cell;
+        font-size: 0;
+        height: 100%;
+        vertical-align: middle;
+        width: 100%;
+      }
+    }
+    .product-title1 {
+      padding: 0px;
+      max-height: 120px;
+      display: inline-block;
+      overflow: hidden;
+    }
+    .sr-proList-price {
+      height: 21px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #888;
+      .sr-proList-unit {
+        font-size: 14px;
+        line-height: 21px;
+      }
+      .sr-proList-num {
+        color: #e64545;
+        line-height: 21px;
+        font-weight: bold;
+      }
+    }
+    .small120-products .hot-pro-small {
+      left: 25px !important;
+      top: 4px !important;
+    }
+    .hot-pro-small {
+      background-position: -66px -220px;
+      height: 44px;
+      width: 44px;
+      position: absolute;
+      left: -1px;
+      top: -1px;
+    }
+  }
+}
+.m-box-wrap .m-box .m-box-main .more-cat a {
+  color: #666;
+  float: right;
+  margin-right: 50px;
+}
+</style>

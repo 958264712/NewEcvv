@@ -1,9 +1,9 @@
 
 /**
  * window.Cookie 浏览器cookie
- * @method colorToRGB 将16进制color转为rgba格式
- * @method rgbToHex 将rgb格式转为16进制color
+ * @method colorToRGB 将16进制color转位rgba格式
  */
+
 export const colorToRGB = (color:string, opt:number) => {
     let color1, color2, color3;
     color = '' + color;
@@ -21,5 +21,3 @@ export const colorToRGB = (color:string, opt:number) => {
         return 'rgb(' + color1 + ',' + color2 + ',' + color3 + ',' + opt + ')';
     }
 };
-
-export const rgbToHex = (r: any, g: any, b: any) => "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);

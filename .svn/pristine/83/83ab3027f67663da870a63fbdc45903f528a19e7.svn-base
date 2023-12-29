@@ -1,0 +1,78 @@
+/*template-less*/
+// --primaryColor:#79C547;
+@backGroundColor:var(--primaryColor);
+@backGroundColorRgba: var(--primaryRgbaColor);
+.main-wrap {
+    /*background-color: #79C547;*/
+}
+
+.cws h3 {
+    background-color: @backGroundColor;
+}
+
+.cws .name span {
+    color: @backGroundColor;
+}
+
+.back-top .main-icon {
+    background-position: -58px -490px;
+}
+
+.back-top {
+    background-color: #fff;
+}
+
+.back-top:hover {
+    background-color: #f9f9f9;
+}
+
+.header {
+    background: url('') no-repeat scroll 0 0 @backGroundColor;
+}
+
+.header .company-name {
+    color: #fff;
+}
+
+.header .company-name .examp {
+    color: #fff;
+}
+
+.nav {
+    background-color: @backGroundColorRgba;
+    // background-image: linear-gradient(@backGroundColor, @backGroundColor);
+    background-repeat: repeat-x;
+}
+
+.nav-tabs a.tab-link {
+    color: #333;
+}
+
+.nav-tabs li.current a.tab-link {
+    background-color: #fff;
+}
+
+.nav-tabs li.current a.tab-link,
+.nav-tabs li.hov a {
+    border-top-color: #67533B;
+}
+
+.home-company-name a {
+    color: @backGroundColor;
+}
+
+.home-company-name a:hover {
+    color: #EE6600;
+}
+
+.m-box-header h3 {
+    color: @backGroundColor;
+}
+
+.v3-email {
+    border-color: @backGroundColor;
+}
+
+.nav-tabs2 a.tab-link {
+    color: #333;
+}

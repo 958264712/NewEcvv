@@ -7,6 +7,7 @@ import type { UploadProps } from "element-plus";
 import { Session } from "@/utils/storage";
 
 const sendCompanyInfo = Session.get("sendCompanyInfo");
+const productInfo = Session.get("productInfo");
 const router = useRouter();
 const transferModels = ref();
 const CateList = ref("");
@@ -32,7 +33,21 @@ const queryParams = ref<any>({
   radio: 0,
   select: "Male",
 });
-
+const piecesList = ref([
+  { label: "Pieces" },
+  { label: "Bags" },
+  { label: "Boxes" },
+  { label: "Foot" },
+  { label: "Meter" },
+  { label: "Pairs" },
+  { label: "Reams" },
+  { label: "Rolls" },
+  { label: "Sets" },
+  { label: "Square Meters" },
+  { label: "Square Feet" },
+  { label: "Tons" },
+  { label: "Yard" },
+]);
 // 获取电脑信息
 const service = axios.create({
   baseURL: "https://ipapi.co",
@@ -145,7 +160,58 @@ const onSubmit = async () => {
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-form-item label="To:">
-            {{ sendCompanyInfo.to }}
+            <template v-if="!sendCompanyInfo.product">
+              {{ sendCompanyInfo.to }}
+            </template>
+            <template v-else>
+              <div class="productInfo">
+                <div class="img">
+                  <img :src="productInfo.picPath" />
+                  <div class="prod-name">
+                    <a :href="productInfo?.productUrl" :title="productInfo?.productname">{{ productInfo?.productname }}</a>
+                  </div>
+                </div>
+                <div class="productNum">
+                  <el-input
+                    placeholder="Quantity"
+                    v-model="queryParams.productNumber"
+                    style="width: 100px"
+                  />
+                  <div class="productPieces">
+                    <el-select
+                      v-model="unit"
+                      placeholder="Pieces"
+                      style="width: 100px"
+                      @change="(val) => change(val)"
+                    >
+                      <el-option
+                        v-for="(item, index) in piecesList"
+                        :key="index"
+                        :label="item.label"
+                        :value="item.label"
+                      ></el-option>
+                      <div
+                        class="addPieces"
+                        style="
+                          width: 170px;
+                          display: flex;
+                          justify-content: space-evenly;
+                          align-items: center;
+                          margin-top: 20px;
+                        "
+                      >
+                        <el-input
+                          v-model="add"
+                          placeholder="other"
+                          style="width: 100px"
+                        />
+                        <a @click="clickAdd" style="cursor: pointer">+add</a>
+                      </div>
+                    </el-select>
+                  </div>
+                </div>
+              </div>
+            </template>
           </el-form-item>
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -702,7 +768,44 @@ Other special requests:
     line-height: 34px;
     margin-bottom: 20px;
   }
+.productInfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .img {
+        display: flex;
+        img {
+          width: 70px;
+          height: 70px;
+        }
+        .prod-name {
+          margin-left: 20px;
+          margin-right: 20px;
+          height: 48px;
+          line-height: 70px;
+          max-width: 500px;
+          box-sizing: border-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          a {
+            color: #1470cc;
+          }
+          a:hover {
+            color: #e64545;
+          }
+        }
+      }
 
+      .productNum {
+        margin-right: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   .layui-form-item {
     margin-bottom: 15px;
     clear: both;

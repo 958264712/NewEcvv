@@ -247,7 +247,7 @@ function getUrlParam(name: any) {
         <div class="img">
           <img :src="productInfo.picPath" />
           <div class="prod-name">
-            <a href="" title="">{{ productInfo?.productname }}</a>
+            <a :href="productInfo?.productUrl" :title="productInfo?.productname">{{ productInfo?.productname }}</a>
           </div>
         </div>
         <div class="productNum">
@@ -259,7 +259,7 @@ function getUrlParam(name: any) {
           <div class="productPieces">
             <el-select
               v-model="unit"
-              placeholder="queryParams.Pieces"
+              placeholder="Pieces"
               style="width: 100px"
               @change="(val) => change(val)"
             >
