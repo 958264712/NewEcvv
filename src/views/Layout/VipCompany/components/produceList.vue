@@ -33,8 +33,8 @@ const params = ref({
 // 询盘1
 const SendMessage = (id, item) => {
   Session.set("productInfo", item);
-  paramsInfo.value.pid = '4868524'
-  params.value.pid = '4868524'
+  paramsInfo.value.pid = id
+  params.value.pid = id
   pDInfo()
   pInfo()
   let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
@@ -43,8 +43,8 @@ const SendMessage = (id, item) => {
 
 const clickProduct = (id,item) => {
   Session.set("productInfo", item);
-  paramsInfo.value.pid = '4868524'
-  params.value.pid = '4868524'
+  paramsInfo.value.pid = id
+  params.value.pid = id
   pDInfo()
   pInfo()
   let routeUrl = router.resolve({ path: `/product/${id}` });

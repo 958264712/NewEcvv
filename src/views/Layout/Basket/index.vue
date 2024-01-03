@@ -150,7 +150,7 @@ watch(
   }
 );
 watch(
-  () => stores.productItemList.length,
+  () => stores.productItemList,
   () => {
     len.value = Local.get("productItemList");
     basketList.value = Local.get("basketList")

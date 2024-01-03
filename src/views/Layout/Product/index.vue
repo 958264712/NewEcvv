@@ -72,4 +72,5 @@ const handleStartOrder = () =>{
   display: inline-block;
   background-repeat: no-repeat;
 }
+a{cursor:pointer;}
 </style>

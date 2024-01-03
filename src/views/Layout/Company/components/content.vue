@@ -24,6 +24,7 @@ const PCcols = defineAsyncComponent(
 const FormInquire = defineAsyncComponent(
   () => import("./Content_components/formInquire.vue")
 );
+const Basket = defineAsyncComponent(() => import("../../Basket/index.vue"));
 
 const companyInfo = ref<any>({});
 const companyProfile = ref<any>({})
@@ -97,7 +98,6 @@ onMounted(() => {
       :companyarea="companyarea"
     />
     <HeaderWrap :companySlidePicList="companySlidePicList" :companyIcon="companyIcon" :companyCateGroup="companyCateGroup" :companyProfile="companyProfile" :companyname="companyname" :description="description" />
-      
     <NavWrap :companyProfile="companyProfile" :companyCateGroup="companyCateGroup" :subDomainName="subDomainName"/>
     <el-carousel
       arrow="always"
@@ -123,5 +123,6 @@ onMounted(() => {
       :companyCateGroup="companyCateGroup"
     />
     <FormInquire :companyname="companyname" />
+    <Basket class="basket" />
   </main>
 </template>
