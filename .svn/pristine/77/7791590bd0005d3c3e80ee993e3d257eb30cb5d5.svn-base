@@ -72,8 +72,7 @@ const companyStyleType = (key) => {
 
 // 获取公司信息
 const handleQuery = async () => {
-    const host = window.location.host
-    await getCompanyInfo(Object.assign({host:host})).then((res)=>{
+    await getCompanyInfo().then((res)=>{
       if(res.data.type === 'success'){
         companyInfo.value = res.data.result.companyInfo
         companyProfile.value = res.data.result.companyProfile

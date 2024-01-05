@@ -58,8 +58,7 @@ const radiusStyle = ref({
 });
 // 获取公司信息
 const handleQuery = async () => {
-  const host = window.location.host
-  await getCompanyInfo(Object.assign({host:host})).then((res) => {
+  await getCompanyInfo().then((res) => {
     if (res.data.type === "success") {
       Session.set("companyInfo", res.data.result);
       companyInfo.value = res.data.result.companyInfo;

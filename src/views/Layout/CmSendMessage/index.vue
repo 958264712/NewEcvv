@@ -5,6 +5,8 @@ import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import type { UploadProps } from "element-plus";
 import { Session } from "@/utils/storage";
+import { postSendMsg } from "@/api/modular/company.ts";
+import { sendCode } from "@/api/modular/account.ts";
 
 const sendCompanyInfo = Session.get("sendCompanyInfo");
 const productInfo = Session.get("productInfo");
@@ -20,18 +22,26 @@ const location =
     .split(" ") ?? [];
 
 const queryParams = ref<any>({
-  prodName: "",
-  destination_select: "China",
-  fullName: "",
-  detailsVal: sendCompanyInfo.message,
+  txtSubject: "",
+  txtFullName: "",
+  txtMessage: sendCompanyInfo.message,
   verificationCode: "",
-  phoneNumberVal: "",
-  companyNameVal: "",
-  businessEmailVal: sendCompanyInfo.form,
-  cip: "",
-  country: "",
+  txtCompanyName: "",
+  txtEmail: sendCompanyInfo.form,
   radio: 0,
-  select: "Male",
+  selSex: "Male",
+  txtQuant: 1000,
+  multipleQuotes: true,
+  selCountry: "",
+  txtUnit: "Piece(s)",
+  txtCountryCode: "",
+  txtAreaCode: "",
+  txtTel: "",
+  txtFaxCountryCode: "",
+  txtFaxAreaCode: "",
+  txtFax: "",
+  chkIDs: "",
+  hdCountryId: "",
 });
 const piecesList = ref([
   { label: "Pieces" },
@@ -48,76 +58,297 @@ const piecesList = ref([
   { label: "Tons" },
   { label: "Yard" },
 ]);
-// 获取电脑信息
-const service = axios.create({
-  baseURL: "https://ipapi.co",
-  timeout: 50000,
-  headers: { "Content-Type": "application/json" },
-});
-service({
-  url: "/json/",
-  method: "get",
-}).then((res) => {
-  if (res.status === 200) {
-    queryParams.value.cip = res.data.ip;
-    queryParams.value.country = res.data.country_name;
-    location.map((item: any) => {
-      const key = item.split("=");
-      if (key[0] === "prodName") {
-        queryParams.value.prodName = key[1];
-      }
-      if (key[0] === "prodDesc") {
-        queryParams.value.detailsVal = key[1];
-      }
-    });
-  }
-});
+const countryList = ref([
+  { label: "Afghanistan", value: "3" },
+  { label: "China", value: "46" },
+  { label: "Australia", value: "14" },
+  { label: "Austria", value: "13" },
+  { label: "Belgium", value: "20" },
+  { label: "Brazil", value: "29" },
+  { label: "Canada", value: "36" },
+  { label: "Denmark", value: "56" },
+  { label: "Finland", value: "67" },
+  { label: "France", value: "72" },
+  { label: "Germany", value: "75" },
+  { label: "China Hong Kong", value: "90" },
+  { label: "Italy", value: "104" },
+  { label: "Japan", value: "107" },
+  { label: "Netherlands", value: "157" },
+  { label: "Norway", value: "158" },
+  { label: "Portugal", value: "176" },
+  { label: "Singapore", value: "189" },
+  { label: "South Korea", value: "115" },
+  { label: "Spain", value: "65" },
+  { label: "Sweden", value: "188" },
+  { label: "China Taiwan", value: "217" },
+  { label: "United Kingdom", value: "221" },
+  { label: "United States", value: "223" },
+  { label: "Albania", value: "6" },
+  { label: "Algeria", value: "59" },
+  { label: "American Samoa", value: "12" },
+  { label: "Andorra", value: "1" },
+  { label: "Angola", value: "9" },
+  { label: "Anguilla", value: "5" },
+  { label: "Antarctica", value: "10" },
+  { label: "Antigua and Barbuda", value: "4" },
+  { label: "Argentina", value: "11" },
+  { label: "Armenia", value: "7" },
+  { label: "Aruba", value: "15" },
+  { label: "Australia", value: "14" },
+  { label: "Austria", value: "13" },
+  { label: "Azerbaijan", value: "16" },
+  { label: "AfghBahamasanistan", value: "30" },
+  { label: "Bahrain", value: "23" },
+  { label: "Bangladesh", value: "19" },
+  { label: "Barbados", value: "18" },
+  { label: "Belarus", value: "34" },
+  { label: "Belgium", value: "20" },
+  { label: "Belize", value: "35" },
+  { label: "Benin", value: "25" },
+  { label: "Bermuda", value: "26" },
+  { label: "Bhutan", value: "31" },
+  { label: "Bolivia", value: "28" },
+  { label: "Bosnia and Herzegovina", value: "17" },
+  { label: "Botswana", value: "33" },
+  { label: "Bouvet Island", value: "32" },
+  { label: "Brazil", value: "29" },
+  { label: "British Indian Ocean Territory", value: "100" },
+  { label: "Brunei Darussalam", value: "27" },
+  { label: "Bulgaria", value: "22" },
+  { label: "Burkina Faso", value: "21" },
+  { label: "Burundi", value: "24" },
+  { label: "Cambodia", value: "110" },
+  { label: "Cameroon", value: "45" },
+  { label: "Canada", value: "36" },
+  { label: "Cape Verde", value: "50" },
+  { label: "Cayman Islands", value: "117" },
+  { label: "Central African Republic", value: "39" },
+  { label: "Chad", value: "204" },
+  { label: "Channel Island", value: "38" },
+  { label: "Chile", value: "44" },
+  { label: "China", value: "46" },
+  { label: "Christmas Island", value: "51" },
+  { label: "Cocos (Keeling) Islands", value: "37" },
+  { label: "Colombia", value: "47" },
+  { label: "Comoros", value: "112" },
+  { label: "Congo", value: "40" },
+  { label: "Congo, The Democratic Republic Of The", value: "240" },
+  { label: "Cook Islands", value: "43" },
+  { label: "Costa Rica", value: "48" },
+  { label: "Cote DIvoire", value: "42" },
+  { label: "Croatia (local name: Hrvatska)", value: "93" },
+  { label: "Cuba", value: "49" },
+  { label: "Cyprus", value: "52" },
+  { label: "Czech Republic", value: "53" },
+  { label: "Denmark", value: "56" },
+  { label: "Djibouti", value: "55" },
+  { label: "Dominica", value: "57" },
+  { label: "Dominican Republic", value: "58" },
+  { label: "East Timor", value: "213" },
+  { label: "Ecuador", value: "60" },
+  { label: "Egypt", value: "62" },
+  { label: "El Salvador", value: "200" },
+  { label: "Equatorial Guinea", value: "84" },
+  { label: "Eritrea", value: "64" },
+  { label: "Estonia", value: "61" },
+  { label: "Ethiopia", value: "66" },
+  { label: "Falkland Islands (Malvinas)", value: "69" },
+  { label: "Faroe Islands", value: "71" },
+  { label: "Fiji", value: "68" },
+  { label: "Finland", value: "67" },
+  { label: "France", value: "72" },
+  { label: "France Metropolitan", value: "73" },
+  { label: "French Guiana", value: "77" },
+  { label: "French Polynesia", value: "167" },
+  { label: "French Southern Territories", value: "205" },
+  { label: "Gabon", value: "74" },
+  { label: "Gambia", value: "81" },
+  { label: "Georgia", value: "76" },
+  { label: "Germany", value: "54" },
+  { label: "Ghana", value: "78" },
+  { label: "Gibraltar", value: "79" },
+  { label: "Greece", value: "85" },
+  { label: "Greenland", value: "80" },
+  { label: "Grenada", value: "75" },
+  { label: "Guadeloupe", value: "83" },
+  { label: "Guam", value: "87" },
+  { label: "Guatemala", value: "86" },
+  { label: "Guinea", value: "82" },
+  { label: "Guinea-Bissau", value: "88" },
+  { label: "Guyana", value: "89" },
+  { label: "Haiti", value: "94" },
+  { label: "Heard and Mc Donald Islands", value: "91" },
+  { label: "Honduras", value: "92" },
+  { label: "Hungary", value: "95" },
+  { label: "Iceland", value: "103" },
+  { label: "India", value: "99" },
+  { label: "Indonesia", value: "96" },
+  { label: "Iran (Islamic Republic of)", value: "102" },
+  { label: "Iraq", value: "101" },
+  { label: "Ireland", value: "97" },
+  { label: "Israel", value: "98" },
+  { label: "Italy", value: "104" },
+  { label: "Jamaica", value: "105" },
+  { label: "Jordan", value: "106" },
+  { label: "Kazakhstan", value: "118" },
+  { label: "Kenya", value: "108" },
+  { label: "Kiribati", value: "111" },
+  { label: "Kuwait", value: "116" },
+  { label: "Kyrgyzstan", value: "109" },
+  { label: "Lao Peoples Democratic Republic", value: "119" },
+  { label: "Latvia", value: "128" },
+  { label: "Lebanon", value: "120" },
+  { label: "Lesotho", value: "125" },
+  { label: "Liberia", value: "124" },
+  { label: "Libyan Arab Jamahiriya", value: "129" },
+  { label: "AfghLiechtensteinanistan", value: "122" },
+  { label: "Lithuania", value: "126" },
+  { label: "Luxembourg", value: "127" },
+  { label: "Macau", value: "139" },
+  { label: "Macedonia", value: "135" },
+  { label: "Madagascar", value: "133" },
+  { label: "Malawi", value: "147" },
+  { label: "Malaysia", value: "149" },
+  { label: "Maldives", value: "146" },
+  { label: "Mali", value: "136" },
+  { label: "Malta", value: "144" },
+  { label: "Marshall Islands", value: "134" },
+  { label: "Martinique", value: "141" },
+  { label: "Mauritania", value: "142" },
+  { label: "Mauritius", value: "145" },
+  { label: "Mayotte", value: "236" },
+  { label: "Mexico", value: "148" },
+  { label: "Micronesia", value: "70" },
+  { label: "Moldova", value: "132" },
+  { label: "Monaco", value: "131" },
+  { label: "Mongolia", value: "138" },
+  { label: "Montserrat", value: "143" },
+  { label: "Morocco", value: "130" },
+  { label: "Mozambique", value: "150" },
+  { label: "Myanmar", value: "137" },
+  { label: "Namibia", value: "151" },
+  { label: "Nauru", value: "160" },
+  { label: "Nepal", value: "159" },
+  { label: "Netherlands", value: "157" },
+  { label: "Netherlands Antilles", value: "8" },
+  { label: "New Caledonia", value: "152" },
+  { label: "New Zealand", value: "162" },
+  { label: "Nicaragua", value: "156" },
+  { label: "Niger", value: "153" },
+  { label: "Nigeria", value: "155" },
+  { label: "Niue", value: "161" },
+  { label: "Norfolk Island", value: "154" },
+  { label: "North Korea", value: "114" },
+  { label: "Northern Mariana Islands", value: "140" },
+  { label: "Norway", value: "158" },
+  { label: "Oman", value: "163" },
+  { label: "Other Country", value: "164" },
+  { label: "Pakistan", value: "170" },
+  { label: "Palau", value: "177" },
+  { label: "Palestine", value: "175" },
+  { label: "Panama", value: "165" },
+  { label: "Papua New Guinea", value: "168" },
+  { label: "Paraguay", value: "178" },
+  { label: "Peru", value: "166" },
+  { label: "Philippines", value: "169" },
+  { label: "Pitcairn", value: "173" },
+  { label: "Poland", value: "171" },
+  { label: "Portugal", value: "176" },
+  { label: "Puerto Rico", value: "174" },
+  { label: "Qatar", value: "179" },
+  { label: "Reunion", value: "180" },
+  { label: "Romania", value: "181" },
+  { label: "Russian Federation", value: "182" },
+  { label: "Rwanda", value: "183" },
+  { label: "Saint Kitts and Nevis", value: "113" },
+  { label: "Saint Lucia", value: "121" },
+  { label: "Saint Vincent and the Grenadines", value: "227" },
+  { label: "Samoa", value: "234" },
+  { label: "San Marino", value: "195" },
+  { label: "Sao Tome and Principe", value: "199" },
+  { label: "Saudi Arabia", value: "184" },
+  { label: "Senegal", value: "196" },
+  { label: "Seychelles", value: "186" },
+  { label: "Sierra Leone", value: "194" },
+  { label: "Singapore", value: "189" },
+  { label: "Slovakia (Slovak Republic)", value: "193" },
+  { label: "Slovenia", value: "191" },
+  { label: "Solomon Islands", value: "185" },
+  { label: "Somalia", value: "197" },
+  { label: "South Africa", value: "238" },
+  { label: "South Korea", value: "115" },
+  { label: "Spain", value: "65" },
+  { label: "Sri Lanka", value: "123" },
+  { label: "St. Helena", value: "190" },
+  { label: "St. Pierre and Miquelon", value: "172" },
+  { label: "Sudan", value: "187" },
+  { label: "Suriname", value: "198" },
+  { label: "Svalbard and Jan Mayen Islands", value: "192" },
+  { label: "Swaziland", value: "202" },
+  { label: "Sweden", value: "188" },
+  { label: "Switzerland", value: "41" },
+  { label: "Syrian Arab Republic", value: "201" },
+  { label: "Tajikistan", value: "208" },
+  { label: "Tanzania", value: "218" },
+  { label: "Thailand", value: "207" },
+  { label: "Togo", value: "206" },
+  { label: "Tokelau", value: "209" },
+  { label: "Tonga", value: "212" },
+  { label: "Trinidad and Tobago", value: "215" },
+  { label: "Tunisia", value: "211" },
+  { label: "Turkey", value: "214" },
+  { label: "Turkmenistan", value: "210" },
+  { label: "Turks and Caicos Islands", value: "203" },
+  { label: "Tuvalu", value: "216" },
+  { label: "Uganda", value: "220" },
+  { label: "Ukraine", value: "219" },
+  { label: "United Arab Emirates", value: "2" },
+  { label: "United Kingdom", value: "221" },
+  { label: "United States", value: "223" },
+  { label: "United States Minor Outlying Islands", value: "222" },
+  { label: "Uruguay", value: "224" },
+  { label: "Uzbekistan", value: "225" },
+  { label: "Vanuatu", value: "232" },
+  { label: "Vatican City State (Holy See)", value: "226" },
+  { label: "Venezuela", value: "228" },
+  { label: "AfghaniVietnamstan", value: "231" },
+  { label: "Virgin Islands (British)", value: "229" },
+  { label: "Virgin Islands (U.S.)", value: "230" },
+  { label: "Wallis And Futuna Islands", value: "233" },
+  { label: "Western Sahara", value: "63" },
+  { label: "Yemen", value: "235" },
+  { label: "Yugoslavia", value: "237" },
+  { label: "Zambia", value: "239" },
+  { label: "Zimbabwe", value: "241" },
+]);
+
 // 提交
 const onSubmit = async () => {
   if (checkbox.value) {
-    // 获取世界时间格式
-    const millseconds = new Date().getUTCMilliseconds();
-    const date = new Date().getUTCDate();
-    const utc = new Date().toUTCString().split(" ");
-    if (new Date().getUTCMonth() + 1 >= 10) {
-      const month = new Date().getUTCMonth() + 1;
-      queryParams.value.inquiryLocalTime =
-        utc[3] +
-        "-" +
-        month +
-        "-" +
-        date +
-        "T" +
-        utc[4] +
-        "." +
-        millseconds +
-        "Z";
-    } else {
-      const month = "0" + (new Date().getUTCMonth() + 1);
-      queryParams.value.inquiryLocalTime =
-        utc[3] +
-        "-" +
-        month +
-        "-" +
-        date +
-        "T" +
-        utc[4] +
-        "." +
-        millseconds +
-        "Z";
-    }
+    console.log(queryParams.value.selCountry);
+
     await saveCommInquiry(Object.assign(queryParams.value)).then((res) => {
       if (res.data.type === "success") {
         ElMessage.success("You submit success!");
         // 提交成功后清空列表数据
-        queryParams.value.prodName = "";
-        queryParams.value.destination_select = "China";
-        queryParams.value.fullName = "";
-        queryParams.value.detailsVal = "";
+        queryParams.value.txtSubject = "";
+        queryParams.value.selCountry = "";
+        queryParams.value.txtFullName = "";
+        queryParams.value.txtMessage = "";
         queryParams.value.verificationCode = "";
         queryParams.value.phoneNumberVal = "";
-        queryParams.value.companyNameVal = "";
-        queryParams.value.businessEmailVal = "";
+        queryParams.value.txtCompanyName = "";
+        queryParams.value.txtEmail = "";
+        queryParams.value.txtCountryCode = "";
+        queryParams.value.txtAreaCode = "";
+        queryParams.value.txtTel = "";
+        queryParams.value.txtFaxCountryCode = "";
+        queryParams.value.txtFaxAreaCode = "";
+        queryParams.value.txtFax = "";
+        queryParams.value.hdCountryId = "";
+        queryParams.value.txtQuant = 1000;
+        queryParams.value.multipleQuotes = true;
+        queryParams.value.txtUnit = "Piece(s)";
       } else {
         ElMessage.success("You submit error!");
       }
@@ -125,6 +356,19 @@ const onSubmit = async () => {
   } else {
     ElMessage.error("Please check the Agree Agreement box");
   }
+};
+const change = (val) => {
+  queryParams.value.txtUnit = val;
+};
+
+const change1 = (val) => {
+  let obj = {};
+  obj = countryList.value.find((item) => {
+    // 是通过接口请求下来的区域列表
+    return item.label == val; //筛选出匹配数据
+  });
+  queryParams.value.selCountry = obj.label;
+  queryParams.value.hdCountryId = obj.value;
 };
 </script>
 
@@ -151,7 +395,7 @@ const onSubmit = async () => {
             ]"
           >
             <el-input
-              v-model="queryParams.prodName"
+              v-model="queryParams.txtSubject"
               clearable
               placeholder="Example:Inquiry for Metal Cutting Machine"
               style="width: 300px"
@@ -168,13 +412,17 @@ const onSubmit = async () => {
                 <div class="img">
                   <img :src="productInfo.picPath" />
                   <div class="prod-name">
-                    <a :href="productInfo?.productUrl" :title="productInfo?.productname">{{ productInfo?.productname }}</a>
+                    <a
+                      :href="productInfo?.productUrl"
+                      :title="productInfo?.productname"
+                      >{{ productInfo?.productname }}</a
+                    >
                   </div>
                 </div>
                 <div class="productNum">
                   <el-input
                     placeholder="Quantity"
-                    v-model="queryParams.productNumber"
+                    v-model="queryParams.txtQuant"
                     style="width: 100px"
                   />
                   <div class="productPieces">
@@ -226,7 +474,7 @@ const onSubmit = async () => {
             ]"
           >
             <el-input
-              v-model="queryParams.detailsVal"
+              v-model="queryParams.txtMessage"
               type="textarea"
               placeholder="The following information is for your reference.
 
@@ -309,7 +557,7 @@ Other special requests:
               ]"
             >
               <el-input
-                v-model="queryParams.businessEmailVal"
+                v-model="queryParams.txtEmail"
                 clearable
                 placeholder="Gmail is recommended"
               />
@@ -327,346 +575,28 @@ Other special requests:
                 },
               ]"
             >
-              <el-select v-model="queryParams.destination_select">
-                <el-option value="Afghanistan">Afghanistan</el-option>
-                <el-option value="Aland Islands">Aland Islands</el-option>
-                <el-option value="Albania">Albania</el-option>
-                <el-option value="Alderney">Alderney</el-option>
-                <el-option value="Algeria">Algeria</el-option>
-                <el-option value="American Samoa">American Samoa</el-option>
-                <el-option value="Andorra">Andorra</el-option>
-                <el-option value="Angola">Angola</el-option>
-                <el-option value="Anguilla">Anguilla</el-option>
-                <el-option value="Antarctica">Antarctica</el-option>
-                <el-option value="Antigua and Barbuda"
-                  >Antigua and Barbuda</el-option
-                >
-                <el-option value="Argentina">Argentina</el-option>
-                <el-option value="Armenia">Armenia</el-option>
-                <el-option value="Aruba">Aruba</el-option>
-                <el-option value="Ascension Island">Ascension Island</el-option>
-                <el-option value="Australia">Australia</el-option>
-                <el-option value="Austria">Austria</el-option>
-                <el-option value="Azerbaijan">Azerbaijan</el-option>
-                <el-option value="Bahamas">Bahamas</el-option>
-                <el-option value="Bahrain">Bahrain</el-option>
-                <el-option value="Bangladesh">Bangladesh</el-option>
-                <el-option value="Barbados">Barbados</el-option>
-                <el-option value="Belarus">Belarus</el-option>
-                <el-option value="Belgium">Belgium</el-option>
-                <el-option value="Belize">Belize</el-option>
-                <el-option value="Benin">Benin</el-option>
-                <el-option value="Bermuda">Bermuda</el-option>
-                <el-option value="Bhutan">Bhutan</el-option>
-                <el-option value="Bolivia">Bolivia</el-option>
-                <el-option value="Bosnia and Herzegovina"
-                  >Bosnia and Herzegovina</el-option
-                >
-                <el-option value="Botswana">Botswana</el-option>
-                <el-option value="Bouvet Island">Bouvet Island</el-option>
-                <el-option value="Brazil">Brazil</el-option>
-                <el-option value="British Indian Ocean Territory"
-                  >British Indian Ocean Territory</el-option
-                >
-                <el-option value="Brunei Darussalam"
-                  >Brunei Darussalam</el-option
-                >
-                <el-option value="Bulgaria">Bulgaria</el-option>
-                <el-option value="Burkina Faso">Burkina Faso</el-option>
-                <el-option value="Burundi">Burundi</el-option>
-                <el-option value="Cambodia">Cambodia</el-option>
-                <el-option value="Cameroon">Cameroon</el-option>
-                <el-option value="Canada">Canada</el-option>
-                <el-option value="Cape Verde">Cape Verde</el-option>
-                <el-option value="Cayman Islands">Cayman Islands</el-option>
-                <el-option value="Central African Republic"
-                  >Central African Republic</el-option
-                >
-                <el-option value="Chad">Chad</el-option>
-                <el-option value="Chile">Chile</el-option>
-                <el-option selected="" value="China">China</el-option>
-                <el-option value="Christmas Island">Christmas Island</el-option>
-                <el-option value="Cocos (Keeling) Islands"
-                  >Cocos (Keeling) Islands</el-option
-                >
-                <el-option value="Colombia">Colombia</el-option>
-                <el-option value="Comoros">Comoros</el-option>
-                <el-option value="Congo, The Democratic Republic Of The"
-                  >Congo, The Democratic Republic Of The</el-option
-                >
-                <el-option value="Congo, The Republic of Congo"
-                  >Congo, The Republic of Congo</el-option
-                >
-                <el-option value="Cook Islands">Cook Islands</el-option>
-                <el-option value="Costa Rica">Costa Rica</el-option>
-                <el-option value="Cote D'Ivoire">Cote D'Ivoire</el-option>
-                <el-option value="Croatia (local name: Hrvatska)"
-                  >Croatia (local name: Hrvatska)</el-option
-                >
-                <el-option value="Cuba">Cuba</el-option>
-                <el-option value="Curacao">Curacao</el-option>
-                <el-option value="Cyprus">Cyprus</el-option>
-                <el-option value="Czech Republic">Czech Republic</el-option>
-                <el-option value="Denmark">Denmark</el-option>
-                <el-option value="Djibouti">Djibouti</el-option>
-                <el-option value="Dominica">Dominica</el-option>
-                <el-option value="Dominican Republic"
-                  >Dominican Republic</el-option
-                >
-                <el-option value="East Timor">East Timor</el-option>
-                <el-option value="Ecuador">Ecuador</el-option>
-                <el-option value="Egypt">Egypt</el-option>
-                <el-option value="El Salvador">El Salvador</el-option>
-                <el-option value="Equatorial Guinea"
-                  >Equatorial Guinea</el-option
-                >
-                <el-option value="Eritrea">Eritrea</el-option>
-                <el-option value="Estonia">Estonia</el-option>
-                <el-option value="Ethiopia">Ethiopia</el-option>
-                <el-option value="Falkland Islands (Malvinas)"
-                  >Falkland Islands (Malvinas)</el-option
-                >
-                <el-option value="Faroe Islands">Faroe Islands</el-option>
-                <el-option value="Fiji">Fiji</el-option>
-                <el-option value="Finland">Finland</el-option>
-                <el-option value="France">France</el-option>
-                <el-option value="France Metropolitan"
-                  >France Metropolitan</el-option
-                >
-                <el-option value="French Guiana">French Guiana</el-option>
-                <el-option value="French Polynesia">French Polynesia</el-option>
-                <el-option value="French Southern Territories"
-                  >French Southern Territories</el-option
-                >
-                <el-option value="Gabon">Gabon</el-option>
-                <el-option value="Gambia">Gambia</el-option>
-                <el-option value="Georgia">Georgia</el-option>
-                <el-option value="Germany">Germany</el-option>
-                <el-option value="Ghana">Ghana</el-option>
-                <el-option value="Gibraltar">Gibraltar</el-option>
-                <el-option value="Greece">Greece</el-option>
-                <el-option value="Greenland">Greenland</el-option>
-                <el-option value="Grenada">Grenada</el-option>
-                <el-option value="Guadeloupe">Guadeloupe</el-option>
-                <el-option value="Guam">Guam</el-option>
-                <el-option value="Guatemala">Guatemala</el-option>
-                <el-option value="Guernsey">Guernsey</el-option>
-                <el-option value="Guinea">Guinea</el-option>
-                <el-option value="Guinea-Bissau">Guinea-Bissau</el-option>
-                <el-option value="Guyana">Guyana</el-option>
-                <el-option value="Haiti">Haiti</el-option>
-                <el-option value="Heard and Mc Donald Islands"
-                  >Heard and Mc Donald Islands</el-option
-                >
-                <el-option value="Honduras">Honduras</el-option>
-                <el-option value="Hong Kong S.A.R.">Hong Kong S.A.R.</el-option>
-                <el-option value="Hungary">Hungary</el-option>
-                <el-option value="Iceland">Iceland</el-option>
-                <el-option value="India">India</el-option>
-                <el-option value="Indonesia">Indonesia</el-option>
-                <el-option value="Iran (Islamic Republic of)"
-                  >Iran (Islamic Republic of)</el-option
-                >
-                <el-option value="Iraq">Iraq</el-option>
-                <el-option value="Ireland">Ireland</el-option>
-                <el-option value="Isle of Man">Isle of Man</el-option>
-                <el-option value="Israel">Israel</el-option>
-                <el-option value="Italy">Italy</el-option>
-                <el-option value="Jamaica">Jamaica</el-option>
-                <el-option value="Japan">Japan</el-option>
-                <el-option value="Jersey">Jersey</el-option>
-                <el-option value="Jordan">Jordan</el-option>
-                <el-option value="Kazakhstan">Kazakhstan</el-option>
-                <el-option value="Kenya">Kenya</el-option>
-                <el-option value="Kiribati">Kiribati</el-option>
-                <el-option value="Kosovo">Kosovo</el-option>
-                <el-option value="Kuwait">Kuwait</el-option>
-                <el-option value="Kyrgyzstan">Kyrgyzstan</el-option>
-                <el-option value="Lao People's Democratic Republic"
-                  >Lao People's Democratic Republic</el-option
-                >
-                <el-option value="Latvia">Latvia</el-option>
-                <el-option value="Lebanon">Lebanon</el-option>
-                <el-option value="Lesotho">Lesotho</el-option>
-                <el-option value="Liberia">Liberia</el-option>
-                <el-option value="Libya">Libya</el-option>
-                <el-option value="Liechtenstein">Liechtenstein</el-option>
-                <el-option value="Lithuania">Lithuania</el-option>
-                <el-option value="Luxembourg">Luxembourg</el-option>
-                <el-option value="Macao S.A.R.">Macao S.A.R.</el-option>
-                <el-option value="Macedonia">Macedonia</el-option>
-                <el-option value="Madagascar">Madagascar</el-option>
-                <el-option value="Malawi">Malawi</el-option>
-                <el-option value="Malaysia">Malaysia</el-option>
-                <el-option value="Maldives">Maldives</el-option>
-                <el-option value="Mali">Mali</el-option>
-                <el-option value="Malta">Malta</el-option>
-                <el-option value="Marshall Islands">Marshall Islands</el-option>
-                <el-option value="Martinique">Martinique</el-option>
-                <el-option value="Mauritania">Mauritania</el-option>
-                <el-option value="Mauritius">Mauritius</el-option>
-                <el-option value="Mayotte">Mayotte</el-option>
-                <el-option value="Mexico">Mexico</el-option>
-                <el-option value="Micronesia">Micronesia</el-option>
-                <el-option value="Moldova">Moldova</el-option>
-                <el-option value="Monaco">Monaco</el-option>
-                <el-option value="Mongolia">Mongolia</el-option>
-                <el-option value="Montenegro">Montenegro</el-option>
-                <el-option value="Montserrat">Montserrat</el-option>
-                <el-option value="Morocco">Morocco</el-option>
-                <el-option value="Mozambique">Mozambique</el-option>
-                <el-option value="Myanmar">Myanmar</el-option>
-                <el-option value="Namibia">Namibia</el-option>
-                <el-option value="Nauru">Nauru</el-option>
-                <el-option value="Nepal">Nepal</el-option>
-                <el-option value="Netherlands">Netherlands</el-option>
-                <el-option value="Netherlands Antilles"
-                  >Netherlands Antilles</el-option
-                >
-                <el-option value="New Caledonia">New Caledonia</el-option>
-                <el-option value="New Zealand">New Zealand</el-option>
-                <el-option value="Nicaragua">Nicaragua</el-option>
-                <el-option value="Niger">Niger</el-option>
-                <el-option value="Nigeria">Nigeria</el-option>
-                <el-option value="Niue">Niue</el-option>
-                <el-option value="Norfolk Island">Norfolk Island</el-option>
-                <el-option value="North Korea">North Korea</el-option>
-                <el-option value="Northern Mariana Islands"
-                  >Northern Mariana Islands</el-option
-                >
-                <el-option value="Norway">Norway</el-option>
-                <el-option value="Oman">Oman</el-option>
-                <el-option value="Other Country">Other Country</el-option>
-                <el-option value="Pakistan">Pakistan</el-option>
-                <el-option value="Palau">Palau</el-option>
-                <el-option value="Palestine">Palestine</el-option>
-                <el-option value="Panama">Panama</el-option>
-                <el-option value="Papua New Guinea">Papua New Guinea</el-option>
-                <el-option value="Paraguay">Paraguay</el-option>
-                <el-option value="Peru">Peru</el-option>
-                <el-option value="Philippines">Philippines</el-option>
-                <el-option value="Pitcairn">Pitcairn</el-option>
-                <el-option value="Poland">Poland</el-option>
-                <el-option value="Portugal">Portugal</el-option>
-                <el-option value="Qatar">Qatar</el-option>
-                <el-option value="Reunion">Reunion</el-option>
-                <el-option value="Romania">Romania</el-option>
-                <el-option value="Russian Federation"
-                  >Russian Federation</el-option
-                >
-                <el-option value="Rwanda">Rwanda</el-option>
-                <el-option value="Saint Barthelemy">Saint Barthelemy</el-option>
-                <el-option value="Saint Kitts and Nevis"
-                  >Saint Kitts and Nevis</el-option
-                >
-                <el-option value="Saint Lucia">Saint Lucia</el-option>
-                <el-option value="Saint Martin">Saint Martin</el-option>
-                <el-option value="Saint Vincent and the Grenadines"
-                  >Saint Vincent and the Grenadines</el-option
-                >
-                <el-option value="Samoa">Samoa</el-option>
-                <el-option value="San Marino">San Marino</el-option>
-                <el-option value="Sao Tome and Principe"
-                  >Sao Tome and Principe</el-option
-                >
-                <el-option value="Saudi Arabia">Saudi Arabia</el-option>
-                <el-option value="Scotland">Scotland</el-option>
-                <el-option value="Senegal">Senegal</el-option>
-                <el-option value="Serbia">Serbia</el-option>
-                <el-option value="Seychelles">Seychelles</el-option>
-                <el-option value="Sierra Leone">Sierra Leone</el-option>
-                <el-option value="Singapore">Singapore</el-option>
-                <el-option value="Sint Maarten">Sint Maarten</el-option>
-                <el-option value="Slovakia (Slovak Republic)"
-                  >Slovakia (Slovak Republic)</el-option
-                >
-                <el-option value="Slovenia">Slovenia</el-option>
-                <el-option value="Solomon Islands">Solomon Islands</el-option>
-                <el-option value="Somalia">Somalia</el-option>
-                <el-option value="South Africa">South Africa</el-option>
-                <el-option value="South Georgia and the South Sandwich Islands"
-                  >South Georgia and the South Sandwich Islands</el-option
-                >
-                <el-option value="South Korea">South Korea</el-option>
-                <el-option value="South Sudan">South Sudan</el-option>
-                <el-option value="Spain">Spain</el-option>
-                <el-option value="Sri Lanka">Sri Lanka</el-option>
-                <el-option value="St. Helena">St. Helena</el-option>
-                <el-option value="St. Pierre and Miquelon"
-                  >St. Pierre and Miquelon</el-option
-                >
-                <el-option value="Sudan">Sudan</el-option>
-                <el-option value="Suriname">Suriname</el-option>
-                <el-option value="Svalbard and Jan Mayen Islands"
-                  >Svalbard and Jan Mayen Islands</el-option
-                >
-                <el-option value="Swaziland">Swaziland</el-option>
-                <el-option value="Sweden">Sweden</el-option>
-                <el-option value="Switzerland">Switzerland</el-option>
-                <el-option value="Syrian Arab Republic"
-                  >Syrian Arab Republic</el-option
-                >
-                <el-option value="Taiwan, China">Taiwan, China</el-option>
-                <el-option value="Tajikistan">Tajikistan</el-option>
-                <el-option value="Tanzania">Tanzania</el-option>
-                <el-option value="Thailand">Thailand</el-option>
-                <el-option value="Timor-Leste">Timor-Leste</el-option>
-                <el-option value="Togo">Togo</el-option>
-                <el-option value="Tokelau">Tokelau</el-option>
-                <el-option value="Tonga">Tonga</el-option>
-                <el-option value="Trinidad and Tobago"
-                  >Trinidad and Tobago</el-option
-                >
-                <el-option value="Tunisia">Tunisia</el-option>
-                <el-option value="Turkey">Turkey</el-option>
-                <el-option value="Turkmenistan">Turkmenistan</el-option>
-                <el-option value="Turks and Caicos Islands"
-                  >Turks and Caicos Islands</el-option
-                >
-                <el-option value="Tuvalu">Tuvalu</el-option>
-                <el-option value="Uganda">Uganda</el-option>
-                <el-option value="Ukraine">Ukraine</el-option>
-                <el-option value="United Arab Emirates"
-                  >United Arab Emirates</el-option
-                >
-                <el-option value="United Kingdom">United Kingdom</el-option>
-                <el-option value="United States">United States</el-option>
-                <el-option value="United States Minor Outlying Islands"
-                  >United States Minor Outlying Islands</el-option
-                >
-                <el-option value="Uruguay">Uruguay</el-option>
-                <el-option value="Uzbekistan">Uzbekistan</el-option>
-                <el-option value="Vanuatu">Vanuatu</el-option>
-                <el-option value="Vatican City State (Holy See)"
-                  >Vatican City State (Holy See)</el-option
-                >
-                <el-option value="Venezuela">Venezuela</el-option>
-                <el-option value="Vietnam">Vietnam</el-option>
-                <el-option value="Virgin Islands (British)"
-                  >Virgin Islands (British)</el-option
-                >
-                <el-option value="Virgin Islands (U.S.)"
-                  >Virgin Islands (U.S.)</el-option
-                >
-                <el-option value="Wallis And Futuna Islands"
-                  >Wallis And Futuna Islands</el-option
-                >
-                <el-option value="Western Sahara">Western Sahara</el-option>
-                <el-option value="Yemen">Yemen</el-option>
-                <el-option value="Yugoslavia">Yugoslavia</el-option>
-                <el-option value="Zambia">Zambia</el-option>
-                <el-option value="Zanzibar">Zanzibar</el-option>
+              <el-select
+                v-model="queryParams.selCountry"
+                placeholder="Please Select Country"
+                @change="(val) => change1(val)"
+              >
+                <el-option
+                  v-for="(item, index) in countryList"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.label"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="Full Name:">
-              <el-select v-model="queryParams.select">
-                <el-option label="Male" value="Male" />
-                <el-option label="Famale" value="Famale" />
+              <el-select v-model="queryParams.selSex">
+                <el-option label="Male" value="1" />
+                <el-option label="Famale" value="0" />
               </el-select>
               <el-input
-                v-model="queryParams.fullName"
+                v-model="queryParams.txtFullName"
                 clearable
                 placeholder=""
               />
@@ -685,7 +615,7 @@ Other special requests:
               ]"
             >
               <el-input
-                v-model="queryParams.companyNameVal"
+                v-model="queryParams.txtCompanyName"
                 clearable
                 placeholder=""
               />
@@ -704,9 +634,52 @@ Other special requests:
               ]"
             >
               <el-input
-                v-model="queryParams.phoneNumberVal"
+                v-model="queryParams.txtCountryCode"
                 clearable
-                placeholder=""
+                style="width: 100px; margin-right: 10px"
+                placeholder="Country"
+              />
+              <el-input
+                v-model="queryParams.txtAreaCode"
+                clearable
+                style="width: 100px; margin-right: 10px"
+                placeholder="Area"
+              />
+              <el-input
+                v-model="queryParams.txtTel"
+                clearable
+                placeholder="Tel"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item
+              label="Fax Number:"
+              :rules="[
+                {
+                  required: true,
+                  message:
+                    'Please fill in the required fields before submitting.',
+                  trigger: 'blur',
+                },
+              ]"
+            >
+              <el-input
+                v-model="queryParams.txtFaxCountryCode"
+                clearable
+                style="width: 100px; margin-right: 10px"
+                placeholder="FaxCountry"
+              />
+              <el-input
+                v-model="queryParams.txtFaxAreaCode"
+                clearable
+                style="width: 100px; margin-right: 10px"
+                placeholder="FaxArea"
+              />
+              <el-input
+                v-model="queryParams.txtFax"
+                clearable
+                placeholder="FaxTel"
               />
             </el-form-item>
           </el-col>
@@ -745,7 +718,7 @@ Other special requests:
 
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label=" ">
-              <el-button type="defualt" @click="onSubmit">Submit</el-button>
+              <el-button type="primary" @click="onSubmit">Submit</el-button>
             </el-form-item>
           </el-col>
         </div>
@@ -768,44 +741,44 @@ Other special requests:
     line-height: 34px;
     margin-bottom: 20px;
   }
-.productInfo {
+  .productInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .img {
+      display: flex;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+      .prod-name {
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 48px;
+        line-height: 70px;
+        max-width: 500px;
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        a {
+          color: #1470cc;
+        }
+        a:hover {
+          color: #e64545;
+        }
+      }
+    }
+
+    .productNum {
+      margin-right: 100px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .img {
-        display: flex;
-        img {
-          width: 70px;
-          height: 70px;
-        }
-        .prod-name {
-          margin-left: 20px;
-          margin-right: 20px;
-          height: 48px;
-          line-height: 70px;
-          max-width: 500px;
-          box-sizing: border-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          a {
-            color: #1470cc;
-          }
-          a:hover {
-            color: #e64545;
-          }
-        }
-      }
-
-      .productNum {
-        margin-right: 100px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
     }
+  }
   .layui-form-item {
     margin-bottom: 15px;
     clear: both;
