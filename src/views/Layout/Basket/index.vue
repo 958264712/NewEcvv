@@ -64,7 +64,10 @@ const SendMessage = () => {
       params.value.pid = '4868524'
       pDInfo()
       pInfo()
-      let routeUrl = router.resolve({ path: `/sendMsg/${i.pid}` });
+      Session.set('sendCompanyInfo',{
+        product:true
+      })
+      let routeUrl = router.resolve({ path: `/sendMsg` });
       window.open(routeUrl.href, i.pid);
     }))
   }else{

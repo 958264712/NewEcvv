@@ -115,7 +115,10 @@ window.addEventListener('scroll', () => {
 //     return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
 // }
 const handleSendMsg = (id) => {
-      let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+    Session.set('sendCompanyInfo',{
+      product:true
+    })
+      let routeUrl = router.resolve({ path: `/sendMsg` });
       window.open(routeUrl.href);
 };
 

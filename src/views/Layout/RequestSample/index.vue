@@ -217,7 +217,13 @@ const submit = async () => {
       method: "post",
       data: { inqcode: ruleForm.value.textVcode },
     }).then((res) => {
-      submitFrom();
+     if (res && res == "1") {
+            submitFrom()
+            }
+            else {
+                ElMessage.error('Your Input Is Error Verification Code!');
+                return;
+            }
     });
   } else {
     // 不验证验证码直接验证表单

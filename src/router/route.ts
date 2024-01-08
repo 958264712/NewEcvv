@@ -81,12 +81,13 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				name: 'VipCompany',
 				component: () => import('@/views/Layout/VipCompany/index.vue'),
 			},
+			// {
+			// 	path: '/sendMsg/:id',
+			// 	name: 'SendMessage',
+			// 	component: () => import('@/views/Layout/SendMessage/index.vue'),
+			// },
 			{
-				path: '/sendMsg/:id',
-				name: 'SendMessage',
-				component: () => import('@/views/Layout/SendMessage/index.vue'),
-			},{
-				path: '/companySendMsg',
+				path: '/sendMsg',
 				name: 'CompanySendMessage',
 				component: () => import('@/views/Layout/CmSendMessage/index.vue'),
 			},

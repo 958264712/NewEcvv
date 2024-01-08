@@ -67,8 +67,13 @@ const onSubmit = () => {
       method: "post",
       data: { inqcode: queryParams.value.textVcode },
     }).then((res) => {
-      console.log(res);
-      submitFrom();
+      if (res && res == "1") {
+            submitFrom()
+            }
+            else {
+                ElMessage.error('Your Input Is Error Verification Code!');
+                return;
+            }
     });
   } else {
     // 不验证验证码直接验证表单

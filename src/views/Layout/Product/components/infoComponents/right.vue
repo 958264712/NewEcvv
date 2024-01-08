@@ -17,7 +17,10 @@ const buy = ref(false);
 const productItem = ref<any>({});
 // 询盘1
 const SendMessage = (id) => {
-  let routeUrl = router.resolve({ path: `/sendMsg/${id}` });
+  Session.set('sendCompanyInfo',{
+      product:true
+    })
+  let routeUrl = router.resolve({ path: `/sendMsg` });
   window.open(routeUrl.href, "_blank");
 };
 

@@ -13,7 +13,7 @@ const companyInfo = Session.get("companyInfo");
 const router = useRouter();
 const transferModels = ref();
 const CateList = ref("");
-const checkbox = ref(true);
+const checkbox = ref(false);
 const extra_list = ref<any>([]);
 const location =
   router.options.history.location
@@ -29,7 +29,7 @@ const queryParams = ref<any>({
   txtCompanyName: "",
   txtEmail: sendCompanyInfo.form,
   deliveryTime: 0,
-  selSex: "",
+  selSex: "Male",
   txtQuant: 1000,
   multipleQuotes: true,
   selCountry: "",
@@ -42,7 +42,7 @@ const queryParams = ref<any>({
   txtFax: "",
   chkIDs: "",
   hdCountryId: "",
-  extraRequest: "",
+  extraRequest:""
 });
 const piecesList = ref([
   { label: "Pieces" },
@@ -322,10 +322,7 @@ const countryList = ref([
   { label: "Zambia", value: "239" },
   { label: "Zimbabwe", value: "241" },
 ]);
-const sexList = ref([
-  { label: "Male", value: 1 },
-  { label: "FaMale", value: 0 },
-]);
+
 const onSubmit = () => {
   // 在本地情况下会出现跨域情况
   const url = window.location.origin;
@@ -338,18 +335,14 @@ const onSubmit = () => {
       timeout: 50000,
       headers: { "Content-Type": "application/json" },
     });
-
+    
     service({
       url: "/ecvvajax/checkcode.ashx",
       method: "post",
       data: { inqcode: queryParams.value.verificationCode },
     }).then((res) => {
-      if (res && res == "1") {
-        submitFrom();
-      } else {
-        ElMessage.error("Your Input Is Error Verification Code!");
-        return;
-      }
+      console.log(res);
+      submitFrom();
     });
   } else {
     // 不验证验证码直接验证表单
@@ -359,10 +352,10 @@ const onSubmit = () => {
 // 提交
 const submitFrom = async () => {
   if (checkbox.value) {
-    if (!sendCompanyInfo.product) {
-      queryParams.value.chkIDs = "C|" + companyInfo.cid;
-    } else {
-      queryParams.value.chkIDs = "P|" + productInfo.pid;
+    if(!sendCompanyInfo.product){
+      queryParams.value.chkIDs='C|' + companyInfo.cid
+    }else{
+      queryParams.value.chkIDs='P|' + productInfo.pid
     }
     await postSendMsg(Object.assign(queryParams.value)).then((res) => {
       if (res.data.type === "success") {
@@ -373,6 +366,7 @@ const submitFrom = async () => {
         queryParams.value.txtFullName = "";
         queryParams.value.txtMessage = "";
         queryParams.value.verificationCode = "";
+        queryParams.value.phoneNumberVal = "";
         queryParams.value.txtCompanyName = "";
         queryParams.value.txtEmail = "";
         queryParams.value.txtCountryCode = "";
@@ -384,7 +378,7 @@ const submitFrom = async () => {
         queryParams.value.hdCountryId = "";
         queryParams.value.txtQuant = 1000;
         queryParams.value.deliveryTime = 0;
-        queryParams.value.extraRequest = "";
+        queryParams.value.extraRequest = '';
         queryParams.value.multipleQuotes = true;
         queryParams.value.txtUnit = "Piece(s)";
       } else {
@@ -412,17 +406,9 @@ const change1 = (val) => {
 };
 
 // checkbox复用框数组 extraRequest
-const change2 = (val) => {
+const change2 = (val) =>{
   queryParams.value.extraRequest = val.join();
-};
-// 性别选择框
-const change3 = (val) => {
-  let obj = {};
-  obj = sexList.value.find((item) => {
-    return item.label == val;
-  });
-  queryParams.value.selSex = obj.label;
-};
+}
 </script>
 
 <template>
@@ -559,26 +545,33 @@ Other special requests:
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-form-item label="Extra Request:">
-            <el-checkbox-group
-              v-model="extra_list"
-              @change="(val) => change2(val)"
-            >
-              <el-checkbox label="Price" size="large" />
-              <el-checkbox label="Product Specifications" size="large" />
-              <el-checkbox label="Shipping & Payment" size="large" />
-              <el-checkbox label="Company Profile" size="large" />
-              <el-checkbox label="Inspection Certification" size="large" />
+          <el-checkbox-group v-model="extra_list"  @change="(val) => change2(val)">
+            <el-checkbox
+              label="Price"
+              size="large"
+            />
+            <el-checkbox
+              label="Product Specifications"
+              size="large"
+            />
+            <el-checkbox
+              label="Shipping & Payment"
+              size="large"
+            />
+            <el-checkbox
+              label="Company Profile"
+              size="large"
+            />
+            <el-checkbox
+              label="Inspection Certification"
+              size="large"
+            />
             </el-checkbox-group>
           </el-form-item>
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <div style="text-align: center; margin-bottom: 20px">
-            <input
-              type="checkbox"
-              checked
-              v-model="checkbox"
-              style="margin-right: 20px"
-            />
+            <input type="checkbox" checked style="margin-right: 20px" />
             <strong
               >Recommend matching suppliers if this supplier doesn’t contact me
               on Message Center within 24 hours.</strong
@@ -634,22 +627,14 @@ Other special requests:
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="Full Name:">
-              <el-select
-                v-model="queryParams.selSex"
-                placeholder="Please Select Gender"
-                @change="(val) => change3(val)"
-              >
-                <el-option
-                  v-for="(item, index) in sexList"
-                  :key="index"
-                  :label="item.label"
-                  :value="item.label"
-                />
+              <el-select v-model="queryParams.selSex">
+                <el-option label="Male" value="1" />
+                <el-option label="Famale" value="0" />
               </el-select>
               <el-input
                 v-model="queryParams.txtFullName"
                 clearable
-                placeholder="Please Input FullName"
+                placeholder=""
               />
             </el-form-item>
           </el-col>
@@ -668,7 +653,7 @@ Other special requests:
               <el-input
                 v-model="queryParams.txtCompanyName"
                 clearable
-                placeholder="Please Input Company Name"
+                placeholder=""
               />
             </el-form-item>
           </el-col>
@@ -749,7 +734,7 @@ Other special requests:
               <el-input
                 v-model="queryParams.verificationCode"
                 clearable
-                placeholder="Please Input Verification Code"
+                placeholder=""
               />
               <div class="layui-col-md1" style="margin-left: 10px">
                 <img

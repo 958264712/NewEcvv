@@ -51,7 +51,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     })
     ruleForm.id = '' 
     ruleForm.message = ''
-    let routeUrl = router.resolve({ path: `/companySendMsg` });
+    let routeUrl = router.resolve({ path: `/sendMsg` });
     window.open(routeUrl.href, "_blank");
     } else {
       console.log("error submit!", fields);

@@ -16,5 +16,5 @@ export const getCompanyInfo = (params?: any) => request({
 export const postSendMsg = (params?: any) => request({
     url: Api.postSendMsg,
     method: 'post',
-    params: params,
+    data: params,
 });
