@@ -317,7 +317,7 @@ You may include: Color, Material, Size, Weight, Packaging and certificate requir
                             :rules="[{ required: true, message: 'Please fill in the required fields before submitting.', trigger: 'blur' }]">
                             <el-input v-model="queryParams.verificationCode" clearable placeholder="" />
                             <div class=" layui-col-md1" style="margin-left: 10px;">
-                                <img id="imgValidateCode" title="Load new image"
+                                <img  title="Load new image"
                                     src="http://newsiteapi.ecvv.com/api/sourcingRequest/getValidateCode"
                                     @click="(e: any) => { e.target.src = e.target.src + '?' + Math.random(); }"
                                     style="border: 1px solid #ccc; border-radius: 5px; cursor: pointer">

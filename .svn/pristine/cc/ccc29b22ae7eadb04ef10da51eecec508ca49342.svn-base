@@ -6,15 +6,15 @@ import { useRouter } from "vue-router";
 import type { UploadProps } from "element-plus";
 import { Session } from "@/utils/storage";
 import { postSendMsg } from "@/api/modular/company.ts";
+import { sendCode } from "@/api/modular/account.ts";
 
 const sendCompanyInfo = Session.get("sendCompanyInfo");
 const productInfo = Session.get("productInfo");
-const companyInfo = Session.get("companyInfo");
 const router = useRouter();
 const transferModels = ref();
 const CateList = ref("");
 const checkbox = ref(false);
-const extra_list = ref<any>([]);
+const fileUrl_list = ref<any>([]);
 const location =
   router.options.history.location
     .split("?")[1]
@@ -28,7 +28,7 @@ const queryParams = ref<any>({
   verificationCode: "",
   txtCompanyName: "",
   txtEmail: sendCompanyInfo.form,
-  deliveryTime: 0,
+  radio: 0,
   selSex: "Male",
   txtQuant: 1000,
   multipleQuotes: true,
@@ -42,7 +42,6 @@ const queryParams = ref<any>({
   txtFax: "",
   chkIDs: "",
   hdCountryId: "",
-  extraRequest:""
 });
 const piecesList = ref([
   { label: "Pieces" },
@@ -323,41 +322,12 @@ const countryList = ref([
   { label: "Zimbabwe", value: "241" },
 ]);
 
-const onSubmit = () => {
-  // 在本地情况下会出现跨域情况
-  const url = window.location.origin;
-  const domain = url.split("/");
-  const localhost = domain[2].split(":")[0];
-  if (localhost !== "localhost") {
-    // 验证码是否正确
-    const service = axios.create({
-      baseURL: "http://www.ecvv.com",
-      timeout: 50000,
-      headers: { "Content-Type": "application/json" },
-    });
-    
-    service({
-      url: "/ecvvajax/checkcode.ashx",
-      method: "post",
-      data: { inqcode: queryParams.value.verificationCode },
-    }).then((res) => {
-      console.log(res);
-      submitFrom();
-    });
-  } else {
-    // 不验证验证码直接验证表单
-    submitFrom();
-  }
-};
 // 提交
-const submitFrom = async () => {
+const onSubmit = async () => {
   if (checkbox.value) {
-    if(!sendCompanyInfo.product){
-      queryParams.value.chkIDs='C|' + companyInfo.cid
-    }else{
-      queryParams.value.chkIDs='P|' + productInfo.pid
-    }
-    await postSendMsg(Object.assign(queryParams.value)).then((res) => {
+    console.log(queryParams.value.selCountry);
+
+    await saveCommInquiry(Object.assign(queryParams.value)).then((res) => {
       if (res.data.type === "success") {
         ElMessage.success("You submit success!");
         // 提交成功后清空列表数据
@@ -377,8 +347,6 @@ const submitFrom = async () => {
         queryParams.value.txtFax = "";
         queryParams.value.hdCountryId = "";
         queryParams.value.txtQuant = 1000;
-        queryParams.value.deliveryTime = 0;
-        queryParams.value.extraRequest = '';
         queryParams.value.multipleQuotes = true;
         queryParams.value.txtUnit = "Piece(s)";
       } else {
@@ -389,12 +357,10 @@ const submitFrom = async () => {
     ElMessage.error("Please check the Agree Agreement box");
   }
 };
-// 改变unit
 const change = (val) => {
   queryParams.value.txtUnit = val;
 };
 
-// 获取国家以及国家id
 const change1 = (val) => {
   let obj = {};
   obj = countryList.value.find((item) => {
@@ -404,11 +370,6 @@ const change1 = (val) => {
   queryParams.value.selCountry = obj.label;
   queryParams.value.hdCountryId = obj.value;
 };
-
-// checkbox复用框数组 extraRequest
-const change2 = (val) =>{
-  queryParams.value.extraRequest = val.join();
-}
 </script>
 
 <template>
@@ -535,7 +496,7 @@ Other special requests:
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-form-item label="Delivery Time:">
             Within&nbsp;&nbsp;
-            <el-radio-group v-model="queryParams.deliveryTime">
+            <el-radio-group v-model="queryParams.radio">
               <el-radio :label="7">7 Days</el-radio>
               <el-radio :label="14">14 Days</el-radio>
               <el-radio :label="30">30 Days</el-radio>
@@ -545,28 +506,31 @@ Other special requests:
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-form-item label="Extra Request:">
-          <el-checkbox-group v-model="extra_list"  @change="(val) => change2(val)">
             <el-checkbox
-              label="Price"
+              v-model="queryParams.price"
+              label="Price "
               size="large"
             />
             <el-checkbox
-              label="Product Specifications"
+              v-model="queryParams.Specifications"
+              label="Product Specifications "
               size="large"
             />
             <el-checkbox
-              label="Shipping & Payment"
+              v-model="queryParams.Shipping"
+              label="Shipping & Payment  "
               size="large"
             />
             <el-checkbox
-              label="Company Profile"
+              v-model="queryParams.Profile"
+              label="Company Profile "
               size="large"
             />
             <el-checkbox
-              label="Inspection Certification"
+              v-model="queryParams.Certification"
+              label="Inspection Certification "
               size="large"
             />
-            </el-checkbox-group>
           </el-form-item>
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -738,8 +702,9 @@ Other special requests:
               />
               <div class="layui-col-md1" style="margin-left: 10px">
                 <img
+                  id="imgValidateCode"
                   title="Load new image"
-                  src="https://www.ecvv.com/ecvvajax/checkcode.ashx"
+                  src="http://newsiteapi.ecvv.com/api/sourcingRequest/getValidateCode"
                   @click="(e: any) => { e.target.src = e.target.src + '?' + Math.random(); }"
                   style="
                     border: 1px solid #ccc;
