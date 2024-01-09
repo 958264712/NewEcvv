@@ -46,7 +46,7 @@ const queryRFQ = () => {
       <el-form-item label="To:" prop="name">
         <div>
           <span class="name"> Yancheng Really Houseware Corp., Ltd.</span>
-          <a
+          <!-- <a
             class="main-icon ico-skype-on"
             rel="nofollow"
             href="javascript:void(0);"
@@ -60,7 +60,7 @@ const queryRFQ = () => {
               )
             "
             >Chat Now</a
-          >
+          > -->
         </div>
       </el-form-item>
       <el-form-item label="Message：" prop="message" style="margin-bottom: 3px">

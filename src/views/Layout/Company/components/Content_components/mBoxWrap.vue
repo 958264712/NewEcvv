@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, ref } from "vue";
 import { useRouter } from "vue-router";
-import { getProductInfo,getProductOrder } from "@/api/modular/search";
-import { Session } from '@/utils/storage';
+import { getProductInfo, getProductOrder } from "@/api/modular/search";
+import { Session } from "@/utils/storage";
 
 const router = useRouter();
 const Section = defineAsyncComponent(import("@/components/Section/index.vue"));
@@ -21,109 +21,127 @@ const styleTop = ref<any>({
   height: "220px",
   width: "300px",
 });
-const carousel = ref()
-const ProductInfo = ref<any>({})
-const ProductDataInfo = ref<any>({})
+const carousel = ref();
+const ProductInfo = ref<any>({});
+const ProductDataInfo = ref<any>({});
 const paramsInfo = ref<any>({
-  pid:'',
-  skuId:''
-})
+  pid: "",
+  skuId: "",
+});
 const params = ref({
-    pid:''
-})
+  pid: "",
+});
 
 // 改变显示图片
 const handlemouseOver = (item) => {
-  carousel.value.setActiveItem(item)
-}
+  carousel.value.setActiveItem(item);
+};
 // 改变走马灯高亮
 const carouselChange = (val) => {
-  const bottomCarousel = document.getElementById("bottomCarousel")
-  let newList = Array.from(bottomCarousel.children)
-  for(let i of newList){
-    i.children[0].removeAttribute("class", 'current')
+  const bottomCarousel = document.getElementById("bottomCarousel");
+  let newList = Array.from(bottomCarousel.children);
+  for (let i of newList) {
+    i.children[0].removeAttribute("class", "current");
   }
-  bottomCarousel.children[val].children[0].setAttribute("class", 'current')
-}
+  bottomCarousel.children[val].children[0].setAttribute("class", "current");
+};
 const clickHref = () => {
-  window.open(`https://www.ecvv.com/company/${props.subDomainName}/products.html`, "_blank");
-}
+  window.open(
+    `https://www.ecvv.com/company/${props.subDomainName}/products.html`,
+    "_blank"
+  );
+};
 
-
-const clickProduct = (id,item) => {
+const clickProduct = (id, item) => {
   Session.set("productInfo", item);
-  paramsInfo.value.pid = id
-  params.value.pid = id
-  pDInfo()
-  pInfo()
+  paramsInfo.value.pid = id;
+  params.value.pid = id;
+  pDInfo();
+  pInfo();
   let routeUrl = router.resolve({ path: `/product/${id}` });
   window.open(routeUrl.href, "_blank");
 };
 // 获取产品订单信息
 const pDInfo = async () => {
-    const res = await getProductOrder(Object.assign(paramsInfo.value))
-    if(res.data.type === 'success'){
-        ProductDataInfo.value.productName = res.data.result.productName
-        ProductDataInfo.value.firstPicPath = res.data.result.firstPicPath
-        ProductDataInfo.value.m_packing = res.data.result.m_packing
-        ProductDataInfo.value.price = res.data.result.price
-        ProductDataInfo.value.productbrand = res.data.result.productbrand
-        ProductDataInfo.value.productmodel = res.data.result.productmodel
-        ProductDataInfo.value.unitStr = res.data.result.unitStr
-        ProductDataInfo.value.token = res.data.result.token
-        Session.set("pDInfo",res.data.result)
-    }
-}
+  const res = await getProductOrder(Object.assign(paramsInfo.value));
+  if (res.data.type === "success") {
+    ProductDataInfo.value.productName = res.data.result.productName;
+    ProductDataInfo.value.firstPicPath = res.data.result.firstPicPath;
+    ProductDataInfo.value.m_packing = res.data.result.m_packing;
+    ProductDataInfo.value.price = res.data.result.price;
+    ProductDataInfo.value.productbrand = res.data.result.productbrand;
+    ProductDataInfo.value.productmodel = res.data.result.productmodel;
+    ProductDataInfo.value.unitStr = res.data.result.unitStr;
+    ProductDataInfo.value.token = res.data.result.token;
+    Session.set("pDInfo", res.data.result);
+  }
+};
 // 获取产品信息
 const pInfo = async () => {
-    const res = await getProductInfo(Object.assign(params.value))
-    if(res.data.type === 'success'){
-        ProductInfo.value = res.data.result
-        // 产品详情
-        ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0]
-        ProductInfo.value.productDescription = res.data.result.productDetail.productDescription
-        ProductInfo.value.productPropertyList = res.data.result.productDetail.productPropertyList
-        ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll
-        ProductInfo.value.productName = res.data.result.productDetail.productName
-        ProductInfo.value.supplyAbility = res.data.result.productDetail.supplyAbility
-        ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit
-        ProductInfo.value.minOrder = res.data.result.productDetail.minOrder
-        ProductInfo.value.productID = res.data.result.productDetail.productID
-        ProductInfo.value.productPrice = res.data.result.productOtherInfo.productPrice
-        ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit
-        ProductInfo.value.productUnit = res.data.result.productOtherInfo.productUnit
-        ProductInfo.value.skuInfo = res.data.result.productOtherInfo.skuInfo
-        if(ProductInfo.value.skuInfo.length > 0){
-            ProductInfo.value.ifSku = true
-        }else{
-            ProductInfo.value.ifSku = false
-        }
-        ProductInfo.value.skuPrice = JSON.parse(res.data.result.productOtherInfo.skuPrice)
-        // 面包屑
-        ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg
-        // 产品列表
-        const list = res.data.result.recommProductList
-        ProductInfo.value.recommProductList = []
-        const list1 = ref<any>([])
-        list.map((item:any)=>{
-            list1.value.push(item)
-            if(list1.value.length % 7 === 0){
-                ProductInfo.value.recommProductList.push(list1.value)
-                list1.value = []
-            }
-        }) 
-        // 推荐产品列表
-        ProductInfo.value.productRecommendList = res.data.result.productRecommendList
-        Session.set("pInfo",res.data.result)
+  const res = await getProductInfo(Object.assign(params.value));
+  if (res.data.type === "success") {
+    ProductInfo.value = res.data.result;
+    // 产品详情
+    ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0];
+    ProductInfo.value.productDescription =
+      res.data.result.productDetail.productDescription;
+    ProductInfo.value.productPropertyList =
+      res.data.result.productDetail.productPropertyList;
+    ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll;
+    ProductInfo.value.productName = res.data.result.productDetail.productName;
+    ProductInfo.value.supplyAbility =
+      res.data.result.productDetail.supplyAbility;
+    ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit;
+    ProductInfo.value.minOrder = res.data.result.productDetail.minOrder;
+    ProductInfo.value.productID = res.data.result.productDetail.productID;
+    ProductInfo.value.productPrice =
+      res.data.result.productOtherInfo.productPrice;
+    ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit;
+    ProductInfo.value.productUnit =
+      res.data.result.productOtherInfo.productUnit;
+    ProductInfo.value.skuInfo = res.data.result.productOtherInfo.skuInfo;
+    if (ProductInfo.value.skuInfo.length > 0) {
+      ProductInfo.value.ifSku = true;
+    } else {
+      ProductInfo.value.ifSku = false;
     }
-}
-
+    ProductInfo.value.skuPrice = JSON.parse(
+      res.data.result.productOtherInfo.skuPrice
+    );
+    // 面包屑
+    ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg;
+    // 产品列表
+    const list = res.data.result.recommProductList;
+    ProductInfo.value.recommProductList = [];
+    const list1 = ref<any>([]);
+    list.map((item: any) => {
+      list1.value.push(item);
+      if (list1.value.length % 7 === 0) {
+        ProductInfo.value.recommProductList.push(list1.value);
+        list1.value = [];
+      }
+    });
+    // 推荐产品列表
+    ProductInfo.value.productRecommendList =
+      res.data.result.productRecommendList;
+    Session.set("pInfo", res.data.result);
+  }
+};
+const submitForm = () => {
+  Session.set("sendCompanyInfo", {
+    form: '',
+    to: props.companyname,
+    message: '',
+    product: false,
+  });
+  let routeUrl = router.resolve({ path: `/sendMsg` });
+  window.open(routeUrl.href, "_blank");
+};
 // 刷新完成页面配置高亮
-window.addEventListener("load",()=>{
-  const bottomCarousel = document.getElementById("bottomCarousel")
-  bottomCarousel.children[0].children[0].setAttribute("class", 'current')
-})
-
+window.addEventListener("load", () => {
+  const bottomCarousel = document.getElementById("bottomCarousel");
+  bottomCarousel.children[0].children[0].setAttribute("class", "current");
+});
 </script>
 <template>
   <div class="m-box-wrap mt10">
@@ -141,7 +159,7 @@ window.addEventListener("load",()=>{
                   indicator-position="none"
                   :style="styleTop"
                   :interval="7000"
-                  @change ="(val)=>carouselChange(val)"
+                  @change="(val) => carouselChange(val)"
                   ref="carousel"
                 >
                   <el-carousel-item
@@ -161,9 +179,9 @@ window.addEventListener("load",()=>{
                   </el-carousel-item>
                 </el-carousel>
                 <ul class="bottomCarousel" id="bottomCarousel">
-                  <li 
-                    v-for="(item,index) in props.companyPic" 
-                    :key="item.key" 
+                  <li
+                    v-for="(item, index) in props.companyPic"
+                    :key="item.key"
                     @mouseover="handlemouseOver(index)"
                   >
                     <a
@@ -243,21 +261,20 @@ window.addEventListener("load",()=>{
             </a>
           </div>
           <div class="supplier-line">
-            <a
+            <!-- <a
               class="main-icon ico-skype-on"
               rel="nofollow"
               href="javascript:void(0);"
               onclick="ChatSkype('betty-he552','779973','-1','https://www.ecvv.com/company/betty-glass/index.html','_detectEcvvSkypeClient');"
               ><p>Chat Now</p></a
-            >
+            > -->
           </div>
 
           <div class="supplier-feedback">
             <a
               class="primary-button gold-button fs18-button"
               target="_blank"
-              rel="nofollow"
-              href="https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=C|779973"
+              @click="submitForm"
               ><span class="icon-content-supplier"> </span>Contact Supplier
             </a>
           </div>
@@ -278,7 +295,7 @@ window.addEventListener("load",()=>{
               <div class="product-img abs-center">
                 <a
                   target="_blank"
-                  @click="clickProduct(item.pid,item)"
+                  @click="clickProduct(item.pid, item)"
                   :title="item.productname"
                 >
                   <img
@@ -291,7 +308,7 @@ window.addEventListener("load",()=>{
               <div class="product-title1">
                 <a
                   target="_blank"
-                  @click="clickProduct(item.pid,item)"
+                  @click="clickProduct(item.pid, item)"
                   :title="item.productname"
                   >{{ item.productname }}</a
                 >
@@ -329,7 +346,7 @@ window.addEventListener("load",()=>{
               <div class="product-img abs-center">
                 <a
                   target="_blank"
-                  @click="clickProduct(item.pid,item)"
+                  @click="clickProduct(item.pid, item)"
                   :title="item.productname"
                 >
                   <img
@@ -340,9 +357,11 @@ window.addEventListener("load",()=>{
                 </a>
               </div>
               <div class="product-title1">
-                <a @click="clickProduct(item.pid,item)" :title="item.productname">{{
-                  item.productname
-                }}</a>
+                <a
+                  @click="clickProduct(item.pid, item)"
+                  :title="item.productname"
+                  >{{ item.productname }}</a
+                >
               </div>
               <div class="sr-proList-price">
                 <span class="sr-proList-unit">Price: </span>
@@ -363,8 +382,8 @@ window.addEventListener("load",()=>{
   </div>
 </template>
 <style lang="less" scoped>
-a{
-  cursor:pointer;
+a {
+  cursor: pointer;
 }
 .m-box {
   margin-bottom: 10px;
@@ -405,7 +424,7 @@ a{
 }
 .company-image-container .bottomCarousel {
   padding: 0;
-  display:flex;
+  display: flex;
   li {
     margin-top: 10px;
     a {
@@ -420,9 +439,9 @@ a{
   }
 }
 
-
-.company-image-container .bottomCarousel a:hover,.company-image-container .bottomCarousel .current {
-    border-color: #ee8800;
+.company-image-container .bottomCarousel a:hover,
+.company-image-container .bottomCarousel .current {
+  border-color: #ee8800;
 }
 
 .company-intro-text {
@@ -436,7 +455,7 @@ a{
     a {
       font-size: 16px;
       font-weight: 700;
-      color:var(--primaryColor)
+      color: var(--primaryColor);
     }
   }
   .company-join {

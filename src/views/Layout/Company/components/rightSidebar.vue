@@ -13,7 +13,7 @@ import { Session } from '@/utils/storage';
         <a :href="companyInfo.companyContactUrl"><span>{{companyInfo?.companyContactPerson}} </span></a>
       </div>
 
-      <div class="chat-feedback">
+      <!-- <div class="chat-feedback">
         <span class="spirits-small s21"></span
         ><a
           rel="nofollow"
@@ -21,7 +21,7 @@ import { Session } from '@/utils/storage';
         >
           Chat Now</a
         >
-      </div>
+      </div> -->
       <div style="text-align: center; padding: 5px 0 0 0">
         <div class="clearfix">Join ECVV community</div>
         <div style="height: 25px; line-height: 25px">

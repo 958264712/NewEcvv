@@ -5,6 +5,7 @@ import axios from "axios";
 import { Session } from "@/utils/storage";
 import { useRouter } from "vue-router";
 
+
 const router = useRouter();
 
 // const emit = defineEmits(["reloadTable"]);
@@ -216,12 +217,13 @@ const submit = async () => {
       method: "post",
       data: { inqcode: ruleForm.value.textVcode },
     }).then((res) => {
-      if (res && res == "1") {
-        submitFrom();
-      } else {
-        ElMessage.error("Your Input Is Error Verification Code!");
-        return;
-      }
+     if (res && res == "1") {
+            submitFrom()
+            }
+            else {
+                ElMessage.error('Your Input Is Error Verification Code!');
+                return;
+            }
     });
   } else {
     // 不验证验证码直接验证表单
@@ -239,7 +241,7 @@ const clickProduct = (id) => {
       <h2>Request Sample</h2>
     </div>
     <div class="form">
-      <div class="companyName">{{ companyInfo.companyname }}</div>
+      <div class="companyName">{{companyInfo.companyname}}</div>
       <div class="productInfo">
         <div class="prod-detail-l">
           <div class="prod-img img-thumb">
@@ -253,9 +255,11 @@ const clickProduct = (id) => {
           </div>
         </div>
         <div class="prod-detail-r">
-          <a @click="clickProduct(productInfo.productID)" class="prod-name">{{
-            productInfo.productName
-          }}</a>
+          <a
+           @click="clickProduct(productInfo.productID)"
+            class="prod-name"
+            >{{productInfo.productName}}</a
+          >
           <div class="prod-quantity cf">
             <div class="quantity-item it-qua">
               <span class="item-title">Quantity</span>
@@ -272,22 +276,16 @@ const clickProduct = (id) => {
             </div>
             <div class="quantity-item it-unit">
               <span class="item-title">Unit</span>
-              <span class="item-txt">{{ productInfo.productUnit }}(s)</span>
+              <span class="item-txt">{{productInfo.productUnit}}(s)</span>
             </div>
             <input type="hidden" name="samplePriceSingle" value="33.55" />
             <div class="quantity-item it-price">
               <span class="item-title">Sample Price</span>
-              <span class="item-txt J-sample" cz-price="33.55"
-                >{{ productInfo.priceUnit }}
-                {{ productInfo.productPrice }}</span
-              >
+              <span class="item-txt J-sample" cz-price="33.55">{{productInfo.priceUnit}} {{productInfo.productPrice}}</span>
             </div>
             <div class="quantity-item it-total">
               <span class="item-title">Total</span>
-              <span class="item-txt total J-total"
-                >{{ productInfo.priceUnit
-                }}{{ productInfo.productPrice * ruleForm.productNumber }}</span
-              >
+              <span class="item-txt total J-total">{{productInfo.priceUnit}}{{productInfo.productPrice * ruleForm.productNumber }}</span>
             </div>
           </div>
           <div>
@@ -996,11 +994,11 @@ const clickProduct = (id) => {
       .submit {
         margin: 30px 100px;
         width: 200px;
-        :deep(.el-input__wrapper) {
+        :deep(.el-input__wrapper)  {
           background-color: #4ec401;
         }
 
-        :deep(.el-input__inner) {
+        :deep(.el-input__inner)  {
           color: #fff;
         }
       }

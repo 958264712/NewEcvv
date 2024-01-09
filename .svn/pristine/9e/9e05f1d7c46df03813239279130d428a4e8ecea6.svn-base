@@ -1,12 +1,52 @@
 <script setup lang="ts">
-import { defineAsyncComponent,ref } from 'vue'
+import { useRouter } from "vue-router";
+import { defineAsyncComponent,ref,watch } from 'vue'
+import { Session } from "@/utils/storage";
+import '@/theme/template.less'
 
-const props = defineProps(['handleStartOrder','ProductInfo'])
+const props = defineProps(['handleStartOrder','ProductInfo',"info"])
 const Form = defineAsyncComponent(()=>import("./formInquire.vue"))
 const ifMore = ref(false)
 const service = ref(true)
 const cuarantee = ref(true)
+const router = useRouter();
 const style = ref({})
+const companyInfo = Session.get('companyInfo')
+
+const primaryColor = ref("#0173a9");
+const primaryRgbaColor = primaryColor.value
+const companyStyleType = (key) => {
+  switch (key) {
+    case 1:
+      primaryColor.value = '#0173a9'
+      break;
+    case 2:
+      primaryColor.value = '#ed9706'
+      break;
+    case 3:
+      primaryColor.value = '#79C547'
+      break;
+    case 4:
+      primaryColor.value = '#d02460'
+      break;
+    case 5:
+      primaryColor.value = '#ad0101'
+      break;
+    case 6:
+      primaryColor.value = '#3e5e87'
+      break;
+    case 7:
+      primaryColor.value = '#3b3c3e'
+      break;
+    case 8:
+      primaryColor.value = '#2469aa'
+      break;
+    case 9:
+      primaryColor.value = '#64bbd7'
+      break;
+  }
+};
+companyStyleType(companyInfo.webModel)
 // 切换菜单
 const handleChange = (e:any) => {
     const list = e.target.parentElement.children
@@ -67,9 +107,21 @@ window.addEventListener('scroll', () => {
         scroll.value = false
     }
 })
-const handleSendMsg = (id:number) =>{
-    return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
-}
+// watch(()=>document.documentElement.scrollTop,()=>{
+// console.log(document.getElementById("scroll").offsetTop);
+
+// })
+// const handleSendMsg = (id:number) =>{
+//     return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
+// }
+const handleSendMsg = (id) => {
+    Session.set('sendCompanyInfo',{
+      product:true
+    })
+      let routeUrl = router.resolve({ path: `/sendMsg` });
+      window.open(routeUrl.href);
+};
+
 </script>
 <template>
     <section class="details-content-all auto-w">
@@ -83,7 +135,7 @@ const handleSendMsg = (id:number) =>{
                             Breaker, Residual Current Circuit Breaker, ELCB, MCB, MCCB, RCCB</p>
                     </div>
                     <div class="details-content-sample-n" id="PusOrder">
-                        <a class="pus-now-n" :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                        <a class="pus-now-n" @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                             Inquiry Now
                         </a>
                         <a class="pus-now-n1" @click="props.handleStartOrder" rel="nofollow">
@@ -122,7 +174,7 @@ const handleSendMsg = (id:number) =>{
                             Breaker, Residual Current Circuit Breaker, ELCB, MCB, MCCB, RCCB</p>
                     </div>
                     <div class="details-content-sample-n" id="PusOrder">
-                        <a class="pus-now-n" :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                        <a class="pus-now-n" @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                             Inquiry Now
                         </a>
                         <a class="pus-now-n1" @click="props.handleStartOrder" rel="nofollow">
@@ -154,7 +206,7 @@ const handleSendMsg = (id:number) =>{
                     </li>
                 </ul>
                 <div class="details-r-tab-r" id="PusOrder2">
-                    <a :href="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
+                    <a @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                         Inquiry Now
                     </a>
                 </div>
@@ -292,8 +344,7 @@ const handleSendMsg = (id:number) =>{
                     </li>
                 </ul>
             </div>
-
-            <!-- <Form /> -->
+            <Form :title = "props.info" :style="{'--primaryColor': primaryColor,'--primaryRgbaColor':primaryRgbaColor}" />
         </div>
     </section>
 </template>
@@ -301,9 +352,11 @@ const handleSendMsg = (id:number) =>{
 .details-content-all {
     margin-top: 30px;
     clear: both;
-    width: 1440px;
-    margin: 0 auto;
+    width: 100%;
+    // margin: 0 auto;
+    padding:10px 11%;
     align-items: flex-start;
+    background-color:#fff;
 }
 
 // 左边文档

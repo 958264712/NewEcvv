@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { reactive, ref,onMounted } from "vue";
+import { reactive, ref ,onMounted} from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { Session } from "@/utils/storage";
 
-const props = defineProps(["title"])
+const props = defineProps(["companyname"])
 const router = useRouter();
 
 const visible = ref(false);
@@ -46,9 +46,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     // 验证结束
     Session.set('sendCompanyInfo',{
       form:ruleForm.id,
-      to:props.title,
+      to:props.companyname,
       message:ruleForm.message,
-      product:true
+      product:false
     })
     ruleForm.id = '' 
     ruleForm.message = ''
@@ -97,8 +97,8 @@ onMounted(()=>{
       <p class="space wai">Enter email or Member ID.</p>
       <el-form-item label="To:" prop="name">
         <div>
-          <span class="name"> {{props.title}}</span>
-          <!-- <a
+          <span class="name"> {{props.companyname}}</span>
+          <a
             class="main-icon ico-skype-on"
             rel="nofollow"
             href="javascript:void(0);"
@@ -112,7 +112,7 @@ onMounted(()=>{
               )
             "
             >Chat Now</a
-          > -->
+          >
         </div>
       </el-form-item>
       <el-form-item label="Message：" prop="message" style="margin-bottom: 10px">

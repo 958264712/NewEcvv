@@ -70,7 +70,6 @@ const queryRFQ = () => {
       ref="ruleFormRef"
       :model="ruleForm"
       label-width="100px"
-      class="demo-ruleForm"
       :rules="rules"
     >
       <el-form-item label="From：" prop="id" style="margin-bottom: 10px">
@@ -80,7 +79,7 @@ const queryRFQ = () => {
       <el-form-item label="To:" prop="name">
         <div>
           <span class="name"> {{props.companyname}}</span>
-          <a
+          <!-- <a
             class="main-icon ico-skype-on"
             rel="nofollow"
             href="javascript:void(0);"
@@ -94,7 +93,7 @@ const queryRFQ = () => {
               )
             "
             >Chat Now</a
-          >
+          > -->
         </div>
       </el-form-item>
       <el-form-item label="Message：" prop="message" style="margin-bottom: 10px">

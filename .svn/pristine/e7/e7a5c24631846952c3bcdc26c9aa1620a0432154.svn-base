@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent,onMounted } from "vue";
 import { useRouter } from "vue-router";
-import {
-  getLatestProduct,
-  getProductInfo,
-  getProductOrder,
-} from "@/api/modular/search";
-import { Session } from "@/utils/storage";
+import { getLatestProduct,getProductInfo,getProductOrder } from "@/api/modular/search";
+import { Session } from '@/utils/storage';
 
 const props = defineProps([
   "productShowcase",
@@ -20,100 +16,47 @@ const props = defineProps([
 const router = useRouter();
 const FormInquire = defineAsyncComponent(() => import("./formInquire.vue"));
 
-const companyInfo = Session.get("companyInfo");
+const companyInfo = Session.get('companyInfo')
 const visible = ref(false);
 const itemList = ref<any>([]);
 const productGroup = ref<any>([]);
-const ProductInfo = ref<any>({});
-const ProductDataInfo = ref<any>({});
+const ProductInfo = ref<any>({})
+const ProductDataInfo = ref<any>({})
 const paramsInfo = ref<any>({
-  pid: "",
-  skuId: "",
-});
+  pid:'',
+  skuId:''
+})
 const params = ref({
-  pid: "",
-});
-const ruleFormRef = ref<FormInstance>();
-const ruleForm = reactive<RuleForm>({
-  id: "",
-  message: "",
-});
-const rules = ref<FormRules>({
-  message: [
-    { required: true, message: "Please enter the content for your inquiry." },
-  ],
-  id: [{ required: true, message: "Please enter your email address." }],
-});
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      // 提交公司信息验证
-      if (ruleForm.id == "") {
-        ElMessage.error("Please Enter Email Address");
-        return false;
-      }
-      if (ruleForm.message == "") {
-        ElMessage.error("Please Enter Inquiry");
-        return false;
-      }
-      var re = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-      if (!re.test(ruleForm.id)) {
-        ElMessage.error("Please enter the correct email format");
-        ruleForm.id = "";
-        return false;
-      }
-      if (ruleForm.message.length < 20) {
-        ElMessage.error(
-          "Please Enter Inquiry message must be more 20 characters"
-        );
-        return false;
-      }
-      // 验证结束
-      Session.set("sendCompanyInfo", {
-        form: ruleForm.id,
-        to: props.companyname,
-        message: ruleForm.message,
-        product: false,
-      });
-      ruleForm.id = "";
-      ruleForm.message = "";
-      let routeUrl = router.resolve({ path: `/sendMsg` });
-      window.open(routeUrl.href, "_blank");
-    } else {
-      console.log("error submit!", fields);
-    }
-  });
-};
+    pid:''
+})
+
 // 询盘1
 const SendMessage = (id, item) => {
   Session.set("productInfo", item);
-  paramsInfo.value.pid = id;
-  params.value.pid = id;
-  pDInfo();
-  pInfo();
-  Session.set("sendCompanyInfo", {
-    product: true,
-  });
+  paramsInfo.value.pid = id
+  params.value.pid = id
+  pDInfo()
+  pInfo()
+  Session.set('sendCompanyInfo',{
+    product:true
+  })
   let routeUrl = router.resolve({ path: `/sendMsg` });
   window.open(routeUrl.href, "_blank");
 };
 
-const clickProduct = (id, item) => {
+const clickProduct = (id,item) => {
   Session.set("productInfo", item);
-  paramsInfo.value.pid = id;
-  params.value.pid = id;
-  pDInfo();
-  pInfo();
+  paramsInfo.value.pid = id
+  params.value.pid = id
+  pDInfo()
+  pInfo()
   let routeUrl = router.resolve({ path: `/product/${id}` });
   window.open(routeUrl.href, "_blank");
 };
 
 // 获取最新产品
 const handleQuery = async () => {
-  await getLatestProduct(
-    Object.assign({ keyword: companyInfo.companyCateGroup.catalog_id })
-  ).then((res) => {
+  await getLatestProduct(Object.assign({ keyword: companyInfo.companyCateGroup.catalog_id})).then((res) => {
     if (res.data.type === "success") {
       itemList.value = res.data.result.list;
     }
@@ -127,87 +70,79 @@ const handleQuery = async () => {
 handleQuery();
 // 获取产品订单信息
 const pDInfo = async () => {
-  const res = await getProductOrder(Object.assign(paramsInfo.value));
-  if (res.data.type === "success") {
-    ProductDataInfo.value.productName = res.data.result.productName;
-    ProductDataInfo.value.firstPicPath = res.data.result.firstPicPath;
-    ProductDataInfo.value.m_packing = res.data.result.m_packing;
-    ProductDataInfo.value.price = res.data.result.price;
-    ProductDataInfo.value.productbrand = res.data.result.productbrand;
-    ProductDataInfo.value.productmodel = res.data.result.productmodel;
-    ProductDataInfo.value.unitStr = res.data.result.unitStr;
-    ProductDataInfo.value.token = res.data.result.token;
-    Session.set("pDInfo", res.data.result);
-  }
-};
+    const res = await getProductOrder(Object.assign(paramsInfo.value))
+    if(res.data.type === 'success'){
+        ProductDataInfo.value.productName = res.data.result.productName
+        ProductDataInfo.value.firstPicPath = res.data.result.firstPicPath
+        ProductDataInfo.value.m_packing = res.data.result.m_packing
+        ProductDataInfo.value.price = res.data.result.price
+        ProductDataInfo.value.productbrand = res.data.result.productbrand
+        ProductDataInfo.value.productmodel = res.data.result.productmodel
+        ProductDataInfo.value.unitStr = res.data.result.unitStr
+        ProductDataInfo.value.token = res.data.result.token
+        Session.set("pDInfo",res.data.result)
+    }
+}
 // 获取产品信息
 const pInfo = async () => {
-  const res = await getProductInfo(Object.assign(params.value));
-  if (res.data.type === "success") {
-    ProductInfo.value = res.data.result;
-    // 产品详情
-    ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0];
-    ProductInfo.value.productDescription =
-      res.data.result.productDetail.productDescription;
-    ProductInfo.value.productPropertyList =
-      res.data.result.productDetail.productPropertyList;
-    ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll;
-    ProductInfo.value.productName = res.data.result.productDetail.productName;
-    ProductInfo.value.supplyAbility =
-      res.data.result.productDetail.supplyAbility;
-    ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit;
-    ProductInfo.value.minOrder = res.data.result.productDetail.minOrder;
-    ProductInfo.value.productID = res.data.result.productDetail.productID;
-    ProductInfo.value.productPrice =
-      res.data.result.productOtherInfo.productPrice;
-    ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit;
-    ProductInfo.value.productUnit =
-      res.data.result.productOtherInfo.productUnit;
-    ProductInfo.value.skuInfo = res.data.result.productOtherInfo.skuInfo;
-    if (ProductInfo.value.skuInfo.length > 0) {
-      ProductInfo.value.ifSku = true;
-    } else {
-      ProductInfo.value.ifSku = false;
+    const res = await getProductInfo(Object.assign(params.value))
+    if(res.data.type === 'success'){
+        ProductInfo.value = res.data.result
+        // 产品详情
+        ProductInfo.value.picPathAll = res.data.result.productDetail.picPathAll[0]
+        ProductInfo.value.productDescription = res.data.result.productDetail.productDescription
+        ProductInfo.value.productPropertyList = res.data.result.productDetail.productPropertyList
+        ProductInfo.value.picPathAllList = res.data.result.productDetail.picPathAll
+        ProductInfo.value.productName = res.data.result.productDetail.productName
+        ProductInfo.value.supplyAbility = res.data.result.productDetail.supplyAbility
+        ProductInfo.value.minorderUnit = res.data.result.productDetail.minorderUnit
+        ProductInfo.value.minOrder = res.data.result.productDetail.minOrder
+        ProductInfo.value.productID = res.data.result.productDetail.productID
+        ProductInfo.value.productPrice = res.data.result.productOtherInfo.productPrice
+        ProductInfo.value.priceUnit = res.data.result.productOtherInfo.priceUnit
+        ProductInfo.value.productUnit = res.data.result.productOtherInfo.productUnit
+        ProductInfo.value.skuInfo = res.data.result.productOtherInfo.skuInfo
+        if(ProductInfo.value.skuInfo.length > 0){
+            ProductInfo.value.ifSku = true
+        }else{
+            ProductInfo.value.ifSku = false
+        }
+        ProductInfo.value.skuPrice = JSON.parse(res.data.result.productOtherInfo.skuPrice)
+        // 面包屑
+        ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg
+        // 产品列表
+        const list = res.data.result.recommProductList
+        ProductInfo.value.recommProductList = []
+        const list1 = ref<any>([])
+        list.map((item:any)=>{
+            list1.value.push(item)
+            if(list1.value.length % 7 === 0){
+                ProductInfo.value.recommProductList.push(list1.value)
+                list1.value = []
+            }
+        }) 
+        // 推荐产品列表
+        ProductInfo.value.productRecommendList = res.data.result.productRecommendList
+        Session.set("pInfo",res.data.result)
     }
-    ProductInfo.value.skuPrice = JSON.parse(
-      res.data.result.productOtherInfo.skuPrice
-    );
-    // 面包屑
-    ProductInfo.value.getNavigationMsg = res.data.result.getNavigationMsg;
-    // 产品列表
-    const list = res.data.result.recommProductList;
-    ProductInfo.value.recommProductList = [];
-    const list1 = ref<any>([]);
-    list.map((item: any) => {
-      list1.value.push(item);
-      if (list1.value.length % 7 === 0) {
-        ProductInfo.value.recommProductList.push(list1.value);
-        list1.value = [];
-      }
-    });
-    // 推荐产品列表
-    ProductInfo.value.productRecommendList =
-      res.data.result.productRecommendList;
-    Session.set("pInfo", res.data.result);
-  }
-};
+}
 
-window.addEventListener("scroll", () => {
-  if (document.documentElement.scrollTop >= 4000) {
-    visible.value = true;
-  } else {
-    visible.value = false;
-  }
-});
-onMounted(() => {
-  window.addEventListener("scroll", () => {
+window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop >= 4000) {
-      visible.value = true;
+        visible.value = true
     } else {
-      visible.value = false;
+        visible.value = false
     }
-  });
-});
+})
+onMounted(()=>{
+ window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop >= 4000) {
+        visible.value = true
+    } else {
+        visible.value = false
+    }
+})
+})
 </script>
 <template>
   <el-row id="produceModule">
@@ -295,31 +230,76 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <el-form
-              ref="ruleFormRef"
-              :model="ruleForm"
-              :rules="rules"
+            <form
+              id="sideInqueryForm"
+              class="form obelisk-form"
+              method="post"
+              target="_blank"
             >
-              <el-input
-                type="textarea"
-                show-word-limit
-                v-model="ruleForm.message"
-                placeholder="Enter between 20 to 4,000 characters."
-                minlength="20"
-                maxlength="4000"
-                style="margin-bottom:10px"
-              />
-
-              <el-input
-                v-model="ruleForm.id"
-                style="margin-bottom:10px"
-                placeholder="Your email address"
-              />
-
-              <el-button type="primary" @click="submitForm(ruleFormRef)" style="margin-left:35%;">
-                Send
-              </el-button>
-            </el-form>
+              <input type="hidden" id="loginStatu" value="0" />
+              <div class="sr-side-contSupplier-field">
+                <textarea
+                  class="input-textarea sr-side-contSupplier-message J-side-contSupplier-message"
+                  name="content"
+                  id="inquiryContent"
+                  cols="90"
+                  rows="2"
+                  placeholder="Enter between 20 to 4,000 characters."
+                  maxlength="4000"
+                ></textarea>
+              </div>
+              <div
+                class="sr-side-contSupplier-field sr-side-contSupplier-emailfield J-contSupplier-email-field"
+              >
+                <input
+                  class="input-text sr-side-contSupplier-email"
+                  name="senderMail"
+                  placeholder="Your email address"
+                  value=""
+                />
+              </div>
+              <div class="sr-side-contSupplier-btn cf">
+                <div class="cf">
+                  <div id="captcha" style="float: left"></div>
+                  <input
+                    type="hidden"
+                    name="hmToken"
+                    class="J-hmToken"
+                  />
+                  <input
+                    type="hidden"
+                    class="J-hmCaptchaId"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  id="sourceReqType"
+                  name="sourceReqType"
+                  value="GLP"
+                />
+                <input
+                  type="hidden"
+                  name="showRoomQuickInquireFlag"
+                  value="1"
+                />
+                <input type="hidden" name="showRoomId" value="" />
+                <input
+                  type="hidden"
+                  name="compareFromPage"
+                  id="compareFromPage"
+                  value="1"
+                />
+                <button
+                  fun-inquiry-supplier=""
+                  type="submit"
+                  class="btn btn-main btn-large"
+                  id="sideInquirySend"
+                  ads-data="st:5,pdid:,pcid:IMRmDLvcafHV"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -340,7 +320,7 @@ onMounted(() => {
                   <div class="sr-proList-pic">
                     <div class="prod-image">
                       <a
-                        @click="clickProduct(item.pid, item)"
+                        @click="clickProduct(item.pid,item)"
                         :title="item.productname"
                       >
                         <img
@@ -546,7 +526,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <FormInquire :companyname="props.companyname" :visible="visible" />
+      <FormInquire :companyname="props.companyname" :visible="visible"/>
     </el-col>
   </el-row>
 </template>
