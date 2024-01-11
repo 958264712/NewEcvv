@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref,watch,onMounted  } from 'vue'
 import {useRouter} from 'vue-router'
+import { Session } from '@/utils/storage';
+
 // 懒加载 引入组件
 const headerUp = defineAsyncComponent(() => import('./components/HeaderTop.vue'));
 const headerDown = defineAsyncComponent(() => import('./components/HeaderSearch.vue'));
 
+const companyInfo = Session.get('companyInfo')
 const router = useRouter()
 const location = router.options.history.location.split('/')[1]
 // 判断是否为公司页面
@@ -39,8 +42,11 @@ if (width.value < 1400) {
 // 滚动条高度改变时
 window.addEventListener('scroll', () => {
   width.value = document.body.clientWidth
-  if (document.documentElement.scrollTop > 80 && location !== 'vipcompany') {
+  if (document.documentElement.scrollTop > 80 ) {
     ifFixed.value = true
+    if(location === '' && companyInfo.companylevel < 50){
+      ifFixed.value = false
+    }
     if (width.value < 1400) {
       style.value = {
         padding: '0',
@@ -71,8 +77,11 @@ window.addEventListener('scroll', () => {
 
 window.addEventListener('resize', () => {
   width.value = document.body.clientWidth
-  if (document.documentElement.scrollTop > 80 && location !== 'vipcompany' ) {
+  if (document.documentElement.scrollTop > 80  ) {
     ifFixed.value = true
+    if(location === '' && companyInfo.companylevel < 50){
+      ifFixed.value = false
+    }
     if (width.value < 1400) {
       style.value = {
         padding: '0',
@@ -101,7 +110,7 @@ window.addEventListener('resize', () => {
 })
 
 onMounted(()=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample'||location === 'send-customized-request'){
+  if((location === ''&& companyInfo.companylevel < 50) || location === 'sendMsg'|| location === 'requestSample'||location === 'send-customized-request'){
     ifCompany.value = true
   }else{
     ifCompany.value = false
@@ -109,7 +118,7 @@ onMounted(()=>{
 })
 
 watch(() =>router,(val)=>{
-  if(location === 'company' || location === 'vipcompany' || location === 'sendMsg'|| location === 'requestSample' ||location === 'send-customized-request'){
+  if((location === ''&& companyInfo.companylevel < 50)  || location === 'sendMsg'|| location === 'requestSample' ||location === 'send-customized-request'){
     ifCompany.value = true
   }else{
     ifCompany.value = false

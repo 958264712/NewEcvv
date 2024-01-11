@@ -1,4 +1,5 @@
 import { type RouteRecordRaw } from 'vue-router';
+import { ref } from 'vue'
 import { getCompanyInfo } from '@/api/modular/company.ts'
 import { Session } from '@/utils/storage';
 
