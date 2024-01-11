@@ -15,7 +15,7 @@ const Content = defineAsyncComponent(() => import("./components/content.vue"));
 const companyInfo = Session.get('companyInfo')
 const primaryColor = ref("#0173a9");
 const primaryRgbaColor = colorToRGB(primaryColor.value, 0.85);
-const companyStyleType = (key) => {
+const companyStyleType = (key=1) => {
   switch (key) {
     case 1:
       primaryColor.value = '#0173a9'
@@ -46,7 +46,7 @@ const companyStyleType = (key) => {
       break;
   }
 };
-companyStyleType(companyInfo.webModel)
+companyStyleType(companyInfo?.webModel)
 </script>
 <template>
   <el-row class="companyModuler">

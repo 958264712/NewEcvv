@@ -364,6 +364,16 @@ const submitFrom = async () => {
     } else {
       queryParams.value.chkIDs = "P|" + productInfo.pid;
     }
+    if(queryParams.value.selSex){
+      switch(queryParams.value.selSex){
+        case 'Male':
+          queryParams.value.selSex = 1;
+          break;
+        case 'FaMale':
+          queryParams.value.selSex = 0;
+          break;
+      }
+    }
     await postSendMsg(Object.assign(queryParams.value)).then((res) => {
       if (res.data.type === "success") {
         ElMessage.success("You submit success!");
@@ -374,7 +384,6 @@ const submitFrom = async () => {
         queryParams.value.txtMessage = "";
         queryParams.value.verificationCode = "";
         queryParams.value.txtCompanyName = "";
-        queryParams.value.txtEmail = "";
         queryParams.value.txtCountryCode = "";
         queryParams.value.txtAreaCode = "";
         queryParams.value.txtTel = "";
@@ -385,8 +394,10 @@ const submitFrom = async () => {
         queryParams.value.txtQuant = 1000;
         queryParams.value.deliveryTime = 0;
         queryParams.value.extraRequest = "";
+        extra_list.value = []
         queryParams.value.multipleQuotes = true;
         queryParams.value.txtUnit = "Piece(s)";
+        queryParams.value.selSex = "";
       } else {
         ElMessage.success("You submit error!");
       }
@@ -415,14 +426,7 @@ const change1 = (val) => {
 const change2 = (val) => {
   queryParams.value.extraRequest = val.join();
 };
-// 性别选择框
-const change3 = (val) => {
-  let obj = {};
-  obj = sexList.value.find((item) => {
-    return item.label == val;
-  });
-  queryParams.value.selSex = obj.label;
-};
+
 </script>
 
 <template>
@@ -637,7 +641,6 @@ Other special requests:
               <el-select
                 v-model="queryParams.selSex"
                 placeholder="Please Select Gender"
-                @change="(val) => change3(val)"
               >
                 <el-option
                   v-for="(item, index) in sexList"

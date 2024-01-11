@@ -1,4 +1,7 @@
 import { type RouteRecordRaw } from 'vue-router';
+import { ref } from 'vue'
+import { getCompanyInfo } from '@/api/modular/company.ts'
+import { Session } from '@/utils/storage';
 
 /**
  * 建议：路由 path 路径与文件夹名称相同，找文件可浏览器地址找，方便定位文件位置
@@ -15,6 +18,18 @@ import { type RouteRecordRaw } from 'vue-router';
  *      icon：          菜单、tagsView 图标，阿里：加 `iconfont xxx`，fontawesome：加 `fa xxx`
  * }
  */
+
+// 获取公司信息
+const handleQuery = async () => {
+	const host = window.location.host
+	await getCompanyInfo(Object.assign({ host: host })).then((res) => {
+		if (res.data.type === 'success') { 
+			Session.set('companyInfo', res.data.result)
+		}
+	})
+}
+handleQuery()
+const companyInfo = Session.get('companyInfo')
 
 // 扩展 RouteMeta 接口
 declare module 'vue-router' {
@@ -74,13 +89,13 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			{
 				path: '/',
 				name: 'Company',
-				component: () => import('@/views/Layout/Company/index.vue'),
+				component: () => companyInfo.companylevel < 50 ? import('@/views/Layout/VipCompany/index.vue') : import('@/views/Layout/Company/index.vue') ,
 			},
-			{
-				path: '/VipCompany/:id',
-				name: 'VipCompany',
-				component: () => import('@/views/Layout/VipCompany/index.vue'),
-			},
+			// {
+			// 	path: '/VipCompany/:id',
+			// 	name: 'VipCompany',
+			// 	component: () => import('@/views/Layout/VipCompany/index.vue'),
+			// },
 			// {
 			// 	path: '/sendMsg/:id',
 			// 	name: 'SendMessage',

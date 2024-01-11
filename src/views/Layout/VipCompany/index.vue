@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref,onMounted,defineAsyncComponent } from "vue";
-import { getCompanyInfo } from '@/api/modular/company.ts'
+// import { getCompanyInfo } from '@/api/modular/company.ts'
 import { Session } from '@/utils/storage';
 import '@/theme/template.less'
 
@@ -11,6 +11,7 @@ const Content = defineAsyncComponent(() => import("./components/content.vue"));
 const ProduceList = defineAsyncComponent(() => import("./components/produceList.vue"));
 const Basket = defineAsyncComponent(() => import("../Basket/index.vue"));
 
+const seesionCompany = Session.get('companyInfo')
 const companyInfo = ref<any>({})
 const companyProfile = ref<any>({})
 const companyCardInfo = ref<any>({})
@@ -72,41 +73,32 @@ const companyStyleType = (key) => {
 
 // 获取公司信息
 const handleQuery = async () => {
-    const host = window.location.host
-    await getCompanyInfo(Object.assign({host:host})).then((res)=>{
-      if(res.data.type === 'success'){
-        companyInfo.value = res.data.result.companyInfo
-        companyProfile.value = res.data.result.companyProfile
-        companyCardInfo.value = res.data.result.companyCardInfo
-        companyname.value = res.data.result.companyname
-        description.value = res.data.result.description
-        countryName.value = res.data.result.countryName
-        companyarea.value = res.data.result.companyarea
-        companyPic.value = res.data.result.companyPic
-        subDomainName.value = res.data.result.subDomainName
-        companyCateGroup.value = res.data.result.companyCateGroup
-        productShowcase.value = res.data.result.productShowcase 
-        companySlidePicList.value = res.data.result.companySlidePicList;
-        companyContactPerson.value = res.data.result.companyContactPerson
-        companyContactUrl.value = res.data.result.companyContactUrl
-        newProducts.value = res.data.result.newProducts 
-        companyStyleType(res.data.result.webModel)
+        companyInfo.value = seesionCompany.companyInfo
+        companyProfile.value = seesionCompany.companyProfile
+        companyCardInfo.value = seesionCompany.companyCardInfo
+        companyname.value = seesionCompany.companyname
+        description.value = seesionCompany.description
+        countryName.value = seesionCompany.countryName
+        companyarea.value = seesionCompany.companyarea
+        companyPic.value = seesionCompany.companyPic
+        subDomainName.value = seesionCompany.subDomainName
+        companyCateGroup.value = seesionCompany.companyCateGroup
+        productShowcase.value = seesionCompany.productShowcase 
+        companySlidePicList.value = seesionCompany.companySlidePicList;
+        companyContactPerson.value = seesionCompany.companyContactPerson
+        companyContactUrl.value = seesionCompany.companyContactUrl
+        newProducts.value = seesionCompany.newProducts 
+        companyStyleType(seesionCompany.webModel)
         companyIcon.value = {
-          companylevel:res.data.result.companylevel,
-          year:res.data.result.year,
-          yearEnd:res.data.result.yearEnd
+          companylevel:seesionCompany.companylevel,
+          year:seesionCompany.year,
+          yearEnd:seesionCompany.yearEnd
         }
-        Session.set('companyInfo',res.data.result)
-
-        }
-    })
 }
 
-
-onMounted(()=>{
-    handleQuery()
-})
-
+onMounted(() => {
+  handleQuery();
+});
 
 </script>
 <template>

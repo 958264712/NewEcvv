@@ -96,7 +96,7 @@ onMounted(() => {
                 ><el-icon><Position /></el-icon> Contact Now</a
               >
             </div>
-            <div class="sr-side-contSupplier-chat button-block">
+            <!-- <div class="sr-side-contSupplier-chat button-block">
               <a
                 rel="nofollow"
                 class="tm-status-on"
@@ -104,7 +104,7 @@ onMounted(() => {
               >
                 <el-icon><ChatDotRound /></el-icon>Chat with Supplier</a
               >
-            </div>
+            </div> -->
             <div class="button-block sr-proMainInfo-baseInfo-actActs">
               <span class="act-item">
                 <span

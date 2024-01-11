@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref, onMounted } from "vue";
-import { getCompanyInfo } from "@/api/modular/company.ts";
 import { Session } from "@/utils/storage";
 
 const TopBar = defineAsyncComponent(
@@ -26,6 +25,7 @@ const FormInquire = defineAsyncComponent(
 );
 const Basket = defineAsyncComponent(() => import("../../Basket/index.vue"));
 
+const seesionCompany = Session.get('companyInfo')
 const companyInfo = ref<any>({});
 const companyProfile = ref<any>({})
 const companyCardInfo = ref<any>({});
@@ -58,33 +58,27 @@ const radiusStyle = ref({
 });
 // 获取公司信息
 const handleQuery = async () => {
-  const host = window.location.host
-  await getCompanyInfo(Object.assign({host:host})).then((res) => {
-    if (res.data.type === "success") {
-      Session.set("companyInfo", res.data.result);
-      companyInfo.value = res.data.result.companyInfo;
-      companyProfile.value = res.data.result.companyProfile
-      companyCardInfo.value = res.data.result.companyCardInfo;
-      companyname.value = res.data.result.companyname;
-      description.value = res.data.result.description;
-      countryName.value = res.data.result.countryName;
-      companyarea.value = res.data.result.companyarea;
-      companyPic.value = res.data.result.companyPic;
-      subDomainName.value = res.data.result.subDomainName;
-      companyCateGroup.value = res.data.result.companyCateGroup;
-      companySlidePicList.value = res.data.result.companySlidePicList;
-      productShowcase.value = res.data.result.productShowcase;
-      companyContactPerson.value = res.data.result.companyContactPerson;
-      companyContactUrl.value = res.data.result.companyContactUrl;
-      newProducts.value = res.data.result.newProducts;
-      companyIcon.value = {
-        companylevel:res.data.result.companylevel,
-        year:res.data.result.year,
-        yearEnd:res.data.result.yearEnd
-      }
-    }
-  });
-};
+        companyInfo.value = seesionCompany.companyInfo
+        companyProfile.value = seesionCompany.companyProfile
+        companyCardInfo.value = seesionCompany.companyCardInfo
+        companyname.value = seesionCompany.companyname
+        description.value = seesionCompany.description
+        countryName.value = seesionCompany.countryName
+        companyarea.value = seesionCompany.companyarea
+        companyPic.value = seesionCompany.companyPic
+        subDomainName.value = seesionCompany.subDomainName
+        companyCateGroup.value = seesionCompany.companyCateGroup
+        productShowcase.value = seesionCompany.productShowcase 
+        companySlidePicList.value = seesionCompany.companySlidePicList;
+        companyContactPerson.value = seesionCompany.companyContactPerson
+        companyContactUrl.value = seesionCompany.companyContactUrl
+        newProducts.value = seesionCompany.newProducts 
+        companyIcon.value = {
+          companylevel:seesionCompany.companylevel,
+          year:seesionCompany.year,
+          yearEnd:seesionCompany.yearEnd
+        }
+}
 
 onMounted(() => {
   handleQuery();
