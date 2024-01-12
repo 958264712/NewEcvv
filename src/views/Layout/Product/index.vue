@@ -33,7 +33,7 @@ const handleStartOrder = () =>{
 <div class='productsModule'>
     <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder"  />
     <otp :ProductInfo = "pInfo"/>
-    <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" @select="select"/>
+    <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" />
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "pDInfo" />
     <Basket class="basket" />
 </div>

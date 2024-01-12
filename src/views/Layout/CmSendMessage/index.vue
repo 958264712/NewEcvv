@@ -406,10 +406,10 @@ const submitFrom = async () => {
     ElMessage.error("Please check the Agree Agreement box");
   }
 };
-// 改变unit
-const change = (val) => {
-  queryParams.value.txtUnit = val;
-};
+// // 改变unit
+// const change = (val) => {
+//   queryParams.value.txtUnit = val;
+// };
 
 // 获取国家以及国家id
 const change1 = (val) => {
@@ -484,10 +484,9 @@ const change2 = (val) => {
                   />
                   <div class="productPieces">
                     <el-select
-                      v-model="unit"
+                      v-model="queryParams.txtUnit"
                       placeholder="Pieces"
                       style="width: 100px"
-                      @change="(val) => change(val)"
                     >
                       <el-option
                         v-for="(item, index) in piecesList"
