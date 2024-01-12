@@ -12,7 +12,7 @@ const dialogTableVisible = ref(false);
 const ifFiles = ref(false);
 const ifImages = ref(false);
 const ruleForm = ref<any>({
-  productNumber: 1000,
+  productNumber: 1,
 });
 const productInfo = Session.get("pInfo");
 const companyInfo = Session.get("companyInfo");
