@@ -279,8 +279,8 @@ const bindCheckBox1 = () => {
                         target="_blank"
                         rel="nofollow"
                         @click="SendCustomizedRequest(props.ProductInfo)"
-                        v-show="token.length>0"
                         >
+                        <!-- v-show="token.length>0" -->
                         <el-icon><EditPen /></el-icon>Customized Request
                       </a>
                     </div>
