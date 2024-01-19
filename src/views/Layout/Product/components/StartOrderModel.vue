@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { ElMessage } from "element-plus";
 import axios from 'axios';
+import { fileDelete } from '@/api/modular/sourcingRequest'
+import type { UploadProps } from 'element-plus'
 
 const props = defineProps(['ProductDataInfo'])
 // const emit = defineEmits(["reloadTable"]);
@@ -12,6 +14,8 @@ const ruleForm = ref<any>({
     productNumber: 1000
 });
 const ruleFormRef = ref();
+const uploadRef = ref();
+const fileUrl_list = ref<any>([])
 
 // 打开弹窗
 const openDialog = async () => {
@@ -224,6 +228,30 @@ const handleFiles = () => {
 }
 // 响应头 headerObj
 const headerObj = { Authorization: props.ProductDataInfo.token }
+// 文件上传成功后进行拼接
+const successUpload: UploadProps['onSuccess'] = (response) => {
+    const url = JSON.parse(response.result).split(',')
+    const src = url[3].split(':')
+    fileUrl_list.value.push(src[1] + ':' + src[2])
+}
+// 删除文件列表中的文件时
+const removeFile: UploadProps['onRemove'] = async (uploadFile: any) => {
+    const url = JSON.parse(uploadFile.response.result).split(',')
+    const key = url[2].split(':')
+    const src = url[3].split(':')
+    await fileDelete(key[2]).then(res => {
+        if (res.data.type === 'success') {
+            fileUrl_list.value.map((item: any, index: number) => {
+                if (item === src[1] + ':' + src[2]) {
+                    fileUrl_list.value.splice(index, 1)
+                }
+            })
+            ElMessage.success('You success delete it is files')
+        } else {
+            ElMessage.error('You did not delete the files')
+        }
+    })
+}
 //将属性或者函数暴露给父组件
 defineExpose({ openDialog });
 
@@ -233,6 +261,7 @@ function getUrlParam(name: any) {
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
     if (r != null) return unescape(r[2]); return null; //返回参数值
 }
+
 </script>
 <template>
     <div class="popups-content">
@@ -678,29 +707,23 @@ function getUrlParam(name: any) {
                             </el-col>
                             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="form-control imgModel">
                                 <el-form-item prop="treaProcurementDescribes">
-                                    <el-button @click="handleImages">Add Images</el-button>
+                                    <el-button @click="handleImages" v-show="!ifImages">Add Files</el-button>
                                     <template v-if="ifImages">
                                         <div  class="accordion-body collapse">
                                             <div class="accordion-inner">
                                                 <div class="popups-list">
-                                                    <strong>Image:</strong>
+                                                    <strong>Files:</strong>
                                                     <el-upload class="upload-demo" drag
-                                                        action="https://safebuy.ecvv.com/api/services/app/EDocument/UpFiles"
-                                                        :headers='headerObj' multiple>
+                                                        ref="uploadRef"
+                                                        action="http://newsiteapi.ecvv.com/api/sourcingRequest/fileUpload"
+                                                        :on-remove="removeFile" :on-success="successUpload"
+                                                        :headers='headerObj' multiple :limit="10">
                                                         <div class="el-upload__text">
                                                             Drag & drop files here ...
                                                         </div>
                                                         <template #tip>
-                                                            <el-upload ref="uploadRef" class="upload-demo"
-                                                                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                                                :auto-upload="false">
-                                                                <template #trigger>
-                                                                    <el-button class="el-upload__text" type="primary">Browse
-                                                                        ...</el-button>
-                                                                </template>
-                                                            </el-upload>
                                                             <div class="el-upload__tip">
-                                                                Note: support 5 files at most, 5M for each file, jpg, png,
+                                                                Note: support 10 files at most, 5M for each file, jpg, png,
                                                                 gif
                                                             </div>
                                                         </template>
@@ -709,35 +732,6 @@ function getUrlParam(name: any) {
                                             </div>
                                         </div>
                                     </template>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="form-control FilesModel">
-                                <el-form-item prop="treaProcurementDescribes">
-                                    <el-button @click="handleFiles">Add Files</el-button>
-                                    <div  class="accordion-body collapse" v-show="ifFiles">
-                                        <div class="accordion-inner">
-                                            <div class="popups-list">
-                                                <strong>Files:</strong>
-                                                <el-upload class="upload-demo" drag
-                                                    action="https://safebuy.ecvv.com/api/services/app/EDocument/UpFiles"
-                                                    :headers='headerObj' multiple>
-                                                    <div class="el-upload__text">
-                                                        Drag & drop files here ...
-                                                    </div>
-                                                    <template #tip>
-                                                        <el-upload ref="uploadRef" class="upload-demo"
-                                                            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                                            :auto-upload="false">
-                                                            <template #trigger>
-                                                                <el-button class="el-upload__text" type="primary">Browse
-                                                                    ...</el-button>
-                                                            </template>
-                                                        </el-upload>
-                                                    </template>
-                                                </el-upload>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="form-control submit">

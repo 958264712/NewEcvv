@@ -691,14 +691,6 @@ function getUrlParam(name: any) {
                                                             Drag & drop files here ...
                                                         </div>
                                                         <template #tip>
-                                                            <el-upload ref="uploadRef" class="upload-demo"
-                                                                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                                                :auto-upload="false">
-                                                                <template #trigger>
-                                                                    <el-button class="el-upload__text" type="primary">Browse
-                                                                        ...</el-button>
-                                                                </template>
-                                                            </el-upload>
                                                             <div class="el-upload__tip">
                                                                 Note: support 5 files at most, 5M for each file, jpg, png,
                                                                 gif
@@ -724,16 +716,6 @@ function getUrlParam(name: any) {
                                                     <div class="el-upload__text">
                                                         Drag & drop files here ...
                                                     </div>
-                                                    <template #tip>
-                                                        <el-upload ref="uploadRef" class="upload-demo"
-                                                            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                                            :auto-upload="false">
-                                                            <template #trigger>
-                                                                <el-button class="el-upload__text" type="primary">Browse
-                                                                    ...</el-button>
-                                                            </template>
-                                                        </el-upload>
-                                                    </template>
                                                 </el-upload>
                                             </div>
                                         </div>

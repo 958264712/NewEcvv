@@ -13,6 +13,7 @@ const companyInfo = Session.get("companyInfo");
 const router = useRouter();
 const transferModels = ref();
 const CateList = ref("");
+const add = ref("");
 const checkbox = ref(true);
 const extra_list = ref<any>([]);
 const location =
@@ -426,7 +427,10 @@ const change1 = (val) => {
 const change2 = (val) => {
   queryParams.value.extraRequest = val.join();
 };
-
+const clickAdd = () => {
+  piecesList.value.push({ label: add.value });
+  add.value = "";
+};
 </script>
 
 <template>

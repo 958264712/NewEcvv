@@ -11,11 +11,10 @@ export const setCookie = (cname: string, cvalue: any, exdays: any) => {
     document.cookie = cname + "=" + cvalue + "; " + expires +";domain=.newsiteapi.ecvv.com"; 
 }
 export const getCookie = (cname: string) => {
-    var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
-        var c = ca[i].trim();
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        var c = ca[i].trim().split("=");
+        if (c[0] === cname) return  c[1];
     }
     return "";
 }

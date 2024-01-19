@@ -2,12 +2,15 @@
 import { defineAsyncComponent, ref } from "vue";
 import PicZoom from "vue3-piczoom";
 import { useRouter } from "vue-router";
-
+import {getCookie} from "@/utils/cookie.ts"
 const props = defineProps(["handleStartOrder", "title", "ProductInfo"]);
 const emit = defineEmits(["select"])
 const router = useRouter();
 const picPathList = props.ProductInfo.picPathAllList;
 const picUrl = ref(props.ProductInfo.picPathAll);
+
+// 判断是否登录情况
+const token = getCookie('EMemberID')
 
 const selectList = ref([])
 const selectList1 = ref([])
@@ -218,7 +221,6 @@ const bindCheckBox1 = () => {
             <table>
               <tbody>
                 <tr
-                 
                   v-for="(i, index) in props.ProductInfo.productPropertyList"
                   :key="index"
                   v-show="index <= 6"
@@ -272,13 +274,13 @@ const bindCheckBox1 = () => {
                   <td>
                     <div class="sample-order-info">
                       <div class="info-text">Available</div>
-                      <span class="gap">|</span>
+                      <span class="gap" v-show="token.length>0">|</span>
                       <a
                         target="_blank"
                         rel="nofollow"
                         @click="SendCustomizedRequest(props.ProductInfo)"
-                        ads-data="st:16,pdid:GvDxWsrYvEtX,pcid:IMRmDLvcafHV"
-                      >
+                        >
+                        <!-- v-show="token.length>0" -->
                         <el-icon><EditPen /></el-icon>Customized Request
                       </a>
                     </div>
