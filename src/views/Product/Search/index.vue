@@ -79,7 +79,7 @@ watch(() => params.value.urlPVMsg,
 </template>
 <style scoped lang="scss">
 main {
-    width: 1440px;
+    max-width: 1440px;
     height: 100%;
     margin: 20px auto;
     display: flex;

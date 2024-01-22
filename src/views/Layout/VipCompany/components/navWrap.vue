@@ -37,7 +37,7 @@ if (width.value < 1400) {
     // backgroundColor: '#fff',
     width: "100%",
     boxShadow: "1px 2px 3px #dcdcdc",
-    padding: "0 13%",
+    // padding: "0 13%",
   };
 }
 const ValidateInput = (e, userName) => {
@@ -148,7 +148,7 @@ window.addEventListener("scroll", () => {
         // backgroundColor: '#fff',
         width: "100vw",
         boxShadow: "1px 2px 3px #dcdcdc",
-        padding: "0 13%",
+        // padding: "0 13%",
       };
     }
   }
@@ -180,7 +180,7 @@ window.addEventListener("resize", () => {
         // backgroundColor: '#fff',
         width: "100vw",
         boxShadow: "1px 2px 3px #dcdcdc",
-        padding: "0 13%",
+        // padding: "0 13%",
       };
     }
   } else {

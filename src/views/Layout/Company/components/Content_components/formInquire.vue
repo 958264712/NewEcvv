@@ -163,7 +163,8 @@ onMounted(()=>{
   border-style: solid;
   border-width: 3px;
   margin:30px auto;
-  width:950px;
+  min-width:900px;
+  max-width:950px;
   .title {
     color: #333;
     font-size: 16px;

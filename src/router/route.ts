@@ -1,5 +1,5 @@
 import { type RouteRecordRaw } from 'vue-router';
-import { getCompanyInfo } from '@/api/modular/company.ts'
+import { getCompanyInfo } from '@/api/modular/company'
 import { Session } from '@/utils/storage';
 
 /**
@@ -72,7 +72,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			},
 			{
 				path: '/search',
-				name: 'Product',
+				name: 'SearchProducts',
 				component: () => import('@/views/Product/Search/index.vue'),
 			},
 			{

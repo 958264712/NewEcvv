@@ -120,7 +120,6 @@ onMounted(()=>{
           class="box-item"
           effect="light"
           placement="right"
-          :visible="visible"
         >
           <template #content>
             <span>Enter your inquiry details such as:</span>
@@ -163,7 +162,8 @@ onMounted(()=>{
   border-style: solid;
   border-width: 3px;
   margin:30px auto;
-  width:950px;
+  width:100%;
+  max-width:950px;
   .title {
     color: #333;
     font-size: 16px;

@@ -296,6 +296,7 @@ const bindCheckBox1 = () => {
 </template>
 <style lang="less" scoped>
 .left {
+  width: calc(100% - 300px - 20px);
   padding-top: 30px;
   background: #fff;
   border: 1px solid #e9eef4;

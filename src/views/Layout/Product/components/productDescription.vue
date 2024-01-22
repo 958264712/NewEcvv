@@ -107,13 +107,6 @@ window.addEventListener('scroll', () => {
         scroll.value = false
     }
 })
-// watch(()=>document.documentElement.scrollTop,()=>{
-// console.log(document.getElementById("scroll").offsetTop);
-
-// })
-// const handleSendMsg = (id:number) =>{
-//     return decodeURIComponent(`https://www.ecvv.com/sendMsg/sendMsg.html?chkIDs=P|${id}`)
-// }
 const handleSendMsg = (id) => {
     Session.set('sendCompanyInfo',{
       product:true
@@ -205,6 +198,7 @@ const handleSendMsg = (id) => {
                         Guarantee
                     </li>
                 </ul>
+                <div>
                 <div class="details-r-tab-r" id="PusOrder2">
                     <a @click="handleSendMsg(props.ProductInfo.productID)" rel="nofollow">
                         Inquiry Now
@@ -215,21 +209,8 @@ const handleSendMsg = (id) => {
                         Start Order
                     </a>
                 </div>
-                <div class="sku-box" style="display:none;">
-                    <img class="sku-box-img" src="//eresource.ecvv.com/PC_Ecvv/images/company-img/sku-box.png">
-                    <p class="details-content-spc-price spc-width-active spc-width-active2">
-                        <span class="price-tt">FOB Price:</span>
-                        <span class="price-sc">USD $ <span id="spnProductSltPrice2">9.59</span></span>
-                        <span class="price-cm" id="spnProductUnit2">/ Pieces</span>
-                    </p>
-                    <div class="details-content-spc-sku details-content-spc-sku2" id="dvSkuDetail2">
-
-                        <div class="del-bottom-box">
-                            <a class="subsku" id="subsku" href="javascript:void(0);">Submit</a>
-                            <a class="delsku" href="javascript:void(0);">Cancel</a>
-                        </div>
-                    </div>
                 </div>
+                
             </div>
             <template v-if="service">
                 <!--Parameter-more-->
@@ -350,11 +331,11 @@ const handleSendMsg = (id) => {
 </template>
 <style scoped lang="less">
 .details-content-all {
+    margin: 0 auto;
     margin-top: 30px;
     clear: both;
-    width: 100%;
-    // margin: 0 auto;
-    padding:10px 11%;
+    width: 78%;
+    // padding:10px 11%;
     align-items: flex-start;
     background-color:#fff;
 }
@@ -521,27 +502,28 @@ const handleSendMsg = (id) => {
 }
 // 右边详情
 .details-content-all-r {
-    width: 960px;
+    width: calc(100% - 500px);
     display: inline-block;
     float: right;
 }
 
 .details-r-tab-box {
-    position: relative;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;    
     margin-bottom: 20px;
 }
 
 .details-r-tab {
     padding: 0;
-    letter-spacing: -4px;
+    display:inline-block;
     border: 1px solid #e8e8e8;
     background: #f8f8f8;
 }
 
 .details-r-tab-r1 {
-    position: absolute;
-    top: 6px;
-    right: 8px;
+   display:inline-block;
     height: 40px;
     line-height: 40px;
     width: 120px;
@@ -549,21 +531,28 @@ const handleSendMsg = (id) => {
     background: #f8f8f8;
     border: 1px solid #000;
     border-radius: 5px;
-
 }
 
 .details-r-tab-r {
-    position: absolute;
-    top: 6px;
-    right: 148px;
+    display:inline-block;
     height: 40px;
     line-height: 40px;
     width: 120px;
     text-align: center;
     background: #4eac10;
     border-radius: 5px;
+    margin-right:20px;
 }
-
+#PrdMs2{
+    /deep/ img{
+        width:100%;
+    }
+}
+#PrdMs3{
+    /deep/ img{
+        width:100%;
+    }
+}
 .sku-box {
     display: block;
     right: -1px;
@@ -738,13 +727,12 @@ table {
 .Guarantee-ul li .Guarantee-div1 {
     display: inline-block;
     letter-spacing: 0px;
-    width: 6%;
 }
 
 .Guarantee-ul li .Guarantee-div2 {
     display: inline-block;
     letter-spacing: 0px;
-    width: 94%;
+    width: 90%;
     vertical-align: top;
 }
 

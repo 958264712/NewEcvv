@@ -29,7 +29,7 @@ const SearchSubmit = () => {
   const reg = /^[A-Za-z0-9]{0,}$/;
   if (reg.test(SearchInput.value)) {
     if (SearchInput.value.length) {
-      router.push({ path: `/search?kw`, query: { kw: SearchInput.value } });
+      router.push({ path: `/search`, query: { kw: SearchInput.value } });
     }
   } else {
     SearchInput.value = "";
@@ -200,7 +200,8 @@ section {
 }
 
 .SearchBox {
-  width: 460px;
+  max-width: 460px;
+  min-width:360px;
   display: flex;
   align-items: center;
 }

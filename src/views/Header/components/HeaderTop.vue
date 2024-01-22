@@ -45,7 +45,7 @@ const countriesList = ref([
 ]);
 const boxList = ref([
     {
-        span:6,
+        span:7,
         href:'https://rcep.ecvv.cn',
         title:'MRO Products Mall',
         className:''
@@ -57,7 +57,7 @@ const boxList = ref([
         className:''
     },
     {
-        span:5,
+        span:4,
         href:'https://www.ecvv.com/aboutus/Company_Overview.html',
         title:'About Us',
         className:'about'
@@ -70,17 +70,17 @@ const boxList = ref([
     },
 ])
 // 浏览器改变时
-window.onresize = () => {
-  if (document.body.clientWidth < 1400) {
-    styleTop.value = {
-      padding: "0",
-    };
-  } else {
-    styleTop.value = {
-      padding: "0 13%",
-    };
-  }
-};
+// window.onresize = () => {
+//   if (document.body.clientWidth < 1400) {
+//     styleTop.value = {
+//       padding: "0",
+//     };
+//   } else {
+//     styleTop.value = {
+//       // padding: "0 13%",
+//     };
+//   }
+// };
 </script>
 <template>
   <!-- 开头 -->
@@ -128,15 +128,19 @@ window.onresize = () => {
 <style scoped lang="scss">
 .header-box {
   height: 50px;
-  padding: 0 13%;
+  // padding: 0 13%;
   background-color: #fff;
   border-top: 1px solid #e6e7eb;
   border-bottom: 1px solid #dcdcdc;
   box-shadow: 1px 2px 3px #dcdcdc;
+  display:flex;
+  justify-content:space-evenly;
+  align-items:center;
 }
 .nav-top-box {
   display: flex;
   justify-content: space-between;
+  align-items:center;
   font-size: 16px;
   margin-right: 50px;
   text-align: center;
@@ -145,11 +149,19 @@ window.onresize = () => {
   color: #1e5eb5;
 }
 .nav-top-box .el-col {
+  max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   &::after {
     content: "";
-    height: 18px;
+    display:inline-block;
+    height: 15px;
     border-right: 1px solid #e6e7eb;
-    margin-left: 25px;
+    margin-left: 20px;
   }
 }
 .nav-top-box .el-col:last-child {
@@ -194,7 +206,7 @@ window.onresize = () => {
 }
 .nav-top-box,
 .header-top-r {
-  width: 50%;
+  max-width: 50%;
 }
 .hoverShow {
   margin-right: 10px;

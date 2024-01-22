@@ -297,15 +297,6 @@ const calTime = (e) => {
             >Post Sourcing Request</a
           >
         </div>
-        <!-- <div class="chat-feedback">
-          <span class="spirits-small s21"></span
-          ><a
-            rel="nofollow"
-            onclick="ChatSkype('betty-he552','779973','-1','https://www.ecvv.com/company/betty-glass/index.html','_detectEcvvSkypeClient');"
-          >
-            Chat Now</a
-          >
-        </div> -->
         <div style="text-align: center; padding: 5px 0 0 0">
           <div class="clearfix">Join ECVV community</div>
           <div style="height: 25px; line-height: 25px">
@@ -340,7 +331,7 @@ const calTime = (e) => {
     padding: 0 20px;
     *zoom: 1;
     .sr-comInfo-components {
-      width: 600px;
+      max-width: 600px;
       height: 100%;
       padding-left: 100px;
       display: flex;

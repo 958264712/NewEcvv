@@ -102,7 +102,7 @@ const queryRFQ = () => {
           effect="light"
           placement="right"
           :visible="props.visible"
-        >
+          >
           <template #content>
             <span>Enter your inquiry details such as:</span>
             <ul class="balloon-items" style="padding-left:20px">
@@ -144,7 +144,8 @@ const queryRFQ = () => {
   border-style: solid;
   border-width: 3px;
   margin:30px auto;
-  width:950px;
+  min-width:900px;
+  max-width:950px;
   .title {
     color: #333;
     font-size: 16px;

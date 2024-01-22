@@ -13,8 +13,8 @@ const queryRFQ = () => {
 <template>
     <section id="demo-form-inline">
         <div class="sourcing-bg">
-            <img class="theme-img-small" src="https://eresource.ecvv.com/PC_Ecvv/images/banner2.jpg"
-                data-original="https://eresource.ecvv.com/PC_Ecvv/images/banner2.jpg" alt="EASY SOURCING">
+            <!-- <img class="theme-img-small" src="https://eresource.ecvv.com/PC_Ecvv/images/banner2.jpg"
+                data-original="https://eresource.ecvv.com/PC_Ecvv/images/banner2.jpg" alt="EASY SOURCING"> -->
             <div class="sourcing-form">
                 <div class="form-title">
                     Want to get quotations?
@@ -79,10 +79,13 @@ const queryRFQ = () => {
     margin-top: 50px;
 
     .sourcing-bg {
+        width:100%;
         max-width: 1440px;
         margin: 0 auto;
         position: relative;
-
+        background:url('https://eresource.ecvv.com/PC_Ecvv/images/banner2.jpg') no-repeat;
+        background-size:cover;
+        height:450px;
         .theme-img-small {
             width: 100%;
         }
@@ -94,7 +97,7 @@ const queryRFQ = () => {
             padding: 20px 25px;
             background: #fff;
             margin-left: 225px;
-            width: 530px;
+            max-width: 530px;
 
             .form-title {
                 font-size: 24px;
@@ -110,17 +113,17 @@ const queryRFQ = () => {
 
                 .form-text,
                 .form-select {
-                    width: 100%;
+                    max-width: 100%;
                 }
 
                 .form-textarea {
                     resize: none;
-                    width: 100%;
+                    max-width: 100%;
                     height: 86px;
                 }
 
                 .form-span-33 {
-                    width: calc(33.33% - 7px);
+                    max-width: calc(33.33% - 7px);
                     margin-right: 10px;
                 }
 

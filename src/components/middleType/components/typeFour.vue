@@ -27,7 +27,7 @@ const props = defineProps(['item'])
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    width: 1440px;
+    max-width: 1440px;
     margin-bottom: 50px;
 }
 .section-h3 {

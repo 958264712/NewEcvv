@@ -19,7 +19,7 @@ const props = defineProps(["radiusStyle","id","list", "style", "interval", "arro
     >
       <el-carousel-item v-for="item in props.list" :key="item.key">
         <a :href="item.href">
-          <img :src="item.url" alt="img" :style="props.style" />
+          <img class="img" :src="item.url" alt="img" :style="props.style" />
         </a>
       </el-carousel-item>
     </el-carousel>
@@ -28,9 +28,12 @@ const props = defineProps(["radiusStyle","id","list", "style", "interval", "arro
 <style lang="less" setup>
 /* 轮播图css */
 #slideWrap {
-  width: 1138px;
+  max-width: 1138px;
   height: 485px;
   position: relative;
+}
+#slideWrap .img{
+  width:100% !important;
 }
 #slideWrap .el-carousel,
 #slideWrap .el-carousel .el-carousel__container {

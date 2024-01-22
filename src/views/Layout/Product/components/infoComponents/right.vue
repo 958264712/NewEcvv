@@ -59,7 +59,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="right">
+  <div class="right hidden-md-and-down">
     <div class="sr-layout-block sr-contact-button-place block-top">
       <div>
         <div class="sr-layout-block contact-block J-contact-fix">
@@ -219,7 +219,7 @@ a {
 }
 .right {
   min-height: 1px;
-  width: 300px;
+  width:300px;
   margin-top: 20px;
   position: sticky;
   top: 57px;

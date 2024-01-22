@@ -16,7 +16,7 @@ const store = useCounterStore()
 if (store.width < 1400) {
     if (store.width < 995) {
         styleTop.value = {
-            width: '100%',
+            width: '100vw',
             height: '485px'
         }
         styleLeft.value = {
@@ -24,7 +24,7 @@ if (store.width < 1400) {
         }
     } else {
         styleTop.value = {
-            width: '910px',
+            width: 'calc(100vw - 300px)',
             height: '485px'
         }
         styleLeft.value = {
@@ -53,10 +53,8 @@ window.addEventListener('resize', () => {
     store.clientWidth()
     if (store.width < 1400) {
         if (store.width < 995) {
-            console.log(store.width);
-            
             styleTop.value = {
-                width: '100%',
+                width: '100vw',
                 height: '485px'
             }
             styleLeft.value = {
@@ -64,7 +62,7 @@ window.addEventListener('resize', () => {
             }
         } else {
             styleTop.value = {
-                width: '910px',
+                width: 'calc(100vw - 300px)',
                 height: '485px'
             }
             styleLeft.value = {
@@ -86,7 +84,7 @@ window.addEventListener('resize', () => {
 <template>
     <section>
         <nav id="catgimg">
-            <div id="navbar-menu1" :style="styleLeft">
+            <div id="navbar-menu1" class="hidden-md-and-down" :style="styleLeft">
                 <a href="//www.ecvv.com/product/" class="dropdown-toggle1" data-toggle="dropdown">Categories</a>
                 <ul id="home-menu" class="dropdown-menu" style="display: block; box-shadow: none;">
                     <li class="dropdown1">

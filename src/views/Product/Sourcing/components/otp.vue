@@ -4,13 +4,11 @@ const props = defineProps(['ProductInfo'])
 </script>
 <template>
     <section class="details-content-otp auto-w">
-        <h3 class="details-content-otp-h3">
+        <div class="details-content-otp-h3">
             Products related to this item
-        </h3>
+        </div>
         <div class="wc1200 row rowE">
-            <div class="bd mt20" style="margin: 10px;">
-                <div id="sca1" class="warp-pic-list">
-                    <div id="wrapBox1" class="wrapBox" style="width: 1400px; height: 220px; overflow: hidden;">
+            <div id="wrapBox1" class="wrapBox" style="width: 100%; height: 220px; overflow: hidden;">
                         <el-carousel :interval="3000" id="count1" class="count clearfix" arrow="always"
                             indicator-position="none">
                             <el-carousel-item v-for="ite in props.ProductInfo.recommProductList">
@@ -25,17 +23,19 @@ const props = defineProps(['ProductInfo'])
                                 </div>
                             </el-carousel-item>
                         </el-carousel>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 </template>
 <style scoped lang="scss">
 .details-content-otp {
+    margin:0 auto;
     margin-top: 30px;
     clear: both;
     flex-direction: column;
+    align-items:start;
+    max-width:1400px;
+    // width:80%
 }
 
 .details-content-otp-h3 {
@@ -44,12 +44,12 @@ const props = defineProps(['ProductInfo'])
     line-height: 45px;
     text-indent: 15px;
     font-size: 16px;
-    font-weight: normal;
-    width: 1440px;
-    margin: 0 auto;
+    width:100%;
 }
 .wc1200{
     width:1400px;
+    max-width: 100%;
+    min-width:1000px;
 }
 .row {
     margin-right: -15px;
@@ -71,11 +71,6 @@ const props = defineProps(['ProductInfo'])
     width: 150px;
 }
 
-.warp-pic-list .img_wrap {
-    display: block;
-    font-size: 0;
-    overflow: hidden;
-}
 
 .rowE .count .img_wrap img {
     width: 150px;

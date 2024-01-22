@@ -7,7 +7,6 @@ import '@/theme/template.less'
 
 const ComHeader = defineAsyncComponent(() => import("./components/company_header.vue"));
 const NavWrap = defineAsyncComponent(() => import("./components/navWrap.vue"));
-const Content = defineAsyncComponent(() => import("./components/content.vue"));
 const ProduceList = defineAsyncComponent(() => import("./components/produceList.vue"));
 const Basket = defineAsyncComponent(() => import("../Basket/index.vue"));
 
@@ -29,7 +28,7 @@ const companyContactUrl = ref("");
 const subDomainName = ref("");
 const style = ref({
     height:'400px',
-    width:'1400px',
+    maxWidth:'1400px',
     margin:'0 auto'
 })
 const companyIcon = ref<any>({

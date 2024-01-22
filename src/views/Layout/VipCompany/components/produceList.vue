@@ -439,7 +439,7 @@ onMounted(() => {
                 <div class="sr-proList-pic-wrap">
                   <div class="sr-proList-pic">
                     <div class="prod-image">
-                      <a :href="item.href">
+                      <a  @click="clickProduct(item.productID, item)" :title="item.title">
                         <img
                           :src="item.src"
                           :title="item.title"
@@ -452,13 +452,13 @@ onMounted(() => {
                 </div>
                 <div class="sr-proList-txt">
                   <div class="sr-proList-name">
-                    <a :href="item.href" :title="item.title"
+                    <a @click="clickProduct(item.productID, item)" :title="item.title"
                       >{{ item.text }}
                     </a>
                   </div>
                 </div>
                 <a
-                  :href="item.href"
+                   @click="SendMessage(item.productID, item)"
                   target="_blank"
                   class="btn"
                   style="margin-top: 13px; width: 100%"

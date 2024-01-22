@@ -84,7 +84,7 @@ const arrDd = ref([
     max-width: 1440px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .Endtable dt {
     margin-bottom: 8px;
