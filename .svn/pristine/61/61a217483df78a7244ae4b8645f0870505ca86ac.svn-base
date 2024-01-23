@@ -1,0 +1,770 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useCounterStore } from '@/stores/contentStore'
+import Section from '@/components/Section/index.vue'
+const imgList = ref([
+    { url: 'https://eresource.ecvv.com/PC_Ecvv/images/ecvv-ban1.jpg?2023', href: '//safebuy.ecvv.com', key: 0 },
+    { url: 'https://top.ecvv.com/activity10/images/banner-facebook1.jpg?2023', href: 'https://top.ecvv.com/activity10/FacebookService.html', key: 1 },
+    { url: 'https://eresource.ecvv.com/PC_Ecvv/images/ECVV-Exhibition-Publicity.jpg?2023', href: '//www.ecvv.com/exhibition/index.html', key: 2 },
+])
+
+// 定义进来时轮播图是否自适应
+const styleTop = ref({})
+const styleLeft = ref({})
+const store = useCounterStore()
+// 进入当前浏览器时，判断是否改变大小
+if (store.width < 1400) {
+    if (store.width < 995) {
+        styleTop.value = {
+            width: '100vw',
+            height: '485px'
+        }
+        styleLeft.value = {
+            display: 'none'
+        }
+    } else {
+        styleTop.value = {
+            width: 'calc(100vw - 300px)',
+            height: '485px'
+        }
+        styleLeft.value = {
+            display: 'block'
+        }
+    }
+} else {
+    styleTop.value = {
+        width: '1138px',
+        height: '485px'
+    }
+    styleLeft.value = {
+        display: 'block'
+    }
+}
+
+const radiusStyle = ref({
+    width:'60px',
+    height:'10px',
+    radius:'none'
+})
+
+// // 浏览器改变时，轮播图大小改变
+
+window.addEventListener('resize', () => {
+    store.clientWidth()
+    if (store.width < 1400) {
+        if (store.width < 995) {
+            styleTop.value = {
+                width: '100vw',
+                height: '485px'
+            }
+            styleLeft.value = {
+                display: 'none'
+            }
+        } else {
+            styleTop.value = {
+                width: 'calc(100vw - 300px)',
+                height: '485px'
+            }
+            styleLeft.value = {
+                display: 'block'
+            }
+        }
+    } else {
+        styleTop.value = {
+            width: '1138px',
+            height: '485px'
+        }
+        styleLeft.value = {
+            display: 'block'
+        }
+    }
+})
+</script>
+
+<template>
+    <section>
+        <nav id="catgimg">
+            <div id="navbar-menu1" class="hidden-md-and-down" :style="styleLeft">
+                <a href="//www.ecvv.com/product/" class="dropdown-toggle1" data-toggle="dropdown">Categories</a>
+                <ul id="home-menu" class="dropdown-menu" style="display: block; box-shadow: none;">
+                    <li class="dropdown1">
+                        <a href="https://www.ecvv.com/product/machinery_cid43"
+                            data-toggle="dropdown">Machinery<!--Category1--></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/machinery_cid43"
+                                            class="coltitle-a">Machinery</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/engineering-construction-machinery_cid1326.html">Engineering
+                                                    &amp; Construction Machinery</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/earth-moving-machinery_cid100010679.html">Earth-moving
+                                                    Machinery</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/metal-metallurgy-machinery_cid1426.html">Metal
+                                                    &amp; Metallurgy Machinery</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/industry-laser-equipment_cid100010667.html">Industry
+                                                    Laser Equipment</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/woodworking-machinery_cid1431.html">Woodworking
+                                                    Machinery</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/packaging-machine_cid100010668.html">Packaging
+                                                    Machine</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/mechanical-parts-fabrication-services_cid41"
+                                            class="coltitle-a">Mechanical Parts &amp; Fabrication Services</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/pumps-parts_cid100008951.html">Pumps
+                                                    &amp; Parts</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/valves_cid1460.html">Valves</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/motor_cid100007152.html">Motor</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/moulds_cid1458.html">Moulds</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/pipe-fittings_cid131006.html">Pipe
+                                                    Fittings</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/seals_cid1407.html">Seals</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown2">
+                        <a href="https://www.ecvv.com/product/electrical-equipment-supplies_cid5"
+                            data-toggle="dropdown">Electrical Equipment &amp; Electronic Components</a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <a href="https://www.ecvv.com/product/electrical-equipment-supplies_cid5"
+                                            class="coltitle-a">Electrical Equipment &amp; Supplies</a>
+                                        <ul>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/connectors-terminals_cid14190406.html">Connectors
+                                                    &amp; Terminals</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/batteries_cid528.html">Batteries</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/professional-audio-video-lighting_cid527.html">Professional
+                                                    Audio, Video &amp; Lighting</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/power-supplies_cid141911.html">Power
+                                                    Supplies</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/generators_cid141902.html">Generators</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/electrical-plugs-sockets_cid141905.html">Electrical
+                                                    Plugs &amp; Sockets</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <a href="https://www.ecvv.com/product/electronic-components-supplies_cid502"
+                                            class="coltitle-a">Electronic Components &amp; Supplies</a>
+                                        <ul>
+                                            <li><a href="https://www.ecvv.com/catalog/active-components_cid4001.html">Active
+                                                    Components</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/optoelectronic-displays_cid4004.html">Optoelectronic
+                                                    Displays</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/passive-components_cid4005.html">Passive
+                                                    Components</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/electronic-accessories-supplies_cid4003.html">Electronic
+                                                    Accessories &amp; Supplies</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/electronics-production-machinery_cid4002.html">Electronics
+                                                    Production Machinery</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/electronic-signs_cid150407.html">Electronic
+                                                    Signs</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <a href="https://www.ecvv.com/product/telecommunications_cid509"
+                                            class="coltitle-a">Telecommunications</a>
+                                        <ul>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/communication-equipment_cid100001204.html">Communication
+                                                    Equipment</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/telephones-accessories_cid100001202.html">Telephones
+                                                    &amp; Accessories</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/antennas-for-communications_cid5092101.html">Antennas
+                                                    for Communications</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown3">
+                        <a href="https://www.ecvv.com/product/lights-lighting_cid39" data-toggle="dropdown">Lights
+                            &amp;
+                            Lighting<!--Category1--></a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child COlist-Child_SL COlist-Child_SC">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category3-->
+                                        <a href="https://www.ecvv.com/product/lights-lighting_cid39"
+                                            class="coltitle-a">Lights &amp; Lighting</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/led-lighting_cid100010467.html">LED
+                                                    Lighting</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/lighting-accessories_cid530.html">Lighting
+                                                    Accessories</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/professional-lighting_cid100010540.html">Professional
+                                                    Lighting</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/indoor-lighting_cid150406.html">Indoor
+                                                    Lighting</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/lighting-bulbs-tubes_cid150402.html">Lighting
+                                                    Bulbs &amp; Tubes</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/outdoor-lighting_cid100010530.html">Outdoor
+                                                    Lighting</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown4">
+                        <a href="https://www.ecvv.com/product/automobiles-motorcycles_cid34"
+                            data-toggle="dropdown">Automobiles &amp; Motorcycles,Transportation<!--Category1--></a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child">
+                                    <div class="COlist-ChildLi">
+                                        <!--Category3-->
+                                        <a href="https://www.ecvv.com/product/automobiles-motorcycles_cid34"
+                                            class="coltitle-a">Automobiles &amp; Motorcycles</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/vehicle-tools_cid3408.html">Vehicle
+                                                    Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/auto-electronics_cid3404.html">Auto
+                                                    Electronics</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/auto-engine_cid1202.html">Auto
+                                                    Engine</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/automobiles_cid100002895.html">Automobiles</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/vehicle-equipment_cid3409.html">Vehicle
+                                                    Equipment</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/auto-electrical-system_cid120203.html">Auto
+                                                    Electrical System</a></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category3-->
+                                        <a href="https://www.ecvv.com/product/transportation_cid12"
+                                            class="coltitle-a">Transportation</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/marine-supplies_cid100001648.html">Marine
+                                                    Supplies</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/container_cid1205.html">Container</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/bicycle_cid1204.html">Bicycle</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/electric-bicycle_cid1221.html">Electric
+                                                    Bicycle</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/bus_cid1227.html">Bus</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/truck-parts_cid1230.html">Truck
+                                                    Parts</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown5">
+                        <a href="https://www.ecvv.com/product/construction-real-estate_cid13"
+                            data-toggle="dropdown">Construction<!--Category1--></a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/construction-real-estate_cid13"
+                                            class="coltitle-a">Construction &amp; Real Estate</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/doors-windows_cid100007064.html">Doors
+                                                    &amp; Windows</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/hvac-systems-parts_cid1335.html">HVAC
+                                                    Systems &amp; Parts</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/bathroom_cid100006265.html">Bathroom</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/tiles-accessories_cid100006285.html">Tiles
+                                                    &amp; Accessories</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/metal-building-materials_cid1320.html">Metal
+                                                    Building Materials</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/boards_cid100005320.html">Boards</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/minerals-metallurgy_cid9"
+                                            class="coltitle-a">Minerals &amp; Metallurgy</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/metal-scrap_cid110502.html">Metal
+                                                    Scrap</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/magnetic-materials_cid911.html">Magnetic
+                                                    Materials</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/steel_cid100000317.html">Steel</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/glass_cid90903.html">Glass</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/wire-mesh_cid903.html">Wire
+                                                    Mesh</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/ingots_cid921.html">Ingots</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/rubber-plastics_cid80"
+                                            class="coltitle-a">Rubber &amp; Plastics</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/plastic-products_cid8005.html">Plastic
+                                                    Products</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/plastic-raw-materials_cid807.html">Plastic
+                                                    Raw Materials</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/rubber-raw-materials_cid808.html">Rubber
+                                                    Raw Materials</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/rubber-products_cid8012.html">Rubber
+                                                    Products</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/recycled-plastic_cid8008.html">Recycled
+                                                    Plastic</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/recycled-rubber_cid8009.html">Recycled
+                                                    Rubber</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown6">
+                        <a href="https://www.ecvv.com/product/packaging-printing_cid23" data-toggle="dropdown">Packaging
+                            &amp; Printing<!--Category1--></a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child COlist-Child_SL COlist-Child_SC COlist-Child_ST4">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/packaging-printing_cid23"
+                                            class="coltitle-a">Packaging &amp; Printing</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/packaging-boxes_cid2303.html">Packaging
+                                                    Boxes</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/bottles_cid230603.html">Bottles</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/packaging-bags_cid2302.html">Packaging
+                                                    Bags</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/plastic-film_cid230607.html">Plastic
+                                                    Film</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/adhesive-tape-film-paper_cid230620.html">Adhesive
+                                                    Tape, Film, Paper</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/paper-paperboard_cid100001126.html">Paper
+                                                    &amp; Paperboard</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown7">
+                        <a href="https://www.ecvv.com/product/security-protection_cid30" data-toggle="dropdown">Security
+                            &amp; Protection<!--Category1--></a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <div class="COlist-Child  ">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/security-protection_cid30"
+                                            class="coltitle-a">Security &amp; Protection</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/cctv-products_cid3011.html">CCTV
+                                                    Products</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/locks_cid3010.html">Locks</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/alarm_cid3008.html">Alarm</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/safes_cid3012.html">Safes</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/access-control-systems-products_cid3030.html">Access
+                                                    Control Systems &amp; Products</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/police-military-supplies_cid3005.html">Police
+                                                    &amp; Military Supplies</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown8">
+                        <a href="https://www.ecvv.com/product/measurement-analysis-instruments_cid1537"
+                            data-toggle="dropdown">Measurement &amp; Analysis Instruments<!--Category1--></a>
+                        <ul class="dropdown-menu animated">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/measurement-analysis-instruments_cid1537"
+                                            class="coltitle-a">Measurement &amp; Analysis Instruments</a>
+                                        <ul>
+                                            <!--Category3-->
+
+                                            <li><a href="https://www.ecvv.com/catalog/testing-equipment_cid153710.html">Testing
+                                                    Equipment</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/temperature-instruments_cid153709.html">Temperature
+                                                    Instruments</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/weighing-scales_cid153711.html">Weighing
+                                                    Scales</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/optical-instruments_cid1904.html">Optical
+                                                    Instruments</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/electronic-measuring-instruments_cid505.html">Electronic
+                                                    Measuring Instruments</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/analyzers_cid153701.html">Analyzers</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown9">
+                        <a href="https://www.ecvv.com/product/furniture_cid1503" data-toggle="dropdown">Office &amp;
+                            School
+                            Supplies<!--Category1--></a>
+                        <ul class="dropdown-menu animated">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/furniture_cid1503"
+                                            class="coltitle-a">Furniture</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/home-furniture_cid150303.html">Home
+                                                    Furniture</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/outdoor-furniture_cid150302.html">Outdoor
+                                                    Furniture</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/commercial-furniture_cid150301.html">Commercial
+                                                    Furniture</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/furniture-hardware_cid150306.html">Furniture
+                                                    Hardware</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/baby-furniture_cid100003020.html">Baby
+                                                    Furniture</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/furniture-parts_cid3708.html">Furniture
+                                                    Parts</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/office-school-supplies_cid21"
+                                            class="coltitle-a">Office &amp; School Supplies</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/office-paper_cid2112.html">Office
+                                                    Paper</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/printer-supplies_cid2113.html">Printer
+                                                    Supplies</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/office-equipment_cid100003126.html">Office
+                                                    Equipment</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/education-supplies_cid100003135.html">Education
+                                                    Supplies</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/office-binding-supplies_cid100003129.html">Office
+                                                    Binding Supplies</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/pens_cid2103.html">Pens</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown10">
+                        <a href="https://www.ecvv.com/product/hardware_cid42" data-toggle="dropdown">Hardware &amp;
+                            Tools<!--Category1--></a>
+                        <ul class="dropdown-menu animated">
+                            <li>
+                                <div class="COlist-Child">
+
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/hardware_cid42"
+                                            class="coltitle-a">Hardware</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/fasteners_cid1459.html">Fasteners</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/chains_cid1455.html">Chains</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/springs_cid1466.html">Springs</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/clamps_cid4202.html">Clamps</a>
+                                            </li>
+                                            <li><a href="https://www.ecvv.com/catalog/abrasive-tools_cid4204.html">Abrasive
+                                                    Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/hooks_cid4203.html">Hooks</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="COlist-ChildLi">
+                                        <!--Category2-->
+                                        <a href="https://www.ecvv.com/product/tools_cid1420" class="coltitle-a">Tools</a>
+                                        <ul>
+                                            <!--Category3-->
+                                            <li><a href="https://www.ecvv.com/catalog/power-tools_cid1417.html">Power
+                                                    Tools</a></li>
+                                            <li><a
+                                                    href="https://www.ecvv.com/catalog/material-handling-tools_cid100010815.html">Material
+                                                    Handling Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/hand-tools_cid142003.html">Hand
+                                                    Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/garden-tools_cid12503.html">Garden
+                                                    Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/construction-tools_cid142016.html">Construction
+                                                    Tools</a></li>
+                                            <li><a href="https://www.ecvv.com/catalog/tool-sets_cid100007504.html">Tool
+                                                    Sets</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--轮播图部分 -->
+            <Section :list="imgList" :style="styleTop" :interval="3000" :arrow="always" :radiusStyle="radiusStyle" />
+        </nav>
+    </section>
+</template>
+
+<style scoped lang="scss">
+// 侧边栏样式
+#catgimg {
+    margin: 5px auto 0;
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    height: 485px;
+}
+
+.el-row {
+    flex-wrap: nowrap;
+}
+
+#navbar-menu1 {
+    width: 300px;
+    font-size: 14px;
+}
+
+#navbar-menu1>ul {
+    padding-left: 0;
+}
+
+#navbar-menu1 li:hover>a {
+    color: #ff6d18;
+}
+
+#navbar-menu1 #home-menu {
+    &::after {
+        content: "";
+        width: 0;
+        height: 2px;
+        background: #1e5eb5;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        transition: all 0.5s ease 0s;
+    }
+}
+
+#navbar-menu1:hover #home-menu {
+    &::after {
+        width: 300px;
+    }
+}
+
+#navbar-menu1 .dropdown-toggle1 {
+    font: 14px/1.5 Roboto, Helvetica, Tahoma, Arial, "Microsoft YaHei";
+    display: flex;
+    align-items: center;
+    height: 42px;
+    color: #656565;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    font-weight: 600;
+
+    &::before {
+        content: '';
+        width: 17px;
+        height: 14px;
+        margin-right: 5px;
+        display: inline-block;
+        background-image: url('@/assets/images/Content_images/categories.png');
+    }
+}
+
+#home-menu>li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 42px;
+    padding: 5px 10px;
+    clear: both;
+    font-weight: 400;
+    white-space: normal;
+
+    &::after {
+        font-family: 'FontAwesome';
+        content: "\f105";
+        margin-top: 0;
+    }
+}
+
+#home-menu>li:hover {
+    background-color: transparent;
+    box-shadow: 0px 0px 3px #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.dropdown-menu>li>a {
+    color: #6f6f6f;
+}
+
+.dropdown1 .dropdown-menu,
+.dropdown2 .dropdown-menu,
+.dropdown3 .dropdown-menu,
+.dropdown4 .dropdown-menu,
+.dropdown5 .dropdown-menu,
+.dropdown6 .dropdown-menu,
+.dropdown7 .dropdown-menu,
+.dropdown8 .dropdown-menu,
+.dropdown9 .dropdown-menu,
+.dropdown10 .dropdown-menu {
+    display: none;
+}
+
+.dropdown1:hover .dropdown-menu,
+.dropdown2:hover .dropdown-menu,
+.dropdown3:hover .dropdown-menu,
+.dropdown4:hover .dropdown-menu,
+.dropdown5:hover .dropdown-menu,
+.dropdown6:hover .dropdown-menu,
+.dropdown7:hover .dropdown-menu,
+.dropdown8:hover .dropdown-menu,
+.dropdown9:hover .dropdown-menu,
+.dropdown10:hover .dropdown-menu {
+    display: flex;
+}
+
+.dropdown6 .dropdown-menu .COlist-Child {
+    top: 150px;
+}
+
+.dropdown7 .dropdown-menu .COlist-Child {
+    top: 180px;
+}
+
+.dropdown8 .dropdown-menu .COlist-Child {
+    top: 210px;
+}
+
+.dropdown9 .dropdown-menu .COlist-Child {
+    top: 240px;
+}
+
+.dropdown10 .dropdown-menu .COlist-Child {
+    top: 260px;
+}
+
+.COlist-Child {
+    max-width: 650px;
+    min-width: 320px;
+    padding: 10px;
+    z-index: 888;
+    position: absolute;
+    left: 300px;
+    top: 4px;
+    margin-left: -2px;
+    background: #fff;
+    box-shadow: 0 1px 5px #e7e7e7;
+}
+
+.COlist-ChildLi {
+    width: 300px;
+    height: 200px;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+a.coltitle-a {
+    color: #1e5eb5;
+}
+
+.COlist-ChildLi ul {
+    padding-left: 0;
+}
+
+.COlist-ChildLi ul li a {
+    color: #666;
+    font-size: 12px;
+    line-height: 21px;
+}
+</style>

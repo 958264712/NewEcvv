@@ -23,8 +23,8 @@ const ifOpen = ref(false)
 const companyPic = companyInfo.value.companyPic
 const info = companyInfo.value.companyname
 const paramsInfo = ref<any>({
-//   pid: pInfo.pid,
-  pid: '4868524',
+  pid: productInfo.pid,
+  // pid: '4868524',
 });
 
 const handleStartOrder = () =>{
@@ -101,7 +101,7 @@ onMounted(()=>{
 </script>
 <template>
 <div class='productsModule'>
-    <ProductsInfo ref="prodInfo" :info="info" :companyPic="companyPic" :handleStartOrder="handleStartOrder"  />
+    <ProductsInfo ref="prodInfo" :info="info" :pInfo="pInfo" :companyPic="companyPic" :handleStartOrder="handleStartOrder"  />
     <otp :ProductInfo = "pInfo"/>
     <ProductDescription :ProductInfo="pInfo" :handleStartOrder="handleStartOrder" :info="info" />
     <StartOrderModel ref="StartOrderDialog" :ProductDataInfo = "pDInfo" />

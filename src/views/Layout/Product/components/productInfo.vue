@@ -4,12 +4,12 @@ import {getProductInfo,getProductOrder} from '@/api/modular/search'
 import {useRouter} from 'vue-router'
 import { Session } from "@/utils/storage";
 
-const props = defineProps(["handleStartOrder","info","companyPic"])
+const props = defineProps(["handleStartOrder","info","companyPic","pInfo"])
 const Left = defineAsyncComponent(()=>import('./infoComponents/left.vue'))
 const Right = defineAsyncComponent(()=>import('./infoComponents/right.vue'))
 
 const router = useRouter()
-const ProductInfo = Session.get("pInfo");
+const ProductInfo = props.pInfo
 const ifOpen = ref(false)
 const paramsInfo = ref({})
 

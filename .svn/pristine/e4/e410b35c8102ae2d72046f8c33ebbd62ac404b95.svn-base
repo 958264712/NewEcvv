@@ -1,0 +1,17 @@
+@baseImg: '@/assets/images';
+.cover(@src, @size: 100% 100%, @position: center center) {
+    background-image: url('@{baseImg}/@{src}.png');
+    background-position: @position;
+    background-repeat: no-repeat;
+    background-size: @size;
+}
+
+.text-alloverflow (@width: 100%, @line: 1) when (@line > 1) {
+    max-width: @width;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @line;
+}
