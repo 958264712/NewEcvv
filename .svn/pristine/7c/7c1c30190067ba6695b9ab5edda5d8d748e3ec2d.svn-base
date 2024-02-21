@@ -9,29 +9,28 @@ const Left = defineAsyncComponent(()=>import('./infoComponents/left.vue'))
 const Right = defineAsyncComponent(()=>import('./infoComponents/right.vue'))
 
 const router = useRouter()
+const ProductInfo = props.pInfo
 const ifOpen = ref(false)
 const paramsInfo = ref({})
 
 
 const select = (list:any,list1:any) => {
     const selectList = list.concat(list1)
-    if(selectList.length === props.ProductInfo.skuInfo?.length && props.ProductInfo.ifSku){
-        props.pInfo.skuPrice.map((item:any) =>{
+    if(selectList.length === 3){
+        ProductInfo.skuPrice.map((item:any) =>{
             const head = item.skuPropIds.split(',')
             if(head[0] === selectList[0]){
                 paramsInfo.value.skuId = item.skuPropIds
                 ifOpen.value = true
             }
         })
-    }else{
-        ifOpen.value = true
     }
 }
 defineExpose({ifOpen})
 </script>
 <template>
 <div class='productsInfo'>
-    <Left :title = "props.info" :ProductInfo = "props.pInfo" :handleStartOrder = "props.handleStartOrder" @select="select"/>
+    <Left :title = "props.info" :ProductInfo = "ProductInfo" :handleStartOrder = "props.handleStartOrder" @select="select"/>
     <Right  :title = "props.info" :companyPic="companyPic"/>
 </div>
 </template>
